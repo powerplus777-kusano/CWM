@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="革新的なソリューションを提供する企業サイト">
+    <meta name="keywords" content="ビジネス, ソリューション, イノベーション">
+    <meta property="og:title" content="イノベーションパートナーズ">
+    <meta property="og:description" content="革新的なソリューションを提供する企業サイト">
+    <meta property="og:image" content="/assets/og-image.jpg">
+    <title>イノベーションパートナーズ | 革新的なソリューション</title>
+
+    <!-- Tailwind CSS v4.1 CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#0ea5e9',
+                        accent: '#f59e0b',
+                        dark: '#1e293b',
+                        light: '#f8fafc',
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans JP', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.536.0/dist/umd/lucide.js"></script>
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* モーダルのカスタムスタイル */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        /* フェードインアニメーション */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleOut {
+            from {
+                transform: scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+        }
+
+        .modal-fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-fade-out {
+            animation: fadeOut 0.3s ease-out;
+        }
+
+        .modal-scale-in {
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        .modal-scale-out {
+            animation: scaleOut 0.3s ease-out;
+        }
+
+        /* ナビゲーションのスタイル */
+        nav.transparent {
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+        nav.scrolled {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        nav.transparent a {
+            color: white;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        nav.scrolled a {
+            color: #1e293b;
+            text-shadow: none;
+        }
+
+        /* スムーススクロール */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <!-- ナビゲーション -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 transparent">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- ロゴ -->
+                <div class="text-2xl font-bold">
+                    <a href="#hero">イノベーションパートナーズ</a>
+                </div>
+
+                <!-- デスクトップメニュー -->
+                <ul class="hidden md:flex space-x-8">
+                    <li><a href="#hero" class="hover:text-accent transition-colors">ホーム</a></li>
+                    <li><a href="#about" class="hover:text-accent transition-colors">私たちについて</a></li>
+                    <li><a href="#strengths" class="hover:text-accent transition-colors">強み</a></li>
+                    <li><a href="#services" class="hover:text-accent transition-colors">サービス</a></li>
+                    <li><a href="#contact" class="hover:text-accent transition-colors">お問い合わせ</a></li>
+                </ul>
+
+                <!-- モバイルメニューボタン -->
+                <button id="mobile-menu-button" class="md:hidden">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- モバイルメニュー -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4">
+                <ul class="flex flex-col space-y-2">
+                    <li><a href="#hero" class="block py-2 hover:text-accent transition-colors">ホーム</a></li>
+                    <li><a href="#about" class="block py-2 hover:text-accent transition-colors">私たちについて</a></li>
+                    <li><a href="#strengths" class="block py-2 hover:text-accent transition-colors">強み</a></li>
+                    <li><a href="#services" class="block py-2 hover:text-accent transition-colors">サービス</a></li>
+                    <li><a href="#contact" class="block py-2 hover:text-accent transition-colors">お問い合わせ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ヒーローセクション -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-primary to-secondary text-white">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80"
+                 alt="Hero Background"
+                 class="w-full h-full object-cover opacity-20"
+                 loading="lazy"
+                 decoding="async">
+        </div>
+        <div class="container mx-auto px-4 text-center z-10">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 animate__animated animate__fadeInUp">
+                革新的なソリューションで<br>未来を創造する
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 animate__animated animate__fadeInUp animate__delay-1s">
+                ビジネスの成長を加速させる、最先端のテクノロジーとサービス
+            </p>
+            <a href="#contact" class="inline-block bg-accent hover:bg-accent/90 text-white font-semibold px-8 py-4 rounded-lg transition-all transform hover:scale-105 animate__animated animate__fadeInUp animate__delay-2s">
+                お問い合わせ
+            </a>
+        </div>
+    </section>
+
+    <!-- 私たちについてセクション -->
+    <section id="about" class="py-20 bg-light">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 text-dark" data-aos="fade-up">
+                私たちについて
+            </h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
+                         alt="Team Meeting"
+                         class="rounded-lg shadow-2xl"
+                         loading="lazy"
+                         decoding="async">
+                </div>
+                <div data-aos="fade-left">
+                    <h3 class="text-3xl font-bold mb-6 text-dark">イノベーションを通じて、ビジネスに新たな価値を</h3>
+                    <p class="text-lg mb-4 text-gray-700">
+                        私たちは、最先端のテクノロジーと深い業界知識を組み合わせ、お客様のビジネス課題を解決します。
+                    </p>
+                    <p class="text-lg mb-4 text-gray-700">
+                        2010年の創業以来、500社以上のクライアントに革新的なソリューションを提供してきました。
+                    </p>
+                    <p class="text-lg text-gray-700">
+                        私たちのミッションは、テクノロジーの力でビジネスの可能性を最大限に引き出すことです。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 私たちの強みセクション -->
+    <section id="strengths" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 text-dark" data-aos="fade-up">
+                私たちの強み
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 強み1: 技術力 -->
+                <div class="bg-light p-8 rounded-lg shadow-lg hover:shadow-xl transition-all cursor-pointer transform hover:-translate-y-2"
+                     data-aos="fade-up"
+                     data-aos-delay="100"
+                     data-modal-trigger
+                     data-modal-id="modal-technology">
+                    <div class="flex justify-center mb-6">
+                        <div class="bg-primary text-white p-4 rounded-full">
+                            <i data-lucide="cpu" class="w-12 h-12"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-4 text-dark">最先端の技術力</h3>
+                    <p class="text-gray-700 text-center">
+                        AI、クラウド、IoTなど最新テクノロジーを駆使したソリューション開発
+                    </p>
+                </div>
+
+                <!-- 強み2: 実績 -->
+                <div class="bg-light p-8 rounded-lg shadow-lg hover:shadow-xl transition-all cursor-pointer transform hover:-translate-y-2"
+                     data-aos="fade-up"
+                     data-aos-delay="200"
+                     data-modal-trigger
+                     data-modal-id="modal-experience">
+                    <div class="flex justify-center mb-6">
+                        <div class="bg-secondary text-white p-4 rounded-full">
+                            <i data-lucide="award" class="w-12 h-12"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-4 text-dark">豊富な実績</h3>
+                    <p class="text-gray-700 text-center">
+                        500社以上のプロジェクト成功実績と、業界トップクラスの顧客満足度
+                    </p>
+                </div>
+
+                <!-- 強み3: サポート -->
+                <div class="bg-light p-8 rounded-lg shadow-lg hover:shadow-xl transition-all cursor-pointer transform hover:-translate-y-2"
+                     data-aos="fade-up"
+                     data-aos-delay="300"
+                     data-modal-trigger
+                     data-modal-id="modal-support">
+                    <div class="flex justify-center mb-6">
+                        <div class="bg-accent text-white p-4 rounded-full">
+                            <i data-lucide="headphones" class="w-12 h-12"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-4 text-dark">充実したサポート</h3>
+                    <p class="text-gray-700 text-center">
+                        24時間365日の運用サポートと、専任コンサルタントによる伴走支援
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- サービスセクション -->
+    <section id="services" class="py-20 bg-light">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 text-dark" data-aos="fade-up">
+                サービス
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- サービス1 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all cursor-pointer transform hover:-translate-y-2"
+                     data-aos="zoom-in"
+                     data-aos-delay="100"
+                     data-modal-trigger
+                     data-modal-id="modal-cloud">
+                    <i data-lucide="cloud" class="w-12 h-12 text-primary mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3 text-dark">クラウドソリューション</h3>
+                    <p class="text-gray-700">最適なクラウド環境の構築と運用支援</p>
+                </div>
+
+                <!-- サービス2 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all cursor-pointer transform hover:-translate-y-2"
+                     data-aos="zoom-in"
+                     data-aos-delay="200"
+                     data-modal-trigger
+                     data-modal-id="modal-ai">
+                    <i data-lucide="brain" class="w-12 h-12 text-primary mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3 text-dark">AI・機械学習</h3>
+                    <p class="text-gray-700">ビジネス課題を解決するAIソリューション</p>
+                </div>
+
+                <!-- サービス3 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all cursor-pointer transform hover:-translate-y-2"
+                     data-aos="zoom-in"
+                     data-aos-delay="300"
+                     data-modal-trigger
+                     data-modal-id="modal-app">
+                    <i data-lucide="smartphone" class="w-12 h-12 text-primary mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3 text-dark">アプリ開発</h3>
+                    <p class="text-gray-700">Web・モバイルアプリの企画から開発まで</p>
+                </div>
+
+                <!-- サービス4 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all cursor-pointer transform hover:-translate-y-2"
+                     data-aos="zoom-in"
+                     data-aos-delay="400"
+                     data-modal-trigger
+                     data-modal-id="modal-security">
+                    <i data-lucide="shield" class="w-12 h-12 text-primary mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3 text-dark">セキュリティ</h3>
+                    <p class="text-gray-700">堅牢なセキュリティ対策と監視体制</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- お問い合わせセクション -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 text-dark" data-aos="fade-up">
+                お問い合わせ
+            </h2>
+            <form class="space-y-6" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <label for="name" class="block text-lg font-semibold mb-2 text-dark">お名前</label>
+                    <input type="text" id="name" name="name" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                </div>
+                <div>
+                    <label for="email" class="block text-lg font-semibold mb-2 text-dark">メールアドレス</label>
+                    <input type="email" id="email" name="email" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                </div>
+                <div>
+                    <label for="company" class="block text-lg font-semibold mb-2 text-dark">会社名</label>
+                    <input type="text" id="company" name="company"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                </div>
+                <div>
+                    <label for="message" class="block text-lg font-semibold mb-2 text-dark">お問い合わせ内容</label>
+                    <textarea id="message" name="message" rows="6" required
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit"
+                            class="bg-primary hover:bg-primary/90 text-white font-semibold px-12 py-4 rounded-lg transition-all transform hover:scale-105">
+                        送信する
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">イノベーションパートナーズ</h3>
+                    <p class="text-gray-400">革新的なソリューションで未来を創造する</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">リンク</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">私たちについて</a></li>
+                        <li><a href="#strengths" class="text-gray-400 hover:text-white transition-colors">強み</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition-colors">サービス</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">お問い合わせ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">お問い合わせ</h4>
+                    <p class="text-gray-400">
+                        Email: info@innovation-partners.jp<br>
+                        Tel: 03-1234-5678
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 イノベーションパートナーズ. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- モーダルウィンドウ -->
+    <div id="modal-overlay" class="fixed inset-0 z-50 hidden modal-overlay">
+        <div class="flex items-center justify-center min-h-screen px-4 py-8">
+            <div id="modal-box" class="bg-white rounded-lg shadow-2xl w-full max-w-4xl mx-auto relative modal-content">
+                <!-- 閉じるボタン -->
+                <button id="modal-close" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors z-10">
+                    <i data-lucide="x" class="w-8 h-8"></i>
+                </button>
+
+                <!-- モーダルコンテンツ -->
+                <div id="modal-body" class="p-8 md:p-12">
+                    <!-- ここに動的コンテンツが挿入されます -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // Lucide アイコンの初期化
+        lucide.createIcons();
+
+        // AOS 初期化
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // ナビゲーションのスクロール時の動作
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('transparent');
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+                navbar.classList.add('transparent');
+            }
+        });
+
+        // モバイルメニューの開閉
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // モーダル機能
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalBox = document.getElementById('modal-box');
+        const modalBody = document.getElementById('modal-body');
+        const modalClose = document.getElementById('modal-close');
+
+        // モーダルコンテンツのデータ
+        const modalContents = {
+            'modal-technology': {
+                title: '最先端の技術力',
+                icon: 'cpu',
+                color: 'primary',
+                sections: [
+                    {
+                        heading: 'AI・機械学習の専門知識',
+                        content: '私たちのチームは、深層学習、自然言語処理、コンピュータビジョンなど、最新のAI技術に精通しています。Google、Microsoft、AWSなどの主要プラットフォームでの豊富な実装経験を持ち、お客様のビジネス課題に最適なAIソリューションを提供します。'
+                    },
+                    {
+                        heading: 'クラウドネイティブ開発',
+                        content: 'Kubernetes、Docker、マイクロサービスアーキテクチャを活用した、スケーラブルで堅牢なシステム構築を得意としています。AWS、Azure、GCPなど、あらゆるクラウドプラットフォームに対応可能です。'
+                    },
+                    {
+                        heading: '先端IoT技術',
+                        content: 'センサーデータの収集・分析から、エッジコンピューティング、リアルタイムデータ処理まで、IoTエコシステム全体をカバーします。製造業、物流、スマートシティなど、多様な業界での実装経験があります。'
+                    },
+                    {
+                        heading: '継続的な技術研究',
+                        content: '業界最先端の技術トレンドを常にキャッチアップするため、専任の研究開発チームを設置しています。年間50以上の技術カンファレンスに参加し、得られた知見をプロジェクトに還元しています。'
+                    }
+                ]
+            },
+            'modal-experience': {
+                title: '豊富な実績',
+                icon: 'award',
+                color: 'secondary',
+                sections: [
+                    {
+                        heading: '500社以上のプロジェクト成功実績',
+                        content: '創業以来、大手企業からスタートアップまで、500社以上のクライアントにソリューションを提供してきました。金融、製造、小売、ヘルスケアなど、多様な業界でのプロジェクト経験を持っています。'
+                    },
+                    {
+                        heading: '顧客満足度98%',
+                        content: 'プロジェクト完了後の顧客満足度調査で、98%という高い評価をいただいています。納期遵守率99%、予算内完了率97%という実績が、お客様からの信頼につながっています。'
+                    },
+                    {
+                        heading: '業界トップ企業との協業',
+                        content: 'Fortune 500企業を含む大手企業との長期的なパートナーシップを構築しています。大規模システムの構築・運用経験は、あらゆるプロジェクトに活かされています。'
+                    },
+                    {
+                        heading: '数々の受賞歴',
+                        content: 'ITソリューション部門で3年連続ベストパートナー賞を受賞。また、革新的なAIプロジェクトで国際的な技術賞も受賞しています。これらの実績は、私たちの技術力と顧客志向の証です。'
+                    }
+                ]
+            },
+            'modal-support': {
+                title: '充実したサポート',
+                icon: 'headphones',
+                color: 'accent',
+                sections: [
+                    {
+                        heading: '24時間365日の運用サポート',
+                        content: '専門のサポートチームが24時間365日体制で、システムの安定稼働をサポートします。障害発生時の平均応答時間は15分以内、問題解決までの平均時間は2時間以内を実現しています。'
+                    },
+                    {
+                        heading: '専任コンサルタントによる伴走支援',
+                        content: 'プロジェクト開始から運用まで、専任のコンサルタントが一貫してサポートします。定期的なミーティングを通じて、ビジネス目標の達成を継続的に支援します。'
+                    },
+                    {
+                        heading: '充実した教育プログラム',
+                        content: 'システム導入後のスムーズな運用のため、カスタマイズされたトレーニングプログラムを提供します。オンライン・オフライン両方に対応し、お客様のペースで学習できる環境を整えています。'
+                    },
+                    {
+                        heading: '定期的なシステム最適化',
+                        content: '四半期ごとのシステムレビューを実施し、パフォーマンス改善やセキュリティ強化の提案を行います。常に最新の状態を保ち、ビジネスの成長に合わせてシステムを進化させます。'
+                    }
+                ]
+            },
+            'modal-cloud': {
+                title: 'クラウドソリューション',
+                icon: 'cloud',
+                color: 'primary',
+                sections: [
+                    {
+                        heading: 'マルチクラウド対応',
+                        content: 'AWS、Azure、Google Cloud Platformなど、主要なクラウドプラットフォームすべてに対応しています。各プラットフォームの特性を活かし、お客様のビジネス要件に最適な環境を構築します。マルチクラウド戦略により、ベンダーロックインのリスクを回避し、柔軟性の高いシステムを実現します。'
+                    },
+                    {
+                        heading: 'クラウド移行支援',
+                        content: 'オンプレミス環境からクラウドへの移行を、計画段階から運用まで一貫してサポートします。リフト＆シフト、リアーキテクチャなど、最適な移行戦略をご提案。ダウンタイムを最小限に抑え、ビジネスへの影響を最小化します。'
+                    },
+                    {
+                        heading: 'コスト最適化',
+                        content: 'クラウドリソースの使用状況を継続的に監視・分析し、コスト最適化を実現します。リザーブドインスタンス、スポットインスタンス、オートスケーリングなどを活用し、平均30〜50%のコスト削減を実現しています。'
+                    },
+                    {
+                        heading: 'インフラ自動化',
+                        content: 'Terraform、CloudFormation、Ansibleなどのツールを活用したInfrastructure as Code（IaC）により、インフラ構築を自動化。環境の再現性を高め、人的ミスを削減し、迅速なデプロイを可能にします。'
+                    }
+                ]
+            },
+            'modal-ai': {
+                title: 'AI・機械学習',
+                icon: 'brain',
+                color: 'primary',
+                sections: [
+                    {
+                        heading: '自然言語処理（NLP）',
+                        content: 'チャットボット、感情分析、文書要約、翻訳など、自然言語処理技術を活用したソリューションを提供します。GPT、BERT、LLaMAなどの最新モデルを活用し、高精度な言語理解と生成を実現。カスタマーサポートの自動化や、膨大な文書データからの知識抽出を支援します。'
+                    },
+                    {
+                        heading: 'コンピュータビジョン',
+                        content: '画像認識、物体検出、顔認証、異常検知など、コンピュータビジョン技術を活用したシステムを構築します。製造業の品質検査自動化、小売業の来店客分析、セキュリティシステムの高度化など、幅広い用途に対応します。'
+                    },
+                    {
+                        heading: '予測分析・需要予測',
+                        content: '時系列データ分析や機械学習モデルを用いた需要予測システムを提供します。在庫最適化、売上予測、設備の予知保全など、ビジネスの意思決定を強力にサポート。精度の高い予測により、コスト削減と収益向上を実現します。'
+                    },
+                    {
+                        heading: 'MLOps・モデル運用',
+                        content: '機械学習モデルの開発から本番運用まで、MLOpsのベストプラクティスを実装します。モデルのバージョン管理、継続的な学習・改善、パフォーマンス監視により、AIシステムの持続的な価値提供を保証します。'
+                    }
+                ]
+            },
+            'modal-app': {
+                title: 'アプリ開発',
+                icon: 'smartphone',
+                color: 'primary',
+                sections: [
+                    {
+                        heading: 'Webアプリケーション開発',
+                        content: 'React、Vue.js、Next.jsなど最新のフロントエンド技術と、Node.js、Python、Goなどのバックエンド技術を組み合わせた、高性能なWebアプリケーションを開発します。レスポンシブデザインで、あらゆるデバイスに最適化された体験を提供します。'
+                    },
+                    {
+                        heading: 'モバイルアプリ開発',
+                        content: 'iOS、Android両プラットフォームに対応したネイティブアプリ、またはReact Native、Flutterを用いたクロスプラットフォームアプリを開発します。UX/UIデザインから開発、App Store / Google Play への申請まで、一貫してサポートします。'
+                    },
+                    {
+                        heading: 'PWA開発',
+                        content: 'Progressive Web Apps（PWA）技術により、Webアプリとネイティブアプリの良いところを併せ持ったアプリケーションを構築します。オフライン動作、プッシュ通知、ホーム画面への追加など、ネイティブアプリに近い体験を、Web技術で実現します。'
+                    },
+                    {
+                        heading: 'アプリ保守・運用',
+                        content: 'アプリのリリース後も、継続的な機能改善、パフォーマンス最適化、セキュリティアップデートを提供します。ユーザーフィードバックの分析を通じて、ユーザー体験の向上を継続的に実現します。'
+                    }
+                ]
+            },
+            'modal-security': {
+                title: 'セキュリティ',
+                icon: 'shield',
+                color: 'primary',
+                sections: [
+                    {
+                        heading: 'セキュリティ診断・脆弱性評価',
+                        content: '定期的なペネトレーションテスト、脆弱性診断により、システムの安全性を評価します。OWASP Top 10、CWE Top 25などの業界標準に基づいた包括的な診断を実施。発見された脆弱性への対策まで一貫してサポートします。'
+                    },
+                    {
+                        heading: 'セキュリティ対策実装',
+                        content: 'WAF（Web Application Firewall）、IDS/IPS、DDoS対策、暗号化通信など、多層的なセキュリティ対策を実装します。ゼロトラスト・セキュリティモデルに基づいた、堅牢なシステム設計を実現します。'
+                    },
+                    {
+                        heading: 'コンプライアンス対応',
+                        content: 'GDPR、個人情報保護法、PCI DSS、ISO 27001など、各種規制やセキュリティ基準への対応を支援します。コンプライアンスチェック、監査対応、必要なドキュメント整備まで、包括的にサポートします。'
+                    },
+                    {
+                        heading: 'セキュリティ監視・インシデント対応',
+                        content: '24時間365日のセキュリティ監視により、不審な活動をリアルタイムで検知します。インシデント発生時には、経験豊富なセキュリティエンジニアが迅速に対応。被害の最小化と早期復旧を実現します。'
+                    }
+                ]
+            }
+        };
+
+        // モーダルを開く関数
+        function openModal(modalId) {
+            const content = modalContents[modalId];
+            if (!content) return;
+
+            // モーダルコンテンツを生成
+            let html = `
+                <div class="flex items-start mb-8">
+                    <div class="bg-${content.color} text-white p-4 rounded-full mr-6">
+                        <i data-lucide="${content.icon}" class="w-12 h-12"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-dark mb-2">${content.title}</h2>
+                        <p class="text-gray-600">詳細情報</p>
+                    </div>
+                </div>
+            `;
+
+            content.sections.forEach((section, index) => {
+                html += `
+                    <div class="mb-8 ${index < content.sections.length - 1 ? 'border-b border-gray-200 pb-8' : ''}">
+                        <h3 class="text-2xl font-bold text-dark mb-4">${section.heading}</h3>
+                        <p class="text-lg text-gray-700 leading-relaxed">${section.content}</p>
+                    </div>
+                `;
+            });
+
+            modalBody.innerHTML = html;
+
+            // アイコンを再初期化
+            lucide.createIcons();
+
+            // モーダルを表示（フェードインアニメーション）
+            modalOverlay.classList.remove('hidden', 'modal-fade-out');
+            modalOverlay.classList.add('modal-fade-in');
+            modalBox.classList.remove('modal-scale-out');
+            modalBox.classList.add('modal-scale-in');
+
+            // bodyのスクロールを無効化
+            document.body.style.overflow = 'hidden';
+        }
+
+        // モーダルを閉じる関数
+        function closeModal() {
+            // フェードアウトアニメーション
+            modalOverlay.classList.remove('modal-fade-in');
+            modalOverlay.classList.add('modal-fade-out');
+            modalBox.classList.remove('modal-scale-in');
+            modalBox.classList.add('modal-scale-out');
+
+            // アニメーション完了後に非表示
+            setTimeout(() => {
+                modalOverlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        // モーダルトリガーの設定
+        document.querySelectorAll('[data-modal-trigger]').forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                const modalId = trigger.getAttribute('data-modal-id');
+                openModal(modalId);
+            });
+        });
+
+        // 閉じるボタン
+        modalClose.addEventListener('click', closeModal);
+
+        // オーバーレイのクリックで閉じる
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // ESCキーで閉じる
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modalOverlay.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // フォーム送信の処理
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('お問い合わせありがとうございます。担当者より折り返しご連絡いたします。');
+        });
+    </script>
+</body>
+</html>
