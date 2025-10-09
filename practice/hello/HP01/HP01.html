@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="3X3マトリクス思考法 - 5W3Hに沿って考えをまとめる、戦略立案やコンセプト整理に最適な思考フレームワーク">
+    <meta name="keywords" content="3X3マトリクス, 思考法, 5W3H, 戦略立案, ビジネスフレームワーク, マンダラート">
+    <meta property="og:title" content="3X3マトリクス思考法 - 頭の中を整理する思考フレームワーク">
+    <meta property="og:description" content="誰でも頭の中の考えを整理整頓できる思考法">
+    <meta property="og:type" content="website">
+    <title>3X3マトリクス思考法 | 頭の中を整理する思考フレームワーク</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
+
+    <!-- Tailwind CSS v4.1+ CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        accent: {
+                            green: '#10b981',
+                            orange: '#f59e0b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Animate.css v4.1.1+ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- AOS v2.3+ -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Google Fonts - Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        /* スティッキーナビゲーション - 透明からブラー背景へ */
+        .nav-transparent {
+            background: transparent;
+        }
+
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 3x3グリッドスタイル */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: #cbd5e1;
+            border: 2px solid #cbd5e1;
+        }
+
+        .matrix-cell {
+            background: white;
+            padding: 1.5rem;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .matrix-cell:hover {
+            background: #f1f5f9;
+            transform: scale(1.02);
+        }
+
+        /* モーダルスタイル */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 印刷用のスタイル */
+        @media print {
+            nav, .no-print {
+                display: none !important;
+            }
+            .matrix-grid {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- ナビゲーション -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 nav-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- ロゴ -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#hero" class="text-2xl font-bold text-white nav-logo transition-colors">
+                        🧩 3X3マトリクス
+                    </a>
+                </div>
+
+                <!-- デスクトップメニュー -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="nav-link text-white hover:text-accent-green transition-colors">思考法とは</a>
+                    <a href="#benefits" class="nav-link text-white hover:text-accent-green transition-colors">メリット</a>
+                    <a href="#examples" class="nav-link text-white hover:text-accent-green transition-colors">具体例</a>
+                    <a href="#tool" class="nav-link text-white hover:text-accent-green transition-colors">作成ツール</a>
+                    <a href="#howto" class="nav-link text-white hover:text-accent-green transition-colors">使い方</a>
+                    <a href="#faq" class="nav-link text-white hover:text-accent-green transition-colors">FAQ</a>
+                    <a href="#contact" class="nav-link text-white hover:text-accent-green transition-colors">お問い合わせ</a>
+                </div>
+
+                <!-- モバイルメニューボタン -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white hover:text-accent-green transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- モバイルメニュー -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#about" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">思考法とは</a>
+                <a href="#benefits" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">メリット</a>
+                <a href="#examples" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">具体例</a>
+                <a href="#tool" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">作成ツール</a>
+                <a href="#howto" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">使い方</a>
+                <a href="#faq" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">FAQ</a>
+                <a href="#contact" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">お問い合わせ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- 背景画像 -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&q=80"
+                 alt="Business Strategy"
+                 class="w-full h-full object-cover"
+                 loading="eager">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary-900/80 via-primary-800/70 to-primary-600/60"></div>
+        </div>
+
+        <!-- コンテンツ -->
+        <div class="relative z-10 text-center text-white px-4 max-w-5xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 animate__animated animate__fadeInDown">
+                3X3マトリクス思考法
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 animate__animated animate__fadeInUp animate__delay-1s">
+                5W3Hで考えを整理する、シンプルで強力な思考フレームワーク
+            </p>
+            <p class="text-lg md:text-xl mb-12 animate__animated animate__fadeInUp animate__delay-2s">
+                戦略立案・コンセプト設計・アイデア整理に最適
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate__animated animate__fadeInUp animate__delay-3s">
+                <a href="#tool" class="bg-accent-green hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                    今すぐ作成する
+                </a>
+                <a href="#about" class="bg-white/20 hover:bg-white/30 text-white font-bold py-4 px-8 rounded-full transition-all backdrop-blur-sm border-2 border-white">
+                    詳しく見る
+                </a>
+            </div>
+        </div>
+
+        <!-- スクロールダウンアイコン -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">3X3マトリクス思考法とは</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    5W3Hの問いに沿って考えを整理し、全体像を可視化する思考フレームワークです
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80"
+                         alt="Team Collaboration"
+                         class="rounded-2xl shadow-2xl"
+                         loading="lazy"
+                         decoding="async">
+                </div>
+
+                <div data-aos="fade-left">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-6">マンダラート発想法から派生</h3>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        3X3マトリクス思考法は、9つのマスを使って思考を整理する「マンダラート発想法」をベースにしています。
+                        ビジネスシーンで使いやすいよう、5W3Hのフレームワークと組み合わせることで、
+                        誰でも簡単に戦略的思考を実践できるようになりました。
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-accent-green mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">複雑な問題を9つの要素に分解</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-accent-green mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">視覚的に全体像を把握</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-accent-green mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">チームでの共通認識を形成</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 5W3H説明 -->
+            <div class="mt-20" data-aos="fade-up">
+                <h3 class="text-3xl font-bold text-center text-gray-900 mb-12">5W3Hフレームワーク</h3>
+                <div class="grid md:grid-cols-4 gap-6">
+                    <!-- Who -->
+                    <div class="bg-gradient-to-br from-primary-50 to-primary-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow" data-aos="zoom-in" data-aos-delay="0">
+                        <div class="text-4xl mb-4">👤</div>
+                        <h4 class="text-xl font-bold text-primary-700 mb-2">Who（誰が）</h4>
+                        <p class="text-gray-700">関係者、ターゲット、実行者を明確化</p>
+                    </div>
+
+                    <!-- What -->
+                    <div class="bg-gradient-to-br from-primary-50 to-primary-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="text-4xl mb-4">🎯</div>
+                        <h4 class="text-xl font-bold text-primary-700 mb-2">What（何を）</h4>
+                        <p class="text-gray-700">目的、目標、成果物を定義</p>
+                    </div>
+
+                    <!-- Why -->
+                    <div class="bg-gradient-to-br from-primary-50 to-primary-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="text-4xl mb-4">💡</div>
+                        <h4 class="text-xl font-bold text-primary-700 mb-2">Why（なぜ）</h4>
+                        <p class="text-gray-700">理由、背景、意義を説明</p>
+                    </div>
+
+                    <!-- Where -->
+                    <div class="bg-gradient-to-br from-primary-50 to-primary-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="text-4xl mb-4">📍</div>
+                        <h4 class="text-xl font-bold text-primary-700 mb-2">Where（どこで）</h4>
+                        <p class="text-gray-700">場所、市場、領域を特定</p>
+                    </div>
+
+                    <!-- When -->
+                    <div class="bg-gradient-to-br from-primary-50 to-primary-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow" data-aos="zoom-in" data-aos-delay="0">
+                        <div class="text-4xl mb-4">⏰</div>
+                        <h4 class="text-xl font-bold text-primary-700 mb-2">When（いつ）</h4>
+                        <p class="text-gray-700">時期、期限、タイミングを設定</p>
+                    </div>
+
+                    <!-- How -->
+                    <div class="bg-gradient-to-br from-primary-50 to-primary-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="text-4xl mb-4">🔧</div>
+                        <h4 class="text-xl font-bold text-primary-700 mb-2">How（どのように）</h4>
+                        <p class="text-gray-700">方法、手段、プロセスを計画</p>
+                    </div>
+
+                    <!-- How much -->
+                    <div class="bg-gradient-to-br from-primary-50 to-primary-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="text-4xl mb-4">💰</div>
+                        <h4 class="text-xl font-bold text-primary-700 mb-2">How much（いくら）</h4>
+                        <p class="text-gray-700">予算、コスト、対価を算出</p>
+                    </div>
+
+                    <!-- How many -->
+                    <div class="bg-gradient-to-br from-primary-50 to-primary-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="text-4xl mb-4">📊</div>
+                        <h4 class="text-xl font-bold text-primary-700 mb-2">How many（どれくらい）</h4>
+                        <p class="text-gray-700">数量、規模、範囲を決定</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="py-20 bg-gradient-to-br from-primary-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">3X3マトリクスのメリット</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    思考を整理し、アイデアを可視化することで、より良い意思決定ができます
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- メリット1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow" data-aos="fade-up" data-aos-delay="0">
+                    <div class="text-5xl mb-6 text-center">🧠</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">思考の整理</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        複雑な問題を9つの要素に分解することで、全体像を把握しながら詳細を検討できます。
+                        頭の中のモヤモヤを視覚化し、明確な思考へと導きます。
+                    </p>
+                </div>
+
+                <!-- メリット2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-5xl mb-6 text-center">🎯</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">戦略的思考</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        5W3Hの問いに答えることで、自然と戦略的な思考が身につきます。
+                        ビジネスプラン、マーケティング戦略、プロジェクト計画など、あらゆる場面で活用できます。
+                    </p>
+                </div>
+
+                <!-- メリット3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-5xl mb-6 text-center">🤝</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">チーム共有</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        マトリクス形式で情報を整理することで、チームメンバーとの共通認識を形成しやすくなります。
+                        会議やプレゼンテーションでも効果的です。
+                    </p>
+                </div>
+
+                <!-- メリット4 -->
+                <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow" data-aos="fade-up" data-aos-delay="0">
+                    <div class="text-5xl mb-6 text-center">⚡</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">迅速な意思決定</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        重要な要素が一目で把握できるため、意思決定のスピードが向上します。
+                        必要な情報の漏れや重複も防げます。
+                    </p>
+                </div>
+
+                <!-- メリット5 -->
+                <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-5xl mb-6 text-center">🔄</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">柔軟な応用</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        ビジネス戦略からプライベートの計画まで、あらゆる場面で応用可能。
+                        自分なりのカスタマイズも自由自在です。
+                    </p>
+                </div>
+
+                <!-- メリット6 -->
+                <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-5xl mb-6 text-center">📈</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">継続的改善</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        作成したマトリクスは定期的に見直し、更新することで、
+                        常に最新の状況を反映した戦略を維持できます。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Matrix Concept Section -->
+    <section id="matrix-concept" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">マトリクスの構造</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    3×3の9マスを使って、思考を体系的に整理します
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto" data-aos="zoom-in">
+                <div class="matrix-grid">
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-3xl mb-2">👤</div>
+                        <h4 class="font-bold text-primary-700 mb-1">Who</h4>
+                        <p class="text-sm text-gray-600">誰が/誰に</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-3xl mb-2">🎯</div>
+                        <h4 class="font-bold text-primary-700 mb-1">What</h4>
+                        <p class="text-sm text-gray-600">何を</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-3xl mb-2">💡</div>
+                        <h4 class="font-bold text-primary-700 mb-1">Why</h4>
+                        <p class="text-sm text-gray-600">なぜ</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-3xl mb-2">📍</div>
+                        <h4 class="font-bold text-primary-700 mb-1">Where</h4>
+                        <p class="text-sm text-gray-600">どこで</p>
+                    </div>
+                    <div class="matrix-cell bg-gradient-to-br from-accent-green/20 to-primary-100">
+                        <div class="text-3xl mb-2">🧩</div>
+                        <h4 class="font-bold text-gray-900 text-lg">中心テーマ</h4>
+                        <p class="text-sm text-gray-600">全体の主題</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-3xl mb-2">⏰</div>
+                        <h4 class="font-bold text-primary-700 mb-1">When</h4>
+                        <p class="text-sm text-gray-600">いつ</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-3xl mb-2">🔧</div>
+                        <h4 class="font-bold text-primary-700 mb-1">How</h4>
+                        <p class="text-sm text-gray-600">どのように</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-3xl mb-2">💰</div>
+                        <h4 class="font-bold text-primary-700 mb-1">How much</h4>
+                        <p class="text-sm text-gray-600">いくら</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-3xl mb-2">📊</div>
+                        <h4 class="font-bold text-primary-700 mb-1">How many</h4>
+                        <p class="text-sm text-gray-600">どれくらい</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 bg-primary-50 p-8 rounded-2xl" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">使い方のポイント</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-3 font-bold">1.</span>
+                            <span>中心に<strong>メインテーマ</strong>を配置します</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-3 font-bold">2.</span>
+                            <span>周囲の8マスに<strong>5W3Hの問い</strong>に対する答えを記入します</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-3 font-bold">3.</span>
+                            <span>全体を俯瞰して<strong>バランスや関連性</strong>を確認します</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-3 font-bold">4.</span>
+                            <span>必要に応じて<strong>修正・追加</strong>を行います</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Examples Section -->
+    <section id="examples" class="py-20 bg-gradient-to-br from-gray-50 to-primary-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">3X3マトリクス具体例</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    様々なビジネスシーンでの活用事例をご紹介します（クリックで詳細表示）
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 事例1: ビジネス戦略 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all cursor-pointer transform hover:-translate-y-2"
+                     data-aos="fade-up"
+                     data-aos-delay="0"
+                     onclick="openModal('modal-strategy')">
+                    <div class="text-5xl mb-4 text-center">📊</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3 text-center">ビジネス戦略</h3>
+                    <p class="text-gray-600 text-center mb-4">新規事業の戦略立案</p>
+                    <div class="text-center">
+                        <span class="text-primary-600 hover:text-primary-700 font-semibold">詳細を見る →</span>
+                    </div>
+                </div>
+
+                <!-- 事例2: DX推進 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all cursor-pointer transform hover:-translate-y-2"
+                     data-aos="fade-up"
+                     data-aos-delay="100"
+                     onclick="openModal('modal-dx')">
+                    <div class="text-5xl mb-4 text-center">💻</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3 text-center">DX推進計画</h3>
+                    <p class="text-gray-600 text-center mb-4">デジタルトランスフォーメーション</p>
+                    <div class="text-center">
+                        <span class="text-primary-600 hover:text-primary-700 font-semibold">詳細を見る →</span>
+                    </div>
+                </div>
+
+                <!-- 事例3: マーケティング -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all cursor-pointer transform hover:-translate-y-2"
+                     data-aos="fade-up"
+                     data-aos-delay="200"
+                     onclick="openModal('modal-marketing')">
+                    <div class="text-5xl mb-4 text-center">📱</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3 text-center">マーケティング戦略</h3>
+                    <p class="text-gray-600 text-center mb-4">製品プロモーション計画</p>
+                    <div class="text-center">
+                        <span class="text-primary-600 hover:text-primary-700 font-semibold">詳細を見る →</span>
+                    </div>
+                </div>
+
+                <!-- 事例4: プロジェクト管理 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all cursor-pointer transform hover:-translate-y-2"
+                     data-aos="fade-up"
+                     data-aos-delay="0"
+                     onclick="openModal('modal-project')">
+                    <div class="text-5xl mb-4 text-center">📋</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3 text-center">プロジェクト計画</h3>
+                    <p class="text-gray-600 text-center mb-4">システム開発プロジェクト</p>
+                    <div class="text-center">
+                        <span class="text-primary-600 hover:text-primary-700 font-semibold">詳細を見る →</span>
+                    </div>
+                </div>
+
+                <!-- 事例5: 人材育成 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all cursor-pointer transform hover:-translate-y-2"
+                     data-aos="fade-up"
+                     data-aos-delay="100"
+                     onclick="openModal('modal-hr')">
+                    <div class="text-5xl mb-4 text-center">👥</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3 text-center">人材育成計画</h3>
+                    <p class="text-gray-600 text-center mb-4">社員研修プログラム</p>
+                    <div class="text-center">
+                        <span class="text-primary-600 hover:text-primary-700 font-semibold">詳細を見る →</span>
+                    </div>
+                </div>
+
+                <!-- 事例6: イベント企画 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all cursor-pointer transform hover:-translate-y-2"
+                     data-aos="fade-up"
+                     data-aos-delay="200"
+                     onclick="openModal('modal-event')">
+                    <div class="text-5xl mb-4 text-center">🎉</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3 text-center">イベント企画</h3>
+                    <p class="text-gray-600 text-center mb-4">カンファレンス開催計画</p>
+                    <div class="text-center">
+                        <span class="text-primary-600 hover:text-primary-700 font-semibold">詳細を見る →</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Tool Section -->
+    <section id="tool" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">マトリクス作成ツール</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    あなた独自の3X3マトリクスを作成し、ダウンロード・印刷できます
+                </p>
+            </div>
+
+            <div class="max-w-5xl mx-auto">
+                <div class="bg-gradient-to-br from-primary-50 to-white p-8 rounded-2xl shadow-xl" data-aos="zoom-in">
+                    <!-- タイトル入力 -->
+                    <div class="mb-8">
+                        <label class="block text-lg font-bold text-gray-900 mb-3">マトリクスのタイトル</label>
+                        <input type="text"
+                               id="matrix-title"
+                               placeholder="例: 新規事業戦略"
+                               class="w-full px-6 py-4 text-xl border-2 border-gray-300 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all">
+                    </div>
+
+                    <!-- 中心テーマ入力 -->
+                    <div class="mb-8">
+                        <label class="block text-lg font-bold text-gray-900 mb-3">中心テーマ</label>
+                        <input type="text"
+                               id="matrix-center"
+                               placeholder="例: ECサイト展開"
+                               class="w-full px-6 py-4 text-lg border-2 border-gray-300 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all">
+                    </div>
+
+                    <!-- 5W3H入力グリッド -->
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div>
+                            <label class="block font-bold text-gray-700 mb-2">
+                                <span class="text-2xl mr-2">👤</span>Who（誰が/誰に）
+                            </label>
+                            <textarea id="matrix-who"
+                                      rows="3"
+                                      placeholder="例: ターゲット顧客、実行チーム"
+                                      class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all resize-none"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-gray-700 mb-2">
+                                <span class="text-2xl mr-2">🎯</span>What（何を）
+                            </label>
+                            <textarea id="matrix-what"
+                                      rows="3"
+                                      placeholder="例: 目的、目標、成果物"
+                                      class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all resize-none"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-gray-700 mb-2">
+                                <span class="text-2xl mr-2">💡</span>Why（なぜ）
+                            </label>
+                            <textarea id="matrix-why"
+                                      rows="3"
+                                      placeholder="例: 理由、背景、意義"
+                                      class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all resize-none"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-gray-700 mb-2">
+                                <span class="text-2xl mr-2">📍</span>Where（どこで）
+                            </label>
+                            <textarea id="matrix-where"
+                                      rows="3"
+                                      placeholder="例: 場所、市場、領域"
+                                      class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all resize-none"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-gray-700 mb-2">
+                                <span class="text-2xl mr-2">⏰</span>When（いつ）
+                            </label>
+                            <textarea id="matrix-when"
+                                      rows="3"
+                                      placeholder="例: 時期、期限、タイミング"
+                                      class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all resize-none"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-gray-700 mb-2">
+                                <span class="text-2xl mr-2">🔧</span>How（どのように）
+                            </label>
+                            <textarea id="matrix-how"
+                                      rows="3"
+                                      placeholder="例: 方法、手段、プロセス"
+                                      class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all resize-none"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-gray-700 mb-2">
+                                <span class="text-2xl mr-2">💰</span>How much（いくら）
+                            </label>
+                            <textarea id="matrix-howmuch"
+                                      rows="3"
+                                      placeholder="例: 予算、コスト、対価"
+                                      class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all resize-none"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-gray-700 mb-2">
+                                <span class="text-2xl mr-2">📊</span>How many（どれくらい）
+                            </label>
+                            <textarea id="matrix-howmany"
+                                      rows="3"
+                                      placeholder="例: 数量、規模、範囲"
+                                      class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all resize-none"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- アクションボタン -->
+                    <div class="flex flex-wrap gap-4 justify-center">
+                        <button onclick="previewMatrix()"
+                                class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                            プレビュー
+                        </button>
+
+                        <button onclick="downloadAsImage()"
+                                class="bg-accent-green hover:bg-green-600 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            画像でダウンロード
+                        </button>
+
+                        <button onclick="printMatrix()"
+                                class="bg-gray-700 hover:bg-gray-800 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                            </svg>
+                            印刷
+                        </button>
+
+                        <button onclick="clearMatrix()"
+                                class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                            クリア
+                        </button>
+                    </div>
+                </div>
+
+                <!-- プレビューエリア -->
+                <div id="preview-area" class="mt-12 hidden">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">プレビュー</h3>
+                    <div id="matrix-preview" class="bg-white p-8 rounded-2xl shadow-2xl">
+                        <!-- JavaScriptで動的に生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use Section -->
+    <section id="howto" class="py-20 bg-gradient-to-br from-primary-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">使い方ガイド</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    3つの簡単なステップで、あなたのアイデアを整理できます
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-8">
+                    <!-- ステップ1 -->
+                    <div class="flex gap-6 items-start" data-aos="fade-right">
+                        <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+                            1
+                        </div>
+                        <div class="flex-1 bg-white p-6 rounded-2xl shadow-lg">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-3">中心テーマを決める</h3>
+                            <p class="text-gray-700 leading-relaxed">
+                                まず、考えたいテーマや課題を明確にします。
+                                「新規事業の立ち上げ」「マーケティング戦略」「プロジェクト計画」など、
+                                具体的なテーマを中心に配置します。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- ステップ2 -->
+                    <div class="flex gap-6 items-start" data-aos="fade-left">
+                        <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-accent-green to-green-600 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+                            2
+                        </div>
+                        <div class="flex-1 bg-white p-6 rounded-2xl shadow-lg">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-3">5W3Hの問いに答える</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                周囲の8マスに、それぞれの問いに対する答えを記入します。
+                                完璧な答えを求めず、思いついたことから書き始めましょう。
+                            </p>
+                            <ul class="space-y-2 text-gray-700">
+                                <li>• <strong>Who:</strong> 誰が関わるか、誰のためか</li>
+                                <li>• <strong>What:</strong> 何を達成するか</li>
+                                <li>• <strong>Why:</strong> なぜそれが必要か</li>
+                                <li>• <strong>Where:</strong> どこで実施するか</li>
+                                <li>• <strong>When:</strong> いつ実施するか</li>
+                                <li>• <strong>How:</strong> どのように実施するか</li>
+                                <li>• <strong>How much:</strong> 予算はいくらか</li>
+                                <li>• <strong>How many:</strong> どれくらいの規模か</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- ステップ3 -->
+                    <div class="flex gap-6 items-start" data-aos="fade-right">
+                        <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-accent-orange to-orange-600 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+                            3
+                        </div>
+                        <div class="flex-1 bg-white p-6 rounded-2xl shadow-lg">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-3">全体を見直して改善する</h3>
+                            <p class="text-gray-700 leading-relaxed">
+                                全てのマスを埋めたら、全体を俯瞰してバランスや一貫性を確認します。
+                                矛盾や不足がないか、より良い表現はないかを検討し、必要に応じて修正します。
+                                完成したら、ダウンロードや印刷をしてチームで共有しましょう。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ヒント -->
+                <div class="mt-12 bg-gradient-to-br from-accent-orange/10 to-accent-green/10 p-8 rounded-2xl" data-aos="zoom-in">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                        <svg class="w-8 h-8 mr-3 text-accent-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                        効果的に使うためのヒント
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-accent-green mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>最初から完璧を目指さず、ラフに書き出すことが大切です</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-accent-green mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>チームで議論しながら作成すると、より深い洞察が得られます</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-accent-green mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>定期的に見直して更新することで、常に最新の戦略を維持できます</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-accent-green mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>複数のマトリクスを作成して、異なる視点から考えてみましょう</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">よくある質問</h2>
+                <p class="text-xl text-gray-600">
+                    3X3マトリクス思考法についてのよくある質問にお答えします
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden" data-aos="fade-up">
+                    <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors">
+                        <span class="font-bold text-lg text-gray-900">3X3マトリクスはどんな場面で使えますか?</span>
+                        <svg class="w-6 h-6 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5">
+                        <p class="text-gray-700 leading-relaxed">
+                            ビジネス戦略の立案、マーケティング計画、プロジェクト管理、製品開発、組織改革など、
+                            あらゆる場面で活用できます。個人の目標設定やキャリアプランニングにも有効です。
+                            複雑な問題を整理したい時、チームで共通認識を持ちたい時に特に効果的です。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden" data-aos="fade-up">
+                    <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors">
+                        <span class="font-bold text-lg text-gray-900">マトリクスの順番は決まっていますか?</span>
+                        <svg class="w-6 h-6 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5">
+                        <p class="text-gray-700 leading-relaxed">
+                            基本的な配置は推奨していますが、必ずしも固定ではありません。
+                            あなたのプロジェクトや思考のスタイルに合わせて、自由にカスタマイズできます。
+                            重要なのは、5W3Hの問いに答えることで全体像を把握することです。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden" data-aos="fade-up">
+                    <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors">
+                        <span class="font-bold text-lg text-gray-900">全てのマスを埋める必要がありますか?</span>
+                        <svg class="w-6 h-6 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5">
+                        <p class="text-gray-700 leading-relaxed">
+                            できる限り全てのマスを埋めることを推奨しますが、最初から完璧である必要はありません。
+                            むしろ、空白のマスがある場合は「まだ考えが不足している部分」として認識でき、
+                            今後の検討課題として活用できます。徐々に埋めていくプロセスも重要です。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden" data-aos="fade-up">
+                    <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors">
+                        <span class="font-bold text-lg text-gray-900">作成したマトリクスはどのように保存できますか?</span>
+                        <svg class="w-6 h-6 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5">
+                        <p class="text-gray-700 leading-relaxed">
+                            このツールでは、PNG画像形式でのダウンロードと、ブラウザの印刷機能を使った印刷が可能です。
+                            画像としてダウンロードすれば、プレゼンテーション資料や報告書に簡単に組み込めます。
+                            また、印刷して壁に貼っておくことで、常に確認できる状態にするのも効果的です。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden" data-aos="fade-up">
+                    <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors">
+                        <span class="font-bold text-lg text-gray-900">チームで使う場合のコツはありますか?</span>
+                        <svg class="w-6 h-6 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5">
+                        <p class="text-gray-700 leading-relaxed">
+                            まず個人で考えたマトリクスを作成し、その後チームで共有して議論するのが効果的です。
+                            ホワイトボードや大きな紙に書いて、付箋を使って意見を追加していく方法もおすすめです。
+                            全員が見える場所に掲示することで、共通認識を維持しやすくなります。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 6 -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden" data-aos="fade-up">
+                    <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors">
+                        <span class="font-bold text-lg text-gray-900">他の思考フレームワークとの違いは?</span>
+                        <svg class="w-6 h-6 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5">
+                        <p class="text-gray-700 leading-relaxed">
+                            3X3マトリクスは、視覚的なシンプルさと5W3Hという実用的なフレームワークを組み合わせた点が特徴です。
+                            SWOT分析やビジネスモデルキャンバスなどと併用することで、より多角的な分析が可能になります。
+                            特に、初心者でも取り組みやすく、柔軟にカスタマイズできる点が強みです。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">お問い合わせ</h2>
+                <p class="text-xl text-primary-100">
+                    3X3マトリクス思考法についてのご質問やご相談はこちらから
+                </p>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-lg p-8 rounded-2xl" data-aos="zoom-in">
+                <form class="space-y-6">
+                    <div>
+                        <label class="block font-bold mb-2">お名前</label>
+                        <input type="text"
+                               class="w-full px-4 py-3 bg-white/20 border-2 border-white/30 rounded-xl focus:border-white focus:bg-white/30 transition-all text-white placeholder-white/60"
+                               placeholder="山田 太郎">
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-2">メールアドレス</label>
+                        <input type="email"
+                               class="w-full px-4 py-3 bg-white/20 border-2 border-white/30 rounded-xl focus:border-white focus:bg-white/30 transition-all text-white placeholder-white/60"
+                               placeholder="example@email.com">
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-2">お問い合わせ内容</label>
+                        <textarea rows="5"
+                                  class="w-full px-4 py-3 bg-white/20 border-2 border-white/30 rounded-xl focus:border-white focus:bg-white/30 transition-all text-white placeholder-white/60 resize-none"
+                                  placeholder="こちらにお問い合わせ内容をご記入ください"></textarea>
+                    </div>
+
+                    <button type="submit"
+                            class="w-full bg-accent-green hover:bg-green-600 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg">
+                        送信する
+                    </button>
+                </form>
+
+                <div class="mt-8 pt-8 border-t border-white/20 text-center">
+                    <p class="mb-4">または、直接メールでお問い合わせください</p>
+                    <a href="mailto:info@powerplus-net.com" class="text-accent-green hover:text-green-300 font-bold text-lg">
+                        info@powerplus-net.com
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">🧩 3X3マトリクス</h3>
+                    <p class="text-gray-400">
+                        誰でも頭の中の考えを整理整頓できる思考法
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4">クイックリンク</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#about" class="hover:text-white transition-colors">思考法とは</a></li>
+                        <li><a href="#examples" class="hover:text-white transition-colors">具体例</a></li>
+                        <li><a href="#tool" class="hover:text-white transition-colors">作成ツール</a></li>
+                        <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4">提供元</h4>
+                    <p class="text-gray-400">
+                        Power PLUS<br>
+                        ITとビジネスコンサルティング<br>
+                        <a href="http://www.powerplus-net.com/" class="hover:text-white transition-colors">www.powerplus-net.com</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Power PLUS. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- モーダル: ビジネス戦略 -->
+    <div id="modal-strategy" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-start mb-6">
+                <h3 class="text-3xl font-bold text-gray-900">ビジネス戦略の事例</h3>
+                <button onclick="closeModal('modal-strategy')" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-xl font-bold text-primary-700 mb-4">新規EC事業の戦略立案</h4>
+                <div class="matrix-grid text-sm">
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Who</strong>
+                        <p class="mt-2 text-gray-700">30〜40代の働く女性</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">What</strong>
+                        <p class="mt-2 text-gray-700">オーガニック化粧品のEC販売</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Why</strong>
+                        <p class="mt-2 text-gray-700">健康意識の高まりと市場拡大</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Where</strong>
+                        <p class="mt-2 text-gray-700">日本全国（オンライン）</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-100">
+                        <strong class="text-lg">新規EC事業</strong>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">When</strong>
+                        <p class="mt-2 text-gray-700">2025年Q2ローンチ</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How</strong>
+                        <p class="mt-2 text-gray-700">SNSマーケティング、インフルエンサー活用</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How much</strong>
+                        <p class="mt-2 text-gray-700">初期投資500万円</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How many</strong>
+                        <p class="mt-2 text-gray-700">初年度売上3,000万円目標</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-primary-50 p-6 rounded-xl">
+                <h5 class="font-bold text-gray-900 mb-3">このマトリクスのポイント</h5>
+                <ul class="space-y-2 text-gray-700">
+                    <li>• ターゲット顧客を明確に定義している</li>
+                    <li>• 市場の背景（Why）から戦略の妥当性を説明</li>
+                    <li>• 具体的な数値目標を設定して測定可能に</li>
+                    <li>• SNSという具体的な手段を明示</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: DX推進 -->
+    <div id="modal-dx" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-start mb-6">
+                <h3 class="text-3xl font-bold text-gray-900">DX推進計画の事例</h3>
+                <button onclick="closeModal('modal-dx')" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-xl font-bold text-primary-700 mb-4">社内業務のデジタル化プロジェクト</h4>
+                <div class="matrix-grid text-sm">
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Who</strong>
+                        <p class="mt-2 text-gray-700">全社員200名、IT部門主導</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">What</strong>
+                        <p class="mt-2 text-gray-700">ペーパーレス化とクラウド移行</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Why</strong>
+                        <p class="mt-2 text-gray-700">業務効率化とコスト削減</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Where</strong>
+                        <p class="mt-2 text-gray-700">全オフィス・リモート環境</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-100">
+                        <strong class="text-lg">DX推進</strong>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">When</strong>
+                        <p class="mt-2 text-gray-700">2025年度内完了目標</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How</strong>
+                        <p class="mt-2 text-gray-700">段階的導入、研修プログラム実施</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How much</strong>
+                        <p class="mt-2 text-gray-700">予算1,200万円</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How many</strong>
+                        <p class="mt-2 text-gray-700">50%の時間削減を目標</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-primary-50 p-6 rounded-xl">
+                <h5 class="font-bold text-gray-900 mb-3">このマトリクスのポイント</h5>
+                <ul class="space-y-2 text-gray-700">
+                    <li>• 全社展開のスコープを明確化</li>
+                    <li>• 段階的なアプローチで実現可能性を確保</li>
+                    <li>• 具体的な効果（50%削減）を数値化</li>
+                    <li>• 研修を含めた包括的な計画</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: マーケティング戦略 -->
+    <div id="modal-marketing" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-start mb-6">
+                <h3 class="text-3xl font-bold text-gray-900">マーケティング戦略の事例</h3>
+                <button onclick="closeModal('modal-marketing')" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-xl font-bold text-primary-700 mb-4">新製品のプロモーション計画</h4>
+                <div class="matrix-grid text-sm">
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Who</strong>
+                        <p class="mt-2 text-gray-700">Z世代、20代学生・若手社会人</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">What</strong>
+                        <p class="mt-2 text-gray-700">スマートウォッチの認知拡大</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Why</strong>
+                        <p class="mt-2 text-gray-700">健康管理ニーズの高まり</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Where</strong>
+                        <p class="mt-2 text-gray-700">SNS、ECサイト、大学キャンパス</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-100">
+                        <strong class="text-lg">製品プロモーション</strong>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">When</strong>
+                        <p class="mt-2 text-gray-700">春学期開始に合わせて3月開始</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How</strong>
+                        <p class="mt-2 text-gray-700">TikTok・Instagram広告、学生大使プログラム</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How much</strong>
+                        <p class="mt-2 text-gray-700">マーケティング予算800万円</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How many</strong>
+                        <p class="mt-2 text-gray-700">3ヶ月で1万台販売目標</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-primary-50 p-6 rounded-xl">
+                <h5 class="font-bold text-gray-900 mb-3">このマトリクスのポイント</h5>
+                <ul class="space-y-2 text-gray-700">
+                    <li>• ターゲット層に合わせたチャネル選択</li>
+                    <li>• タイミング（春学期）を戦略的に設定</li>
+                    <li>• 学生大使という独自の手法を採用</li>
+                    <li>• 明確な販売目標で成果を測定可能に</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: プロジェクト管理 -->
+    <div id="modal-project" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-start mb-6">
+                <h3 class="text-3xl font-bold text-gray-900">プロジェクト計画の事例</h3>
+                <button onclick="closeModal('modal-project')" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-xl font-bold text-primary-700 mb-4">基幹システム刷新プロジェクト</h4>
+                <div class="matrix-grid text-sm">
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Who</strong>
+                        <p class="mt-2 text-gray-700">社内IT部門、外部ベンダー</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">What</strong>
+                        <p class="mt-2 text-gray-700">販売管理システムの全面刷新</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Why</strong>
+                        <p class="mt-2 text-gray-700">老朽化したシステムの保守限界</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Where</strong>
+                        <p class="mt-2 text-gray-700">本社・全国5拠点</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-100">
+                        <strong class="text-lg">システム刷新</strong>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">When</strong>
+                        <p class="mt-2 text-gray-700">18ヶ月計画（2025-2026）</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How</strong>
+                        <p class="mt-2 text-gray-700">アジャイル開発、段階的リリース</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How much</strong>
+                        <p class="mt-2 text-gray-700">総予算5,000万円</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How many</strong>
+                        <p class="mt-2 text-gray-700">300名のユーザー、5拠点同時展開</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-primary-50 p-6 rounded-xl">
+                <h5 class="font-bold text-gray-900 mb-3">このマトリクスのポイント</h5>
+                <ul class="space-y-2 text-gray-700">
+                    <li>• 内部・外部のリソースを明確化</li>
+                    <li>• 現行システムの課題（Why）を明示</li>
+                    <li>• アジャイル開発でリスクを分散</li>
+                    <li>• 全拠点展開の規模感を数値化</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: 人材育成 -->
+    <div id="modal-hr" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-start mb-6">
+                <h3 class="text-3xl font-bold text-gray-900">人材育成計画の事例</h3>
+                <button onclick="closeModal('modal-hr')" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-xl font-bold text-primary-700 mb-4">次世代リーダー育成プログラム</h4>
+                <div class="matrix-grid text-sm">
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Who</strong>
+                        <p class="mt-2 text-gray-700">入社5年目以上の中堅社員</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">What</strong>
+                        <p class="mt-2 text-gray-700">リーダーシップとマネジメントスキル</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Why</strong>
+                        <p class="mt-2 text-gray-700">管理職候補の不足と組織強化</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Where</strong>
+                        <p class="mt-2 text-gray-700">研修センター、オンライン併用</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-100">
+                        <strong class="text-lg">リーダー育成</strong>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">When</strong>
+                        <p class="mt-2 text-gray-700">6ヶ月プログラム、年2回開催</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How</strong>
+                        <p class="mt-2 text-gray-700">集合研修、実践OJT、メンタリング</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How much</strong>
+                        <p class="mt-2 text-gray-700">年間予算600万円</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How many</strong>
+                        <p class="mt-2 text-gray-700">各回20名、年間40名育成</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-primary-50 p-6 rounded-xl">
+                <h5 class="font-bold text-gray-900 mb-3">このマトリクスのポイント</h5>
+                <ul class="space-y-2 text-gray-700">
+                    <li>• 対象者を経験年数で明確化</li>
+                    <li>• 組織課題（管理職不足）から必要性を説明</li>
+                    <li>• 研修・OJT・メンタリングの複合的アプローチ</li>
+                    <li>• 育成人数を数値目標として設定</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: イベント企画 -->
+    <div id="modal-event" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-start mb-6">
+                <h3 class="text-3xl font-bold text-gray-900">イベント企画の事例</h3>
+                <button onclick="closeModal('modal-event')" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-xl font-bold text-primary-700 mb-4">テックカンファレンス開催計画</h4>
+                <div class="matrix-grid text-sm">
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Who</strong>
+                        <p class="mt-2 text-gray-700">エンジニア、IT企業、学生</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">What</strong>
+                        <p class="mt-2 text-gray-700">最新技術の知識共有とネットワーキング</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Why</strong>
+                        <p class="mt-2 text-gray-700">技術コミュニティの活性化</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">Where</strong>
+                        <p class="mt-2 text-gray-700">東京国際フォーラム、オンライン配信</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-100">
+                        <strong class="text-lg">カンファレンス</strong>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">When</strong>
+                        <p class="mt-2 text-gray-700">2025年秋（9月開催）</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How</strong>
+                        <p class="mt-2 text-gray-700">基調講演、分科会、展示ブース</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How much</strong>
+                        <p class="mt-2 text-gray-700">総予算2,000万円（スポンサー収入含む）</p>
+                    </div>
+                    <div class="matrix-cell">
+                        <strong class="text-primary-700">How many</strong>
+                        <p class="mt-2 text-gray-700">参加者1,000名、登壇者50名目標</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-primary-50 p-6 rounded-xl">
+                <h5 class="font-bold text-gray-900 mb-3">このマトリクスのポイント</h5>
+                <ul class="space-y-2 text-gray-700">
+                    <li>• 幅広い参加者層（エンジニア〜学生）を想定</li>
+                    <li>• オフライン＋オンラインのハイブリッド開催</li>
+                    <li>• スポンサーシップモデルで予算を確保</li>
+                    <li>• 参加者数・登壇者数を具体的に設定</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- html2canvas for image download -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // AOS初期化
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // モバイルメニューを閉じる
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        // ナビゲーションスクロール効果
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const navLogo = document.querySelector('.nav-logo');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.remove('nav-transparent');
+                navbar.classList.add('nav-scrolled');
+                navLinks.forEach(link => {
+                    link.classList.remove('text-white');
+                    link.classList.add('text-gray-700');
+                });
+                navLogo.classList.remove('text-white');
+                navLogo.classList.add('text-gray-900');
+            } else {
+                navbar.classList.add('nav-transparent');
+                navbar.classList.remove('nav-scrolled');
+                navLinks.forEach(link => {
+                    link.classList.add('text-white');
+                    link.classList.remove('text-gray-700');
+                });
+                navLogo.classList.add('text-white');
+                navLogo.classList.remove('text-gray-900');
+            }
+        });
+
+        // モバイルメニュートグル
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // FAQ アコーディオン
+        document.querySelectorAll('.faq-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('svg');
+
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+
+        // モーダル関数
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // モーダル外クリックで閉じる
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal.id);
+                }
+            });
+        });
+
+        // ESCキーでモーダルを閉じる
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(modal => {
+                    closeModal(modal.id);
+                });
+            }
+        });
+
+        // マトリクス作成ツール関数
+        function previewMatrix() {
+            const title = document.getElementById('matrix-title').value || '無題のマトリクス';
+            const center = document.getElementById('matrix-center').value || 'テーマ';
+            const who = document.getElementById('matrix-who').value;
+            const what = document.getElementById('matrix-what').value;
+            const why = document.getElementById('matrix-why').value;
+            const where = document.getElementById('matrix-where').value;
+            const when = document.getElementById('matrix-when').value;
+            const how = document.getElementById('matrix-how').value;
+            const howmuch = document.getElementById('matrix-howmuch').value;
+            const howmany = document.getElementById('matrix-howmany').value;
+
+            const previewHTML = `
+                <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">${title}</h2>
+                <div class="matrix-grid">
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-2xl mb-2">👤</div>
+                        <strong class="text-primary-700 text-lg">Who</strong>
+                        <p class="mt-2 text-gray-700">${who || '（未入力）'}</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-2xl mb-2">🎯</div>
+                        <strong class="text-primary-700 text-lg">What</strong>
+                        <p class="mt-2 text-gray-700">${what || '（未入力）'}</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-2xl mb-2">💡</div>
+                        <strong class="text-primary-700 text-lg">Why</strong>
+                        <p class="mt-2 text-gray-700">${why || '（未入力）'}</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-2xl mb-2">📍</div>
+                        <strong class="text-primary-700 text-lg">Where</strong>
+                        <p class="mt-2 text-gray-700">${where || '（未入力）'}</p>
+                    </div>
+                    <div class="matrix-cell bg-gradient-to-br from-accent-green/20 to-primary-100">
+                        <div class="text-3xl mb-2">🧩</div>
+                        <strong class="text-xl text-gray-900">${center}</strong>
+                    </div>
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-2xl mb-2">⏰</div>
+                        <strong class="text-primary-700 text-lg">When</strong>
+                        <p class="mt-2 text-gray-700">${when || '（未入力）'}</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-2xl mb-2">🔧</div>
+                        <strong class="text-primary-700 text-lg">How</strong>
+                        <p class="mt-2 text-gray-700">${how || '（未入力）'}</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-2xl mb-2">💰</div>
+                        <strong class="text-primary-700 text-lg">How much</strong>
+                        <p class="mt-2 text-gray-700">${howmuch || '（未入力）'}</p>
+                    </div>
+                    <div class="matrix-cell bg-primary-50">
+                        <div class="text-2xl mb-2">📊</div>
+                        <strong class="text-primary-700 text-lg">How many</strong>
+                        <p class="mt-2 text-gray-700">${howmany || '（未入力）'}</p>
+                    </div>
+                </div>
+                <p class="text-center text-gray-500 mt-6">作成日: ${new Date().toLocaleDateString('ja-JP')}</p>
+            `;
+
+            document.getElementById('matrix-preview').innerHTML = previewHTML;
+            document.getElementById('preview-area').classList.remove('hidden');
+
+            // プレビューエリアまでスクロール
+            document.getElementById('preview-area').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function downloadAsImage() {
+            const preview = document.getElementById('matrix-preview');
+
+            if (!preview.innerHTML.trim()) {
+                alert('まずプレビューを表示してください');
+                return;
+            }
+
+            html2canvas(preview, {
+                scale: 2,
+                backgroundColor: '#ffffff',
+                logging: false
+            }).then(canvas => {
+                const link = document.createElement('a');
+                const title = document.getElementById('matrix-title').value || 'matrix';
+                link.download = `3x3-matrix-${title.replace(/\s+/g, '-')}-${Date.now()}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        function printMatrix() {
+            const preview = document.getElementById('matrix-preview');
+
+            if (!preview.innerHTML.trim()) {
+                alert('まずプレビューを表示してください');
+                return;
+            }
+
+            // html2canvasでマトリクス部分のみを画像化して印刷
+            html2canvas(preview, {
+                scale: 2,
+                backgroundColor: '#ffffff',
+                logging: false
+            }).then(canvas => {
+                // 新しいウィンドウを開いて画像を表示
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write('<html><head><title>3X3マトリクス印刷</title>');
+                printWindow.document.write('<style>body { margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; } img { max-width: 100%; height: auto; }</style>');
+                printWindow.document.write('</head><body>');
+                printWindow.document.write('<img src="' + canvas.toDataURL('image/png') + '" />');
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+
+                // 画像の読み込みを待ってから印刷
+                printWindow.onload = function() {
+                    setTimeout(() => {
+                        printWindow.print();
+                        printWindow.close();
+                    }, 250);
+                };
+            });
+        }
+
+        function clearMatrix() {
+            if (confirm('入力内容を全てクリアしますか?')) {
+                document.getElementById('matrix-title').value = '';
+                document.getElementById('matrix-center').value = '';
+                document.getElementById('matrix-who').value = '';
+                document.getElementById('matrix-what').value = '';
+                document.getElementById('matrix-why').value = '';
+                document.getElementById('matrix-where').value = '';
+                document.getElementById('matrix-when').value = '';
+                document.getElementById('matrix-how').value = '';
+                document.getElementById('matrix-howmuch').value = '';
+                document.getElementById('matrix-howmany').value = '';
+                document.getElementById('preview-area').classList.add('hidden');
+            }
+        }
+
+        // フォーム送信処理
+        document.querySelector('#contact form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('お問い合わせありがとうございます。\n内容を確認の上、ご連絡させていただきます。');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
