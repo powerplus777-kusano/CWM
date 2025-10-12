@@ -721,6 +721,7 @@
 
                     <!-- アクションボタン -->
                     <div class="flex flex-wrap gap-4 justify-center">
+                        <!-- プレビューボタン（常に表示） -->
                         <button onclick="previewMatrix()"
                                 class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg flex items-center">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -730,24 +731,25 @@
                             プレビュー
                         </button>
 
-                        <button onclick="downloadAsImage()"
-                                class="bg-accent-green hover:bg-green-600 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg flex items-center">
+                        <!-- プレビュー後に表示されるボタン（初期状態では非表示） -->
+                        <button id="btn-download" onclick="downloadAsImage()"
+                                class="hidden bg-accent-green hover:bg-green-600 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg items-center">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
                             画像でダウンロード
                         </button>
 
-                        <button onclick="printMatrix()"
-                                class="bg-gray-700 hover:bg-gray-800 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg flex items-center">
+                        <button id="btn-print" onclick="printMatrix()"
+                                class="hidden bg-gray-700 hover:bg-gray-800 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg items-center">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
                             </svg>
                             印刷
                         </button>
 
-                        <button onclick="clearMatrix()"
-                                class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg flex items-center">
+                        <button id="btn-clear" onclick="clearMatrix()"
+                                class="hidden bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg items-center">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                             </svg>
@@ -1033,6 +1035,15 @@
                     <a href="mailto:info@powerplus-net.com" class="text-accent-green hover:text-green-300 font-bold text-lg">
                         info@powerplus-net.com
                     </a>
+
+                    <!-- プロフィールリンク -->
+                    <div class="mt-6 pt-6 border-t border-white/20">
+                        <p class="mb-4 text-primary-100">運営者について</p>
+                        <a href="../public/profile.html"
+                           class="inline-block bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-6 rounded-xl transition-all border-2 border-white/30 hover:border-white">
+                            草野 仁のプロフィール
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1614,8 +1625,21 @@
             document.getElementById('matrix-preview').innerHTML = previewHTML;
             document.getElementById('preview-area').classList.remove('hidden');
 
+            // プレビュー後にアクションボタンを表示
+            document.getElementById('btn-download').classList.remove('hidden');
+            document.getElementById('btn-download').classList.add('flex');
+            document.getElementById('btn-print').classList.remove('hidden');
+            document.getElementById('btn-print').classList.add('flex');
+            document.getElementById('btn-clear').classList.remove('hidden');
+            document.getElementById('btn-clear').classList.add('flex');
+
             // プレビューエリアまでスクロール
             document.getElementById('preview-area').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // iOS判定関数
+        function isIOS() {
+            return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         }
 
         function downloadAsImage() {
@@ -1626,17 +1650,224 @@
                 return;
             }
 
-            html2canvas(preview, {
-                scale: 2,
-                backgroundColor: '#ffffff',
-                logging: false
-            }).then(canvas => {
-                const link = document.createElement('a');
+            // iOS判定
+            const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+            if (isIOSDevice) {
+                // iOSの場合：html2canvasを使わず、HTMLを直接新しいウィンドウで表示
                 const title = document.getElementById('matrix-title').value || 'matrix';
-                link.download = `3x3-matrix-${title.replace(/\s+/g, '-')}-${Date.now()}.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            });
+                const previewHTML = preview.innerHTML;
+
+                // 新しいウィンドウを開く
+                const newWindow = window.open('', '_blank');
+
+                if (!newWindow) {
+                    alert('ポップアップがブロックされました。\n\nSafariの設定で、このサイトのポップアップを許可してください。');
+                    return;
+                }
+
+                // プレビューのスタイルを含めた完全なHTMLページを作成
+                newWindow.document.write(`
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3×3マトリクス - ${title}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .instructions {
+            background: #007AFF;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .instructions h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .instructions p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 5px 0;
+        }
+        .step {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin: 8px auto;
+            max-width: 90%;
+        }
+        .close-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.9);
+            color: #007AFF;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .close-btn:active {
+            background: rgba(255,255,255,1);
+        }
+        .matrix-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .press-instruction {
+            background: #FFD60A;
+            color: #000;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .arrow-down {
+            font-size: 32px;
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        .matrix-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 100%;
+            position: relative;
+            border: 4px dashed #FFD60A;
+            animation: borderPulse 2s ease-in-out infinite;
+        }
+        @keyframes borderPulse {
+            0%, 100% { border-color: #FFD60A; }
+            50% { border-color: #FFA500; }
+        }
+        /* マトリクスのスタイル */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .matrix-cell {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 12px;
+            color: white;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .matrix-title-text {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .cell-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .cell-content {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <button class="close-btn" onclick="window.close()">×</button>
+
+    <div class="instructions">
+        <h2>📱 保存方法</h2>
+        <div class="step">
+            <strong>おすすめ：</strong> スクリーンショットを撮影<br>
+            （電源ボタン + 音量上げボタンを同時押し）
+        </div>
+        <div class="step">
+            <strong>または：</strong> 下の白い枠内を長押し<br>
+            → 「画像を共有」または「"ファイル"に保存」を選択
+        </div>
+    </div>
+
+    <div class="matrix-container">
+        <div class="press-instruction">
+            <div class="arrow-down">👇</div>
+            この白い枠内を長押ししてください
+        </div>
+        <div class="matrix-content">
+            ${previewHTML}
+        </div>
+    </div>
+</body>
+</html>
+                `);
+
+                newWindow.document.close();
+
+            } else {
+                // PC・Androidの場合：html2canvasを使用
+                if (typeof html2canvas === 'undefined') {
+                    alert('エラー: html2canvasライブラリが読み込まれていません');
+                    return;
+                }
+
+                html2canvas(preview, {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    logging: false
+                }).then(function(canvas) {
+                    const title = document.getElementById('matrix-title').value || 'matrix';
+                    const filename = '3x3-matrix-' + title.replace(/\s+/g, '-') + '-' + Date.now() + '.png';
+                    const dataUrl = canvas.toDataURL('image/png');
+
+                    const link = document.createElement('a');
+                    link.download = filename;
+                    link.href = dataUrl;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }).catch(function(error) {
+                    alert('画像の生成に失敗しました: ' + error.message);
+                    console.error('ダウンロードエラー:', error);
+                });
+            }
         }
 
         function printMatrix() {
@@ -1685,6 +1916,14 @@
                 document.getElementById('matrix-howmuch').value = '';
                 document.getElementById('matrix-howmany').value = '';
                 document.getElementById('preview-area').classList.add('hidden');
+
+                // アクションボタンを非表示に戻す
+                document.getElementById('btn-download').classList.add('hidden');
+                document.getElementById('btn-download').classList.remove('flex');
+                document.getElementById('btn-print').classList.add('hidden');
+                document.getElementById('btn-print').classList.remove('flex');
+                document.getElementById('btn-clear').classList.add('hidden');
+                document.getElementById('btn-clear').classList.remove('flex');
             }
         }
 

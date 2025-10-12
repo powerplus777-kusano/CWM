@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="草野 仁のプロフィール - Power PLUS 代表、ITコーディネーター、中小企業支援の専門家">
+    <meta name="keywords" content="草野仁, ITコーディネーター, 中小企業支援, 経営コンサルタント, マーケティング">
+    <meta property="og:title" content="草野 仁 - プロフィール | Power PLUS">
+    <meta property="og:description" content="経営、マーケティング、IT支援の専門家">
+    <meta property="og:type" content="profile">
+    <title>草野 仁 プロフィール | Power PLUS</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👤</text></svg>">
+
+    <!-- Tailwind CSS v4.1+ CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        accent: {
+                            green: '#10b981',
+                            orange: '#f59e0b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Animate.css v4.1.1+ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- AOS v2.3+ -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Google Fonts - Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        /* スティッキーナビゲーション - 透明からブラー背景へ */
+        .nav-transparent {
+            background: transparent;
+        }
+
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-scrolled .nav-link {
+            color: #1e3a8a !important;
+        }
+
+        .nav-scrolled .btn-back {
+            color: #1e3a8a;
+            border-color: #1e3a8a;
+        }
+
+        .nav-scrolled .btn-back:hover {
+            background: #1e3a8a;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 nav-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- ロゴ -->
+                <div class="flex-shrink-0">
+                    <a href="../HP01/HP01.html" class="text-2xl font-bold text-white hover:text-accent-green transition-colors">
+                        Power PLUS
+                    </a>
+                </div>
+
+                <!-- 戻るボタン -->
+                <div>
+                    <a href="../HP01/HP01.html#contact"
+                       class="btn-back px-6 py-2 border-2 border-white text-white hover:bg-white hover:text-primary-900 rounded-lg transition-all font-medium">
+                        戻る
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-20 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-accent-green rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-accent-orange rounded-full filter blur-3xl"></div>
+        </div>
+
+        <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div data-aos="fade-down">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 animate__animated animate__fadeIn">
+                    草野 仁
+                </h1>
+                <p class="text-xl md:text-2xl text-primary-100 mb-4">
+                    ITコーディネーター / Power PLUS 代表
+                </p>
+                <p class="text-lg text-primary-200 max-w-2xl mx-auto">
+                    経営、マーケティング、IT支援の専門家として<br>
+                    中小企業の成長をサポートします
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Detail Section -->
+    <section id="profile" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-primary-900 mb-4">プロフィール</h2>
+                <div class="w-24 h-1 bg-accent-green mx-auto"></div>
+            </div>
+
+            <div class="bg-gradient-to-br from-primary-50 to-white rounded-2xl shadow-xl p-8 md:p-12" data-aos="fade-up" data-aos-delay="100">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- 基本情報 -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-primary-900 mb-6 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            基本情報
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <span class="font-bold text-primary-700 min-w-[100px]">氏名：</span>
+                                <span class="text-gray-700">草野 仁（くさの ひとし）</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="font-bold text-primary-700 min-w-[100px]">生年月日：</span>
+                                <span class="text-gray-700">1959年7月22日</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="font-bold text-primary-700 min-w-[100px]">役職：</span>
+                                <span class="text-gray-700">Power PLUS 代表</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="font-bold text-primary-700 min-w-[100px]">設立：</span>
+                                <span class="text-gray-700">2000年2月</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 会社情報 -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-primary-900 mb-6 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                            会社情報
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <span class="font-bold text-primary-700 min-w-[100px]">社名：</span>
+                                <span class="text-gray-700">Power PLUS</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="font-bold text-primary-700 min-w-[100px]">所在地：</span>
+                                <span class="text-gray-700">〒225-0002<br>神奈川県横浜市青葉区美しが丘4-48-5 101</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="font-bold text-primary-700 min-w-[100px]">メール：</span>
+                                <a href="mailto:info@powerplus-net.com" class="text-accent-green hover:text-green-600 font-medium">
+                                    info@powerplus-net.com
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Qualifications Section -->
+    <section id="qualifications" class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-primary-900 mb-4">資格・認定</h2>
+                <div class="w-24 h-1 bg-accent-green mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600">専門性を裏付ける資格と認定</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- 資格カード1 -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all hover:scale-105" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-accent-green to-green-600 rounded-xl flex items-center justify-center mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary-900">ITコーディネーター</h3>
+                    </div>
+                    <p class="text-gray-600">
+                        企業の経営戦略とIT戦略を結びつけ、ITを活用した経営改革を支援する専門家資格
+                    </p>
+                </div>
+
+                <!-- 資格カード2 -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all hover:scale-105" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 rounded-xl flex items-center justify-center mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary-900">中小企業支援機関<br>アドバイザー</h3>
+                    </div>
+                    <p class="text-gray-600">
+                        中小企業の経営課題解決に向けた専門的なアドバイスを提供する認定アドバイザー
+                    </p>
+                </div>
+
+                <!-- 資格カード3 -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all hover:scale-105" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-accent-orange to-orange-600 rounded-xl flex items-center justify-center mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary-900">ミラサポ支援専門家</h3>
+                    </div>
+                    <p class="text-gray-600">
+                        中小企業庁のミラサポ事業において、中小企業の支援を行う専門家として登録
+                    </p>
+                </div>
+
+                <!-- 資格カード4 -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all hover:scale-105" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary-900">システム<br>アドミニストレーター</h3>
+                    </div>
+                    <p class="text-gray-600">
+                        情報システムの運用・管理に関する専門知識を有する国家資格（旧資格）
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-primary-900 mb-4">専門分野</h2>
+                <div class="w-24 h-1 bg-accent-green mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600">25年以上の実績に基づく専門的なサポート</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 専門分野1 -->
+                <div class="bg-gradient-to-br from-primary-50 to-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary-900 mb-4">経営支援</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-2">✓</span>
+                            <span>経営戦略の立案・実行支援</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-2">✓</span>
+                            <span>事業計画の策定サポート</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-2">✓</span>
+                            <span>業務プロセスの改善提案</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-2">✓</span>
+                            <span>経営課題の分析と解決策提示</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 専門分野2 -->
+                <div class="bg-gradient-to-br from-accent-green/10 to-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-br from-accent-green to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary-900 mb-4">マーケティング</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-2">✓</span>
+                            <span>市場分析と戦略立案</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-2">✓</span>
+                            <span>Webマーケティング支援</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-2">✓</span>
+                            <span>ブランディング戦略</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-2">✓</span>
+                            <span>顧客獲得・維持施策の提案</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 専門分野3 -->
+                <div class="bg-gradient-to-br from-accent-orange/10 to-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-br from-accent-orange to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary-900 mb-4">IT支援</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-2">✓</span>
+                            <span>IT戦略の立案・実行</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-2">✓</span>
+                            <span>システム導入コンサルティング</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-2">✓</span>
+                            <span>デジタル化推進支援</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-accent-green mr-2">✓</span>
+                            <span>ITツール活用の指導</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">お問い合わせ</h2>
+                <p class="text-xl text-primary-100">
+                    ご相談・お問い合わせはお気軽にどうぞ
+                </p>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-12" data-aos="fade-up" data-aos-delay="100">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <!-- メール -->
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-accent-green rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Email</h3>
+                        <a href="mailto:info@powerplus-net.com" class="text-accent-green hover:text-green-300 text-lg font-medium">
+                            info@powerplus-net.com
+                        </a>
+                    </div>
+
+                    <!-- 所在地 -->
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-accent-orange rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">所在地</h3>
+                        <p class="text-primary-100">
+                            〒225-0002<br>
+                            神奈川県横浜市青葉区<br>
+                            美しが丘4-48-5 101
+                        </p>
+                    </div>
+                </div>
+
+                <div class="text-center pt-8 border-t border-white/20">
+                    <a href="../HP01/HP01.html#contact"
+                       class="inline-block bg-accent-green hover:bg-green-600 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg">
+                        お問い合わせフォームへ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary-950 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-primary-300">© 2000-2025 Power PLUS. All rights reserved.</p>
+                <p class="text-primary-400 mt-2">
+                    <a href="../HP01/HP01.html" class="hover:text-accent-green transition-colors">ホームに戻る</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS初期化
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+
+        // スティッキーナビゲーション
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('nav-transparent');
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+                navbar.classList.add('nav-transparent');
+            }
+        });
+    </script>
+</body>
+</html>
