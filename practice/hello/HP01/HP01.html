@@ -1002,10 +1002,18 @@
             </div>
 
             <div class="bg-white/10 backdrop-blur-lg p-8 rounded-2xl" data-aos="zoom-in">
-                <form class="space-y-6">
+                <form action="https://ssgform.com/s/2UKFj9xXm4pi" method="POST" class="space-y-6" id="contactForm">
+                    <!-- ハニーポット（スパム対策） -->
+                    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+                    <!-- タイムベース検証（スパム対策） -->
+                    <input type="hidden" name="_form_loaded_at" id="formLoadedAt">
+
                     <div>
                         <label class="block font-bold mb-2">お名前</label>
                         <input type="text"
+                               name="お名前"
+                               required
                                class="w-full px-4 py-3 bg-white/20 border-2 border-white/30 rounded-xl focus:border-white focus:bg-white/30 transition-all text-white placeholder-white/60"
                                placeholder="山田 太郎">
                     </div>
@@ -1013,6 +1021,8 @@
                     <div>
                         <label class="block font-bold mb-2">メールアドレス</label>
                         <input type="email"
+                               name="メールアドレス"
+                               required
                                class="w-full px-4 py-3 bg-white/20 border-2 border-white/30 rounded-xl focus:border-white focus:bg-white/30 transition-all text-white placeholder-white/60"
                                placeholder="example@email.com">
                     </div>
@@ -1020,6 +1030,8 @@
                     <div>
                         <label class="block font-bold mb-2">お問い合わせ内容</label>
                         <textarea rows="5"
+                                  name="お問い合わせ内容"
+                                  required
                                   class="w-full px-4 py-3 bg-white/20 border-2 border-white/30 rounded-xl focus:border-white focus:bg-white/30 transition-all text-white placeholder-white/60 resize-none"
                                   placeholder="こちらにお問い合わせ内容をご記入ください"></textarea>
                     </div>
@@ -1927,11 +1939,12 @@
             }
         }
 
-        // フォーム送信処理
-        document.querySelector('#contact form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('お問い合わせありがとうございます。\n内容を確認の上、ご連絡させていただきます。');
-            e.target.reset();
+        // ページ読み込み時にフォームの読み込み時刻を記録（タイムベーススパム対策）
+        document.addEventListener('DOMContentLoaded', function() {
+            const formLoadedAtField = document.getElementById('formLoadedAt');
+            if (formLoadedAtField) {
+                formLoadedAtField.value = Date.now();
+            }
         });
     </script>
 </body>
