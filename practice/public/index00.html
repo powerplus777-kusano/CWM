@@ -569,38 +569,47 @@
                 <div class="grid md:grid-cols-2 gap-12">
                     <!-- お問い合わせフォーム -->
                     <div data-aos="fade-right">
-                        <form id="contact-form" class="space-y-6">
+                        <form id="contact-form" action="https://ssgform.com/s/2UKFj9xXm4pi" method="POST" class="space-y-6">
+                            <!-- ハニーポット（スパム対策）- 人間には見えないフィールド -->
+                            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+                            <!-- タイムベース検証（スパム対策）-->
+                            <input type="hidden" name="_form_loaded_at" id="form_loaded_at">
+
+                            <!-- テストモード -->
+                            <input type="hidden" name="_test_mode" value="true">
+
                             <div>
                                 <label for="name" class="block text-gray-700 font-semibold mb-2">お名前 <span class="text-red-500">*</span></label>
-                                <input type="text" id="name" name="name" required
+                                <input type="text" id="name" name="お名前" required
                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                                        placeholder="山田太郎">
                             </div>
 
                             <div>
                                 <label for="company" class="block text-gray-700 font-semibold mb-2">会社名</label>
-                                <input type="text" id="company" name="company"
+                                <input type="text" id="company" name="会社名"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                                        placeholder="株式会社サンプル">
                             </div>
 
                             <div>
                                 <label for="email" class="block text-gray-700 font-semibold mb-2">メールアドレス <span class="text-red-500">*</span></label>
-                                <input type="email" id="email" name="email" required
+                                <input type="email" id="email" name="メールアドレス" required
                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                                        placeholder="example@company.com">
                             </div>
 
                             <div>
                                 <label for="phone" class="block text-gray-700 font-semibold mb-2">電話番号</label>
-                                <input type="tel" id="phone" name="phone"
+                                <input type="tel" id="phone" name="電話番号"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                                        placeholder="090-1234-5678">
                             </div>
 
                             <div>
                                 <label for="message" class="block text-gray-700 font-semibold mb-2">お問い合わせ内容 <span class="text-red-500">*</span></label>
-                                <textarea id="message" name="message" rows="5" required
+                                <textarea id="message" name="お問い合わせ内容" rows="5" required
                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                                           placeholder="ご相談内容をご記入ください"></textarea>
                             </div>
@@ -622,7 +631,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600 flex-shrink-0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                                     <div>
                                         <h4 class="font-semibold text-gray-900 mb-1">所在地</h4>
-                                        <p class="text-gray-600">神奈川県横浜市</p>
+                                        <p class="text-gray-600">神奈川県横浜市青葉区美しが丘4-48-5ハイツ松島101号</p>
                                     </div>
                                 </div>
 
@@ -713,6 +722,7 @@
                         <li>〒 神奈川県横浜市</li>
                         <li>TEL: 090-5416-9268</li>
                         <li>Email: info@powerplus-net.com</li>
+                        <li><a href="profile.html" class="text-gray-400 hover:text-white transition">運営者について</a></li>
                     </ul>
                 </div>
             </div>
@@ -780,25 +790,17 @@
             });
         });
 
-        // フォーム送信処理
-        const contactForm = document.getElementById('contact-form');
-
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            // フォームデータ取得
-            const formData = new FormData(contactForm);
-            const data = Object.fromEntries(formData);
-
-            // 実際の送信処理はここに実装
-            // 例: fetch APIでバックエンドに送信
-
-            // 成功メッセージ表示（仮）
-            alert('お問い合わせありがとうございます。\n24時間以内にご返信いたします。');
-
-            // フォームリセット
-            contactForm.reset();
+        // タイムベース検証のためのタイムスタンプ設定
+        // ページ読み込み時刻を記録（スパム対策）
+        document.addEventListener('DOMContentLoaded', () => {
+            const formLoadedAtField = document.getElementById('form_loaded_at');
+            if (formLoadedAtField) {
+                formLoadedAtField.value = Date.now();
+            }
         });
+
+        // フォーム送信処理（SSGFormが処理するため、特別な処理は不要）
+        // SSGFormが自動的にフォームを送信し、結果ページにリダイレクトします
 
         // スムーススクロール（フォールバック）
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
