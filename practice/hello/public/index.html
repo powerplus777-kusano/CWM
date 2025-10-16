@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Power PLUS - 経営とITの最適化を支援する経営コンサルティング。中小企業の課題解決とIT戦略立案をサポート">
+    <meta name="keywords" content="経営コンサルティング, IT戦略, 企業支援, マーケティング, 横浜, 中小企業, ITコーディネーター, 草野　仁, 3X3マトリクス思考法">
+    <meta property="og:title" content="Power PLUS - 経営とITの最適化パートナー">
+    <meta property="og:description" content="中小企業の経営課題を包括的に支援。経営コンサルティングとIT戦略で企業成長をサポートします">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=80">
+    <title>Power PLUS - 経営とITの最適化パートナー</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚡%3C/text%3E%3C/svg%3E">
+
+    <!-- Tailwind CSS v4.1 CDN -->
+    <script src="https://cdn.tailwindcss.com?v=4.1"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            200: '#f5d0fe',
+                            300: '#f0abfc',
+                            400: '#e879f9',
+                            500: '#d946ef',
+                            600: '#c026d3',
+                            700: '#a21caf',
+                            800: '#86198f',
+                            900: '#701a75',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Animate.css v4.1.1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- AOS v2.3 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* スムーススクロール */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ナビゲーションのトランジション */
+        #navbar {
+            transition: all 0.3s ease-in-out;
+        }
+
+        #navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* ヒーローセクションのオーバーレイ */
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.8) 0%, rgba(192, 38, 211, 0.6) 100%);
+        }
+
+        /* カードホバーエフェクト */
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* モーダルのカスタムスタイル */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        /* フェードインアニメーション */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleOut {
+            from {
+                transform: scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+        }
+
+        .modal-fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-fade-out {
+            animation: fadeOut 0.3s ease-out;
+        }
+
+        .modal-scale-in {
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        .modal-scale-out {
+            animation: scaleOut 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-white">
+
+    <!-- ナビゲーション -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-4 px-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold text-white flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                Power PLUS
+            </a>
+
+            <!-- デスクトップメニュー -->
+            <ul class="hidden lg:flex space-x-6 text-white font-medium">
+                <li><a href="#hero" class="hover:text-primary-300 transition">ホーム</a></li>
+                <li><a href="#about" class="hover:text-primary-300 transition">私たちについて</a></li>
+                <li><a href="#services" class="hover:text-primary-300 transition">サービス</a></li>
+                <li><a href="#strengths" class="hover:text-primary-300 transition">強み</a></li>
+                <li><a href="#approach" class="hover:text-primary-300 transition">アプローチ</a></li>
+                <li><a href="#case-studies" class="hover:text-primary-300 transition">実績</a></li>
+                <li><a href="#contact" class="hover:text-primary-300 transition bg-primary-600 px-4 py-2 rounded-lg">お問い合わせ</a></li>
+            </ul>
+
+            <!-- モバイルメニューボタン -->
+            <button id="mobile-menu-btn" class="lg:hidden text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+        </div>
+
+        <!-- モバイルメニュー -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-4 bg-white/90 backdrop-blur-md rounded-lg p-4">
+            <ul class="flex flex-col space-y-3 text-gray-800 font-medium">
+                <li><a href="#hero" class="block hover:text-primary-600 transition">ホーム</a></li>
+                <li><a href="#about" class="block hover:text-primary-600 transition">私たちについて</a></li>
+                <li><a href="#services" class="block hover:text-primary-600 transition">サービス</a></li>
+                <li><a href="#strengths" class="block hover:text-primary-600 transition">強み</a></li>
+                <li><a href="#approach" class="block hover:text-primary-600 transition">アプローチ</a></li>
+                <li><a href="#case-studies" class="block hover:text-primary-600 transition">実績</a></li>
+                <li><a href="#contact" class="block text-primary-600 font-bold hover:text-primary-700 transition">お問い合わせ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ヒーローセクション -->
+    <header id="hero" class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&q=80"
+                 alt="ビジネスチーム"
+                 class="w-full h-full object-cover"
+                 loading="eager">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+
+        <div class="container mx-auto px-6 z-10 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 animate__animated animate__fadeInDown">
+                経営とITの最適化パートナー
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 animate__animated animate__fadeInUp animate__delay-1s">
+                中小企業の成長を支援する実践的なコンサルティング
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate__animated animate__fadeInUp animate__delay-2s">
+                <a href="#services" class="bg-white text-primary-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-primary-50 transition">
+                    サービスを見る
+                </a>
+                <a href="#contact" class="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-primary-600 transition">
+                    お問い合わせ
+                </a>
+            </div>
+        </div>
+
+        <!-- スクロールダウンインジケーター -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+    </header>
+
+    <!-- 私たちについて -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">私たちについて</h2>
+                <div class="w-24 h-1 bg-primary-600 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Power PLUSは、経営とITの両面から企業の課題解決を支援します
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+                         alt="データ分析"
+                         class="rounded-lg shadow-2xl"
+                         loading="lazy"
+                         decoding="async">
+                </div>
+
+                <div data-aos="fade-left">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-6">
+                        企業の成長を加速させる総合支援
+                    </h3>
+                    <p class="text-lg text-gray-600 mb-4 leading-relaxed">
+                        私たちは、経営課題を抱える中小企業の皆様に寄り添い、実践的なソリューションを提供しています。
+                    </p>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        経営戦略からIT活用、マーケティングまで、幅広い分野で専門的なコンサルティングを行い、
+                        お客様のビジネスを持続的な成長へと導きます。
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600 flex-shrink-0 mt-1"><polyline points="20 6 9 17 4 12"/></svg>
+                            <p class="text-gray-700">実践的で成果にコミットするアプローチ</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600 flex-shrink-0 mt-1"><polyline points="20 6 9 17 4 12"/></svg>
+                            <p class="text-gray-700">経営とITの両面からの包括的支援</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600 flex-shrink-0 mt-1"><polyline points="20 6 9 17 4 12"/></svg>
+                            <p class="text-gray-700">中小企業の特性に合わせたカスタマイズ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- サービス -->
+    <section id="services" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">サービス</h2>
+                <div class="w-24 h-1 bg-primary-600 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    企業の成長を支える4つの主要サービス
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- サービスカード1 -->
+                <div class="service-card bg-white rounded-xl shadow-lg p-8 border border-gray-100 cursor-pointer transition-all hover:shadow-2xl hover:-translate-y-2"
+                     data-aos="fade-up"
+                     data-aos-delay="100"
+                     data-modal-trigger
+                     data-modal-id="modal-consulting">
+                    <div class="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">経営コンサルティング</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        経営戦略の立案から実行まで、企業の持続的成長をサポートします。現状分析から課題抽出、改善施策の提案まで一貫して支援。
+                    </p>
+                </div>
+
+                <!-- サービスカード2 -->
+                <div class="service-card bg-white rounded-xl shadow-lg p-8 border border-gray-100 cursor-pointer transition-all hover:shadow-2xl hover:-translate-y-2"
+                     data-aos="fade-up"
+                     data-aos-delay="200"
+                     data-modal-trigger
+                     data-modal-id="modal-it">
+                    <div class="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">IT戦略立案</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        デジタル化時代に対応したIT戦略を策定。業務効率化からDX推進まで、テクノロジーを活用した競争力強化を実現します。
+                    </p>
+                </div>
+
+                <!-- サービスカード3 -->
+                <div class="service-card bg-white rounded-xl shadow-lg p-8 border border-gray-100 cursor-pointer transition-all hover:shadow-2xl hover:-translate-y-2"
+                     data-aos="fade-up"
+                     data-aos-delay="300"
+                     data-modal-trigger
+                     data-modal-id="modal-solution">
+                    <div class="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">課題解決支援</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        企業が直面する様々な課題に対し、実践的なソリューションを提供。問題の本質を見極め、最適な解決策を導き出します。
+                    </p>
+                </div>
+
+                <!-- サービスカード4 -->
+                <div class="service-card bg-white rounded-xl shadow-lg p-8 border border-gray-100 cursor-pointer transition-all hover:shadow-2xl hover:-translate-y-2"
+                     data-aos="fade-up"
+                     data-aos-delay="400"
+                     data-modal-trigger
+                     data-modal-id="modal-growth">
+                    <div class="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">マーケティングサポート</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        市場分析から販売促進まで、効果的なマーケティング戦略を構築。顧客獲得と売上向上を実現するための施策を提案します。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 強み -->
+    <section id="strengths" class="py-20 bg-gradient-to-br from-primary-50 to-accent-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">私たちの強み</h2>
+                <div class="w-24 h-1 bg-primary-600 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Power PLUSが選ばれる理由
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-8 shadow-lg" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-primary-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-6">
+                            01
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">実践的アプローチ</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            理論だけでなく、現場で実践できる具体的な施策を提案。即効性のある改善策で、確実な成果につなげます。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 shadow-lg" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-primary-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-6">
+                            02
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">包括的支援</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            経営、IT、マーケティングを統合的に支援。部分最適ではなく、全体最適を追求した提案を行います。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 shadow-lg" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-primary-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-6">
+                            03
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">中小企業特化</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            中小企業の特性を深く理解。限られたリソースでも最大限の効果を発揮できる戦略を提供します。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- アプローチ -->
+    <section id="approach" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">コンサルティングの流れ</h2>
+                <div class="w-24 h-1 bg-primary-600 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    お客様の成功までの5つのステップ
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-8">
+                    <!-- ステップ1 -->
+                    <div class="flex gap-6 items-start" data-aos="fade-right">
+                        <div class="flex-shrink-0 w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                            1
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">ヒアリング・現状分析</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                お客様の現状や課題、目標を詳しくヒアリング。企業の強みや弱み、市場環境を分析し、課題の本質を見極めます。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- ステップ2 -->
+                    <div class="flex gap-6 items-start" data-aos="fade-right" data-aos-delay="100">
+                        <div class="flex-shrink-0 w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                            2
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">戦略立案</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                分析結果をもとに、最適な戦略を策定。短期・中期・長期の視点で、実現可能性の高い施策を提案します。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- ステップ3 -->
+                    <div class="flex gap-6 items-start" data-aos="fade-right" data-aos-delay="200">
+                        <div class="flex-shrink-0 w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                            3
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">実行支援</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                策定した戦略を実行に移すための具体的な支援を提供。必要に応じて、実行プロセスにも伴走します。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- ステップ4 -->
+                    <div class="flex gap-6 items-start" data-aos="fade-right" data-aos-delay="300">
+                        <div class="flex-shrink-0 w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                            4
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">モニタリング・改善</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                施策の進捗や成果を定期的にモニタリング。PDCAサイクルを回し、継続的な改善を実現します。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- ステップ5 -->
+                    <div class="flex gap-6 items-start" data-aos="fade-right" data-aos-delay="400">
+                        <div class="flex-shrink-0 w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                            5
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">成果の定着・次のステップへ</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                成果を組織に定着させ、自走できる体制を構築。次なる成長ステージへの移行をサポートします。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 実績・事例 -->
+    <section id="case-studies" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">支援実績</h2>
+                <div class="w-24 h-1 bg-primary-600 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    様々な業界の企業を支援してきました
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-8 shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80"
+                         alt="製造業の改善事例"
+                         class="w-full h-48 object-cover rounded-lg mb-6"
+                         loading="lazy"
+                         decoding="async">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">製造業A社</h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        生産管理システムの導入支援により、業務効率が40%向上。在庫管理の最適化で、コスト削減も実現しました。
+                    </p>
+                    <div class="flex items-center gap-2 text-primary-600 font-semibold">
+                        <span>業務効率 40%向上</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=800&q=80"
+                         alt="小売業の売上向上事例"
+                         class="w-full h-48 object-cover rounded-lg mb-6"
+                         loading="lazy"
+                         decoding="async">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">小売業B社</h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        デジタルマーケティング戦略の策定・実行支援で、オンライン売上が2倍に。顧客基盤の拡大に成功しました。
+                    </p>
+                    <div class="flex items-center gap-2 text-primary-600 font-semibold">
+                        <span>売上 200%増加</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80"
+                         alt="サービス業の業務改善事例"
+                         class="w-full h-48 object-cover rounded-lg mb-6"
+                         loading="lazy"
+                         decoding="async">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">サービス業C社</h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        経営戦略の見直しと業務プロセスの改善により、収益性が30%向上。持続可能な成長基盤を構築しました。
+                    </p>
+                    <div class="flex items-center gap-2 text-primary-600 font-semibold">
+                        <span>収益性 30%向上</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- お問い合わせ -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">お問い合わせ</h2>
+                <div class="w-24 h-1 bg-primary-600 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    お気軽にご相談ください。初回相談は無料です
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- お問い合わせフォーム -->
+                    <div data-aos="fade-right">
+                        <form id="contact-form" action="https://ssgform.com/s/2UKFj9xXm4pi" method="POST" class="space-y-6">
+                            <!-- ハニーポット（スパム対策）- 人間には見えないフィールド -->
+                            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+                            <!-- タイムベース検証（スパム対策）-->
+                            <input type="hidden" name="_form_loaded_at" id="form_loaded_at">
+
+                            <!-- テストモード -->
+                            <input type="hidden" name="_test_mode" value="true">
+
+                            <div>
+                                <label for="name" class="block text-gray-700 font-semibold mb-2">お名前 <span class="text-red-500">*</span></label>
+                                <input type="text" id="name" name="お名前" required
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                       placeholder="山田太郎">
+                            </div>
+
+                            <div>
+                                <label for="company" class="block text-gray-700 font-semibold mb-2">会社名</label>
+                                <input type="text" id="company" name="会社名"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                       placeholder="株式会社サンプル">
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-gray-700 font-semibold mb-2">メールアドレス <span class="text-red-500">*</span></label>
+                                <input type="email" id="email" name="メールアドレス" required
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                       placeholder="example@company.com">
+                            </div>
+
+                            <div>
+                                <label for="phone" class="block text-gray-700 font-semibold mb-2">電話番号</label>
+                                <input type="tel" id="phone" name="電話番号"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                       placeholder="090-1234-5678">
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-gray-700 font-semibold mb-2">お問い合わせ内容 <span class="text-red-500">*</span></label>
+                                <textarea id="message" name="お問い合わせ内容" rows="5" required
+                                          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                          placeholder="ご相談内容をご記入ください"></textarea>
+                            </div>
+
+                            <button type="submit"
+                                    class="w-full bg-primary-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-primary-700 transition">
+                                送信する
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- 連絡先情報 -->
+                    <div data-aos="fade-left">
+                        <div class="bg-gray-50 rounded-xl p-8 h-full">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-6">連絡先情報</h3>
+
+                            <div class="space-y-6">
+                                <div class="flex items-start gap-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600 flex-shrink-0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 mb-1">所在地</h4>
+                                        <p class="text-gray-600">神奈川県横浜市青葉区美しが丘4-48-5ハイツ松島101号</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600 flex-shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 mb-1">電話</h4>
+                                        <p class="text-gray-600">090-5416-9268</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600 flex-shrink-0"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 mb-1">メール</h4>
+                                        <p class="text-gray-600">info@powerplus-net.com</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600 flex-shrink-0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 mb-1">営業時間</h4>
+                                        <p class="text-gray-600">平日 9:00 - 18:00</p>
+                                        <p class="text-gray-500 text-sm mt-1">（土日祝日は休業）</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 pt-8 border-t border-gray-200">
+                                <p class="text-gray-600 leading-relaxed">
+                                    初回相談は無料です。お気軽にお問い合わせください。お問い合わせから24時間以内にご返信いたします。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- モーダルウィンドウ -->
+    <div id="modal-overlay" class="fixed inset-0 z-50 hidden modal-overlay">
+        <div class="flex items-center justify-center min-h-screen px-4 py-8">
+            <div id="modal-box" class="bg-white rounded-xl shadow-2xl w-full max-w-4xl mx-auto relative modal-content">
+                <!-- 閉じるボタン -->
+                <button id="modal-close" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors z-10 bg-white rounded-full p-2 shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+
+                <!-- モーダルコンテンツ -->
+                <div id="modal-body" class="p-8 md:p-12">
+                    <!-- ここに動的コンテンツが挿入されます -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        <span class="text-2xl font-bold">Power PLUS</span>
+                    </div>
+                    <p class="text-gray-400">
+                        経営とITの最適化パートナー<br>
+                        企業の成長を支援します
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4">クイックリンク</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition">私たちについて</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition">サービス</a></li>
+                        <li><a href="#strengths" class="text-gray-400 hover:text-white transition">強み</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">お問い合わせ</a></li>
+                        <li><a href="http://www.powerplus-net.com/HP01.html" class="text-gray-400 hover:text-white transition" target="_blank" rel="noopener noreferrer">3X3マトリクス思考法</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4">お問い合わせ</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>〒 神奈川県横浜市</li>
+                        <li>TEL: 090-5416-9268</li>
+                        <li>Email: info@powerplus-net.com</li>
+                        <li><a href="profile.html" class="text-gray-400 hover:text-white transition">運営者について</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Power PLUS. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS初期化
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // ナビゲーションスクロール効果
+        const navbar = document.getElementById('navbar');
+        const navLinks = navbar.querySelectorAll('a');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        window.addEventListener('scroll', () => {
+            // スクロール時にモバイルメニューを閉じる
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+                // スクロール時のリンク色を変更
+                navLinks.forEach(link => {
+                    if (!link.classList.contains('bg-primary-600')) {
+                        link.classList.remove('text-white');
+                        link.classList.add('text-gray-800');
+                    }
+                });
+            } else {
+                navbar.classList.remove('scrolled');
+                // トップに戻った時のリンク色を元に戻す
+                navLinks.forEach(link => {
+                    if (!link.classList.contains('bg-primary-600')) {
+                        link.classList.remove('text-gray-800');
+                        link.classList.add('text-white');
+                    }
+                });
+            }
+        });
+
+        // モバイルメニュートグル
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // モバイルメニューのリンククリック時にメニューを閉じる
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // タイムベース検証のためのタイムスタンプ設定
+        // ページ読み込み時刻を記録（スパム対策）
+        document.addEventListener('DOMContentLoaded', () => {
+            const formLoadedAtField = document.getElementById('form_loaded_at');
+            if (formLoadedAtField) {
+                formLoadedAtField.value = Date.now();
+            }
+        });
+
+        // フォーム送信処理（SSGFormが処理するため、特別な処理は不要）
+        // SSGFormが自動的にフォームを送信し、結果ページにリダイレクトします
+
+        // スムーススクロール（フォールバック）
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // モーダル機能
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalBox = document.getElementById('modal-box');
+        const modalBody = document.getElementById('modal-body');
+        const modalClose = document.getElementById('modal-close');
+
+        // モーダルコンテンツのデータ
+        const modalContents = {
+            'modal-consulting': {
+                title: '経営コンサルティング',
+                icon: '✏️',
+                color: 'primary-600',
+                sections: [
+                    {
+                        heading: '経営戦略の立案',
+                        content: '企業のビジョンとミッションに基づき、具体的な成長戦略を策定します。市場分析、競合分析、SWOT分析などのフレームワークを活用し、データに基づいた戦略立案を行います。短期・中期・長期の目標設定から、実行計画の策定まで一貫してサポートします。'
+                    },
+                    {
+                        heading: '業務プロセス改善',
+                        content: '現状の業務フローを可視化し、ボトルネックや非効率な部分を特定します。業務の標準化、自動化、アウトソーシングなど、最適な改善策を提案。生産性向上とコスト削減を両立させ、企業の競争力強化に貢献します。'
+                    },
+                    {
+                        heading: '組織開発支援',
+                        content: '組織構造の最適化、人材育成、企業文化の醸成など、組織力強化を多角的に支援します。リーダーシップ開発プログラム、チームビルディング、評価制度設計など、人と組織の成長を促進する施策を提供します。'
+                    },
+                    {
+                        heading: '実行支援とモニタリング',
+                        content: '戦略立案だけでなく、実行フェーズまで伴走します。KPI設定、進捗管理、定期レビューを通じて、確実な成果実現をサポート。PDCAサイクルを回しながら、継続的な改善を推進します。'
+                    }
+                ]
+            },
+            'modal-it': {
+                title: 'IT戦略立案',
+                icon: '💻',
+                color: 'primary-600',
+                sections: [
+                    {
+                        heading: 'デジタル化戦略',
+                        content: 'ビジネスプロセスのデジタル化を包括的に支援します。紙ベースの業務からクラウドシステムへの移行、ペーパーレス化、電子承認フローの導入など、段階的なデジタル化を実現。業務効率の大幅な向上とコスト削減を支援します。'
+                    },
+                    {
+                        heading: 'DX推進支援',
+                        content: 'デジタルトランスフォーメーション（DX）の企画から実行まで一貫してサポートします。ビジネスモデルの変革、顧客体験の向上、新規サービス創出など、テクノロジーを活用した事業変革を推進。DX人材の育成も併せて支援します。'
+                    },
+                    {
+                        heading: 'システム導入支援',
+                        content: 'ERP、CRM、SFA、会計システムなど、業務システムの選定から導入までを支援します。要件定義、ベンダー選定、カスタマイズ、データ移行、ユーザートレーニングまで、プロジェクト全体をマネジメント。確実なシステム立ち上げを実現します。'
+                    },
+                    {
+                        heading: 'ITガバナンス構築',
+                        content: 'IT投資の最適化、セキュリティポリシー策定、IT資産管理など、ITガバナンス体制の構築を支援します。情報セキュリティ対策、BCP（事業継続計画）策定、コンプライアンス対応など、リスク管理の強化も併せて実施します。'
+                    }
+                ]
+            },
+            'modal-solution': {
+                title: '課題解決支援',
+                icon: '💡',
+                color: 'primary-600',
+                sections: [
+                    {
+                        heading: '課題の可視化と分析',
+                        content: '企業が抱える課題を表面的な問題だけでなく、根本原因まで掘り下げて分析します。ヒアリング、データ分析、現場観察などを通じて、真の課題を特定。優先順位をつけた解決策のロードマップを作成します。'
+                    },
+                    {
+                        heading: '収益改善施策',
+                        content: '売上向上とコスト削減の両面から、収益性改善を支援します。価格戦略の見直し、新規顧客開拓、既存顧客深耕、コスト構造の最適化など、具体的な施策を提案・実行。短期的な成果と中長期的な成長の両立を目指します。'
+                    },
+                    {
+                        heading: '業務効率化',
+                        content: '業務フローの見直し、ITツールの導入、アウトソーシングの活用など、多角的なアプローチで業務効率化を実現します。RPAやAIなど最新テクノロジーも活用し、劇的な生産性向上を支援。従業員の働き方改革にも貢献します。'
+                    },
+                    {
+                        heading: '新規事業開発',
+                        content: '既存事業の強みを活かした新規事業の企画・立ち上げを支援します。市場調査、事業計画策定、プロトタイプ開発、テストマーケティングまで、リーンスタートアップの手法を活用し、リスクを抑えた事業開発を実現します。'
+                    }
+                ]
+            },
+            'modal-growth': {
+                title: 'マーケティングサポート',
+                icon: '📈',
+                color: 'primary-600',
+                sections: [
+                    {
+                        heading: 'マーケティング戦略立案',
+                        content: '市場分析、顧客セグメンテーション、ポジショニング戦略など、体系的なマーケティング戦略を策定します。3C分析、STP分析、4P分析などのフレームワークを活用し、効果的なマーケティング施策を設計。ROIを重視した実践的な戦略を提案します。'
+                    },
+                    {
+                        heading: 'デジタルマーケティング',
+                        content: 'Webサイト最適化、SEO対策、リスティング広告、SNSマーケティング、メールマーケティングなど、デジタルチャネルを活用した集客施策を展開します。データ分析に基づくPDCAサイクルを回し、継続的に成果を向上させます。'
+                    },
+                    {
+                        heading: 'ブランディング支援',
+                        content: '企業やサービスのブランド価値を高めるための戦略を策定します。ブランドアイデンティティの確立、ブランドストーリーの構築、ビジュアルアイデンティティの開発など、一貫したブランド体験の創出を支援します。'
+                    },
+                    {
+                        heading: '営業力強化',
+                        content: '営業プロセスの最適化、営業ツールの導入、営業研修など、営業組織の強化を総合的に支援します。SFA/CRMの活用による案件管理の高度化、営業スキルトレーニング、インセンティブ設計など、売上拡大を実現する施策を提供します。'
+                    }
+                ]
+            }
+        };
+
+        // モーダルを開く関数
+        function openModal(modalId) {
+            const content = modalContents[modalId];
+            if (!content) return;
+
+            // モーダルコンテンツを生成
+            let html = `
+                <div class="flex items-start mb-8">
+                    <div class="text-5xl mr-6">${content.icon}</div>
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">${content.title}</h2>
+                        <p class="text-gray-600">詳細情報</p>
+                    </div>
+                </div>
+            `;
+
+            content.sections.forEach((section, index) => {
+                html += `
+                    <div class="mb-8 ${index < content.sections.length - 1 ? 'border-b border-gray-200 pb-8' : ''}">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">${section.heading}</h3>
+                        <p class="text-lg text-gray-700 leading-relaxed">${section.content}</p>
+                    </div>
+                `;
+            });
+
+            modalBody.innerHTML = html;
+
+            // モーダルを表示（フェードインアニメーション）
+            modalOverlay.classList.remove('hidden', 'modal-fade-out');
+            modalOverlay.classList.add('modal-fade-in');
+            modalBox.classList.remove('modal-scale-out');
+            modalBox.classList.add('modal-scale-in');
+
+            // bodyのスクロールを無効化
+            document.body.style.overflow = 'hidden';
+        }
+
+        // モーダルを閉じる関数
+        function closeModal() {
+            // フェードアウトアニメーション
+            modalOverlay.classList.remove('modal-fade-in');
+            modalOverlay.classList.add('modal-fade-out');
+            modalBox.classList.remove('modal-scale-in');
+            modalBox.classList.add('modal-scale-out');
+
+            // アニメーション完了後に非表示
+            setTimeout(() => {
+                modalOverlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        // モーダルトリガーの設定
+        document.querySelectorAll('[data-modal-trigger]').forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                const modalId = trigger.getAttribute('data-modal-id');
+                openModal(modalId);
+            });
+        });
+
+        // 閉じるボタン
+        modalClose.addEventListener('click', closeModal);
+
+        // オーバーレイのクリックで閉じる
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // ESCキーで閉じる
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modalOverlay.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
