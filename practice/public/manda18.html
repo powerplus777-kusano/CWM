@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="3X3マトリクス思考法 - 業務分析フロー 気づきと問いで業務を可視化">
+    <meta name="keywords" content="業務分析, 3X3マトリクス, 思考法, 問題解決, フロー">
+    <title>3X3マトリクス思考法 - 業務分析フロー</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📊%3C/text%3E%3C/svg%3E">
+
+    <!-- Tailwind CSS v4.1 CDN -->
+    <script src="https://cdn.tailwindcss.com?v=4.1"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        accent: {
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            200: '#fbcfe8',
+                            300: '#f9a8d4',
+                            400: '#f472b6',
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                            800: '#9d174d',
+                            900: '#831843',
+                        },
+                        success: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                        },
+                        warning: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                        },
+                        info: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Animate.css v4.1.1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* A4サイズ設定（印刷用） - 前後左右20mmの余白で最適化 */
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .a4-container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .matrix-container {
+                page-break-inside: avoid;
+            }
+
+            /* 印刷用のヘッダー調整 */
+            header {
+                margin-bottom: 8mm !important;
+            }
+
+            header h1 {
+                font-size: 24pt !important;
+                margin-bottom: 2mm !important;
+            }
+
+            header p {
+                font-size: 11pt !important;
+            }
+
+            /* マトリクスグリッドの調整 */
+            .matrix-grid {
+                gap: 3mm !important;
+                margin-bottom: 0 !important;
+            }
+
+            /* セルのサイズとフォント調整 */
+            .matrix-cell {
+                padding: 3mm !important;
+                min-height: auto !important;
+                page-break-inside: avoid;
+            }
+
+            .matrix-cell h3 {
+                font-size: 11pt !important;
+                margin-bottom: 2mm !important;
+                padding-bottom: 1mm !important;
+            }
+
+            .matrix-cell ul,
+            .matrix-cell div {
+                font-size: 9pt !important;
+                line-height: 1.3 !important;
+            }
+
+            .matrix-cell li {
+                margin-bottom: 1mm !important;
+            }
+
+            /* 中央セルの調整 */
+            .center-cell {
+                padding: 4mm !important;
+            }
+
+            .center-cell h2 {
+                font-size: 20pt !important;
+                margin-bottom: 1mm !important;
+            }
+
+            .center-cell p {
+                font-size: 14pt !important;
+            }
+
+            /* フッターの調整 */
+            footer {
+                margin-top: 4mm !important;
+            }
+
+            footer + div {
+                margin-top: 2mm !important;
+                font-size: 8pt !important;
+            }
+        }
+
+        /* 画面表示用のA4サイズシミュレーション */
+        @media screen {
+            .a4-container {
+                max-width: 210mm;
+                min-height: 297mm;
+                margin: 0 auto;
+                background: white;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* マトリクスセルのスタイル */
+        .matrix-cell {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+            min-height: 180px;
+        }
+
+        .matrix-cell:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6;
+            z-index: 10;
+        }
+
+        /* 中央セルの特別スタイル */
+        .center-cell {
+            background: linear-gradient(135deg, #3b82f6 0%, #ec4899 100%);
+            color: white;
+            min-height: 180px;
+        }
+
+        .center-cell:hover {
+            transform: scale(1.05);
+        }
+
+        /* リストスタイル */
+        .matrix-cell ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .matrix-cell li {
+            position: relative;
+            padding-left: 1.2em;
+            margin-bottom: 0.3em;
+            line-height: 1.4;
+        }
+
+        .matrix-cell li:before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-size: 0.7em;
+        }
+
+        /* レスポンシブグリッド */
+        @media (max-width: 768px) {
+            .matrix-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .matrix-cell {
+                min-height: auto !important;
+            }
+        }
+
+        /* フォントサイズの調整 */
+        .matrix-cell h3 {
+            font-size: 1rem;
+        }
+
+        .matrix-cell ul, .matrix-cell p {
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+
+    <!-- メインコンテナ（A4サイズ） -->
+    <div class="a4-container py-6 px-4">
+
+        <!-- ヘッダー -->
+        <header class="text-center mb-6 animate__animated animate__fadeInDown">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+                業務分析フロー
+            </h1>
+            <p class="text-base text-gray-600">3×3マトリクス思考法で可視化する業務分析プロセス</p>
+        </header>
+
+        <!-- 3×3マトリクス -->
+        <div class="matrix-container">
+            <div class="matrix-grid grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+
+                <!-- 1行目・1列目：目的の明確化 -->
+                <div class="matrix-cell bg-success-50 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-success-700 mb-3 border-b-2 border-success-300 pb-2">
+                        目的の明確化
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>何をやりたいのか？</li>
+                        <li>何の為にやるのか？</li>
+                        <li>何故やるのか？</li>
+                        <li>困っていること</li>
+                        <li>問題意識</li>
+                    </ul>
+                </div>
+
+                <!-- 1行目・2列目：現状把握と分析 -->
+                <div class="matrix-cell bg-success-50 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-success-700 mb-3 border-b-2 border-success-300 pb-2">
+                        現状把握と分析
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>現在の仕事の流れを分析しフロー化</li>
+                        <li>問題点の洗い出し</li>
+                        <li>無理／無駄／ムラ</li>
+                    </ul>
+                </div>
+
+                <!-- 1行目・3列目：業務に関わる環境変数の洗い出し -->
+                <div class="matrix-cell bg-warning-50 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-warning-700 mb-3 border-b-2 border-warning-300 pb-2">
+                        業務に関わる環境変数の洗い出し
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>業務手順や流れを一つ一つ細分化しそれを短い言葉として定義しパラメータ化する</li>
+                        <li>優先順位化</li>
+                        <li>選択</li>
+                        <li>削除</li>
+                    </ul>
+                </div>
+
+                <!-- 2行目・1列目：フィードバック -->
+                <div class="matrix-cell bg-warning-50 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-warning-700 mb-3 border-b-2 border-warning-300 pb-2">
+                        フィードバック
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>学習と習慣化</li>
+                        <li>新しい問題点の発見</li>
+                        <li>常に疑問を持つこと</li>
+                        <li>自分の頭で考えること</li>
+                    </ul>
+                </div>
+
+                <!-- 2行目・2列目：中央セル（メインテーマ） -->
+                <div class="matrix-cell center-cell rounded-lg p-6 shadow-lg flex flex-col items-center justify-center animate__animated animate__zoomIn">
+                    <div class="text-center">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-2">業務分析フロー</h2>
+                        <p class="text-lg md:text-xl font-semibold">（気づきと問い）</p>
+                    </div>
+                </div>
+
+                <!-- 2行目・3列目：業務テンプレートのデザインとフォームの作成 -->
+                <div class="matrix-cell bg-warning-50 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-warning-700 mb-3 border-b-2 border-warning-300 pb-2">
+                        業務テンプレートのデザインとフォームの作成
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>フィールドの作成</li>
+                        <li>入力フォームの作成</li>
+                        <li>一覧フォームの作成</li>
+                        <li>参照フォームの作成</li>
+                        <li>ユーザI/Fのデザイン</li>
+                    </ul>
+                </div>
+
+                <!-- 3行目・1列目：告知・教育 -->
+                <div class="matrix-cell bg-primary-100 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-300 pb-2">
+                        告知・教育
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>対メーカー</li>
+                        <li>対ユーザー</li>
+                        <li>対社内</li>
+                        <li>運用教育</li>
+                        <li>導入／運用支援</li>
+                    </ul>
+                </div>
+
+                <!-- 3行目・2列目：検証 -->
+                <div class="matrix-cell bg-info-50 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-info-700 mb-3 border-b-2 border-info-300 pb-2">
+                        検証
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>以前と何がどれだけ変わったか？</li>
+                        <li>新しい問題点の発見</li>
+                    </ul>
+                </div>
+
+                <!-- 3行目・3列目：トライ＆エラー -->
+                <div class="matrix-cell bg-info-50 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-info-700 mb-3 border-b-2 border-info-300 pb-2">
+                        トライ＆エラー
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>試験運用</li>
+                        <li>検証</li>
+                        <li>目的を達成できるか？</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- フッター（戻るリンク） -->
+        <footer class="text-center mt-6 no-print">
+            <a href="../matrix33.html" class="inline-block bg-primary-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-primary-700 transition transform hover:scale-105 shadow-md text-sm">
+                ← 戻る
+            </a>
+        </footer>
+
+        <!-- コピーライト -->
+        <div class="text-center mt-4 text-gray-500 text-xs">
+            <p>&copy; 2025 Power PLUS - 3×3マトリクス思考法</p>
+        </div>
+
+    </div>
+
+    <!-- AOS (Animate On Scroll) v2.3 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS初期化
+        AOS.init({
+            duration: 600,
+            once: true,
+            offset: 50,
+            easing: 'ease-in-out'
+        });
+    </script>
+
+</body>
+</html>

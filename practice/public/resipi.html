@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ナスの具体的なレシピ8種類 - 揚げ浸しから麻婆茄子まで">
+    <meta name="keywords" content="ナス, 茄子, レシピ, 料理, 作り方, 簡単">
+    <title>ナスの具体的なレシピ8種類</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍆%3C/text%3E%3C/svg%3E">
+
+    <!-- Tailwind CSS v4.1 CDN -->
+    <script src="https://cdn.tailwindcss.com?v=4.1"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#faf5ff',
+                            100: '#f3e8ff',
+                            200: '#e9d5ff',
+                            300: '#d8b4fe',
+                            400: '#c084fc',
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            700: '#7e22ce',
+                            800: '#6b21a8',
+                            900: '#581c87',
+                        },
+                        accent: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Animate.css v4.1.1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* スティッキーナビゲーション */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+
+        nav.transparent {
+            background: transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* レシピカードのスタイル */
+        .recipe-card {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-color: #9333ea;
+        }
+
+        /* レシピ絵文字のスタイル */
+        .recipe-emoji {
+            font-size: 4rem;
+            line-height: 1;
+            padding: 0.5rem;
+        }
+
+        /* 印刷用スタイル */
+        @media print {
+            nav, .no-print {
+                display: none !important;
+            }
+
+            .recipe-card {
+                page-break-inside: avoid;
+                margin-bottom: 10mm;
+            }
+
+            body {
+                background: white;
+            }
+        }
+
+        /* リストスタイル */
+        .ingredient-list li::before {
+            content: "✓";
+            color: #22c55e;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #9333ea;
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+
+    <!-- スティッキーナビゲーション -->
+    <nav id="navbar" class="transparent py-4 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gray-800">🍆 ナスレシピ集</h1>
+            <div class="flex gap-4">
+                <a href="nasu.html" class="text-sm font-semibold text-gray-700 hover:text-primary-600 transition">← 調理方法一覧</a>
+                <a href="#top" class="text-sm font-semibold text-gray-700 hover:text-primary-600 transition">トップへ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- メインコンテナ -->
+    <div class="max-w-7xl mx-auto px-4 py-8" id="top">
+
+        <!-- ヒーローセクション -->
+        <header class="text-center mb-12 animate__animated animate__fadeInDown">
+            <div class="text-6xl mb-4">🍆</div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+                ナスの具体的なレシピ 8選
+            </h1>
+            <p class="text-lg text-gray-600">30本のナスを美味しく消費する実践的なレシピ集</p>
+        </header>
+
+        <!-- レシピグリッド -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+
+            <!-- レシピ1: 揚げ浸し -->
+            <article class="recipe-card bg-white rounded-xl p-6 shadow-md animate__animated animate__fadeInUp" id="recipe1">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-2xl font-bold text-primary-700">ナスの揚げ浸し</h2>
+                    <div class="recipe-emoji">🍆</div>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-accent-600 mr-2">📝</span>材料（4人分）
+                    </h3>
+                    <ul class="ingredient-list text-sm text-gray-700 space-y-1 list-none">
+                        <li>ナス 6本</li>
+                        <li>揚げ油 適量</li>
+                        <li>だし汁 300ml</li>
+                        <li>醤油 大さじ3</li>
+                        <li>みりん 大さじ3</li>
+                        <li>砂糖 大さじ1</li>
+                        <li>生姜（すりおろし） 1片</li>
+                        <li>大葉・ねぎ 適量</li>
+                    </ul>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-primary-600 mr-2">👨‍🍳</span>作り方
+                    </h3>
+                    <ol class="step-list text-sm text-gray-700 space-y-2 list-none">
+                        <li>ナスはヘタを取り、縦半分に切って皮に格子状の切り込みを入れる</li>
+                        <li>だし汁、醤油、みりん、砂糖、生姜を混ぜて浸し汁を作る</li>
+                        <li>170℃の油でナスを3-4分揚げる</li>
+                        <li>揚げたてのナスを熱いうちに浸し汁に漬ける</li>
+                        <li>30分以上冷蔵庫で冷やして完成。大葉とねぎを添える</li>
+                    </ol>
+                </div>
+
+                <div class="bg-accent-50 p-3 rounded-lg">
+                    <p class="text-sm text-gray-700"><strong class="text-accent-700">💡 ポイント:</strong> 揚げたてを熱いうちに漬けることで味がしっかり染み込みます。冷蔵庫で3-4日保存可能。</p>
+                </div>
+            </article>
+
+            <!-- レシピ2: 麻婆茄子 -->
+            <article class="recipe-card bg-white rounded-xl p-6 shadow-md animate__animated animate__fadeInUp" id="recipe2">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-2xl font-bold text-primary-700">麻婆茄子</h2>
+                    <div class="recipe-emoji">🌶️</div>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-accent-600 mr-2">📝</span>材料（4人分）
+                    </h3>
+                    <ul class="ingredient-list text-sm text-gray-700 space-y-1 list-none">
+                        <li>ナス 5本</li>
+                        <li>豚ひき肉 200g</li>
+                        <li>長ネギ 1本</li>
+                        <li>にんにく・生姜 各1片</li>
+                        <li>豆板醤 小さじ1-2</li>
+                        <li>甜麺醤 大さじ1</li>
+                        <li>鶏ガラスープ 150ml</li>
+                        <li>醤油 大さじ1</li>
+                        <li>水溶き片栗粉 適量</li>
+                        <li>ごま油 小さじ1</li>
+                    </ul>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-primary-600 mr-2">👨‍🍳</span>作り方
+                    </h3>
+                    <ol class="step-list text-sm text-gray-700 space-y-2 list-none">
+                        <li>ナスは乱切りにして水にさらし、水気を切る</li>
+                        <li>フライパンに油を熱し、ナスを炒めて一旦取り出す</li>
+                        <li>同じフライパンでひき肉を炒め、にんにく、生姜、豆板醤を加える</li>
+                        <li>甜麺醤、鶏ガラスープ、醤油を加えて煮立てる</li>
+                        <li>ナスを戻し入れ、水溶き片栗粉でとろみをつけ、ごま油で香り付けして完成</li>
+                    </ol>
+                </div>
+
+                <div class="bg-accent-50 p-3 rounded-lg">
+                    <p class="text-sm text-gray-700"><strong class="text-accent-700">💡 ポイント:</strong> ナスは一度炒めて取り出すことで、色鮮やかに仕上がります。辛さは豆板醤の量で調整。</p>
+                </div>
+            </article>
+
+            <!-- レシピ3: 焼きナスの生姜醤油がけ -->
+            <article class="recipe-card bg-white rounded-xl p-6 shadow-md animate__animated animate__fadeInUp" id="recipe3">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-2xl font-bold text-primary-700">焼きナスの生姜醤油がけ</h2>
+                    <div class="recipe-emoji">🔥</div>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-accent-600 mr-2">📝</span>材料（4人分）
+                    </h3>
+                    <ul class="ingredient-list text-sm text-gray-700 space-y-1 list-none">
+                        <li>ナス 6本</li>
+                        <li>生姜（すりおろし） 2片</li>
+                        <li>醤油 大さじ2</li>
+                        <li>みりん 大さじ1</li>
+                        <li>ごま油 小さじ1</li>
+                        <li>かつお節 適量</li>
+                        <li>大葉・ねぎ 適量</li>
+                    </ul>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-primary-600 mr-2">👨‍🍳</span>作り方
+                    </h3>
+                    <ol class="step-list text-sm text-gray-700 space-y-2 list-none">
+                        <li>ナスはヘタを取り、フォークで数か所穴を開ける</li>
+                        <li>魚焼きグリルまたはコンロの直火で、皮が真っ黒になるまで焼く</li>
+                        <li>焼けたら冷水に取り、皮をむく</li>
+                        <li>食べやすい大きさに裂いて器に盛る</li>
+                        <li>生姜、醤油、みりん、ごま油を混ぜたタレをかけ、かつお節と薬味を添えて完成</li>
+                    </ol>
+                </div>
+
+                <div class="bg-accent-50 p-3 rounded-lg">
+                    <p class="text-sm text-gray-700"><strong class="text-accent-700">💡 ポイント:</strong> 直火で焼くことで香ばしさがアップ。皮をむいた焼きナスは冷凍保存も可能です。</p>
+                </div>
+            </article>
+
+            <!-- レシピ4: ナスの味噌炒め -->
+            <article class="recipe-card bg-white rounded-xl p-6 shadow-md animate__animated animate__fadeInUp" id="recipe4">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-2xl font-bold text-primary-700">ナスの味噌炒め</h2>
+                    <div class="recipe-emoji">🍳</div>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-accent-600 mr-2">📝</span>材料（4人分）
+                    </h3>
+                    <ul class="ingredient-list text-sm text-gray-700 space-y-1 list-none">
+                        <li>ナス 5本</li>
+                        <li>豚バラ肉 150g</li>
+                        <li>ピーマン 2個</li>
+                        <li>味噌 大さじ2</li>
+                        <li>砂糖 大さじ1</li>
+                        <li>酒 大さじ2</li>
+                        <li>みりん 大さじ1</li>
+                        <li>ごま油 大さじ1</li>
+                        <li>白ごま 適量</li>
+                    </ul>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-primary-600 mr-2">👨‍🍳</span>作り方
+                    </h3>
+                    <ol class="step-list text-sm text-gray-700 space-y-2 list-none">
+                        <li>ナスは乱切り、ピーマンは一口大に切る</li>
+                        <li>味噌、砂糖、酒、みりんを混ぜ合わせておく</li>
+                        <li>フライパンにごま油を熱し、豚肉を炒める</li>
+                        <li>ナスとピーマンを加えて炒める</li>
+                        <li>調味料を加えて全体に絡め、白ごまをふって完成</li>
+                    </ol>
+                </div>
+
+                <div class="bg-accent-50 p-3 rounded-lg">
+                    <p class="text-sm text-gray-700"><strong class="text-accent-700">💡 ポイント:</strong> ナスに油が染み込むので、ごま油でコクを出します。ご飯のおかずに最適。</p>
+                </div>
+            </article>
+
+            <!-- レシピ5: ナスの煮浸し -->
+            <article class="recipe-card bg-white rounded-xl p-6 shadow-md animate__animated animate__fadeInUp" id="recipe5">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-2xl font-bold text-primary-700">ナスの煮浸し</h2>
+                    <div class="recipe-emoji">🍲</div>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-accent-600 mr-2">📝</span>材料（4人分）
+                    </h3>
+                    <ul class="ingredient-list text-sm text-gray-700 space-y-1 list-none">
+                        <li>ナス 6本</li>
+                        <li>サラダ油 大さじ3</li>
+                        <li>だし汁 400ml</li>
+                        <li>醤油 大さじ3</li>
+                        <li>みりん 大さじ3</li>
+                        <li>砂糖 大さじ1</li>
+                        <li>生姜（千切り） 1片</li>
+                        <li>万能ねぎ 適量</li>
+                    </ul>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-primary-600 mr-2">👨‍🍳</span>作り方
+                    </h3>
+                    <ol class="step-list text-sm text-gray-700 space-y-2 list-none">
+                        <li>ナスはヘタを取り、縦半分に切って皮に切り込みを入れる</li>
+                        <li>フライパンに油を熱し、ナスの両面を焼き色がつくまで焼く</li>
+                        <li>だし汁、醤油、みりん、砂糖、生姜を加える</li>
+                        <li>落とし蓋をして中火で10-15分煮る</li>
+                        <li>火を止めて粗熱を取り、冷蔵庫で冷やして完成。万能ねぎを散らす</li>
+                    </ol>
+                </div>
+
+                <div class="bg-accent-50 p-3 rounded-lg">
+                    <p class="text-sm text-gray-700"><strong class="text-accent-700">💡 ポイント:</strong> 一度冷ますことで味が染み込みます。作り置きにも最適で3-4日保存可能。</p>
+                </div>
+            </article>
+
+            <!-- レシピ6: ナスの浅漬け -->
+            <article class="recipe-card bg-white rounded-xl p-6 shadow-md animate__animated animate__fadeInUp" id="recipe6">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-2xl font-bold text-primary-700">ナスの浅漬け</h2>
+                    <div class="recipe-emoji">🥒</div>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-accent-600 mr-2">📝</span>材料（10本分）
+                    </h3>
+                    <ul class="ingredient-list text-sm text-gray-700 space-y-1 list-none">
+                        <li>ナス 10本</li>
+                        <li>塩 大さじ2</li>
+                        <li>みょうばん 小さじ1/2（色止め用）</li>
+                        <li>赤唐辛子 1-2本</li>
+                        <li>昆布 5cm角1枚</li>
+                        <li>生姜（薄切り） 1片</li>
+                    </ul>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-primary-600 mr-2">👨‍🍳</span>作り方
+                    </h3>
+                    <ol class="step-list text-sm text-gray-700 space-y-2 list-none">
+                        <li>ナスは縦半分に切り、皮側に斜めの切り込みを入れる</li>
+                        <li>ボウルに水1リットル、塩、みょうばんを入れて混ぜる</li>
+                        <li>ナスを漬け込み、落とし蓋と重しをして2-3時間置く</li>
+                        <li>水気を絞り、保存容器に入れる</li>
+                        <li>赤唐辛子、昆布、生姜を加えて冷蔵庫で保存。翌日から食べごろ</li>
+                    </ol>
+                </div>
+
+                <div class="bg-accent-50 p-3 rounded-lg">
+                    <p class="text-sm text-gray-700"><strong class="text-accent-700">💡 ポイント:</strong> みょうばんを入れると鮮やかな色が保てます。冷蔵庫で5-7日保存可能。</p>
+                </div>
+            </article>
+
+            <!-- レシピ7: ナスのグラタン -->
+            <article class="recipe-card bg-white rounded-xl p-6 shadow-md animate__animated animate__fadeInUp" id="recipe7">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-2xl font-bold text-primary-700">ナスのグラタン</h2>
+                    <div class="recipe-emoji">🧀</div>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-accent-600 mr-2">📝</span>材料（4人分）
+                    </h3>
+                    <ul class="ingredient-list text-sm text-gray-700 space-y-1 list-none">
+                        <li>ナス 4本</li>
+                        <li>玉ねぎ 1個</li>
+                        <li>ひき肉 200g</li>
+                        <li>トマト缶 1缶（400g）</li>
+                        <li>にんにく 1片</li>
+                        <li>ホワイトソース 200ml</li>
+                        <li>ピザ用チーズ 100g</li>
+                        <li>パン粉 適量</li>
+                        <li>オリーブオイル 大さじ2</li>
+                    </ul>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-primary-600 mr-2">👨‍🍳</span>作り方
+                    </h3>
+                    <ol class="step-list text-sm text-gray-700 space-y-2 list-none">
+                        <li>ナスは1cm厚の輪切りにし、オリーブオイルで両面を焼く</li>
+                        <li>玉ねぎとにんにくをみじん切りにし、ひき肉と炒める</li>
+                        <li>トマト缶を加えて煮詰め、塩胡椒で味を調える</li>
+                        <li>グラタン皿にナス、ミートソース、ホワイトソースを重ねる</li>
+                        <li>チーズとパン粉をかけ、200℃のオーブンで20分焼いて完成</li>
+                    </ol>
+                </div>
+
+                <div class="bg-accent-50 p-3 rounded-lg">
+                    <p class="text-sm text-gray-700"><strong class="text-accent-700">💡 ポイント:</strong> ナスは予め焼いておくことで、グラタンの水分を防ぎます。豪華な一品に。</p>
+                </div>
+            </article>
+
+            <!-- レシピ8: ナスとトマトのパスタ -->
+            <article class="recipe-card bg-white rounded-xl p-6 shadow-md animate__animated animate__fadeInUp" id="recipe8">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-2xl font-bold text-primary-700">ナスとトマトのパスタ</h2>
+                    <div class="recipe-emoji">🍝</div>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-accent-600 mr-2">📝</span>材料（4人分）
+                    </h3>
+                    <ul class="ingredient-list text-sm text-gray-700 space-y-1 list-none">
+                        <li>ナス 4本</li>
+                        <li>トマト 4個（またはトマト缶1缶）</li>
+                        <li>パスタ 400g</li>
+                        <li>にんにく 2片</li>
+                        <li>バジル 適量</li>
+                        <li>オリーブオイル 大さじ4</li>
+                        <li>塩・胡椒 適量</li>
+                        <li>パルメザンチーズ 適量</li>
+                    </ul>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                        <span class="text-primary-600 mr-2">👨‍🍳</span>作り方
+                    </h3>
+                    <ol class="step-list text-sm text-gray-700 space-y-2 list-none">
+                        <li>ナスは1cm角に切り、トマトは角切りにする</li>
+                        <li>フライパンにオリーブオイルとにんにくを入れて香りを出す</li>
+                        <li>ナスを加えてしんなりするまで炒める</li>
+                        <li>トマトを加えて煮込み、塩胡椒で味を調える</li>
+                        <li>茹でたパスタを加えて和え、バジルとチーズをかけて完成</li>
+                    </ol>
+                </div>
+
+                <div class="bg-accent-50 p-3 rounded-lg">
+                    <p class="text-sm text-gray-700"><strong class="text-accent-700">💡 ポイント:</strong> ナスにオリーブオイルをたっぷり吸わせることで、コクのある味わいに。バジルは最後に加えて香りを活かします。</p>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- まとめセクション -->
+        <section class="bg-gradient-to-r from-primary-50 to-accent-50 rounded-xl p-8 mb-8 animate__animated animate__fadeInUp">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">🌟 ナス30本の消費プラン例</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-primary-700 mb-2">作り置き重視プラン</h3>
+                    <ul class="text-gray-700 space-y-1">
+                        <li>• 揚げ浸し: 6本（3-4日保存）</li>
+                        <li>• 煮浸し: 6本（3-4日保存）</li>
+                        <li>• 浅漬け: 10本（5-7日保存）</li>
+                        <li>• 麻婆茄子: 5本（当日）</li>
+                        <li>• 焼きナス: 3本（当日または冷凍）</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-accent-700 mb-2">バラエティプラン</h3>
+                    <ul class="text-gray-700 space-y-1">
+                        <li>• 揚げ浸し: 4本</li>
+                        <li>• 麻婆茄子: 5本</li>
+                        <li>• 焼きナス: 6本</li>
+                        <li>• 味噌炒め: 5本</li>
+                        <li>• グラタン: 4本</li>
+                        <li>• パスタ: 4本</li>
+                        <li>• 浅漬け: 2本</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-4 text-center text-sm text-gray-600">
+                <p>💡 ポイント: 漬物や煮浸しなど保存の効く料理を多めに作り、毎日の食卓に並べると効率的です</p>
+            </div>
+        </section>
+
+        <!-- ナビゲーションフッター -->
+        <footer class="text-center py-6 no-print">
+            <a href="nasu.html" class="inline-block bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition transform hover:scale-105 shadow-md">
+                ← ナスの調理方法一覧に戻る
+            </a>
+        </footer>
+
+        <!-- コピーライト -->
+        <div class="text-center mt-6 text-gray-500 text-xs">
+            <p>&copy; 2025 ナスレシピ集 - 30本を美味しく使い切る</p>
+        </div>
+
+    </div>
+
+    <!-- AOS (Animate On Scroll) v2.3 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS初期化
+        AOS.init({
+            duration: 600,
+            once: true,
+            offset: 50,
+            easing: 'ease-in-out'
+        });
+
+        // スティッキーナビゲーションのスクロール対応
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.classList.add('scrolled');
+                navbar.classList.remove('transparent');
+            } else {
+                navbar.classList.remove('scrolled');
+                navbar.classList.add('transparent');
+            }
+
+            lastScroll = currentScroll;
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="3X3マトリクス思考法 - デジタル情報化に必要な要素を9つの視点で可視化">
+    <meta name="keywords" content="デジタル情報化, 3X3マトリクス, デジタル化技術, データ管理">
+    <title>3X3マトリクス思考法 - デジタル情報化に必要な要素</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💻%3C/text%3E%3C/svg%3E">
+
+    <!-- Tailwind CSS v4.1 CDN -->
+    <script src="https://cdn.tailwindcss.com?v=4.1"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            200: '#f5d0fe',
+                            300: '#f0abfc',
+                            400: '#e879f9',
+                            500: '#d946ef',
+                            600: '#c026d3',
+                            700: '#a21caf',
+                            800: '#86198f',
+                            900: '#701a75',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Animate.css v4.1.1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* A4サイズ設定（印刷用） - 前後左右20mmの余白で最適化 */
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .a4-container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .matrix-container {
+                page-break-inside: avoid;
+            }
+
+            /* 印刷用のヘッダー調整 */
+            header {
+                margin-bottom: 8mm !important;
+            }
+
+            header h1 {
+                font-size: 24pt !important;
+                margin-bottom: 2mm !important;
+            }
+
+            header p {
+                font-size: 11pt !important;
+            }
+
+            /* マトリクスグリッドの調整 */
+            .matrix-grid {
+                gap: 3mm !important;
+                margin-bottom: 0 !important;
+            }
+
+            /* セルのサイズとフォント調整 */
+            .matrix-cell {
+                padding: 3mm !important;
+                min-height: auto !important;
+                page-break-inside: avoid;
+            }
+
+            .matrix-cell h3 {
+                font-size: 11pt !important;
+                margin-bottom: 2mm !important;
+                padding-bottom: 1mm !important;
+            }
+
+            .matrix-cell ul,
+            .matrix-cell div {
+                font-size: 9pt !important;
+                line-height: 1.3 !important;
+            }
+
+            .matrix-cell li {
+                margin-bottom: 1mm !important;
+            }
+
+            /* 中央セルの調整 */
+            .center-cell {
+                padding: 4mm !important;
+            }
+
+            .center-cell h2 {
+                font-size: 20pt !important;
+                margin-bottom: 1mm !important;
+            }
+
+            .center-cell p {
+                font-size: 18pt !important;
+            }
+
+            /* フッターの調整 */
+            footer {
+                margin-top: 4mm !important;
+            }
+
+            footer + div {
+                margin-top: 2mm !important;
+                font-size: 8pt !important;
+            }
+        }
+
+        /* 画面表示用のA4サイズシミュレーション */
+        @media screen {
+            .a4-container {
+                max-width: 210mm;
+                min-height: 297mm;
+                margin: 0 auto;
+                background: white;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* マトリクスセルのスタイル */
+        .matrix-cell {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+            min-height: 180px;
+        }
+
+        .matrix-cell:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #0ea5e9;
+            z-index: 10;
+        }
+
+        /* 中央セルの特別スタイル */
+        .center-cell {
+            background: linear-gradient(135deg, #0ea5e9 0%, #d946ef 100%);
+            color: white;
+            min-height: 180px;
+        }
+
+        .center-cell:hover {
+            transform: scale(1.05);
+        }
+
+        /* リストスタイル */
+        .matrix-cell ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .matrix-cell li {
+            position: relative;
+            padding-left: 1.2em;
+            margin-bottom: 0.3em;
+            line-height: 1.4;
+        }
+
+        .matrix-cell li:before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            color: #0ea5e9;
+            font-size: 0.7em;
+        }
+
+        /* レスポンシブグリッド */
+        @media (max-width: 768px) {
+            .matrix-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .matrix-cell {
+                min-height: auto !important;
+            }
+        }
+
+        /* フォントサイズの調整 */
+        .matrix-cell h3 {
+            font-size: 1rem;
+        }
+
+        .matrix-cell ul {
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+
+    <!-- メインコンテナ（A4サイズ） -->
+    <div class="a4-container py-6 px-4">
+
+        <!-- ヘッダー -->
+        <header class="text-center mb-6 animate__animated animate__fadeInDown">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+                デジタル情報化に必要な要素
+            </h1>
+            <p class="text-base text-gray-600">3×3マトリクス思考法でデジタル情報化の9つの重要技術を可視化</p>
+        </header>
+
+        <!-- 3×3マトリクス -->
+        <div class="matrix-container">
+            <div class="matrix-grid grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+
+                <!-- 1行目・1列目：デジタル化技術 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        デジタル化技術
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">情報をデジタル化する事により加工・編集しやすい形式で高品質のまま維持し、再利用し、情報の汎用性を拡大する。</p>
+                        <ul>
+                            <li>フォーマット変換</li>
+                            <li>圧縮／復元</li>
+                            <li>暗号化</li>
+                            <li>バーコード化</li>
+                            <li>セキュリティ</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 1行目・2列目：データ入力／登録技術 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        データ入力／登録技術
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">紙などで保存していたデータを読込み、ファイル管理ソフトなどを利用しインデックス情報を付加し、後で取出し易い形式で登録する。</p>
+                        <ul>
+                            <li>読取り／スキャナ技術</li>
+                            <li>ファイリング</li>
+                            <li>インデックス化</li>
+                            <li>サムネイル化</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 1行目・3列目：データベース技術 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        データベース技術
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">データベースと連動する事により膨大なデジタル情報の中から必要とする情報を瞬時に取り出し、皆で共有し一元管理を可能とする。</p>
+                        <ul>
+                            <li>検索（キーワード／絞込み）</li>
+                            <li>履歴管理</li>
+                            <li>ワークフロー</li>
+                            <li>所有権／セキュリティ</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2行目・1列目：オンデマンド印刷技術 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        オンデマンド印刷技術
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">必要な情報を、必要な時に必要な枚数だけ自分の身近な所で出力可能とする。</p>
+                        <ul>
+                            <li>出力フォーマット</li>
+                            <li>プリンタ言語</li>
+                            <li>カラーマネジメント</li>
+                            <li>高速出力</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2行目・2列目：中央セル（メインテーマ） -->
+                <div class="matrix-cell center-cell rounded-lg p-6 shadow-lg flex flex-col items-center justify-center animate__animated animate__zoomIn">
+                    <div class="text-center">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-2">情報</h2>
+                        <div class="text-lg md:text-xl font-semibold space-y-1">
+                            <p>・文書</p>
+                            <p>・画像／映像</p>
+                            <p>・音声</p>
+                            <p>・図面</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2行目・3列目：保存技術 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        保存技術
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">写真や書籍などのかさばる紙資料をＣＤ−Ｒなどのデジタル媒体に保存する事により元画像の劣化を防ぎ、省スペース化、再製化、環境保全を可能とする。</p>
+                        <ul>
+                            <li>データフォーマット（PDF／JPG／MPEG）</li>
+                            <li>ＣＤ−Ｒ／ＤＶＤ</li>
+                            <li>ＨＤＤ</li>
+                            <li>マイクロフィルム</li>
+                            <li>光ファイル</li>
+                            <li>紙</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3行目・1列目：標準化技術 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        標準化技術
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">標準化されたデジタル画像技術を用いフォーマットの統一を図り、情報の汎用性を高める。</p>
+                        <ul>
+                            <li>ＰＤＦ</li>
+                            <li>ＪＰＥＧ2000</li>
+                            <li>ＤｊＶｕ</li>
+                            <li>ＭＰＥＧ３／４</li>
+                            <li>ＳＶＧ（ScalableVectorGraphics）</li>
+                            <li>HTML／SGML／XML</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3行目・2列目：データ編集／表示技術 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        データ編集／表示技術
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">デジタル化された情報を今までの印刷物と同じ様な利便性で見たい時にすぐ見れ、編集・加工して２次利用が出来る様にする。</p>
+                        <ul>
+                            <li>画像編集</li>
+                            <li>画像変換</li>
+                            <li>高速表示</li>
+                            <li>カラーマッチング</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3行目・3列目：発信／受信／配信技術 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        発信／受信／配信技術
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">デジタル化された情報をインターネットに代表されるネットワークや配信技術を使い、地域格差を気にせず情報を相互にやり取り出来る様にする。</p>
+                        <ul>
+                            <li>インターネット</li>
+                            <li>ネットワーク</li>
+                            <li>電子メール</li>
+                            <li>ケーブルＴＶ</li>
+                            <li>衛星通信</li>
+                            <li>無線通信</li>
+                            <li>情報家電</li>
+                            <li>携帯情報端末</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- フッター（戻るリンク） -->
+        <footer class="text-center mt-6 no-print">
+            <a href="../matrix33.html" class="inline-block bg-primary-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-primary-700 transition transform hover:scale-105 shadow-md text-sm">
+                ← 戻る
+            </a>
+        </footer>
+
+        <!-- コピーライト -->
+        <div class="text-center mt-4 text-gray-500 text-xs">
+            <p>&copy; 2025 Power PLUS - 3×3マトリクス思考法</p>
+        </div>
+
+    </div>
+
+    <!-- AOS (Animate On Scroll) v2.3 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS初期化
+        AOS.init({
+            duration: 600,
+            once: true,
+            offset: 50,
+            easing: 'ease-in-out'
+        });
+    </script>
+
+</body>
+</html>

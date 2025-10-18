@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="3X3マトリクス思考法 - 茅ヶ崎市 年齢別男女人口統計表">
+    <meta name="keywords" content="茅ヶ崎市, 人口統計, 年齢別, 男女別, 3X3マトリクス">
+    <title>3X3マトリクス思考法 - 茅ヶ崎市 年齢別男女人口統計表</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📊%3C/text%3E%3C/svg%3E">
+
+    <!-- Tailwind CSS v4.1 CDN -->
+    <script src="https://cdn.tailwindcss.com?v=4.1"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Animate.css v4.1.1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* A4サイズ設定（印刷用） - 前後左右20mmの余白で最適化 */
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .a4-container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .matrix-container {
+                page-break-inside: avoid;
+            }
+
+            /* 印刷用のヘッダー調整 */
+            header {
+                margin-bottom: 8mm !important;
+            }
+
+            header h1 {
+                font-size: 24pt !important;
+                margin-bottom: 2mm !important;
+            }
+
+            header p {
+                font-size: 11pt !important;
+            }
+
+            /* マトリクスグリッドの調整 */
+            .matrix-grid {
+                gap: 3mm !important;
+                margin-bottom: 0 !important;
+            }
+
+            /* セルのサイズとフォント調整 */
+            .matrix-cell {
+                padding: 3mm !important;
+                min-height: auto !important;
+                page-break-inside: avoid;
+            }
+
+            .matrix-cell h3 {
+                font-size: 11pt !important;
+                margin-bottom: 2mm !important;
+                padding-bottom: 1mm !important;
+            }
+
+            .matrix-cell div {
+                font-size: 9pt !important;
+                line-height: 1.3 !important;
+            }
+
+            .matrix-cell p {
+                margin-bottom: 1mm !important;
+            }
+
+            /* 中央セルの調整 */
+            .center-cell {
+                padding: 4mm !important;
+            }
+
+            .center-cell h2 {
+                font-size: 18pt !important;
+                margin-bottom: 1mm !important;
+            }
+
+            .center-cell p {
+                font-size: 14pt !important;
+            }
+
+            /* フッターの調整 */
+            footer {
+                margin-top: 4mm !important;
+            }
+
+            footer + div {
+                margin-top: 2mm !important;
+                font-size: 8pt !important;
+            }
+        }
+
+        /* 画面表示用のA4サイズシミュレーション */
+        @media screen {
+            .a4-container {
+                max-width: 210mm;
+                min-height: 297mm;
+                margin: 0 auto;
+                background: white;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* マトリクスセルのスタイル */
+        .matrix-cell {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+            min-height: 180px;
+        }
+
+        .matrix-cell:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #0ea5e9;
+            z-index: 10;
+        }
+
+        /* 中央セルの特別スタイル */
+        .center-cell {
+            background: linear-gradient(135deg, #0ea5e9 0%, #f97316 100%);
+            color: white;
+            min-height: 180px;
+        }
+
+        .center-cell:hover {
+            transform: scale(1.05);
+        }
+
+        /* レスポンシブグリッド */
+        @media (max-width: 768px) {
+            .matrix-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .matrix-cell {
+                min-height: auto !important;
+            }
+        }
+
+        /* フォントサイズの調整 */
+        .matrix-cell h3 {
+            font-size: 1rem;
+        }
+
+        .matrix-cell div {
+            font-size: 0.85rem;
+        }
+
+        /* 統計データのスタイル */
+        .stat-number {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            display: inline-block;
+            width: 3em;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+
+    <!-- メインコンテナ（A4サイズ） -->
+    <div class="a4-container py-6 px-4">
+
+        <!-- ヘッダー -->
+        <header class="text-center mb-6 animate__animated animate__fadeInDown">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+                茅ヶ崎市 年齢別男女人口統計表
+            </h1>
+            <p class="text-base text-gray-600">（２０００年１月現在）</p>
+        </header>
+
+        <!-- 3×3マトリクス -->
+        <div class="matrix-container">
+            <div class="matrix-grid grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+
+                <!-- 1行目・1列目：0〜9歳 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        ０〜９歳
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed space-y-1">
+                        <p><span class="stat-label">男</span>　　<span class="stat-number">10,344</span></p>
+                        <p><span class="stat-label">女</span>　　<span class="stat-number">9,940</span></p>
+                        <p><span class="stat-label">計</span>　　<span class="stat-number">20,284</span></p>
+                    </div>
+                </div>
+
+                <!-- 1行目・2列目：10〜19歳 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        １０〜１９歳
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed space-y-1">
+                        <p><span class="stat-label">男</span>　　<span class="stat-number">12,235</span></p>
+                        <p><span class="stat-label">女</span>　　<span class="stat-number">11,728</span></p>
+                        <p><span class="stat-label">計</span>　　<span class="stat-number">23,963</span></p>
+                    </div>
+                </div>
+
+                <!-- 1行目・3列目：20〜29歳 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        ２０〜２９歳
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed space-y-1">
+                        <p><span class="stat-label">男</span>　　<span class="stat-number">17,785</span></p>
+                        <p><span class="stat-label">女</span>　　<span class="stat-number">16,896</span></p>
+                        <p><span class="stat-label">計</span>　　<span class="stat-number">34,681</span></p>
+                    </div>
+                </div>
+
+                <!-- 2行目・1列目：80歳以上 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        ８０歳〜
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed space-y-1">
+                        <p class="text-xs text-gray-500 mb-2">（年齢不詳）</p>
+                        <p><span class="stat-label">男</span>　　<span class="stat-number">2,314</span>　　<span class="stat-number text-sm">23</span></p>
+                        <p><span class="stat-label">女</span>　　<span class="stat-number">4,347</span>　　<span class="stat-number text-sm">6</span></p>
+                        <p><span class="stat-label">計</span>　　<span class="stat-number">6,661</span>　　<span class="stat-number text-sm">29</span></p>
+                    </div>
+                </div>
+
+                <!-- 2行目・2列目：中央セル（メインテーマ） -->
+                <div class="matrix-cell center-cell rounded-lg p-6 shadow-lg flex flex-col items-center justify-center animate__animated animate__zoomIn">
+                    <div class="text-center space-y-2">
+                        <h2 class="text-xl md:text-2xl font-bold">茅ヶ崎市</h2>
+                        <p class="text-lg md:text-xl font-semibold">年齢別男女</p>
+                        <p class="text-sm md:text-base">（２００１年１月現在）</p>
+                        <p class="text-2xl md:text-3xl font-bold text-accent-100 mt-4">人口統計表</p>
+                        <div class="text-sm md:text-base mt-4 space-y-1">
+                            <p class="font-bold text-pink-200">男　　　１０９，１９０</p>
+                            <p class="font-bold text-pink-200">女　　　１１０，８２３</p>
+                            <p class="font-bold text-pink-200">総数　　２２０，０１３</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2行目・3列目：30〜39歳 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        ３０〜３９歳
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed space-y-1">
+                        <p><span class="stat-label">男</span>　　<span class="stat-number">16,561</span></p>
+                        <p><span class="stat-label">女</span>　　<span class="stat-number">15,291</span></p>
+                        <p><span class="stat-label">計</span>　　<span class="stat-number">31,852</span></p>
+                    </div>
+                </div>
+
+                <!-- 3行目・1列目：70〜79歳 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        ７０〜７９歳
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed space-y-1">
+                        <p><span class="stat-label">男</span>　　<span class="stat-number">5,922</span></p>
+                        <p><span class="stat-label">女</span>　　<span class="stat-number">7,479</span></p>
+                        <p><span class="stat-label">計</span>　　<span class="stat-number">13,401</span></p>
+                    </div>
+                </div>
+
+                <!-- 3行目・2列目：60〜69歳 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        ６０〜６９歳
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed space-y-1">
+                        <p><span class="stat-label">男</span>　　<span class="stat-number">12,276</span></p>
+                        <p><span class="stat-label">女</span>　　<span class="stat-number">12,467</span></p>
+                        <p><span class="stat-label">計</span>　　<span class="stat-number">24,743</span></p>
+                    </div>
+                </div>
+
+                <!-- 3行目・3列目 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <div class="space-y-4">
+                        <!-- 50〜59歳 -->
+                        <div>
+                            <h3 class="font-bold text-primary-700 mb-2 border-b-2 border-primary-200 pb-2">
+                                ５０〜５９歳
+                            </h3>
+                            <div class="text-gray-700 leading-relaxed space-y-1 text-sm">
+                                <p><span class="stat-label">男</span>　<span class="stat-number">17,088</span></p>
+                                <p><span class="stat-label">女</span>　<span class="stat-number">18,165</span></p>
+                                <p><span class="stat-label">計</span>　<span class="stat-number">35,253</span></p>
+                            </div>
+                        </div>
+
+                        <!-- 40〜49歳 -->
+                        <div class="pt-2 border-t border-gray-200">
+                            <h3 class="font-bold text-primary-700 mb-2 border-b-2 border-primary-200 pb-2">
+                                ４０〜４９歳
+                            </h3>
+                            <div class="text-gray-700 leading-relaxed space-y-1 text-sm">
+                                <p><span class="stat-label">男</span>　<span class="stat-number">14,665</span></p>
+                                <p><span class="stat-label">女</span>　<span class="stat-number">14,504</span></p>
+                                <p><span class="stat-label">計</span>　<span class="stat-number">29,169</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- フッター（戻るリンク） -->
+        <footer class="text-center mt-6 no-print">
+            <a href="../matrix33.html" class="inline-block bg-primary-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-primary-700 transition transform hover:scale-105 shadow-md text-sm">
+                ← 戻る
+            </a>
+        </footer>
+
+        <!-- コピーライト -->
+        <div class="text-center mt-4 text-gray-500 text-xs">
+            <p>&copy; 2025 Power PLUS - 3×3マトリクス思考法</p>
+        </div>
+
+    </div>
+
+    <!-- AOS (Animate On Scroll) v2.3 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS初期化
+        AOS.init({
+            duration: 600,
+            once: true,
+            offset: 50,
+            easing: 'ease-in-out'
+        });
+    </script>
+
+</body>
+</html>

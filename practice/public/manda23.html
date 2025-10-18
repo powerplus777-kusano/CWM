@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="3X3マトリクス思考法 - 学校教育における問題解決の手順を可視化">
+    <meta name="keywords" content="問題解決, 学校教育, 3X3マトリクス, 思考法, 教育手法">
+    <title>3X3マトリクス思考法 - 学校教育における問題解決の手順</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎓%3C/text%3E%3C/svg%3E">
+
+    <!-- Tailwind CSS v4.1 CDN -->
+    <script src="https://cdn.tailwindcss.com?v=4.1"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            200: '#f5d0fe',
+                            300: '#f0abfc',
+                            400: '#e879f9',
+                            500: '#d946ef',
+                            600: '#c026d3',
+                            700: '#a21caf',
+                            800: '#86198f',
+                            900: '#701a75',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Animate.css v4.1.1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* A4サイズ設定（印刷用） - 前後左右20mmの余白で最適化 */
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .a4-container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .matrix-container {
+                page-break-inside: avoid;
+            }
+
+            /* 印刷用のヘッダー調整 */
+            header {
+                margin-bottom: 8mm !important;
+            }
+
+            header h1 {
+                font-size: 24pt !important;
+                margin-bottom: 2mm !important;
+            }
+
+            header p {
+                font-size: 11pt !important;
+            }
+
+            /* マトリクスグリッドの調整 */
+            .matrix-grid {
+                gap: 3mm !important;
+                margin-bottom: 0 !important;
+            }
+
+            /* セルのサイズとフォント調整 */
+            .matrix-cell {
+                padding: 3mm !important;
+                min-height: auto !important;
+                page-break-inside: avoid;
+            }
+
+            .matrix-cell h3 {
+                font-size: 11pt !important;
+                margin-bottom: 2mm !important;
+                padding-bottom: 1mm !important;
+            }
+
+            .matrix-cell ul,
+            .matrix-cell div {
+                font-size: 9pt !important;
+                line-height: 1.3 !important;
+            }
+
+            .matrix-cell li {
+                margin-bottom: 1mm !important;
+            }
+
+            /* 中央セルの調整 */
+            .center-cell {
+                padding: 4mm !important;
+            }
+
+            .center-cell h2 {
+                font-size: 20pt !important;
+                margin-bottom: 1mm !important;
+            }
+
+            .center-cell p {
+                font-size: 18pt !important;
+            }
+
+            /* フッターの調整 */
+            footer {
+                margin-top: 4mm !important;
+            }
+
+            footer + div {
+                margin-top: 2mm !important;
+                font-size: 8pt !important;
+            }
+        }
+
+        /* 画面表示用のA4サイズシミュレーション */
+        @media screen {
+            .a4-container {
+                max-width: 210mm;
+                min-height: 297mm;
+                margin: 0 auto;
+                background: white;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* マトリクスセルのスタイル */
+        .matrix-cell {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+            min-height: 180px;
+        }
+
+        .matrix-cell:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #0ea5e9;
+            z-index: 10;
+        }
+
+        /* 中央セルの特別スタイル */
+        .center-cell {
+            background: linear-gradient(135deg, #0ea5e9 0%, #d946ef 100%);
+            color: white;
+            min-height: 180px;
+        }
+
+        .center-cell:hover {
+            transform: scale(1.05);
+        }
+
+        /* リストスタイル */
+        .matrix-cell ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .matrix-cell li {
+            position: relative;
+            padding-left: 1.2em;
+            margin-bottom: 0.3em;
+            line-height: 1.4;
+        }
+
+        .matrix-cell li:before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            color: #0ea5e9;
+            font-size: 0.7em;
+        }
+
+        /* レスポンシブグリッド */
+        @media (max-width: 768px) {
+            .matrix-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .matrix-cell {
+                min-height: auto !important;
+            }
+        }
+
+        /* フォントサイズの調整 */
+        .matrix-cell h3 {
+            font-size: 1rem;
+        }
+
+        .matrix-cell ul {
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+
+    <!-- メインコンテナ（A4サイズ） -->
+    <div class="a4-container py-6 px-4">
+
+        <!-- ヘッダー -->
+        <header class="text-center mb-6 animate__animated animate__fadeInDown">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+                学校教育における問題解決の手順
+            </h1>
+            <p class="text-base text-gray-600">3×3マトリクス思考法で可視化する問題解決の手順</p>
+        </header>
+
+        <!-- 3×3マトリクス -->
+        <div class="matrix-container">
+            <div class="matrix-grid grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+
+                <!-- 1行目・1列目：問題を見つけよう -->
+                <div class="matrix-cell bg-green-50 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-green-700 mb-3 border-b-2 border-green-200 pb-2">
+                        問題を見つけよう
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed text-sm">
+                        <p class="mb-2">身の回りで困っていること、解決したい問題点を見つけよう。</p>
+                        <p class="mb-2">現状とあるべき姿、目標を妨げている原因を明確にすることが問題の発見であることを理解させよう。</p>
+                        <ul class="mt-2">
+                            <li>具体的に</li>
+                            <li>簡潔・明瞭に</li>
+                            <li>表現しまとめる</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 1行目・2列目：問題を整理しよう（現状把握） -->
+                <div class="matrix-cell bg-green-50 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-green-700 mb-3 border-b-2 border-green-200 pb-2">
+                        問題を整理しよう（現状把握）
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed text-sm">
+                        <p class="mb-2">現状を妨げている原因を洗い出し、問題点をその原因に着目しながら整理・分類し、問題点を明らかにしよう。</p>
+                        <ul class="mt-2">
+                            <li>事実のみを取り上げ推測・憶測は排除すること</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 1行目・3列目：目標を明確にしよう -->
+                <div class="matrix-cell bg-green-50 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-green-700 mb-3 border-b-2 border-green-200 pb-2">
+                        目標を明確にしよう
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed text-sm">
+                        <p class="mb-2">問題点が明らかになったら、あるべき姿を思い描き、目標（課題）を設定しよう。</p>
+                        <p class="mb-2">目標とはあるべき姿、こうなりたいという強い思いである。</p>
+                    </div>
+                </div>
+
+                <!-- 2行目・1列目：情報を積極的に公開しよう -->
+                <div class="matrix-cell bg-blue-100 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-blue-700 mb-3 border-b-2 border-blue-200 pb-2">
+                        情報を積極的に公開しよう
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed text-sm">
+                        <p class="mb-2">他の人が同じことで悩んでいたり、困っている時に役立つように、積極的に情報を公開し、データベース化して、誰でも再活用できるようにしておこう。</p>
+                        <p class="mb-2">自ら情報公開することが、他の人との交流を深めるきっかけになることを実感させよう。</p>
+                    </div>
+                </div>
+
+                <!-- 2行目・2列目：中央セル（メインテーマ） -->
+                <div class="matrix-cell center-cell rounded-lg p-6 shadow-lg flex flex-col items-center justify-center animate__animated animate__zoomIn">
+                    <div class="text-center">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-2">学校教育における</h2>
+                        <p class="text-xl md:text-2xl font-semibold mb-2">問題解決</p>
+                        <p class="text-lg md:text-xl font-semibold">の</p>
+                        <p class="text-xl md:text-2xl font-semibold mt-2">手　順</p>
+                    </div>
+                </div>
+
+                <!-- 2行目・3列目：解決策・解決法を考えよう -->
+                <div class="matrix-cell bg-blue-100 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-blue-700 mb-3 border-b-2 border-blue-200 pb-2">
+                        解決策・解決法を考えよう
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed text-sm">
+                        <p class="mb-2">問題点と目標値が明らかになったら、原因に着目しながら、その問題を解決する、解決策／解決方法を具体的にまとめよう。</p>
+                    </div>
+                </div>
+
+                <!-- 3行目・1列目：結果をまとめ発表しよう -->
+                <div class="matrix-cell bg-yellow-50 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-yellow-700 mb-3 border-b-2 border-yellow-200 pb-2">
+                        結果をまとめ発表しよう
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed text-sm">
+                        <p class="mb-2">実際に行動した内容を自分の言葉で分かり易く文章にまとめ、自分の言葉で報告（プレゼンテーション）しよう。</p>
+                        <p class="mb-2">その際に、</p>
+                        <ul class="mt-2">
+                            <li>残された課題</li>
+                            <li>新たに発見された問題点</li>
+                            <li>新たな改善策</li>
+                        </ul>
+                        <p class="mt-2">があればまとめておこう。</p>
+                        <p class="mt-2 font-semibold">★評価と再発防止</p>
+                    </div>
+                </div>
+
+                <!-- 3行目・2列目：実際に行動しよう -->
+                <div class="matrix-cell bg-yellow-50 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-yellow-700 mb-3 border-b-2 border-yellow-200 pb-2">
+                        実際に行動しよう
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed text-sm">
+                        <p class="mb-2">自分で立てた行動計画に基づき、実際に行動しよう。</p>
+                        <p class="mb-2">目標は実現するために、目的は実行するためにあることを理解させよう。</p>
+                    </div>
+                </div>
+
+                <!-- 3行目・3列目：実行・行動計画を立てよう -->
+                <div class="matrix-cell bg-yellow-50 rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-yellow-700 mb-3 border-b-2 border-yellow-200 pb-2">
+                        実行・行動計画を立てよう
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed text-sm">
+                        <p class="mb-2">導き出された解決手法と目標値より、それらを実行するための具体的な実行（行動）計画をたてよう。</p>
+                        <p class="mb-2 font-semibold">６W2Hを明確にすることが大事</p>
+                        <ul class="mt-2">
+                            <li>Who 誰が／When いつまでに</li>
+                            <li>What 何を／How どのように</li>
+                            <li>Whom誰に対して</li>
+                            <li>Whereどこで</li>
+                            <li>Why 何故</li>
+                            <li>How much いくらで</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- フッター（戻るリンク） -->
+        <footer class="text-center mt-6 no-print">
+            <a href="../matrix33.html" class="inline-block bg-primary-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-primary-700 transition transform hover:scale-105 shadow-md text-sm">
+                ← 戻る
+            </a>
+        </footer>
+
+        <!-- コピーライト -->
+        <div class="text-center mt-4 text-gray-500 text-xs">
+            <p>&copy; 2025 Power PLUS - 3×3マトリクス思考法</p>
+        </div>
+
+    </div>
+
+    <!-- AOS (Animate On Scroll) v2.3 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS初期化
+        AOS.init({
+            duration: 600,
+            once: true,
+            offset: 50,
+            easing: 'ease-in-out'
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="3X3マトリクス思考法 - 問題解決能力とは？問題解決能力を構成する9つの要素を可視化">
+    <meta name="keywords" content="問題解決能力, 3X3マトリクス, 思考法, スキル開発">
+    <title>3X3マトリクス思考法 - 問題解決能力とは？</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💭%3C/text%3E%3C/svg%3E">
+
+    <!-- Tailwind CSS v4.1 CDN -->
+    <script src="https://cdn.tailwindcss.com?v=4.1"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            200: '#f5d0fe',
+                            300: '#f0abfc',
+                            400: '#e879f9',
+                            500: '#d946ef',
+                            600: '#c026d3',
+                            700: '#a21caf',
+                            800: '#86198f',
+                            900: '#701a75',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Animate.css v4.1.1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* A4サイズ設定（印刷用） - 前後左右20mmの余白で最適化 */
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .a4-container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .matrix-container {
+                page-break-inside: avoid;
+            }
+
+            /* 印刷用のヘッダー調整 */
+            header {
+                margin-bottom: 8mm !important;
+            }
+
+            header h1 {
+                font-size: 24pt !important;
+                margin-bottom: 2mm !important;
+            }
+
+            header p {
+                font-size: 11pt !important;
+            }
+
+            /* マトリクスグリッドの調整 */
+            .matrix-grid {
+                gap: 3mm !important;
+                margin-bottom: 0 !important;
+            }
+
+            /* セルのサイズとフォント調整 */
+            .matrix-cell {
+                padding: 3mm !important;
+                min-height: auto !important;
+                page-break-inside: avoid;
+            }
+
+            .matrix-cell h3 {
+                font-size: 11pt !important;
+                margin-bottom: 2mm !important;
+                padding-bottom: 1mm !important;
+            }
+
+            .matrix-cell ul,
+            .matrix-cell div {
+                font-size: 9pt !important;
+                line-height: 1.3 !important;
+            }
+
+            .matrix-cell li {
+                margin-bottom: 1mm !important;
+            }
+
+            /* 中央セルの調整 */
+            .center-cell {
+                padding: 4mm !important;
+            }
+
+            .center-cell h2 {
+                font-size: 20pt !important;
+                margin-bottom: 1mm !important;
+            }
+
+            .center-cell p {
+                font-size: 18pt !important;
+            }
+
+            /* フッターの調整 */
+            footer {
+                margin-top: 4mm !important;
+            }
+
+            footer + div {
+                margin-top: 2mm !important;
+                font-size: 8pt !important;
+            }
+        }
+
+        /* 画面表示用のA4サイズシミュレーション */
+        @media screen {
+            .a4-container {
+                max-width: 210mm;
+                min-height: 297mm;
+                margin: 0 auto;
+                background: white;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* マトリクスセルのスタイル */
+        .matrix-cell {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+            min-height: 180px;
+        }
+
+        .matrix-cell:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #0ea5e9;
+            z-index: 10;
+        }
+
+        /* 中央セルの特別スタイル */
+        .center-cell {
+            background: linear-gradient(135deg, #0ea5e9 0%, #d946ef 100%);
+            color: white;
+            min-height: 180px;
+        }
+
+        .center-cell:hover {
+            transform: scale(1.05);
+        }
+
+        /* リストスタイル */
+        .matrix-cell ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .matrix-cell li {
+            position: relative;
+            padding-left: 1.2em;
+            margin-bottom: 0.3em;
+            line-height: 1.4;
+        }
+
+        .matrix-cell li:before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            color: #0ea5e9;
+            font-size: 0.7em;
+        }
+
+        /* レスポンシブグリッド */
+        @media (max-width: 768px) {
+            .matrix-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .matrix-cell {
+                min-height: auto !important;
+            }
+        }
+
+        /* フォントサイズの調整 */
+        .matrix-cell h3 {
+            font-size: 1rem;
+        }
+
+        .matrix-cell ul {
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+
+    <!-- メインコンテナ（A4サイズ） -->
+    <div class="a4-container py-6 px-4">
+
+        <!-- ヘッダー -->
+        <header class="text-center mb-6 animate__animated animate__fadeInDown">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+                問題解決能力とは？
+            </h1>
+            <p class="text-base text-gray-600">3×3マトリクス思考法で可視化する問題解決能力の9つの要素</p>
+        </header>
+
+        <!-- 3×3マトリクス -->
+        <div class="matrix-container">
+            <div class="matrix-grid grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+
+                <!-- 1行目・1列目：問題発見能力 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        問題発見能力
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>発見する</li>
+                        <li>人の話を良く聞く</li>
+                        <li>問題意識を持つ</li>
+                        <li>自分を見つめる</li>
+                        <li>常に問いかける</li>
+                        <li>疑う</li>
+                    </ul>
+                </div>
+
+                <!-- 1行目・2列目：情報活用能力 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        情報活用能力
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">情報の</p>
+                        <ul>
+                            <li>収集</li>
+                            <li>選択</li>
+                            <li>整理／分類／体系化</li>
+                            <li>分析／加工／再利用</li>
+                            <li>評価／検証／決断</li>
+                            <li>仮説を立てる</li>
+                            <li>予測／推測する</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 1行目・3列目：実行力 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        実行力
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>考える</li>
+                        <li>行動／実行する</li>
+                        <li>決断する</li>
+                        <li>計画する</li>
+                        <li>調べる</li>
+                    </ul>
+                </div>
+
+                <!-- 2行目・1列目：自己投資／防衛能力 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        自己投資／防衛能力
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>正しいお金の使い方</li>
+                        <li>法律知識</li>
+                        <li>本を良く読む</li>
+                        <li>人脈を造る</li>
+                        <li>人にだまされない為に</li>
+                        <li>応急処置</li>
+                    </ul>
+                </div>
+
+                <!-- 2行目・2列目：中央セル（メインテーマ） -->
+                <div class="matrix-cell center-cell rounded-lg p-6 shadow-lg flex flex-col items-center justify-center animate__animated animate__zoomIn">
+                    <div class="text-center">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-2">問題解決能力</h2>
+                        <p class="text-xl md:text-2xl font-semibold">とは？</p>
+                    </div>
+                </div>
+
+                <!-- 2行目・3列目：評価能力 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        評価能力
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>予測する</li>
+                        <li>分析／加工する</li>
+                        <li>分類する</li>
+                        <li>整理する</li>
+                        <li>比較する</li>
+                        <li>体系化する</li>
+                        <li>記録する／まとめる</li>
+                        <li>評価検証する</li>
+                        <li>考察／検討する</li>
+                    </ul>
+                </div>
+
+                <!-- 3行目・1列目：協調力 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        協調力
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>協力する</li>
+                        <li>話を良く聞く</li>
+                        <li>間違いを認める</li>
+                        <li>訂正する</li>
+                        <li>改善する</li>
+                        <li>連絡する</li>
+                        <li>報告する</li>
+                        <li>確認する</li>
+                        <li>他者の存在を認める</li>
+                        <li>他人の喜びは自分の喜び</li>
+                    </ul>
+                </div>
+
+                <!-- 3行目・2列目：指導力 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        指導力
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>行動／実行する</li>
+                        <li>決断する</li>
+                        <li>責任を持つ</li>
+                        <li>意見をまとめる</li>
+                        <li>意見を調整する</li>
+                        <li>話しを良く聞く</li>
+                        <li>間違いを認める</li>
+                        <li>他にまかせる</li>
+                        <li>信念を持つ</li>
+                        <li>他者の存在を認める</li>
+                        <li>管理する</li>
+                    </ul>
+                </div>
+
+                <!-- 3行目・3列目：自己表現能力 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        自己表現能力
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">自分の言葉で</p>
+                        <ul>
+                            <li>説明する</li>
+                            <li>発表する</li>
+                            <li>意見を述べる</li>
+                            <li>説得する</li>
+                            <li>質問する</li>
+                            <li>回答する</li>
+                            <li>教える</li>
+                            <li>協議する</li>
+                            <li>情報発信する</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- フッター（戻るリンク） -->
+        <footer class="text-center mt-6 no-print">
+            <a href="../matrix33.html" class="inline-block bg-primary-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-primary-700 transition transform hover:scale-105 shadow-md text-sm">
+                ← 戻る
+            </a>
+        </footer>
+
+        <!-- コピーライト -->
+        <div class="text-center mt-4 text-gray-500 text-xs">
+            <p>&copy; 2025 Power PLUS - 3×3マトリクス思考法</p>
+        </div>
+
+    </div>
+
+    <!-- AOS (Animate On Scroll) v2.3 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS初期化
+        AOS.init({
+            duration: 600,
+            once: true,
+            offset: 50,
+            easing: 'ease-in-out'
+        });
+    </script>
+
+</body>
+</html>

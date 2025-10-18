@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="3X3マトリクス思考法 - 節約学とは？省エネルギーの考え方を構成する9つの要素を可視化">
+    <meta name="keywords" content="節約学, 省エネルギー, 3X3マトリクス, 思考法, エコロジー">
+    <title>3X3マトリクス思考法 - 節約学とは？</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💡%3C/text%3E%3C/svg%3E">
+
+    <!-- Tailwind CSS v4.1 CDN -->
+    <script src="https://cdn.tailwindcss.com?v=4.1"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        accent: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Animate.css v4.1.1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* A4サイズ設定（印刷用） - 前後左右20mmの余白で最適化 */
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .a4-container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .matrix-container {
+                page-break-inside: avoid;
+            }
+
+            /* 印刷用のヘッダー調整 */
+            header {
+                margin-bottom: 8mm !important;
+            }
+
+            header h1 {
+                font-size: 24pt !important;
+                margin-bottom: 2mm !important;
+            }
+
+            header p {
+                font-size: 11pt !important;
+            }
+
+            /* マトリクスグリッドの調整 */
+            .matrix-grid {
+                gap: 3mm !important;
+                margin-bottom: 0 !important;
+            }
+
+            /* セルのサイズとフォント調整 */
+            .matrix-cell {
+                padding: 3mm !important;
+                min-height: auto !important;
+                page-break-inside: avoid;
+            }
+
+            .matrix-cell h3 {
+                font-size: 11pt !important;
+                margin-bottom: 2mm !important;
+                padding-bottom: 1mm !important;
+            }
+
+            .matrix-cell ul,
+            .matrix-cell div {
+                font-size: 9pt !important;
+                line-height: 1.3 !important;
+            }
+
+            .matrix-cell li {
+                margin-bottom: 1mm !important;
+            }
+
+            /* 中央セルの調整 */
+            .center-cell {
+                padding: 4mm !important;
+            }
+
+            .center-cell h2 {
+                font-size: 20pt !important;
+                margin-bottom: 1mm !important;
+            }
+
+            .center-cell p {
+                font-size: 18pt !important;
+            }
+
+            /* フッターの調整 */
+            footer {
+                margin-top: 4mm !important;
+            }
+
+            footer + div {
+                margin-top: 2mm !important;
+                font-size: 8pt !important;
+            }
+        }
+
+        /* 画面表示用のA4サイズシミュレーション */
+        @media screen {
+            .a4-container {
+                max-width: 210mm;
+                min-height: 297mm;
+                margin: 0 auto;
+                background: white;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* マトリクスセルのスタイル */
+        .matrix-cell {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+            min-height: 180px;
+        }
+
+        .matrix-cell:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #22c55e;
+            z-index: 10;
+        }
+
+        /* 中央セルの特別スタイル */
+        .center-cell {
+            background: linear-gradient(135deg, #22c55e 0%, #f59e0b 100%);
+            color: white;
+            min-height: 180px;
+        }
+
+        .center-cell:hover {
+            transform: scale(1.05);
+        }
+
+        /* リストスタイル */
+        .matrix-cell ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .matrix-cell li {
+            position: relative;
+            padding-left: 1.2em;
+            margin-bottom: 0.3em;
+            line-height: 1.4;
+        }
+
+        .matrix-cell li:before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            color: #22c55e;
+            font-size: 0.7em;
+        }
+
+        /* レスポンシブグリッド */
+        @media (max-width: 768px) {
+            .matrix-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .matrix-cell {
+                min-height: auto !important;
+            }
+        }
+
+        /* フォントサイズの調整 */
+        .matrix-cell h3 {
+            font-size: 1rem;
+        }
+
+        .matrix-cell ul {
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+
+    <!-- メインコンテナ（A4サイズ） -->
+    <div class="a4-container py-6 px-4">
+
+        <!-- ヘッダー -->
+        <header class="text-center mb-6 animate__animated animate__fadeInDown">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+                節約学とは？
+            </h1>
+            <p class="text-base text-gray-600">3×3マトリクス思考法で可視化する省エネルギーの9つの要素</p>
+        </header>
+
+        <!-- 3×3マトリクス -->
+        <div class="matrix-container">
+            <div class="matrix-grid grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+
+                <!-- 1行目・1列目：エネルギー -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        エネルギー
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">限られたエネルギーを効率的に使用することによってより少ないエネルギーで大きな効果を上げることが出来るもの。</p>
+                        <ul>
+                            <li>電気／水道／ガス</li>
+                            <li>石油／石炭</li>
+                            <li>熱／風／光</li>
+                            <li>資源循環システム（リサイクル）</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 1行目・2列目：お金 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        お　金
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">毎日の生活で必要となるお金で、節約する事で効果の期待出来るもの。</p>
+                        <ul>
+                            <li>各種税金</li>
+                            <li>各種保険料</li>
+                            <li>各種医療費</li>
+                            <li>各種食費</li>
+                            <li>各種教育費</li>
+                            <li>各種レジャー費</li>
+                            <li>各種通信費</li>
+                            <li>各種貯蓄</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 1行目・3列目：時間 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        時　間
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">人間の限られた時間を有効に使う事により、豊かな人生を送る事が出きる事。</p>
+                        <ul>
+                            <li>無理／無駄／ムラ</li>
+                            <li>通勤時間（移動時間）</li>
+                            <li>睡眠時間</li>
+                            <li>距離</li>
+                            <li>その他時間</li>
+                            <li>→インターネット化</li>
+                            <li>→コンピュータ化</li>
+                            <li>→衛星、各種情報通信技術</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2行目・1列目：健康／食 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        健　康　／　食
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">身近にある物で簡単に出来、毎日持続する事で健康を維持できる事。</p>
+                        <ul>
+                            <li>頭の体操</li>
+                            <li>体力（外部的）</li>
+                            <li>精神力（内部的）</li>
+                            <li>食感（五感）</li>
+                            <li>・視覚／聴覚／嗅覚／</li>
+                            <li>・味覚／触覚</li>
+                            <li>→歩く／ジョギング／水泳</li>
+                            <li>→マッサージ／針など</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2行目・2列目：中央セル（メインテーマ） -->
+                <div class="matrix-cell center-cell rounded-lg p-6 shadow-lg flex flex-col items-center justify-center animate__animated animate__zoomIn">
+                    <div class="text-center">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-2">節約学</h2>
+                        <p class="text-xl md:text-2xl font-semibold">省エネルギー</p>
+                    </div>
+                </div>
+
+                <!-- 2行目・3列目：情報 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        情　報
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>文字／画像／音声</li>
+                        <li>→電子データ化</li>
+                        <li>→CD-ROM／ﾏｲｸﾛﾌｨﾙﾑ化</li>
+                        <li>→インターネット</li>
+                        <li>→電子メール</li>
+                        <li>→圧縮技術</li>
+                    </ul>
+                </div>
+
+                <!-- 3行目・1列目：人 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        人
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">その人その人の個性、能力、性格に合った場所を提供する事により、その人自身をより活かせる事が出来、社会貢献に寄与できる。</p>
+                        <ul>
+                            <li>会社組織（適材適所）</li>
+                            <li>・人事／給与</li>
+                            <li>個人（家族）／地域</li>
+                            <li>国／地球規模</li>
+                            <li>環境社会／循環型社会</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3行目・2列目：空間／スペース／場所／住 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        空間／スペース／場所／住
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">限られた場所、空間を有効利用する事で、今までより多くの人達が効率良く使う事が出きる。</p>
+                        <ul>
+                            <li>場所／空間／距離</li>
+                            <li>→小型／軽量／高速化</li>
+                            <li>→電子データ化</li>
+                            <li>→情報の圧縮化</li>
+                            <li>→建築技術</li>
+                            <li>→情報通信技術</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3行目・3列目：紙 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        紙
+                    </h3>
+                    <div class="text-gray-700 leading-relaxed">
+                        <p class="mb-2 text-sm font-semibold text-gray-800">今まで紙で提供していたものを電子データなど別のものに置きかえる事により、ペーパレス化を促進し、保管場所の削減、しいては森林資源の環境保護に効果が期待出来るもの。</p>
+                        <ul>
+                            <li>一般文書／図面／各種書類</li>
+                            <li>コピー</li>
+                            <li>広告／ちらし</li>
+                            <li>各種申請書類</li>
+                            <li>各種伝票類</li>
+                            <li>雑誌／本</li>
+                            <li>梱包材／包装紙／紙袋</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- フッター（戻るリンク） -->
+        <footer class="text-center mt-6 no-print">
+            <a href="../matrix33.html" class="inline-block bg-primary-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-primary-700 transition transform hover:scale-105 shadow-md text-sm">
+                ← 戻る
+            </a>
+        </footer>
+
+        <!-- コピーライト -->
+        <div class="text-center mt-4 text-gray-500 text-xs">
+            <p>&copy; 2025 Power PLUS - 3×3マトリクス思考法</p>
+        </div>
+
+    </div>
+
+    <!-- AOS (Animate On Scroll) v2.3 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS初期化
+        AOS.init({
+            duration: 600,
+            once: true,
+            offset: 50,
+            easing: 'ease-in-out'
+        });
+    </script>
+
+</body>
+</html>

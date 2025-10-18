@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="3X3マトリクス思考法 - ナスの調理方法を8つに分類して整理">
+    <meta name="keywords" content="ナス, 茄子, 調理方法, 3X3マトリクス, レシピ, 料理">
+    <title>3X3マトリクス思考法 - ナスの調理方法を整理する</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍆%3C/text%3E%3C/svg%3E">
+
+    <!-- Tailwind CSS v4.1 CDN -->
+    <script src="https://cdn.tailwindcss.com?v=4.1"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#faf5ff',
+                            100: '#f3e8ff',
+                            200: '#e9d5ff',
+                            300: '#d8b4fe',
+                            400: '#c084fc',
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            700: '#7e22ce',
+                            800: '#6b21a8',
+                            900: '#581c87',
+                        },
+                        accent: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Animate.css v4.1.1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* A4サイズ設定（印刷用） - 前後左右20mmの余白で最適化 */
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .a4-container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .matrix-container {
+                page-break-inside: avoid;
+            }
+
+            /* 印刷用のヘッダー調整 */
+            header {
+                margin-bottom: 8mm !important;
+            }
+
+            header h1 {
+                font-size: 24pt !important;
+                margin-bottom: 2mm !important;
+            }
+
+            header p {
+                font-size: 11pt !important;
+            }
+
+            /* マトリクスグリッドの調整 */
+            .matrix-grid {
+                gap: 3mm !important;
+                margin-bottom: 0 !important;
+            }
+
+            /* セルのサイズとフォント調整 */
+            .matrix-cell {
+                padding: 3mm !important;
+                min-height: auto !important;
+                page-break-inside: avoid;
+            }
+
+            .matrix-cell h3 {
+                font-size: 11pt !important;
+                margin-bottom: 2mm !important;
+                padding-bottom: 1mm !important;
+            }
+
+            .matrix-cell ul,
+            .matrix-cell div {
+                font-size: 9pt !important;
+                line-height: 1.3 !important;
+            }
+
+            .matrix-cell li {
+                margin-bottom: 1mm !important;
+            }
+
+            /* 中央セルの調整 */
+            .center-cell {
+                padding: 4mm !important;
+            }
+
+            .center-cell h2 {
+                font-size: 20pt !important;
+                margin-bottom: 1mm !important;
+            }
+
+            .center-cell p {
+                font-size: 14pt !important;
+            }
+
+            /* フッターの調整 */
+            footer {
+                margin-top: 4mm !important;
+            }
+
+            footer + div {
+                margin-top: 2mm !important;
+                font-size: 8pt !important;
+            }
+        }
+
+        /* 画面表示用のA4サイズシミュレーション */
+        @media screen {
+            .a4-container {
+                max-width: 210mm;
+                min-height: 297mm;
+                margin: 0 auto;
+                background: white;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* マトリクスセルのスタイル */
+        .matrix-cell {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+            min-height: 180px;
+        }
+
+        .matrix-cell:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #9333ea;
+            z-index: 10;
+        }
+
+        /* 中央セルの特別スタイル */
+        .center-cell {
+            background: linear-gradient(135deg, #9333ea 0%, #22c55e 100%);
+            color: white;
+            min-height: 180px;
+        }
+
+        .center-cell:hover {
+            transform: scale(1.05);
+        }
+
+        /* リストスタイル */
+        .matrix-cell ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .matrix-cell li {
+            position: relative;
+            padding-left: 1.2em;
+            margin-bottom: 0.3em;
+            line-height: 1.4;
+        }
+
+        .matrix-cell li:before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            color: #9333ea;
+            font-size: 0.7em;
+        }
+
+        /* レスポンシブグリッド */
+        @media (max-width: 768px) {
+            .matrix-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .matrix-cell {
+                min-height: auto !important;
+            }
+        }
+
+        /* フォントサイズの調整 */
+        .matrix-cell h3 {
+            font-size: 1rem;
+        }
+
+        .matrix-cell ul {
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+
+    <!-- メインコンテナ（A4サイズ） -->
+    <div class="a4-container py-6 px-4">
+
+        <!-- ヘッダー -->
+        <header class="text-center mb-6 animate__animated animate__fadeInDown">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+                ナスの調理方法を整理する
+            </h1>
+            <p class="text-base text-gray-600">3×3マトリクス思考法で30本のナスを使い切る</p>
+        </header>
+
+        <!-- 3×3マトリクス -->
+        <div class="matrix-container">
+            <div class="matrix-grid grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+
+                <!-- 1行目・1列目：揚げ物 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        🔥 揚げ物
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>揚げ浸し</li>
+                        <li>天ぷら</li>
+                        <li>素揚げ</li>
+                        <li>唐揚げ</li>
+                        <li>フリット</li>
+                        <li>カツ</li>
+                    </ul>
+                    <div class="mt-3 text-xs text-gray-500">
+                        <p>📌 高温で短時間調理</p>
+                        <p>🕐 保存期間: 冷蔵2-3日</p>
+                    </div>
+                </div>
+
+                <!-- 1行目・2列目：焼き物 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        🔥 焼き物
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>焼きナス</li>
+                        <li>グリル焼き</li>
+                        <li>田楽</li>
+                        <li>ホイル焼き</li>
+                        <li>串焼き</li>
+                        <li>オーブン焼き</li>
+                    </ul>
+                    <div class="mt-3 text-xs text-gray-500">
+                        <p>📌 香ばしさが魅力</p>
+                        <p>🕐 保存期間: 冷蔵2-3日</p>
+                    </div>
+                </div>
+
+                <!-- 1行目・3列目：炒め物 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        🍳 炒め物
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>麻婆茄子</li>
+                        <li>味噌炒め</li>
+                        <li>中華炒め</li>
+                        <li>野菜炒め</li>
+                        <li>肉味噌炒め</li>
+                        <li>ピリ辛炒め</li>
+                    </ul>
+                    <div class="mt-3 text-xs text-gray-500">
+                        <p>📌 短時間で完成</p>
+                        <p>🕐 保存期間: 冷蔵2-3日</p>
+                    </div>
+                </div>
+
+                <!-- 2行目・1列目：煮物 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        🍲 煮物
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>煮浸し</li>
+                        <li>カレー</li>
+                        <li>煮びたし</li>
+                        <li>味噌煮</li>
+                        <li>トマト煮</li>
+                        <li>ラタトゥイユ</li>
+                    </ul>
+                    <div class="mt-3 text-xs text-gray-500">
+                        <p>📌 作り置きに最適</p>
+                        <p>🕐 保存期間: 冷蔵3-4日</p>
+                    </div>
+                </div>
+
+                <!-- 2行目・2列目：中央セル（メインテーマ） -->
+                <div class="matrix-cell center-cell rounded-lg p-6 shadow-lg flex flex-col items-center justify-center animate__animated animate__zoomIn">
+                    <div class="text-center">
+                        <div class="text-5xl mb-2">🍆</div>
+                        <h2 class="text-2xl md:text-3xl font-bold mb-2">ナスの</h2>
+                        <p class="text-xl md:text-2xl font-semibold">調理方法</p>
+                        <p class="text-sm mt-2 opacity-90">30本を使い切る</p>
+                    </div>
+                </div>
+
+                <!-- 2行目・3列目：漬物 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        🥒 漬物
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>浅漬け</li>
+                        <li>ぬか漬け</li>
+                        <li>からし漬け</li>
+                        <li>塩漬け</li>
+                        <li>醤油漬け</li>
+                        <li>即席漬け</li>
+                    </ul>
+                    <div class="mt-3 text-xs text-gray-500">
+                        <p>📌 長期保存可能</p>
+                        <p>🕐 保存期間: 冷蔵5-7日</p>
+                    </div>
+                </div>
+
+                <!-- 3行目・1列目：蒸し物 -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        ♨️ 蒸し物
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>蒸しナス</li>
+                        <li>レンジ蒸し</li>
+                        <li>せいろ蒸し</li>
+                        <li>酒蒸し</li>
+                        <li>ポン酢かけ</li>
+                        <li>ごまだれがけ</li>
+                    </ul>
+                    <div class="mt-3 text-xs text-gray-500">
+                        <p>📌 ヘルシー調理法</p>
+                        <p>🕐 保存期間: 冷蔵2-3日</p>
+                    </div>
+                </div>
+
+                <!-- 3行目・2列目：生食・マリネ -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        🥗 生食・マリネ
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>マリネ</li>
+                        <li>カルパッチョ</li>
+                        <li>サラダ</li>
+                        <li>ピクルス</li>
+                        <li>南蛮漬け</li>
+                        <li>エスカベッシュ</li>
+                    </ul>
+                    <div class="mt-3 text-xs text-gray-500">
+                        <p>📌 さっぱり食べられる</p>
+                        <p>🕐 保存期間: 冷蔵3-5日</p>
+                    </div>
+                </div>
+
+                <!-- 3行目・3列目：その他（洋風・創作） -->
+                <div class="matrix-cell bg-white rounded-lg p-4 shadow-md animate__animated animate__fadeInUp">
+                    <h3 class="font-bold text-primary-700 mb-3 border-b-2 border-primary-200 pb-2">
+                        🍝 洋風・創作
+                    </h3>
+                    <ul class="text-gray-700 leading-relaxed">
+                        <li>グラタン</li>
+                        <li>パスタ</li>
+                        <li>ピザ</li>
+                        <li>ディップ</li>
+                        <li>ムサカ</li>
+                        <li>キッシュ</li>
+                    </ul>
+                    <div class="mt-3 text-xs text-gray-500">
+                        <p>📌 洋食アレンジ</p>
+                        <p>🕐 保存期間: 冷蔵2-3日</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- アドバイスセクション -->
+        <div class="bg-accent-50 border-l-4 border-accent-500 p-4 mb-6 rounded-lg animate__animated animate__fadeInUp">
+            <h3 class="font-bold text-accent-700 mb-2">💡 ナス30本を使い切るコツ</h3>
+            <ul class="text-sm text-gray-700 space-y-1">
+                <li>• 揚げ浸しや煮浸しは多めに作って作り置き（3-4日保存可能）</li>
+                <li>• 漬物は長期保存できるので、10本程度を一度に漬ける</li>
+                <li>• カレーやラタトゥイユなら5-6本を一度に消費できる</li>
+                <li>• 焼きナスは冷凍保存も可能（皮をむいて冷凍）</li>
+                <li>• 新鮮なうちに多様な調理法で楽しむのがおすすめ</li>
+            </ul>
+        </div>
+
+        <!-- フッター（戻るリンク） -->
+        <footer class="text-center mt-6 no-print">
+            <a href="resipi.html" class="inline-block bg-primary-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-primary-700 transition transform hover:scale-105 shadow-md text-sm mr-2">
+                具体的なレシピを見る →
+            </a>
+        </footer>
+
+        <!-- コピーライト -->
+        <div class="text-center mt-4 text-gray-500 text-xs">
+            <p>&copy; 2025 3×3マトリクス思考法 - ナスの調理方法整理</p>
+        </div>
+
+    </div>
+
+    <!-- AOS (Animate On Scroll) v2.3 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS初期化
+        AOS.init({
+            duration: 600,
+            once: true,
+            offset: 50,
+            easing: 'ease-in-out'
+        });
+    </script>
+
+</body>
+</html>
