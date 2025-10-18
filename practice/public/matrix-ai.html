@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="テーマを入力するだけで、Claude AIが3x3マトリクス思考マップを自動生成。高品質な日本語で戦略立案をサポート">
+    <meta name="keywords" content="3x3マトリクス,AI,マンダラチャート,思考ツール,戦略立案,Claude,Anthropic">
+    <title>AI 3×3マトリクス思考ツール | Claude AI版</title>
+
+    <!-- Tailwind CSS v4.1+ -->
+    <script src="https://cdn.tailwindcss.com?v=4.1"></script>
+
+    <!-- Animate.css v4.1.1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- AOS v2.3 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.536.0/dist/umd/lucide.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        /* カスタムカラーパレット */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        /* ナビゲーションのスティッキー効果 */
+        .nav-sticky {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav-scrolled {
+            backdrop-filter: blur(12px);
+            background-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* マトリクスグリッド */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .matrix-cell {
+            aspect-ratio: 1;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .matrix-cell:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .matrix-cell.center {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .matrix-cell.sub-theme {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+        }
+
+        .matrix-cell .cell-number {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .loading-spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 印刷スタイル */
+        @media print {
+            nav, .no-print, footer {
+                display: none !important;
+            }
+
+            .matrix-grid {
+                page-break-inside: avoid;
+                max-width: 100%;
+            }
+
+            body {
+                font-size: 12pt;
+            }
+
+            .matrix-cell {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* レスポンシブ調整 */
+        @media (max-width: 768px) {
+            .matrix-grid {
+                gap: 0.5rem;
+            }
+
+            .matrix-cell {
+                padding: 0.5rem;
+                font-size: 0.875rem;
+            }
+
+            .matrix-cell.center {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-white to-purple-50">
+
+    <!-- ナビゲーション -->
+    <nav id="navbar" class="nav-sticky fixed top-0 left-0 right-0 z-50 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="sparkles" class="w-6 h-6 text-blue-600"></i>
+                    <span class="text-xl font-bold text-gray-900">AI 3×3マトリクス</span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#hero" class="text-gray-700 hover:text-blue-600 transition">ホーム</a>
+                    <a href="#generator" class="text-gray-700 hover:text-blue-600 transition">AIツール</a>
+                    <a href="#about" class="text-gray-700 hover:text-blue-600 transition">使い方</a>
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 transition">メインサイト</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="pt-32 pb-20 px-4">
+        <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+            <div class="flex justify-center mb-6">
+                <div class="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-blue-600"></i>
+                    <span class="text-sm font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Powered by Claude AI</span>
+                </div>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                AIが自動生成する<br>
+                <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">3×3マトリクス思考ツール</span>
+            </h1>
+            <p class="text-lg text-gray-600 mb-8">
+                テーマを入力するだけで、Claude AIが戦略的な3×3マトリクスを自動生成。<br>
+                高品質な日本語で、あなたの思考を整理します。
+            </p>
+            <a href="#generator" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition space-x-2 shadow-lg">
+                <span>今すぐ始める</span>
+                <i data-lucide="arrow-down" class="w-5 h-5"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Generator Section -->
+    <section id="generator" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+
+            <!-- 入力フォーム -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 mb-12" data-aos="fade-up">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                    <i data-lucide="sparkles" class="w-6 h-6 mr-2 text-blue-600"></i>
+                    AI マトリクス生成
+                </h2>
+
+                <!-- APIキー設定 -->
+                <div class="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
+                    <div class="flex items-start space-x-2 mb-3">
+                        <i data-lucide="key" class="w-5 h-5 text-blue-600 mt-0.5"></i>
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium text-gray-900 mb-1">
+                                Claude APIキー（初回のみ）
+                            </label>
+                            <p class="text-xs text-gray-600 mb-2">
+                                ※ブラウザに安全に保存されます。初回$5の無料クレジットあり
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <input
+                            type="password"
+                            id="apiKeyInput"
+                            placeholder="sk-ant-..."
+                            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        >
+                        <button
+                            id="saveApiKeyBtn"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center space-x-1">
+                            <i data-lucide="save" class="w-4 h-4"></i>
+                            <span>保存</span>
+                        </button>
+                    </div>
+                    <div class="mt-2 text-xs text-gray-600">
+                        <strong>APIキーの取得方法:</strong>
+                        <ol class="list-decimal list-inside mt-1 space-y-1">
+                            <li><a href="https://console.anthropic.com/" target="_blank" class="text-blue-600 hover:underline">Anthropic Console</a> にアクセス</li>
+                            <li>「API Keys」→「Create Key」をクリック</li>
+                            <li>生成されたキーをコピーして上記に貼り付け</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- テーマ入力 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                        <i data-lucide="message-square" class="w-4 h-4 mr-1"></i>
+                        テーマを入力してください
+                    </label>
+                    <textarea
+                        id="themeInput"
+                        rows="3"
+                        placeholder="例: 新規事業の立ち上げ、英語学習の計画、健康習慣の改善、チームの生産性向上"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                    ></textarea>
+                    <p class="text-xs text-gray-500 mt-1">※具体的なテーマを入力すると、より的確なマトリクスが生成されます</p>
+                </div>
+
+                <!-- 生成ボタン -->
+                <button
+                    id="generateBtn"
+                    class="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition font-medium flex items-center justify-center space-x-2 shadow-lg">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                    <span>AIがマトリクスを生成</span>
+                </button>
+            </div>
+
+            <!-- ローディング表示 -->
+            <div id="loadingSection" class="hidden">
+                <div class="bg-white rounded-2xl shadow-xl p-12 text-center" data-aos="fade-up">
+                    <div class="loading-spinner mx-auto mb-4"></div>
+                    <p class="text-gray-600 text-lg font-medium mb-2">Claude AIが分析中...</p>
+                    <p class="text-gray-500 text-sm">戦略的なマトリクスを生成しています（10〜20秒）</p>
+                </div>
+            </div>
+
+            <!-- マトリクス表示 -->
+            <div id="matrixSection" class="hidden">
+                <div class="bg-white rounded-2xl shadow-xl p-8 mb-8" data-aos="fade-up">
+                    <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+                        <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+                            <i data-lucide="check-circle" class="w-6 h-6 mr-2 text-green-600"></i>
+                            AIが生成したマトリクス
+                        </h2>
+                        <div class="flex space-x-2 no-print">
+                            <button
+                                id="regenerateBtn"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center space-x-1">
+                                <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                                <span>再生成</span>
+                            </button>
+                            <button
+                                id="printBtn"
+                                class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center space-x-1">
+                                <i data-lucide="printer" class="w-4 h-4"></i>
+                                <span>印刷</span>
+                            </button>
+                            <button
+                                id="saveJsonBtn"
+                                class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition flex items-center space-x-1">
+                                <i data-lucide="download" class="w-4 h-4"></i>
+                                <span>保存</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 3x3マトリクスグリッド -->
+                    <div class="matrix-grid" id="matrixGrid">
+                        <!-- JavaScriptで動的生成 -->
+                    </div>
+
+                    <div class="mt-6 text-center text-sm text-gray-500 no-print">
+                        <p class="flex items-center justify-center space-x-1">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i>
+                            <span>Powered by Claude AI</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12" data-aos="fade-up">
+                使い方
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="key" class="w-8 h-8 text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">1. APIキー設定</h3>
+                    <p class="text-gray-600">初回のみAnthropic ConsoleでAPIキーを取得</p>
+                </div>
+
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="pencil" class="w-8 h-8 text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">2. テーマ入力</h3>
+                    <p class="text-gray-600">考えたいテーマや目標を入力</p>
+                </div>
+
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="sparkles" class="w-8 h-8 text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">3. AI生成</h3>
+                    <p class="text-gray-600">AIが自動的に戦略マトリクスを生成</p>
+                </div>
+            </div>
+
+            <div class="space-y-8" data-aos="fade-up">
+                <div class="p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center">
+                        <i data-lucide="crown" class="w-5 h-5 mr-2 text-blue-600"></i>
+                        Claude AIの特徴
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><strong>高品質な日本語</strong> - 自然で流暢な日本語生成</li>
+                        <li><strong>初回$5無料クレジット</strong> - アカウント作成時に付与</li>
+                        <li><strong>ブラウザから直接動作</strong> - CORSエラーなし</li>
+                        <li><strong>戦略的思考に最適</strong> - 深い分析と提案が可能</li>
+                        <li>マトリクス生成は1回約$0.01-0.02程度</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                        <i data-lucide="lightbulb" class="w-6 h-6 mr-2 text-yellow-500"></i>
+                        3×3マトリクス思考とは？
+                    </h3>
+                    <p class="text-gray-700 mb-4">
+                        3×3マトリクス思考は、中心となるテーマを囲む8つの要素を配置することで、多角的な視点から物事を分析・計画する思考法です。
+                        AIが自動生成することで、自分では思いつかなかった視点や要素を発見できます。
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><strong>中心セル</strong>：メインテーマや目標</li>
+                        <li><strong>周囲8セル</strong>：AIが提案する重要な要素</li>
+                        <li>新しい視点の発見</li>
+                        <li>バランスの取れた戦略立案</li>
+                        <li>気に入らなければ何度でも再生成可能</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                        <i data-lucide="target" class="w-6 h-6 mr-2 text-red-500"></i>
+                        活用例
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-semibold text-blue-900 mb-2">ビジネス戦略</h4>
+                            <p class="text-sm text-gray-700">新規事業、マーケティング、競合分析</p>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+                            <h4 class="font-semibold text-purple-900 mb-2">学習計画</h4>
+                            <p class="text-sm text-gray-700">語学習得、資格取得、スキルアップ</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
+                            <h4 class="font-semibold text-green-900 mb-2">プロジェクト管理</h4>
+                            <p class="text-sm text-gray-700">イベント企画、システム開発</p>
+                        </div>
+                        <div class="p-4 bg-orange-50 rounded-lg border-l-4 border-orange-500">
+                            <h4 class="font-semibold text-orange-900 mb-2">ライフスタイル</h4>
+                            <p class="text-sm text-gray-700">健康習慣、人間関係、自己実現</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="flex justify-center items-center space-x-2 mb-4">
+                <i data-lucide="sparkles" class="w-6 h-6"></i>
+                <span class="text-xl font-bold">AI 3×3マトリクス思考ツール</span>
+            </div>
+            <p class="text-gray-400 mb-4">
+                Claude AIを活用した戦略思考支援ツール
+            </p>
+            <div class="flex justify-center space-x-6 text-sm text-gray-400 mb-4">
+                <a href="index.html" class="hover:text-white transition">ホーム</a>
+                <a href="matrix-tool.html" class="hover:text-white transition">手動入力版</a>
+                <a href="profile.html" class="hover:text-white transition">運営者について</a>
+            </div>
+            <p class="text-gray-500 text-sm">
+                &copy; 2025 AI 3×3マトリクス思考ツール. Powered by Claude AI.
+            </p>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // アイコン初期化
+        lucide.createIcons();
+
+        // AOS初期化
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // ナビゲーションスクロール効果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ローカルストレージからAPIキー読み込み
+        const savedApiKey = localStorage.getItem('claude_api_key');
+        if (savedApiKey) {
+            document.getElementById('apiKeyInput').value = savedApiKey;
+        }
+
+        // APIキー保存
+        document.getElementById('saveApiKeyBtn').addEventListener('click', () => {
+            const apiKey = document.getElementById('apiKeyInput').value.trim();
+            if (apiKey) {
+                localStorage.setItem('claude_api_key', apiKey);
+                alert('✓ APIキーを保存しました');
+            } else {
+                alert('⚠ APIキーを入力してください');
+            }
+        });
+
+        // 現在のテーマを保存（再生成用）
+        let currentTheme = '';
+
+        // マトリクス生成
+        async function generateMatrix(theme) {
+            const apiKey = document.getElementById('apiKeyInput').value.trim() || localStorage.getItem('claude_api_key');
+
+            if (!theme) {
+                alert('⚠ テーマを入力してください');
+                document.getElementById('themeInput').focus();
+                return;
+            }
+
+            if (!apiKey) {
+                alert('⚠ APIキーを入力して保存してください');
+                document.getElementById('apiKeyInput').focus();
+                return;
+            }
+
+            // 現在のテーマを保存
+            currentTheme = theme;
+
+            // ローディング表示
+            document.getElementById('loadingSection').classList.remove('hidden');
+            document.getElementById('matrixSection').classList.add('hidden');
+
+            // ローディングセクションまでスクロール
+            document.getElementById('loadingSection').scrollIntoView({ behavior: 'smooth' });
+
+            try {
+                // Netlify Functionsを使用してCORS問題を回避
+                const response = await fetch('/.netlify/functions/generate-matrix', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        theme: theme,
+                        apiKey: apiKey
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`API Error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
+                }
+
+                const data = await response.json();
+
+                if (!data.content || !data.content[0]) {
+                    throw new Error('APIからの応答が不正です');
+                }
+
+                const content = data.content[0].text;
+
+                // JSON抽出（マークダウンのコードブロックを考慮）
+                let jsonMatch = content.match(/```json\s*([\s\S]*?)\s*```/);
+                if (!jsonMatch) {
+                    jsonMatch = content.match(/```\s*([\s\S]*?)\s*```/);
+                }
+                if (!jsonMatch) {
+                    jsonMatch = content.match(/\{[\s\S]*\}/);
+                }
+
+                if (!jsonMatch) {
+                    throw new Error('有効なJSON形式が見つかりませんでした');
+                }
+
+                const matrixData = JSON.parse(jsonMatch[1] || jsonMatch[0]);
+
+                // バリデーション
+                if (!matrixData.center || !matrixData.cells || matrixData.cells.length !== 8) {
+                    throw new Error('マトリクスデータの形式が不正です');
+                }
+
+                // マトリクス表示
+                displayMatrix(matrixData);
+
+                // ローディング非表示、マトリクス表示
+                document.getElementById('loadingSection').classList.add('hidden');
+                document.getElementById('matrixSection').classList.remove('hidden');
+
+                // マトリクスセクションまでスクロール
+                document.getElementById('matrixSection').scrollIntoView({ behavior: 'smooth' });
+
+            } catch (error) {
+                console.error('Error:', error);
+
+                let errorMessage = 'エラーが発生しました: ' + error.message;
+
+                if (error.message.includes('401') || error.message.includes('authentication')) {
+                    errorMessage = '⚠ APIキーが無効です。正しいキーを入力してください。';
+                } else if (error.message.includes('429') || error.message.includes('rate_limit')) {
+                    errorMessage = '⚠ APIの使用制限に達しました。しばらく待ってから再度お試しください。';
+                } else if (error.message.includes('402') || error.message.includes('insufficient_quota')) {
+                    errorMessage = '⚠ クレジットが不足しています。Anthropic Consoleで確認してください。';
+                }
+
+                alert(errorMessage);
+                document.getElementById('loadingSection').classList.add('hidden');
+            }
+        }
+
+        // 生成ボタン
+        document.getElementById('generateBtn').addEventListener('click', () => {
+            const theme = document.getElementById('themeInput').value.trim();
+            generateMatrix(theme);
+        });
+
+        // 再生成ボタン
+        document.getElementById('regenerateBtn').addEventListener('click', () => {
+            if (currentTheme) {
+                generateMatrix(currentTheme);
+            }
+        });
+
+        // マトリクス表示関数
+        function displayMatrix(data) {
+            const grid = document.getElementById('matrixGrid');
+            grid.innerHTML = '';
+
+            // セルの配置順序（中央が5番目）
+            const positions = [0, 1, 2, 3, 5, 6, 7, 8]; // 4はスキップ（中央）
+
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+
+                if (i === 4) {
+                    // 中央セル
+                    cell.className = 'matrix-cell center animate__animated animate__zoomIn';
+                    cell.innerHTML = `<div>${data.center}</div>`;
+                } else {
+                    // 周囲のセル
+                    const cellIndex = positions.indexOf(i);
+                    cell.className = 'matrix-cell sub-theme animate__animated animate__fadeIn';
+                    cell.style.animationDelay = `${cellIndex * 0.1}s`;
+                    cell.innerHTML = `
+                        <div class="cell-number">${cellIndex + 1}</div>
+                        <div>${data.cells[cellIndex]}</div>
+                    `;
+                }
+
+                grid.appendChild(cell);
+            }
+
+            // アイコン再初期化
+            lucide.createIcons();
+        }
+
+        // 印刷機能
+        document.getElementById('printBtn').addEventListener('click', () => {
+            window.print();
+        });
+
+        // JSON保存機能
+        document.getElementById('saveJsonBtn').addEventListener('click', () => {
+            const theme = currentTheme;
+            const cells = Array.from(document.querySelectorAll('.matrix-cell'))
+                .map(cell => cell.textContent.trim())
+                .filter(text => text && !text.match(/^\d+$/)); // 番号だけのセルを除外
+
+            const data = {
+                theme: theme,
+                cells: cells,
+                created: new Date().toISOString(),
+                generator: 'Claude AI'
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `matrix-ai-${theme.replace(/\s+/g, '-').substring(0, 20)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Enterキーで生成（Shiftキーなし）
+        document.getElementById('themeInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                document.getElementById('generateBtn').click();
+            }
+        });
+    </script>
+
+</body>
+</html>

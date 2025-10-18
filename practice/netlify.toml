@@ -1,0 +1,22 @@
+# Netlify設定ファイル
+
+[build]
+  # 公開ディレクトリ
+  publish = "public"
+
+  # Netlify Functionsのディレクトリ
+  functions = "netlify/functions"
+
+# リダイレクト設定（必要に応じて）
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# ヘッダー設定（CORS対応）
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type"
