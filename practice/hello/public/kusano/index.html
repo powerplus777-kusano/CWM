@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="草野 仁の個人情報管理術 - 3X3マトリクス思考、企画思考、ファイル管理術など、ビジネスに役立つ知識とノウハウを発信">
+    <meta name="keywords" content="草野仁, 3X3マトリクス, 情報管理, 企画思考, ファイル管理, ナレッジマネジメント, Power PLUS">
+    <meta property="og:title" content="草野 仁の個人情報管理術">
+    <meta property="og:description" content="ビジネスに役立つ思考法と情報管理のノウハウを発信">
+    <meta property="og:type" content="website">
+    <title>草野 仁の個人情報管理術 | 思考法と情報管理のノウハウ</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
+
+    <!-- Tailwind CSS v4.1+ CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        accent: {
+                            green: '#10b981',
+                            orange: '#f59e0b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Animate.css v4.1.1+ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- AOS v2.3+ -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Google Fonts - Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        /* スティッキーナビゲーション - 透明からブラー背景へ */
+        .nav-transparent {
+            background: transparent;
+        }
+
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ナビリンクのスクロール時色変更 */
+        .nav-transparent .nav-link {
+            color: white;
+        }
+
+        .nav-scrolled .nav-link {
+            color: #1f2937;
+        }
+
+        .nav-transparent .nav-logo {
+            color: white;
+        }
+
+        .nav-scrolled .nav-logo {
+            color: #1e3a8a;
+        }
+
+        /* 3x3グリッドスタイル */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: #cbd5e1;
+            border: 2px solid #cbd5e1;
+        }
+
+        .matrix-cell {
+            background: white;
+            padding: 1.5rem;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .matrix-cell:hover {
+            background: #f1f5f9;
+            transform: scale(1.02);
+        }
+
+        /* 印刷用のスタイル */
+        @media print {
+            nav, .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- ナビゲーション -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 nav-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- ロゴ -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#hero" class="text-2xl font-bold nav-logo transition-colors">
+                        🧩 草野 仁
+                    </a>
+                </div>
+
+                <!-- デスクトップメニュー -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="#about" class="nav-link hover:text-accent-green transition-colors">プロフィール</a>
+                    <a href="#matrix" class="nav-link hover:text-accent-green transition-colors">3X3マトリクス</a>
+                    <a href="#planning" class="nav-link hover:text-accent-green transition-colors">企画思考</a>
+                    <a href="#file-mgmt" class="nav-link hover:text-accent-green transition-colors">ファイル管理</a>
+                    <a href="#garden" class="nav-link hover:text-accent-green transition-colors">家庭菜園</a>
+                    <a href="#links" class="nav-link hover:text-accent-green transition-colors">リンク集</a>
+                    <a href="#contact" class="nav-link hover:text-accent-green transition-colors">お問い合わせ</a>
+                </div>
+
+                <!-- モバイルメニューボタン -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="nav-link hover:text-accent-green transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- モバイルメニュー -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#about" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">プロフィール</a>
+                <a href="#matrix" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">3X3マトリクス</a>
+                <a href="#planning" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">企画思考</a>
+                <a href="#file-mgmt" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">ファイル管理</a>
+                <a href="#garden" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">家庭菜園</a>
+                <a href="#website" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">HP作成</a>
+                <a href="#links" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">リンク集</a>
+                <a href="#blog" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">Blog</a>
+                <a href="#contact" class="block px-3 py-2 text-gray-700 hover:bg-primary-50 rounded-md">お問い合わせ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- 背景画像 -->
+        <div class="absolute inset-0 z-0">
+            <img src="../assets/images/jinmono.gif"
+                 alt="Background"
+                 class="w-full h-full object-cover opacity-40"
+                 loading="eager">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary-900/95 via-primary-800/93 to-primary-700/90"></div>
+        </div>
+
+        <!-- コンテンツ -->
+        <div class="relative z-10 text-center text-white px-4 max-w-5xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 animate__animated animate__fadeInDown">
+                草野 仁の個人情報管理術
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 animate__animated animate__fadeInUp animate__delay-1s">
+                多元的思考と正確な判断で、最良の結果を導く
+            </p>
+            <p class="text-lg md:text-xl mb-12 animate__animated animate__fadeInUp animate__delay-2s">
+                ビジネスに役立つ思考法、情報管理のノウハウを発信
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate__animated animate__fadeInUp animate__delay-3s">
+                <a href="#matrix" class="bg-accent-green hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                    3X3マトリクスを見る
+                </a>
+                <a href="#about" class="bg-white/20 hover:bg-white/30 text-white font-bold py-4 px-8 rounded-full transition-all backdrop-blur-sm border-2 border-white">
+                    詳しく見る
+                </a>
+            </div>
+        </div>
+
+        <!-- スクロールダウンアイコン -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">プロフィール</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    多元的思考と情報管理のプロフェッショナル
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <div class="bg-gradient-to-br from-primary-50 to-primary-100 p-8 rounded-2xl shadow-xl">
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6">草野 仁（Hitoshi Kusano）</h3>
+                        <div class="space-y-4 text-gray-700 leading-relaxed">
+                            <p>
+                                <strong class="text-primary-700">Power PLUS</strong> 代表<br>
+                                IT コーディネータ
+                            </p>
+                            <p>
+                                現代社会では、身の回りで起こっている事を確実にとらえ、真の問題点を見出し、
+                                これを解決すべく措置を講じ、最良の結果を得るために、多元的な思考と正確な判断が求められます。
+                            </p>
+                            <p>
+                                このホームページでは、長年の経験から培った様々な企画技法、情報管理ツールなどについて
+                                情報を発信していきたいと思います。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div data-aos="fade-left">
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-accent-green">
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">🎯 専門分野</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li>• 3X3マトリクス思考法</li>
+                                <li>• 企画思考・戦略立案</li>
+                                <li>• 情報管理・ファイル管理術</li>
+                                <li>• ナレッジマネジメント</li>
+                                <li>• ホームページ作成</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-accent-orange">
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">🌱 趣味</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li>• 家庭菜園（野菜栽培）</li>
+                                <li>• 写真撮影</li>
+                                <li>• Web技術の研究</li>
+                            </ul>
+                        </div>
+
+                        <div class="text-center">
+                            <a href="http://www.powerplus-net.com/" target="_blank" rel="noopener noreferrer"
+                               class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+                                Power PLUS Webサイト →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3X3 Matrix Section -->
+    <section id="matrix" class="py-20 bg-gradient-to-br from-primary-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">3X3マトリクス思考法</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    5W3Hで考えを整理する、シンプルで強力な思考フレームワーク
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div data-aos="fade-right">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-6">マンダラート発想法から派生</h3>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        3X3マトリクス思考法は、9つのマスを使って思考を整理する「マンダラート発想法」をベースにしています。
+                        ビジネスシーンで使いやすいよう、5W3Hのフレームワークと組み合わせることで、
+                        誰でも簡単に戦略的思考を実践できるようになりました。
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-accent-green mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">複雑な問題を9つの要素に分解</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-accent-green mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">視覚的に全体像を把握</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-accent-green mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">チームでの共通認識を形成</span>
+                        </li>
+                    </ul>
+                    <div class="mt-8">
+                        <a href="matrix33.html" target="_blank" rel="noopener noreferrer"
+                           class="inline-block bg-accent-green hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+                            3X3マトリクス詳細ページへ →
+                        </a>
+                    </div>
+                </div>
+
+                <div data-aos="fade-left">
+                    <div class="max-w-md mx-auto">
+                        <div class="matrix-grid">
+                            <div class="matrix-cell bg-primary-50">
+                                <div class="text-2xl mb-2">👤</div>
+                                <h4 class="font-bold text-primary-700 text-sm">Who</h4>
+                                <p class="text-xs text-gray-600">誰が/誰に</p>
+                            </div>
+                            <div class="matrix-cell bg-primary-50">
+                                <div class="text-2xl mb-2">🎯</div>
+                                <h4 class="font-bold text-primary-700 text-sm">What</h4>
+                                <p class="text-xs text-gray-600">何を</p>
+                            </div>
+                            <div class="matrix-cell bg-primary-50">
+                                <div class="text-2xl mb-2">💡</div>
+                                <h4 class="font-bold text-primary-700 text-sm">Why</h4>
+                                <p class="text-xs text-gray-600">なぜ</p>
+                            </div>
+                            <div class="matrix-cell bg-primary-50">
+                                <div class="text-2xl mb-2">📍</div>
+                                <h4 class="font-bold text-primary-700 text-sm">Where</h4>
+                                <p class="text-xs text-gray-600">どこで</p>
+                            </div>
+                            <div class="matrix-cell bg-gradient-to-br from-accent-green/20 to-primary-100">
+                                <div class="text-2xl mb-2">🧩</div>
+                                <h4 class="font-bold text-gray-900 text-base">中心テーマ</h4>
+                            </div>
+                            <div class="matrix-cell bg-primary-50">
+                                <div class="text-2xl mb-2">⏰</div>
+                                <h4 class="font-bold text-primary-700 text-sm">When</h4>
+                                <p class="text-xs text-gray-600">いつ</p>
+                            </div>
+                            <div class="matrix-cell bg-primary-50">
+                                <div class="text-2xl mb-2">🔧</div>
+                                <h4 class="font-bold text-primary-700 text-sm">How</h4>
+                                <p class="text-xs text-gray-600">どのように</p>
+                            </div>
+                            <div class="matrix-cell bg-primary-50">
+                                <div class="text-2xl mb-2">💰</div>
+                                <h4 class="font-bold text-primary-700 text-sm">How much</h4>
+                                <p class="text-xs text-gray-600">いくら</p>
+                            </div>
+                            <div class="matrix-cell bg-primary-50">
+                                <div class="text-2xl mb-2">📊</div>
+                                <h4 class="font-bold text-primary-700 text-sm">How many</h4>
+                                <p class="text-xs text-gray-600">どれくらい</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planning Section -->
+    <section id="planning" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">企画思考のすすめ</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    ナレッジマネジメントとビジネス戦略立案のノウハウ
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-12">
+                <div data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1759884247134-89b8fc25f726?ixid=M3w4MDk0MjV8MHwxfHNlYXJjaHwxfHxicmFpbnN0b3JtaW5nJTIwcGxhbm5pbmclMjBpZGVhcyUyMGNyZWF0aXZpdHl8ZW58MHwwfHx8MTc2MTM5OTM0MXww&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+                         alt="Planning and Ideas"
+                         class="rounded-2xl shadow-2xl"
+                         loading="lazy"
+                         decoding="async">
+                </div>
+
+                <div data-aos="fade-left">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-6">戦略的思考を身につける</h3>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        最近、ナレッジマネジメント（KM）や話題とされる様々なビジネス手法が流行っていますが、
+                        サカイ引越センターのコマーシャルに学ぶべきものがあります。
+                    </p>
+                    <div class="space-y-4 mb-8">
+                        <div class="bg-primary-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-primary-700 mb-2">📚 One to One Marketing</h4>
+                            <p class="text-gray-700 text-sm">顧客一人ひとりに最適化されたアプローチを実現</p>
+                        </div>
+                        <div class="bg-primary-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-primary-700 mb-2">🎯 ナレッジマネジメント</h4>
+                            <p class="text-gray-700 text-sm">組織の知識を効果的に管理・活用する仕組み</p>
+                        </div>
+                    </div>
+                    <a href="kikaku00.html" target="_blank" rel="noopener noreferrer"
+                       class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+                        企画思考の詳細を見る →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- File Management Section -->
+    <section id="file-mgmt" class="py-20 bg-gradient-to-br from-gray-50 to-primary-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">ファイル管理術</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    効率的な情報管理で生産性を向上
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-6">整理整頓された情報環境</h3>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        PC内に蓄積された膨大なファイルを効率的に管理する方法をご紹介します。
+                        フォルダ構造の最適化、ファイル命名規則、検索技術など、実践的なノウハウを提供します。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="bg-white p-4 rounded-lg shadow-md">
+                            <h4 class="font-bold text-primary-700 mb-2">📁 フォルダ管理</h4>
+                            <p class="text-gray-600 text-sm">体系的な分類方法</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-md">
+                            <h4 class="font-bold text-primary-700 mb-2">🔍 全文検索</h4>
+                            <p class="text-gray-600 text-sm">エンジン構築法</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-md">
+                            <h4 class="font-bold text-primary-700 mb-2">🖼️ 画像管理</h4>
+                            <p class="text-gray-600 text-sm">効率的な整理術</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-md">
+                            <h4 class="font-bold text-primary-700 mb-2">⚡ 高速アクセス</h4>
+                            <p class="text-gray-600 text-sm">リンク活用術</p>
+                        </div>
+                    </div>
+                    <div class="space-x-4">
+                        <a href="fldlist.html" target="_blank" rel="noopener noreferrer"
+                           class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-all shadow-lg">
+                            ファイル管理術 →
+                        </a>
+                        <a href="zkanri.html" target="_blank" rel="noopener noreferrer"
+                           class="inline-block bg-accent-green hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-all shadow-lg">
+                            全文検索 →
+                        </a>
+                    </div>
+                </div>
+
+                <div data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1715520530023-cc8a1b2044ab?ixid=M3w4MDk0MjV8MHwxfHNlYXJjaHwxfHxvcmdhbml6ZWQlMjBmaWxlcyUyMGRvY3VtZW50JTIwbWFuYWdlbWVudCUyMG9mZmljZXxlbnwwfDB8fHwxNzYxMzk5MzUzfDA&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+                         alt="File Management"
+                         class="rounded-2xl shadow-2xl"
+                         loading="lazy"
+                         decoding="async">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Garden Section -->
+    <section id="garden" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">家庭菜園</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    季節の野菜を育てる楽しみ
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-12">
+                <div data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1648090229186-6188eaefcc6a?ixid=M3w4MDk0MjV8MHwxfHNlYXJjaHwxfHxob21lJTIwdmVnZXRhYmxlJTIwZ2FyZGVuJTIwZnJlc2glMjB2ZWdldGFibGVzfGVufDB8MHx8fDE3NjEzOTkzMzN8MA&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+                         alt="Home Garden"
+                         class="rounded-2xl shadow-2xl"
+                         loading="lazy"
+                         decoding="async">
+                </div>
+
+                <div data-aos="fade-left">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-6">春の訪れ、季節の恵み</h3>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        春は花の季節です。桜の花もいいですが、これから芽吹く夏野菜の様子を見ていると楽しいものです。
+                        家庭菜園での野菜栽培の様子や、季節ごとの植物の写真を写真館にまとめています。
+                    </p>
+                    <div class="bg-gradient-to-br from-accent-green/10 to-primary-50 p-6 rounded-xl mb-8">
+                        <h4 class="font-bold text-gray-900 mb-4 text-xl">🌱 栽培している野菜</h4>
+                        <div class="grid grid-cols-2 gap-3 text-gray-700">
+                            <div>• トマト</div>
+                            <div>• きゅうり</div>
+                            <div>• なす</div>
+                            <div>• ピーマン</div>
+                            <div>• レタス</div>
+                            <div>• 大根</div>
+                        </div>
+                    </div>
+                    <div class="space-x-4">
+                        <a href="album3/photo3.html" target="_blank" rel="noopener noreferrer"
+                           class="inline-block bg-accent-green hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+                            春の写真館その3 →
+                        </a>
+                        <a href="album22/photo2.html" target="_blank" rel="noopener noreferrer"
+                           class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+                            春の写真館その2 →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Website Creation Section -->
+    <section id="website" class="py-20 bg-gradient-to-br from-primary-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">ホームページ作成術</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    効果的なWebサイト構築のノウハウ
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-6">戦略的なHP設計</h3>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        ホームページを作成しようとする際に必要な構想図です。
+                        ホームページ作成に当たり何が重要か、また考えるべき内容などを分かりやすく3×3のマトリックス表にまとめています。
+                    </p>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-accent-green mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">目的とターゲットの明確化</span>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-accent-green mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">コンテンツ構成の設計</span>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-accent-green mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">効果的なナビゲーション</span>
+                        </div>
+                    </div>
+                    <a href="HPcreate.html" target="_blank" rel="noopener noreferrer"
+                       class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+                        HP作成術の詳細 →
+                    </a>
+                </div>
+
+                <div data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1730130054404-c2bd8e7038c2?ixid=M3w4MDk0MjV8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXZlbG9wbWVudCUyMHByb2dyYW1taW5nJTIwY29kaW5nJTIwd29ya3NwYWNlfGVufDB8MHx8fDE3NjEzOTkzNjV8MA&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+                         alt="Web Development"
+                         class="rounded-2xl shadow-2xl"
+                         loading="lazy"
+                         decoding="async">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Links Section -->
+    <section id="links" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">お役立ちリンク集</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    厳選した有益なWebリソース
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8" data-aos="fade-up">
+                <div class="bg-gradient-to-br from-primary-50 to-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-5xl mb-4 text-center">🔗</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">便利なツール</h3>
+                    <p class="text-gray-700 mb-6 text-center">
+                        検索エンジン、情報管理ツールなど、日々の業務に役立つリソースを厳選
+                    </p>
+                    <div class="text-center">
+                        <a href="bookmark.html" target="_blank" rel="noopener noreferrer"
+                           class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-all">
+                            リンク集を見る →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-accent-green/10 to-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-5xl mb-4 text-center">📚</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">DjVu技術</h3>
+                    <p class="text-gray-700 mb-6 text-center">
+                        画像圧縮技術DjVuについての情報とリソース
+                    </p>
+                    <div class="text-center">
+                        <a href="DJVU01.htm" target="_blank" rel="noopener noreferrer"
+                           class="inline-block bg-accent-green hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-all">
+                            DjVu紹介 →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-accent-orange/10 to-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-5xl mb-4 text-center">🗺️</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">サイトマップ</h3>
+                    <p class="text-gray-700 mb-6 text-center">
+                        このサイトの全体構造を一覧で確認できます
+                    </p>
+                    <div class="text-center">
+                        <a href="mm.html" target="_blank" rel="noopener noreferrer"
+                           class="inline-block bg-accent-orange hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-all">
+                            サイトマップ →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog/Updates Section -->
+    <section id="blog" class="py-20 bg-gradient-to-br from-gray-50 to-primary-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Blog / 最新情報</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    日々の活動と最新の情報を発信
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 mb-12">
+                <!-- Blog Card -->
+                <div class="bg-white p-8 rounded-2xl shadow-xl" data-aos="fade-right">
+                    <div class="flex items-center mb-6">
+                        <div class="text-5xl mr-4">📝</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Blog（日記）</h3>
+                            <p class="text-gray-600">日々の気づきや活動を綴っています</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        技術情報、家庭菜園の様子、日々の出来事など、様々なトピックについて書いています。
+                        最新の投稿は外部ブログサービスで公開中です。
+                    </p>
+                    <a href="http://blog.livedoor.jp/h_kusano/" target="_blank" rel="noopener noreferrer"
+                       class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+                        Blogを読む →
+                    </a>
+                </div>
+
+                <!-- Updates Card -->
+                <div class="bg-white p-8 rounded-2xl shadow-xl" data-aos="fade-left">
+                    <div class="flex items-center mb-6">
+                        <div class="text-5xl mr-4">🔄</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">最新情報</h3>
+                            <p class="text-gray-600">サイトの更新履歴</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-accent-green pl-4">
+                            <div class="text-sm text-gray-500 mb-1">2010年4月11日</div>
+                            <p class="text-gray-700">IT コーディネータの資格を取得し、<a href="http://www.powerplus-net.com/" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">Power PLUS</a>として起業しました</p>
+                        </div>
+                        <div class="border-l-4 border-primary-500 pl-4">
+                            <div class="text-sm text-gray-500 mb-1">2009年3月15日</div>
+                            <p class="text-gray-700">Atom330搭載 2万5千円の自作PCを作成してみました</p>
+                        </div>
+                        <div class="border-l-4 border-accent-orange pl-4">
+                            <div class="text-sm text-gray-500 mb-1">2009年2月8日</div>
+                            <p class="text-gray-700">春の写真館をFLASH形式で更新しました</p>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <a href="rireki.html" target="_blank" rel="noopener noreferrer"
+                           class="inline-block text-primary-600 hover:text-primary-700 font-semibold">
+                            更新履歴の全てを見る →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 管理術リンクセクション -->
+            <div class="bg-white p-8 rounded-2xl shadow-xl" data-aos="fade-up">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">📖 私の色々管理術</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <a href="matrix33.html" target="_blank" rel="noopener noreferrer"
+                       class="block p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors text-center">
+                        <div class="text-3xl mb-2">🧩</div>
+                        <div class="font-semibold text-gray-900">3X3マトリクス思考</div>
+                    </a>
+                    <a href="kikaku00.html" target="_blank" rel="noopener noreferrer"
+                       class="block p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors text-center">
+                        <div class="text-3xl mb-2">💡</div>
+                        <div class="font-semibold text-gray-900">企画思考のすすめ</div>
+                    </a>
+                    <a href="fldlist.html" target="_blank" rel="noopener noreferrer"
+                       class="block p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors text-center">
+                        <div class="text-3xl mb-2">📁</div>
+                        <div class="font-semibold text-gray-900">ファイル管理術</div>
+                    </a>
+                    <a href="gkanri.html" target="_blank" rel="noopener noreferrer"
+                       class="block p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors text-center">
+                        <div class="text-3xl mb-2">🖼️</div>
+                        <div class="font-semibold text-gray-900">画像管理術</div>
+                    </a>
+                    <a href="album3/photo3.html" target="_blank" rel="noopener noreferrer"
+                       class="block p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors text-center">
+                        <div class="text-3xl mb-2">🌸</div>
+                        <div class="font-semibold text-gray-900">春の写真館その3</div>
+                    </a>
+                    <a href="HPcreate.html" target="_blank" rel="noopener noreferrer"
+                       class="block p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors text-center">
+                        <div class="text-3xl mb-2">🌐</div>
+                        <div class="font-semibold text-gray-900">HP作成術</div>
+                    </a>
+                    <a href="bookmark.html" target="_blank" rel="noopener noreferrer"
+                       class="block p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors text-center">
+                        <div class="text-3xl mb-2">🔗</div>
+                        <div class="font-semibold text-gray-900">お役立ちリンク集</div>
+                    </a>
+                    <a href="http://blog.livedoor.jp/h_kusano/" target="_blank" rel="noopener noreferrer"
+                       class="block p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors text-center">
+                        <div class="text-3xl mb-2">📝</div>
+                        <div class="font-semibold text-gray-900">Blog（日記）</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">お問い合わせ</h2>
+                <p class="text-xl text-primary-100">
+                    ご質問やご意見がございましたら、お気軽にご連絡ください
+                </p>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-lg p-8 rounded-2xl" data-aos="zoom-in">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">🏢 Power PLUS</h3>
+                        <p class="text-primary-100 mb-4 leading-relaxed">
+                            ITコーディネータとして、企業の情報戦略立案やシステム導入のサポートを行っています。
+                        </p>
+                        <a href="http://www.powerplus-net.com/" target="_blank" rel="noopener noreferrer"
+                           class="inline-block bg-white text-primary-700 hover:bg-primary-50 font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+                            Power PLUS Webサイト →
+                        </a>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">📚 関連リンク</h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="http://blog.livedoor.jp/h_kusano/" target="_blank" rel="noopener noreferrer"
+                                   class="text-primary-100 hover:text-white transition-colors flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                    </svg>
+                                    Blog（日記）
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mm.html" target="_blank" rel="noopener noreferrer"
+                                   class="text-primary-100 hover:text-white transition-colors flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                    </svg>
+                                    サイトマップ
+                                </a>
+                            </li>
+                            <li>
+                                <a href="rireki.html" target="_blank" rel="noopener noreferrer"
+                                   class="text-primary-100 hover:text-white transition-colors flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                    </svg>
+                                    更新履歴
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="border-t border-white/20 pt-8 text-center">
+                    <p class="text-primary-100 mb-2">
+                        このサイトをご覧いただき、ありがとうございます
+                    </p>
+                    <p class="text-sm text-primary-200">
+                        © 1998-2010 Hitoshi Kusano. Link Free.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm">
+                This page is Link Free. Feel free to share.
+            </p>
+            <p class="text-xs text-gray-500 mt-2">
+                i-Copyright(C) 1998-2010 Hitoshi Kusano
+            </p>
+        </div>
+    </footer>
+
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS初期化
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+
+        // ナビゲーションのスクロール処理
+        const navbar = document.getElementById('navbar');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('nav-transparent');
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+                navbar.classList.add('nav-transparent');
+            }
+        });
+
+        // モバイルメニューのトグル
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // モバイルメニューのリンククリックで閉じる
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 64; // ナビの高さ分調整
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
