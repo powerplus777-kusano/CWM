@@ -117,6 +117,14 @@
             nav, .no-print {
                 display: none !important;
             }
+            .matrix-grid {
+                page-break-inside: avoid;
+            }
+            /* AOSアニメーションを無効化 */
+            [data-aos] {
+                opacity: 1 !important;
+                transform: none !important;
+            }
         }
     </style>
 </head>
@@ -188,7 +196,7 @@
                 草野 仁の個人情報管理術
             </h1>
             <p class="text-xl md:text-2xl mb-8 animate__animated animate__fadeInUp animate__delay-1s">
-                多元的思考と正確な判断で、最良の結果を導く
+                さまざまな視点から物事を考え、正確な判断で、最良の結果を導く
             </p>
             <p class="text-lg md:text-xl mb-12 animate__animated animate__fadeInUp animate__delay-2s">
                 ビジネスに役立つ思考法、情報管理のノウハウを発信
@@ -217,7 +225,7 @@
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">プロフィール</h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    多元的思考と情報管理のプロフェッショナル
+                    さまざまな視点から考える思考法と情報管理のプロフェッショナル
                 </p>
             </div>
 
@@ -232,7 +240,7 @@
                             </p>
                             <p>
                                 現代社会では、身の回りで起こっている事を確実にとらえ、真の問題点を見出し、
-                                これを解決すべく措置を講じ、最良の結果を得るために、多元的な思考と正確な判断が求められます。
+                                これを解決すべく措置を講じ、最良の結果を得るために、さまざまな角度から物事を考える思考と正確な判断が求められます。
                             </p>
                             <p>
                                 このホームページでは、長年の経験から培った様々な企画技法、情報管理ツールなどについて
@@ -291,6 +299,7 @@
                     <h3 class="text-3xl font-bold text-gray-900 mb-6">マンダラート発想法から派生</h3>
                     <p class="text-lg text-gray-700 mb-6 leading-relaxed">
                         3X3マトリクス思考法は、9つのマスを使って思考を整理する「マンダラート発想法」をベースにしています。
+                        野球の大谷翔平選手が実践していたことでも有名です。
                         ビジネスシーンで使いやすいよう、5W3Hのフレームワークと組み合わせることで、
                         誰でも簡単に戦略的思考を実践できるようになりました。
                     </p>
@@ -402,14 +411,14 @@
                         サカイ引越センターのコマーシャルに学ぶべきものがあります。
                     </p>
                     <div class="space-y-4 mb-8">
-                        <div class="bg-primary-50 p-4 rounded-lg">
+                        <a href="kikaku02.html" target="_blank" rel="noopener noreferrer" class="block bg-primary-50 p-4 rounded-lg hover:bg-primary-100 transition-colors">
                             <h4 class="font-bold text-primary-700 mb-2">📚 One to One Marketing</h4>
                             <p class="text-gray-700 text-sm">顧客一人ひとりに最適化されたアプローチを実現</p>
-                        </div>
-                        <div class="bg-primary-50 p-4 rounded-lg">
+                        </a>
+                        <a href="kikaku03.html" target="_blank" rel="noopener noreferrer" class="block bg-primary-50 p-4 rounded-lg hover:bg-primary-100 transition-colors">
                             <h4 class="font-bold text-primary-700 mb-2">🎯 ナレッジマネジメント</h4>
                             <p class="text-gray-700 text-sm">組織の知識を効果的に管理・活用する仕組み</p>
-                        </div>
+                        </a>
                     </div>
                     <a href="kikaku00.html" target="_blank" rel="noopener noreferrer"
                        class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
@@ -443,26 +452,14 @@
                             <p class="text-gray-600 text-sm">体系的な分類方法</p>
                         </div>
                         <div class="bg-white p-4 rounded-lg shadow-md">
-                            <h4 class="font-bold text-primary-700 mb-2">🔍 全文検索</h4>
-                            <p class="text-gray-600 text-sm">エンジン構築法</p>
-                        </div>
-                        <div class="bg-white p-4 rounded-lg shadow-md">
                             <h4 class="font-bold text-primary-700 mb-2">🖼️ 画像管理</h4>
                             <p class="text-gray-600 text-sm">効率的な整理術</p>
-                        </div>
-                        <div class="bg-white p-4 rounded-lg shadow-md">
-                            <h4 class="font-bold text-primary-700 mb-2">⚡ 高速アクセス</h4>
-                            <p class="text-gray-600 text-sm">リンク活用術</p>
                         </div>
                     </div>
                     <div class="space-x-4">
                         <a href="fldlist.html" target="_blank" rel="noopener noreferrer"
                            class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-all shadow-lg">
                             ファイル管理術 →
-                        </a>
-                        <a href="zkanri.html" target="_blank" rel="noopener noreferrer"
-                           class="inline-block bg-accent-green hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-all shadow-lg">
-                            全文検索 →
                         </a>
                     </div>
                 </div>
@@ -515,13 +512,9 @@
                         </div>
                     </div>
                     <div class="space-x-4">
-                        <a href="album3/photo3.html" target="_blank" rel="noopener noreferrer"
+                        <a href="https://www.powerplus-net.com/saien.html" target="_blank" rel="noopener noreferrer"
                            class="inline-block bg-accent-green hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
-                            春の写真館その3 →
-                        </a>
-                        <a href="album22/photo2.html" target="_blank" rel="noopener noreferrer"
-                           class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
-                            春の写真館その2 →
+                            菜園の様子 →
                         </a>
                     </div>
                 </div>
@@ -609,15 +602,15 @@
                 </div>
 
                 <div class="bg-gradient-to-br from-accent-green/10 to-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-                    <div class="text-5xl mb-4 text-center">📚</div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">DjVu技術</h3>
+                    <div class="text-5xl mb-4 text-center">🧩</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">3X3マトリクス思考法</h3>
                     <p class="text-gray-700 mb-6 text-center">
-                        画像圧縮技術DjVuについての情報とリソース
+                        9つのマスで思考を整理し、戦略的な発想を促進する強力なフレームワーク
                     </p>
                     <div class="text-center">
-                        <a href="DJVU01.htm" target="_blank" rel="noopener noreferrer"
+                        <a href="https://www.powerplus-net.com/HP01.html" target="_blank" rel="noopener noreferrer"
                            class="inline-block bg-accent-green hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-all">
-                            DjVu紹介 →
+                            詳細を見る →
                         </a>
                     </div>
                 </div>
@@ -681,7 +674,7 @@
                     <div class="space-y-4">
                         <div class="border-l-4 border-accent-green pl-4">
                             <div class="text-sm text-gray-500 mb-1">2010年4月11日</div>
-                            <p class="text-gray-700">IT コーディネータの資格を取得し、<a href="http://www.powerplus-net.com/" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">Power PLUS</a>として起業しました</p>
+                            <p class="text-gray-700">IT コーディネータの資格を取得し、<a href="https://www.powerplus-net.com/" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">Power PLUS</a>として起業しました</p>
                         </div>
                         <div class="border-l-4 border-primary-500 pl-4">
                             <div class="text-sm text-gray-500 mb-1">2009年3月15日</div>
@@ -776,6 +769,15 @@
                     <div>
                         <h3 class="text-2xl font-bold mb-4">📚 関連リンク</h3>
                         <ul class="space-y-3">
+                            <li>
+                                <a href="https://www.powerplus-net.com/HP01.html" target="_blank" rel="noopener noreferrer"
+                                   class="text-primary-100 hover:text-white transition-colors flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                    </svg>
+                                    3X3マトリクス思考法
+                                </a>
+                            </li>
                             <li>
                                 <a href="http://blog.livedoor.jp/h_kusano/" target="_blank" rel="noopener noreferrer"
                                    class="text-primary-100 hover:text-white transition-colors flex items-center">

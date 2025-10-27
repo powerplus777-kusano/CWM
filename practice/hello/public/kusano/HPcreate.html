@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="3X3マトリクス思考でホームページ作成を体系的に整理 - Power PLUS 草野仁">
+    <meta name="keywords" content="ホームページ作成術, 3X3マトリクス, Webデザイン, HP作成, 草野仁, Power PLUS">
+    <title>ホームページ作成術 - 3X3マトリクス思考 | 草野 仁</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
+
+    <!-- Tailwind CSS v4.1+ CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        accent: {
+                            green: '#10b981',
+                            orange: '#f59e0b',
+                            purple: '#a855f7',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts - Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        /* 3x3グリッドスタイル */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: #cbd5e1;
+            border: 2px solid #cbd5e1;
+        }
+
+        .matrix-cell {
+            background: white;
+            padding: 1rem;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .matrix-cell.header {
+            background: #dcffff;
+            font-weight: bold;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            font-size: 1.1rem;
+        }
+
+        .matrix-cell.center {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            grid-row: span 2;
+            position: relative;
+        }
+
+        .matrix-cell.center::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('../assets/images/jinmono.gif');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .matrix-cell.center > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .matrix-cell ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .matrix-cell li {
+            padding: 0.25rem 0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .matrix-cell a {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        .matrix-cell a:hover {
+            color: #1d4ed8;
+        }
+
+        /* 印刷用のスタイル */
+        @media print {
+            @page {
+                size: A4;
+                margin: 8mm 10mm;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            nav, .no-print {
+                display: none !important;
+            }
+
+            main {
+                padding: 0 !important;
+            }
+
+            h1 {
+                font-size: 18pt;
+                margin: 0 0 4mm 0;
+                padding: 0;
+                page-break-after: avoid;
+            }
+
+            .matrix-grid {
+                page-break-inside: avoid;
+                page-break-before: avoid;
+                border: 2px solid #000;
+                gap: 1px;
+                background: #000;
+                margin: 0;
+            }
+
+            .matrix-cell {
+                padding: 8px;
+                min-height: 150px;
+                font-size: 9pt;
+                line-height: 1.4;
+            }
+
+            .matrix-cell.header {
+                background: #e0e0e0 !important;
+                font-size: 10pt;
+                min-height: 45px;
+                font-weight: bold;
+            }
+
+            .matrix-cell.center {
+                background: #f0f0f0 !important;
+                min-height: 300px;
+            }
+
+            .matrix-cell.center::before {
+                background-image: url('../assets/images/jinmono.gif');
+                background-size: cover;
+                background-position: center;
+                opacity: 0.12;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .matrix-cell li {
+                font-size: 8.5pt;
+                padding: 1.5px 0;
+                line-height: 1.35;
+            }
+
+            .back-link {
+                display: none;
+            }
+
+            /* リンクの色を印刷時に適切に */
+            a {
+                color: #000 !important;
+                text-decoration: underline;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .matrix-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .matrix-cell.center {
+                grid-row: span 1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- ナビゲーション -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-md no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-xl font-bold text-primary-700 hover:text-primary-800">
+                        🧩 草野 仁
+                    </a>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="index.html" class="text-gray-700 hover:text-primary-600 transition-colors">ホーム</a>
+                    <a href="matrix33.html" class="text-gray-700 hover:text-primary-600 transition-colors">3X3マトリクス</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <main class="pt-20 pb-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <!-- タイトル -->
+            <h1 class="text-3xl md:text-4xl font-bold text-center text-purple-600 mb-8">
+                ホームページ作成術
+            </h1>
+
+            <!-- 3X3マトリクス -->
+            <div class="matrix-grid">
+                <!-- 上段ヘッダー -->
+                <div class="matrix-cell header">作成の目的・ねらい</div>
+                <div class="matrix-cell header">ターゲットユーザ・市場</div>
+                <div class="matrix-cell header">デザイン・構成</div>
+
+                <!-- 上段コンテンツ -->
+                <div class="matrix-cell">
+                    <ul>
+                        <li>・作成の目的／動機</li>
+                        <li>・誰を対象に／他人／自分</li>
+                        <li>・メリット／必要性</li>
+                        <li>・利用方法</li>
+                        <li>・６Ｗ２Ｈ</li>
+                        <li>　何故</li>
+                        <li>　誰が／いつ／どこで</li>
+                        <li>　何を／誰に対して</li>
+                        <li>　どのように／いくらで</li>
+                        <li>・存在価値／意義／こだわり</li>
+                        <li>・差別化要因を明確化</li>
+                    </ul>
+                </div>
+
+                <div class="matrix-cell">
+                    <ul>
+                        <li>・個人</li>
+                        <li>・企業／法人</li>
+                        <li>・女性／老人／子供</li>
+                        <li>・専門家／技術者</li>
+                        <li>・医者</li>
+                        <li>・マニア</li>
+                        <li><br></li>
+                        <li>・趣味娯楽／旅行／写真</li>
+                        <li>・スポーツ</li>
+                        <li>・政治／経済／教育</li>
+                        <li>・専門分野</li>
+                        <li>・コンピュータ／インターネット</li>
+                    </ul>
+                </div>
+
+                <div class="matrix-cell">
+                    <ul>
+                        <li>・ホームページタイトル</li>
+                        <li>・画面Ａ４　１ページを目安に</li>
+                        <li>・フレーム／ノンフレーム形式</li>
+                        <li>・更新日</li>
+                        <li>・アクセスカウンタ</li>
+                        <li>・Ｅ−ｍａｉｌｅ連絡先</li>
+                        <li>・色／大きさ／画像</li>
+                        <li>・表で見易く</li>
+                        <li>・最新情報コーナ</li>
+                        <li>・内容を６つぐらいに絞る</li>
+                    </ul>
+                </div>
+
+                <!-- 中段ヘッダー -->
+                <div class="matrix-cell header"><a href="rireki.html">更新履歴</a>／<a href="iken.html">意見・ご感想</a></div>
+                <!-- 中央セル（2行スパン） -->
+                <div class="matrix-cell center">
+                    <a href="index.html" class="block">
+                        <div class="text-xl font-bold text-primary-700 mb-3">草野　仁のHomeＰａｇｅ</div>
+                        <div class="text-sm text-gray-600 mt-2">クリックして戻る</div>
+                    </a>
+                </div>
+                <div class="matrix-cell header"><a href="profile1.html">自己紹介</a></div>
+
+                <!-- 中段コンテンツ -->
+                <div class="matrix-cell">
+                    <ul>
+                        <li><strong>更新履歴</strong></li>
+                        <li>　・更新日</li>
+                        <li>　・更新履歴</li>
+                        <li><br></li>
+                        <li><strong>意見感想</strong></li>
+                        <li>　・名前</li>
+                        <li>　・Ｅ−ｍａｉｌｅアドレス</li>
+                        <li>　・ホームページＵＲＬ</li>
+                        <li>　・意見／感想</li>
+                        <li>　・送信／リセット</li>
+                        <li><br></li>
+                        <li>・ＣＧＩを利用</li>
+                    </ul>
+                </div>
+
+                <div class="matrix-cell">
+                    <ul>
+                        <li>・名前／生年月日</li>
+                        <li>・年齢／血液型</li>
+                        <li>・性格／好きな事／嫌いな事</li>
+                        <li>・<a href="ryuujin.html">趣味（名水の旅）</a></li>
+                        <li>・モットー／ポリシー</li>
+                        <li>・好きな食べ物／言話</li>
+                        <li>・資格</li>
+                        <li>・<a href="nawatobi.html">スポーツ（なわとび）</a></li>
+                        <li><br></li>
+                        <li>・<a href="family.html">家族紹介</a></li>
+                    </ul>
+                </div>
+
+                <!-- 下段ヘッダー -->
+                <div class="matrix-cell header"><a href="bookmark.html">お役立ちリンク集</a></div>
+                <div class="matrix-cell header"><a href="gkanri.html">画像／ファイル管理</a>／<a href="album3/photo3.html">写真館</a></div>
+                <div class="matrix-cell header"><a href="HPcreate.html">ホームページ作成術</a></div>
+
+                <!-- 下段コンテンツ -->
+                <div class="matrix-cell">
+                    <ul>
+                        <li>・ホームページ作成に役立つ</li>
+                        <li>・ソフトウェアダウンロードサイト</li>
+                        <li>・企業情報</li>
+                        <li>・インターネット／通信関連</li>
+                        <li>・コンピュータ関連</li>
+                        <li>・リクルート情報</li>
+                        <li>・ニュース／出来事</li>
+                        <li>・趣味／娯楽／スポーツ</li>
+                        <li>・コンサルタント</li>
+                        <li>・ＳＯＨＯビジネス</li>
+                        <li>・<a href="cabletv.html">ケーブルTV</a></li>
+                        <li>・その他</li>
+                    </ul>
+                </div>
+
+                <div class="matrix-cell">
+                    <ul>
+                        <li>・<a href="album3/photo3.html">写真館</a></li>
+                        <li>　サムネイル一覧表示(100X75)</li>
+                        <li>　スライドーショー表示(480X360)</li>
+                        <li>　画像タイトル／サイズ表示</li>
+                        <li><br></li>
+                        <li>・<a href="gkanri.html">画像管理法</a></li>
+                        <li>　画像管理術／ソフト紹介</li>
+                        <li><br></li>
+                        <li>・<a href="fkanri.html">ファイル管理法</a></li>
+                        <li>　ファイル管理術／ソフト紹介</li>
+                        <li><br></li>
+                        <li>・<a href="zkanri.html">全文検索構築方</a></li>
+                    </ul>
+                </div>
+
+                <div class="matrix-cell">
+                    <ul>
+                        <li>・作成にあたり／考え方</li>
+                        <li>・作成手順</li>
+                        <li>・作成ソフト</li>
+                        <li>・ＨＴＭＬ</li>
+                        <li>・多くの人に見てもらう為に</li>
+                        <li>・マーケティング手法</li>
+                        <li>・<a href="matrix33.html">３Ｘ３マトリクス手法</a></li>
+                        <li>・ＳＯＨＯビジネス</li>
+                        <li>・<a href="kikaku00.html">企画思考のすすめ</a></li>
+                        <li>・その他</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 戻るリンク -->
+            <div class="text-center mt-8 back-link">
+                <a href="index.html" class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-all transform hover:scale-105 shadow-lg no-print">
+                    草野　仁のホームページへ戻る
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-6 no-print">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm">© 1998-2010 Hitoshi Kusano. Link Free.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
