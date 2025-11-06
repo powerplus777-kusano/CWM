@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI生成 3X3マトリクス - 厳選テーマ集">
+    <title>AI生成 3X3マトリクス - 厳選テーマ集</title>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.536.0/dist/umd/lucide.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            color: #5a6c7d;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .card-tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-top: 15px;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+            opacity: 0.8;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 AI生成 3X3マトリクス</h1>
+            <p class="subtitle">問題解決型・学習型のテーマを厳選。各テーマをクリックして詳細をご覧ください</p>
+        </header>
+
+        <div class="cards-grid">
+            <!-- カード1: 営業スキル8選 -->
+            <a href="営業スキル8選.html" class="card">
+                <span class="card-icon">💼</span>
+                <h2 class="card-title">営業スキル8選</h2>
+                <p class="card-description">
+                    トップセールスが実践する8つの必須スキル。ヒアリング力、提案力、クロージング力など、営業成績を飛躍的に向上させる実践テクニック。
+                </p>
+                <span class="card-tag">ビジネススキル</span>
+            </a>
+
+            <!-- カード2: 電動草刈機の安全な使い方 -->
+            <a href="dendo-soukariki.html" class="card">
+                <span class="card-icon">🌿</span>
+                <h2 class="card-title">電動草刈機の安全な使い方</h2>
+                <p class="card-description">
+                    保護具の着用から刃の選択、保管方法まで。事故を防ぎ、効率的に草刈り作業を行うための8つの安全ポイント。
+                </p>
+                <span class="card-tag">安全・実用</span>
+            </a>
+
+            <!-- カード3: 中小企業診断士試験合格法 -->
+            <a href="chusho-kigyo-shindan.html" class="card">
+                <span class="card-icon">📚</span>
+                <h2 class="card-title">中小企業診断士試験 合格への道</h2>
+                <p class="card-description">
+                    1000時間の学習を効率化する8ステップ。試験制度の理解から過去問活用、記述対策まで、合格者が実践した学習法。
+                </p>
+                <span class="card-tag">資格・学習</span>
+            </a>
+        </div>
+
+        <footer>
+            <p>
+                これらのマトリクスは、Claude AI（Claude Code）によって生成されました。<br>
+                追加課金なしで、何度でも閲覧いただけます。
+            </p>
+            <p style="margin-top: 15px;">
+                <a href="index.html">動的版（AI入力生成）に戻る</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Lucide アイコンの初期化（必要な場合）
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

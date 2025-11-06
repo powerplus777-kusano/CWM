@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>電動草刈機の安全な使い方 8つのポイント</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .matrix-table td {
+            border: 2px solid #2c3e50;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+            width: 33.33%;
+            height: 150px;
+        }
+
+        .matrix-table .center-cell {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .matrix-table .skill-cell {
+            background-color: #e8f5e9;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .matrix-table .skill-cell:hover {
+            background-color: #c8e6c9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .cell-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .skill-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .skill-description {
+            color: #34495e;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .skill-details {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 12px;
+            line-height: 1.7;
+            border-left: 4px solid #27ae60;
+        }
+
+        .skill-details.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .skill-details h4 {
+            color: #27ae60;
+            margin-bottom: 8px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-details h4::before {
+            content: "▶";
+            margin-right: 5px;
+            font-size: 10px;
+        }
+
+        .skill-details ul {
+            margin: 5px 0 10px 20px;
+        }
+
+        .skill-details li {
+            margin: 4px 0;
+            color: #34495e;
+        }
+
+        .close-btn {
+            color: #e74c3c;
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #c0392b;
+        }
+
+        .point-box {
+            background-color: #fff3cd;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            border-left: 3px solid #ffc107;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+
+            .skill-cell {
+                cursor: default;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table class="matrix-table">
+            <tr>
+                <td class="skill-cell" onclick="toggleSkill(1)">
+                    <div class="skill-title"><span class="cell-number">1</span>保護具の着用</div>
+                    <div class="skill-description">作業前に必ず安全メガネ、手袋、長袖長ズボン、安全靴を着用する。飛び石や刃の破損による怪我を防ぐ基本装備。</div>
+                    <div class="skill-details" id="skill1">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(1)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>防塵ゴーグルで目を保護し、飛び石から守る</li>
+                            <li>厚手の作業手袋で振動を軽減し、手を保護</li>
+                            <li>耳栓またはイヤーマフで騒音から聴力を守る</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>⚠️ 安全のポイント：</strong><br>
+                            サンダルや半袖での作業は絶対禁止。特に足元は安全靴を履くことで、刃物の接触事故を防げます。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(2)">
+                    <div class="skill-title"><span class="cell-number">2</span>作業前の点検</div>
+                    <div class="skill-description">刃の状態、ネジの緩み、電源コードの損傷を確認。機器の異常を早期発見し、事故を未然に防ぐ。</div>
+                    <div class="skill-details" id="skill2">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(2)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>刃が欠けていないか、摩耗していないか確認</li>
+                            <li>ナイロンカッターの紐の長さと状態をチェック</li>
+                            <li>電源コードに亀裂や断線がないか目視確認</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>⚠️ 安全のポイント：</strong><br>
+                            刃の交換時期は使用頻度により異なりますが、切れ味が落ちたら交換。無理に使うと機器に負担がかかり危険です。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(3)">
+                    <div class="skill-title"><span class="cell-number">3</span>作業環境の確認</div>
+                    <div class="skill-description">石や金属片、ペットボトルなど障害物を事前に除去。飛散物による事故を防止する。</div>
+                    <div class="skill-details" id="skill3">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(3)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>作業範囲を歩いて、石や木片を拾っておく</li>
+                            <li>子供やペットを作業エリアから遠ざける</li>
+                            <li>雨天や濡れた草での作業は避ける（感電リスク）</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>⚠️ 安全のポイント：</strong><br>
+                            特に小石は高速で飛散すると危険。半径5m以内に人がいないことを確認してから作業開始。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="skill-cell" onclick="toggleSkill(4)">
+                    <div class="skill-title"><span class="cell-number">4</span>正しい持ち方と姿勢</div>
+                    <div class="skill-description">両手でしっかりグリップを握り、体の前方で操作。安定した姿勢で疲労を軽減し、精密な作業を可能にする。</div>
+                    <div class="skill-details" id="skill4">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(4)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>肩にかけるストラップを調整し、適切な高さで作業</li>
+                            <li>腰を落として重心を低く保つ</li>
+                            <li>左右に振る際は体全体を使い、手首だけで動かさない</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>⚠️ 安全のポイント：</strong><br>
+                            長時間の作業では15分ごとに休憩を取り、腕や腰の疲労を蓄積させない工夫が重要です。
+                        </div>
+                    </div>
+                </td>
+                <td class="center-cell">
+                    🌿<br>電動草刈機<br>安全使用法
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(5)">
+                    <div class="skill-title"><span class="cell-number">5</span>適切な刃の選択</div>
+                    <div class="skill-description">草の種類や地形に応じて刃を使い分ける。金属刃、チップソー、ナイロンカッターの特性を理解する。</div>
+                    <div class="skill-details" id="skill5">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(5)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>柔らかい草：ナイロンカッター（飛散リスク低）</li>
+                            <li>硬い雑草：チップソー（効率的だが飛散注意）</li>
+                            <li>斜面や障害物周辺：ナイロンカッター（安全性重視）</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>⚠️ 安全のポイント：</strong><br>
+                            金属刃は切れ味が良い反面、石に当たると火花や破損のリスクがあるため、場所を選んで使用しましょう。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="skill-cell" onclick="toggleSkill(6)">
+                    <div class="skill-title"><span class="cell-number">6</span>刃の回転方向を理解</div>
+                    <div class="skill-description">刃は反時計回りに回転することを意識し、左から右へ刈る。飛散物を自分に向けない操作方法。</div>
+                    <div class="skill-details" id="skill6">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(6)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>右利きの場合、左から右へ振る動作が基本</li>
+                            <li>壁際や障害物は、飛散方向を考慮して刈る</li>
+                            <li>逆方向に刈ると飛散物が体に当たるリスク増</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>⚠️ 安全のポイント：</strong><br>
+                            回転方向を忘れた時は、電源を切って刃を手で回してみると確認できます。安全第一で確認しましょう。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(7)">
+                    <div class="skill-title"><span class="cell-number">7</span>電源管理の徹底</div>
+                    <div class="skill-description">休憩時や移動時は必ず電源を切る。バッテリー式は取り外し、コード式はプラグを抜く習慣をつける。</div>
+                    <div class="skill-details" id="skill7">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(7)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>刃に草が絡まった時は必ず電源OFF→確認</li>
+                            <li>コード式は延長コードの接続部を確認</li>
+                            <li>バッテリー残量を作業前に確認し、予備も用意</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>⚠️ 安全のポイント：</strong><br>
+                            誤作動防止のため、電源を切ってから草の除去やメンテナンスを行うのが鉄則です。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(8)">
+                    <div class="skill-title"><span class="cell-number">8</span>保管とメンテナンス</div>
+                    <div class="skill-description">使用後は刃を清掃し、乾燥した場所に保管。定期的な注油とメンテナンスで機器を長持ちさせる。</div>
+                    <div class="skill-details" id="skill8">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(8)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>使用後はブラシで草や泥を落とす</li>
+                            <li>刃の錆止めに機械油を薄く塗布</li>
+                            <li>子供の手が届かない場所に鍵をかけて保管</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>⚠️ 安全のポイント：</strong><br>
+                            長期保管時はバッテリーを外し、涼しい場所で保管。錆や劣化を防ぎ、次シーズンも安全に使えます。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        function toggleSkill(num) {
+            const detail = document.getElementById('skill' + num);
+            const allDetails = document.querySelectorAll('.skill-details');
+
+            // 他の開いている詳細を閉じる
+            allDetails.forEach(d => {
+                if (d !== detail) {
+                    d.classList.remove('show');
+                }
+            });
+
+            // クリックされた詳細を開閉
+            detail.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

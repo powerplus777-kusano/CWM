@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中小企業診断士試験 合格への道8ステップ</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .matrix-table td {
+            border: 2px solid: #2c3e50;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+            width: 33.33%;
+            height: 150px;
+        }
+
+        .matrix-table .center-cell {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .matrix-table .skill-cell {
+            background-color: #e8f4f8;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .matrix-table .skill-cell:hover {
+            background-color: #d4e9f2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .cell-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .skill-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .skill-description {
+            color: #34495e;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .skill-details {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 12px;
+            line-height: 1.7;
+            border-left: 4px solid #3498db;
+        }
+
+        .skill-details.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .skill-details h4 {
+            color: #3498db;
+            margin-bottom: 8px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-details h4::before {
+            content: "▶";
+            margin-right: 5px;
+            font-size: 10px;
+        }
+
+        .skill-details ul {
+            margin: 5px 0 10px 20px;
+        }
+
+        .skill-details li {
+            margin: 4px 0;
+            color: #34495e;
+        }
+
+        .close-btn {
+            color: #e74c3c;
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #c0392b;
+        }
+
+        .point-box {
+            background-color: #e3f2fd;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            border-left: 3px solid #2196f3;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+
+            .skill-cell {
+                cursor: default;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table class="matrix-table">
+            <tr>
+                <td class="skill-cell" onclick="toggleSkill(1)">
+                    <div class="skill-title"><span class="cell-number">1</span>試験制度の理解</div>
+                    <div class="skill-description">1次試験（7科目・マークシート）と2次試験（4科目・記述式）の出題範囲と配点を把握。合格基準は総得点60%以上かつ科目40%以上。</div>
+                    <div class="skill-details" id="skill1">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(1)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>1次試験：経済学、財務会計、企業経営理論、運営管理、経営法務、経営情報システム、中小企業経営・政策</li>
+                            <li>2次試験：事例I〜IV（組織・人事、マーケティング、生産・技術、財務・会計）</li>
+                            <li>科目合格制度：1次試験は科目ごとに60%以上で3年間有効</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>📖 合格のポイント：</strong><br>
+                            まず試験要領を熟読し、科目の重みづけを理解。配点の高い科目から優先的に学習計画を立てましょう。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(2)">
+                    <div class="skill-title"><span class="cell-number">2</span>学習計画の策定</div>
+                    <div class="skill-description">1000時間の学習が必要とされる試験。1日2〜3時間×1年半〜2年の計画を立て、科目ごとのスケジュールを管理。</div>
+                    <div class="skill-details" id="skill2">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(2)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>基礎期（6ヶ月）：テキスト通読、基本用語暗記</li>
+                            <li>応用期（6ヶ月）：過去問演習、弱点補強</li>
+                            <li>直前期（3ヶ月）：模試受験、総復習</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>📖 合格のポイント：</strong><br>
+                            週単位で進捗を確認し、遅れがあれば土日で挽回。柔軟な計画が長期戦を乗り切る鍵です。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(3)">
+                    <div class="skill-title"><span class="cell-number">3</span>基礎知識の徹底</div>
+                    <div class="skill-description">まずは各科目の基本テキストを2〜3周読み込む。理解不足の箇所はマーカーで印をつけ、繰り返し学習。</div>
+                    <div class="skill-details" id="skill3">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(3)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>1周目：全体像を掴む（理解度30%でOK）</li>
+                            <li>2周目：重要論点を深掘り（理解度60%目標）</li>
+                            <li>3周目：弱点を重点的に復習（理解度80%以上）</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>📖 合格のポイント：</strong><br>
+                            完璧主義は禁物。1周目は流し読みで全体像を掴み、2周目以降で深めるのが効率的です。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="skill-cell" onclick="toggleSkill(4)">
+                    <div class="skill-title"><span class="cell-number">4</span>過去問の徹底活用</div>
+                    <div class="skill-description">過去10年分の問題を最低3周解く。出題傾向と頻出論点を把握し、時間配分の感覚を養う。</div>
+                    <div class="skill-details" id="skill4">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(4)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>1周目：時間制限なしで解答、解説を熟読</li>
+                            <li>2周目：本番同様の時間で解答、間違いを分析</li>
+                            <li>3周目：弱点科目を中心に総復習</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>📖 合格のポイント：</strong><br>
+                            間違えた問題は「なぜ間違えたか」を必ずノートにまとめる。知識不足か、読み間違いか、原因を明確にすることが重要。
+                        </div>
+                    </div>
+                </td>
+                <td class="center-cell">
+                    📊<br>中小企業診断士<br>合格への道
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(5)">
+                    <div class="skill-title"><span class="cell-number">5</span>記述対策（2次試験）</div>
+                    <div class="skill-description">80分で大量の文章を読み、設問に答える記述式試験。与件文の読解力と論理的な文章構成力が求められる。</div>
+                    <div class="skill-details" id="skill5">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(5)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>与件文に線を引きながら読む（キーワード抽出）</li>
+                            <li>設問の要求を正確に把握（〜を述べよ、〜を提案せよ）</li>
+                            <li>結論→理由→具体例の型で文章を書く練習</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>📖 合格のポイント：</strong><br>
+                            予備校の模範解答を写経し、文章の型を体に染み込ませる。自己流ではなく、合格答案のパターンを真似ることが近道です。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="skill-cell" onclick="toggleSkill(6)">
+                    <div class="skill-title"><span class="cell-number">6</span>暗記科目の攻略</div>
+                    <div class="skill-description">経営法務、経営情報システム、中小企業経営・政策は暗記中心。繰り返し学習と語呂合わせで効率的に記憶。</div>
+                    <div class="skill-details" id="skill6">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(6)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>通勤時間にスマホアプリで一問一答を繰り返す</li>
+                            <li>法律用語は具体例と一緒に覚える（抽象→具体）</li>
+                            <li>白書データは直前1ヶ月で集中暗記</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>📖 合格のポイント：</strong><br>
+                            暗記科目は短期集中が効果的。試験1〜2ヶ月前に詰め込み、直前に復習で記憶を定着させましょう。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(7)">
+                    <div class="skill-title"><span class="cell-number">7</span>財務会計の重点学習</div>
+                    <div class="skill-description">1次・2次ともに配点が高く、合否を左右する科目。簿記2級レベルの知識が前提。計算問題の反復練習が必須。</div>
+                    <div class="skill-details" id="skill7">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(7)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>財務諸表分析：ROE、ROA等の指標を実企業で計算</li>
+                            <li>CVP分析、NPV計算：公式を暗記し、問題演習</li>
+                            <li>連結会計、キャッシュフロー：簿記2級の復習</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>📖 合格のポイント：</strong><br>
+                            財務会計は他科目の2倍の時間をかける価値あり。ここで安定して60%取れれば、合格がぐっと近づきます。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(8)">
+                    <div class="skill-title"><span class="cell-number">8</span>メンタル管理と継続力</div>
+                    <div class="skill-description">1年以上の長期戦。モチベーション維持と体調管理が合否を分ける。勉強仲間との情報交換や適度な休息も重要。</div>
+                    <div class="skill-details" id="skill8">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(8)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>週1日は完全オフ日を設定し、リフレッシュ</li>
+                            <li>勉強会や予備校で仲間を作り、情報交換</li>
+                            <li>模試の結果に一喜一憂せず、淡々と継続</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>📖 合格のポイント：</strong><br>
+                            「毎日少しずつ」が最強。1日サボると3日分遅れると心得て、習慣化することが合格への最短ルートです。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        function toggleSkill(num) {
+            const detail = document.getElementById('skill' + num);
+            const allDetails = document.querySelectorAll('.skill-details');
+
+            // 他の開いている詳細を閉じる
+            allDetails.forEach(d => {
+                if (d !== detail) {
+                    d.classList.remove('show');
+                }
+            });
+
+            // クリックされた詳細を開閉
+            detail.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
