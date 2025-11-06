@@ -1,0 +1,21 @@
+{
+  "name": "matrix-generator",
+  "version": "1.0.0",
+  "description": "AI-powered 3X3 matrix generator",
+  "main": "index.js",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build step required'"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "matrix",
+    "ai",
+    "claude"
+  ],
+  "author": "",
+  "license": "MIT"
+}

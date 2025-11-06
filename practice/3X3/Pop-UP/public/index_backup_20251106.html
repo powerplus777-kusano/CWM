@@ -1,0 +1,2143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AIが生成する問題解決型3X3マトリクス">
+    <title>AI 3X3マトリクス生成ツール</title>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.536.0/dist/umd/lucide.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            transition: background 0.5s ease;
+        }
+
+        .hero-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 入力フォームセクション */
+        .input-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-section h1 {
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-section p {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .input-wrapper label {
+            display: block;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e6ed;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .input-wrapper input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .generate-btn {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            align-self: flex-end;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 18px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* マトリクスセクション */
+        .matrix-section {
+            display: none;
+        }
+
+        .matrix-section.show {
+            display: block;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #2c3e50;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .matrix-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .matrix-table td {
+            border: 2px solid #2c3e50;
+            padding: 20px;
+            text-align: left;
+            vertical-align: top;
+            width: 33.33%;
+            height: 180px;
+            transition: all 0.3s;
+        }
+
+        .matrix-table .center-cell {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .matrix-table .skill-cell {
+            background-color: #e8eef5;
+            cursor: pointer;
+        }
+
+        .matrix-table .skill-cell:hover {
+            background-color: #d0dce8;
+            transform: scale(1.02);
+        }
+
+        .cell-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .skill-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-description {
+            color: #34495e;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .skill-examples {
+            font-size: 11px;
+            color: #7f8c8d;
+            line-height: 1.5;
+        }
+
+        .skill-examples-item {
+            display: block;
+            padding-left: 8px;
+            margin-top: 3px;
+        }
+
+        .skill-examples-item:before {
+            content: "▸";
+            margin-right: 4px;
+            color: #667eea;
+        }
+
+        /* 詳細モーダル */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            padding: 40px 20px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px 40px 40px;
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            animation: slideUp 0.3s ease;
+            margin: 20px 0;
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-btn:hover {
+            background: #c0392b;
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .modal-header {
+            margin-bottom: 30px;
+        }
+
+        .modal-title {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-description {
+            color: #7f8c8d;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .modal-section {
+            margin-bottom: 30px;
+        }
+
+        .modal-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .modal-section li {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            color: #34495e;
+        }
+
+        .point-box {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffeaa7 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid #f39c12;
+        }
+
+        .point-box strong {
+            color: #e67e22;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* 詳細ページスタイル */
+        .detail-pages {
+            display: none;
+        }
+
+        .detail-page {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            margin-top: 20px;
+        }
+
+        .detail-page-header {
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+        }
+
+        .detail-page-title {
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .detail-page-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .detail-page-description {
+            font-size: 18px;
+            color: #34495e;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .detail-section {
+            margin-bottom: 30px;
+        }
+
+        .detail-section h3 {
+            color: #667eea;
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-left: 5px solid #667eea;
+            padding-left: 15px;
+        }
+
+        .detail-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detail-section li {
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            color: #34495e;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .detail-section li:before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .recipe-card {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            border: 2px solid #e8eef5;
+        }
+
+        .recipe-card h4 {
+            color: #667eea;
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8eef5;
+        }
+
+        .recipe-section {
+            margin-bottom: 15px;
+        }
+
+        .recipe-section h5 {
+            color: #34495e;
+            font-size: 15px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .recipe-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .recipe-section li {
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border-left: 3px solid #667eea;
+            font-size: 14px;
+        }
+
+        .recipe-section li:before {
+            content: "▸";
+            color: #667eea;
+            margin-right: 8px;
+        }
+
+        .detail-point-box {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffeaa7 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #f39c12;
+            margin-top: 20px;
+        }
+
+        .detail-point-box h4 {
+            color: #e67e22;
+            font-size: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-point-box p {
+            color: #34495e;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* 印刷CSS（最小限） */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .hero-background,
+            .input-section,
+            .action-buttons,
+            .no-print {
+                display: none !important;
+            }
+
+            /* モーダル表示中の印刷 */
+            .modal.show {
+                position: static;
+                display: block !important;
+                background: white;
+                padding: 0;
+            }
+
+            .modal.show .modal-content {
+                max-width: 100%;
+                padding: 20mm;
+                box-shadow: none;
+                border-radius: 0;
+                max-height: none;
+                overflow: visible;
+            }
+
+            .modal .close-btn {
+                display: none !important;
+            }
+
+            /* モーダルが表示されていない時の印刷 */
+            .modal:not(.show) {
+                display: none !important;
+            }
+
+            /* モーダル表示中はマトリクスを非表示 */
+            .modal.show ~ .container .matrix-section {
+                display: none !important;
+            }
+
+            .matrix-section {
+                display: block !important;
+            }
+
+            .matrix-container {
+                box-shadow: none;
+                padding: 20px;
+                page-break-after: always;
+            }
+
+            .matrix-table td {
+                page-break-inside: avoid;
+            }
+
+            .skill-cell {
+                cursor: default;
+            }
+
+            /* 詳細ページ表示（一括印刷時） */
+            .detail-pages.print-mode {
+                display: block !important;
+            }
+
+            .detail-page {
+                page-break-before: always;
+                page-break-after: always;
+                box-shadow: none;
+                margin: 0;
+                padding: 20mm;
+            }
+
+            .detail-page:first-child {
+                page-break-before: auto;
+            }
+
+            /* レシピカード */
+            .recipe-card {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 768px) {
+            .input-section {
+                padding: 25px;
+            }
+
+            .input-section h1 {
+                font-size: 24px;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            .generate-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .matrix-container {
+                padding: 20px;
+                overflow-x: auto;
+            }
+
+            .matrix-table {
+                min-width: 600px;
+            }
+
+            .matrix-table td {
+                padding: 15px;
+                height: 150px;
+            }
+
+            .modal-content {
+                padding: 25px;
+            }
+
+            .modal-title {
+                font-size: 22px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .error-message {
+            background: #fee;
+            border: 2px solid #fcc;
+            color: #c00;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景画像 -->
+    <img id="heroBackground" class="hero-background" alt="" loading="lazy" decoding="async">
+
+    <div class="container">
+        <!-- 入力セクション -->
+        <section class="input-section">
+            <h1>
+                <i data-lucide="sparkles"></i>
+                AI 3X3マトリクス生成ツール
+            </h1>
+            <p>テーマを入力すると、AIが問題解決型の3X3マトリクスを自動生成します</p>
+
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <label for="titleInput">中心のタイトル（テーマ）</label>
+                    <input
+                        type="text"
+                        id="titleInput"
+                        placeholder="例: 営業スキル、プロジェクト管理、健康的な生活"
+                        maxlength="50"
+                    >
+                </div>
+                <button class="generate-btn" onclick="generateMatrix()">
+                    <i data-lucide="wand-2"></i>
+                    生成する
+                </button>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+        </section>
+
+        <!-- ローディング -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>AIがマトリクスを生成しています...</p>
+        </div>
+
+        <!-- マトリクスセクション -->
+        <section class="matrix-section" id="matrixSection">
+            <div class="action-buttons">
+                <button class="action-btn" onclick="printMatrixOnly()">
+                    <i data-lucide="printer"></i>
+                    マトリクス印刷
+                </button>
+                <button class="action-btn" onclick="printAll()">
+                    <i data-lucide="file-text"></i>
+                    一括印刷
+                </button>
+                <button class="action-btn" onclick="downloadHTML()">
+                    <i data-lucide="download"></i>
+                    HTMLダウンロード
+                </button>
+                <button class="action-btn" onclick="resetForm()">
+                    <i data-lucide="rotate-ccw"></i>
+                    新しく作成
+                </button>
+            </div>
+
+            <div class="matrix-container" id="matrixContainer">
+                <!-- マトリクステーブルがここに動的に生成されます -->
+            </div>
+
+            <!-- 詳細ページ（印刷/ダウンロード用） -->
+            <div id="detailPages" class="detail-pages no-print">
+                <!-- 各セルの詳細がここに動的に生成されます -->
+            </div>
+        </section>
+    </div>
+
+    <!-- 詳細モーダル -->
+    <div class="modal" id="detailModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModal()">✕</button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <p class="modal-description" id="modalDescription"></p>
+            </div>
+            <div class="modal-section">
+                <h3><i data-lucide="list"></i> 具体例</h3>
+                <ul id="modalExamples"></ul>
+            </div>
+            <div class="modal-section">
+                <div class="point-box">
+                    <strong><i data-lucide="lightbulb"></i> 習得のポイント</strong>
+                    <p id="modalPoint"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Lucide アイコンの初期化
+        lucide.createIcons();
+
+        let currentData = null;
+
+        // エスケープ処理
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // モックデータ生成（ローカルテスト用）
+        function generateMockData(title) {
+            // タイトルに応じた動的なモックデータを生成
+            const lowerTitle = title.toLowerCase();
+
+            // レシピ・料理系
+            if (lowerTitle.includes('レシピ') || lowerTitle.includes('料理') || lowerTitle.includes('ナス') || lowerTitle.includes('なす')) {
+                const ingredient = title.match(/([ぁ-んァ-ヶー一-龯]+)の/)?.[1] || '食材';
+                return {
+                    title: title,
+                    items: [
+                        {
+                            title: "炒め物",
+                            description: `${ingredient}を使った炒め物レシピ。手軽で栄養満点、短時間で作れる定番料理。`,
+                            examples: [
+                                `${ingredient}とピーマンの味噌炒め`,
+                                `${ingredient}の中華風炒め`,
+                                `${ingredient}とひき肉の甘辛炒め`
+                            ],
+                            detailContent: [
+                                {
+                                    subtitle: `${ingredient}とピーマンの味噌炒め`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "ピーマン 3個",
+                                        "豚ひき肉 150g",
+                                        "味噌 大さじ2",
+                                        "砂糖 大さじ1",
+                                        "酒 大さじ1",
+                                        "ごま油 大さじ1"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は乱切り、ピーマンは一口大に切る`,
+                                        "フライパンにごま油を熱し、ひき肉を炒める",
+                                        `${ingredient}とピーマンを加えて強火で炒める`,
+                                        "味噌、砂糖、酒を混ぜて加え、手早く絡める",
+                                        "全体に味が馴染んだら完成"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}の中華風炒め`,
+                                    ingredients: [
+                                        `${ingredient} 3本`,
+                                        "豚バラ肉 100g",
+                                        "長ネギ 1本",
+                                        "鶏ガラスープの素 小さじ1",
+                                        "オイスターソース 大さじ1",
+                                        "醤油 小さじ1",
+                                        "ごま油 大さじ1"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は縦半分に切ってから斜め切り`,
+                                        "豚肉は一口大、長ネギは斜め切りにする",
+                                        "強火で豚肉を炒めてから野菜を加える",
+                                        "鶏ガラスープの素、オイスターソース、醤油で味付け",
+                                        "仕上げにごま油を回しかける"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}とひき肉の甘辛炒め`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "豚ひき肉 200g",
+                                        "にんにく 1片",
+                                        "生姜 1片",
+                                        "醤油 大さじ2",
+                                        "みりん 大さじ2",
+                                        "豆板醤 小さじ1"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は食べやすい大きさに切る`,
+                                        "にんにくと生姜はみじん切りにする",
+                                        "フライパンで香味野菜とひき肉を炒める",
+                                        `${ingredient}を加えてしんなりするまで炒める`,
+                                        "醤油、みりん、豆板醤を加えて煮絡める"
+                                    ]
+                                }
+                            ],
+                            point: "強火でサッと炒めることで、食感を残しつつ旨味を閉じ込める。調味料は最後に加えて手早く仕上げる。"
+                        },
+                        {
+                            title: "煮物",
+                            description: `${ingredient}の旨味を引き出す煮物レシピ。じっくり煮込んで味を染み込ませる。`,
+                            examples: [
+                                `${ingredient}の煮浸し`,
+                                `${ingredient}と鶏肉の煮物`,
+                                `${ingredient}の味噌煮`
+                            ],
+                            detailContent: [
+                                {
+                                    subtitle: `${ingredient}の煮浸し`,
+                                    ingredients: [
+                                        `${ingredient} 3本`,
+                                        "だし汁 300ml",
+                                        "醤油 大さじ2",
+                                        "みりん 大さじ2",
+                                        "砂糖 大さじ1",
+                                        "生姜 1片"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は縦半分に切り、食べやすい長さに切る`,
+                                        "生姜は千切りにする",
+                                        "鍋にだし汁と調味料を入れて沸騰させる",
+                                        `${ingredient}と生姜を加え、落し蓋をして中火で15分煮る`,
+                                        "火を止めて30分以上置き、味を染み込ませる"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}と鶏肉の煮物`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "鶏もも肉 200g",
+                                        "だし汁 400ml",
+                                        "醤油 大さじ3",
+                                        "みりん 大さじ3",
+                                        "砂糖 大さじ2"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は乱切り、鶏肉は一口大に切る`,
+                                        "鍋で鶏肉を軽く炒めて色を付ける",
+                                        `${ingredient}とだし汁、調味料を加える`,
+                                        "沸騰したら弱火にして20分煮込む",
+                                        "器に盛り付けて完成"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}の味噌煮`,
+                                    ingredients: [
+                                        `${ingredient} 3本`,
+                                        "味噌 大さじ3",
+                                        "だし汁 300ml",
+                                        "砂糖 大さじ2",
+                                        "みりん 大さじ1",
+                                        "ごま油 小さじ1"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は乱切りにして水にさらす`,
+                                        "鍋にごま油を熱し、水気を切った${ingredient}を炒める",
+                                        "だし汁を加えて10分煮る",
+                                        "味噌、砂糖、みりんを溶き入れる",
+                                        "さらに10分煮て味を染み込ませる"
+                                    ]
+                                }
+                            ],
+                            point: "下茹でや面取りで煮崩れを防ぐ。落し蓋を使って味を均一に染み込ませる。"
+                        },
+                        {
+                            title: "揚げ物",
+                            description: `${ingredient}を使った揚げ物レシピ。カリッとした食感と香ばしさが魅力。`,
+                            examples: [
+                                `${ingredient}の天ぷら`,
+                                `${ingredient}の素揚げ`,
+                                `${ingredient}のフライ`
+                            ],
+                            detailContent: [
+                                {
+                                    subtitle: `${ingredient}の天ぷら`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "天ぷら粉 100g",
+                                        "冷水 150ml",
+                                        "揚げ油 適量",
+                                        "天つゆまたは塩 お好みで"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は縦4等分に切り、長さを半分にする`,
+                                        "天ぷら粉と冷水を混ぜる（混ぜすぎない）",
+                                        "油を170度に熱する",
+                                        `${ingredient}に衣をつけて揚げる（2-3分）`,
+                                        "油を切って盛り付ける"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}の素揚げ`,
+                                    ingredients: [
+                                        `${ingredient} 3本`,
+                                        "揚げ油 適量",
+                                        "塩 少々",
+                                        "カレー粉 お好みで"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は乱切りまたは輪切りにする`,
+                                        "キッチンペーパーで水気をしっかり取る",
+                                        "180度の油で揚げる（3-4分）",
+                                        "きつね色になったら取り出す",
+                                        "熱いうちに塩やカレー粉を振る"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}のフライ`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "小麦粉 適量",
+                                        "溶き卵 1個分",
+                                        "パン粉 適量",
+                                        "揚げ油 適量"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は1cm厚さの輪切りにする`,
+                                        "小麦粉→溶き卵→パン粉の順につける",
+                                        "170度の油で揚げる",
+                                        "きつね色になるまで3-4分揚げる",
+                                        "油を切ってソースを添える"
+                                    ]
+                                }
+                            ],
+                            point: "油の温度を適切に保つことが重要。170-180度で揚げると外はカリッと中はジューシーに。"
+                        },
+                        {
+                            title: "焼き物",
+                            description: `${ingredient}を焼いて香ばしく仕上げるレシピ。シンプルで素材の味を楽しめる。`,
+                            examples: [
+                                `${ingredient}の焼き浸し`,
+                                `${ingredient}のグリル焼き`,
+                                `${ingredient}の味噌田楽`
+                            ],
+                            detailContent: [
+                                {
+                                    subtitle: `${ingredient}の焼き浸し`,
+                                    ingredients: [
+                                        `${ingredient} 3本`,
+                                        "だし汁 200ml",
+                                        "醤油 大さじ2",
+                                        "みりん 大さじ2",
+                                        "生姜 1片",
+                                        "サラダ油 適量"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は縦半分に切り、格子状に切り込みを入れる`,
+                                        "フライパンで両面を焼き色がつくまで焼く",
+                                        "だし汁、醤油、みりん、千切り生姜を混ぜる",
+                                        `焼いた${ingredient}を熱いうちに浸す`,
+                                        "粗熱が取れたら冷蔵庫で冷やす"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}のグリル焼き`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "オリーブオイル 大さじ2",
+                                        "塩 小さじ1/2",
+                                        "こしょう 少々",
+                                        "にんにく 1片"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は1cm厚さの輪切りにする`,
+                                        "塩、こしょう、みじん切りにんにくを混ぜる",
+                                        `${ingredient}にオリーブオイルと調味料をまぶす`,
+                                        "グリルまたはオーブンで10-15分焼く",
+                                        "焼き色がついたら完成"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}の味噌田楽`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "味噌 大さじ3",
+                                        "砂糖 大さじ2",
+                                        "みりん 大さじ1",
+                                        "白ごま 適量"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は縦半分に切り、格子状に切り込みを入れる`,
+                                        "グリルまたはフライパンで両面を焼く",
+                                        "味噌、砂糖、みりんを混ぜて味噌ダレを作る",
+                                        `焼いた${ingredient}に味噌ダレを塗る`,
+                                        "再度焼いて白ごまを振る"
+                                    ]
+                                }
+                            ],
+                            point: "焼く前に軽く塩を振ると水分が抜けて味が濃厚に。グリルやオーブンで両面しっかり焼く。"
+                        },
+                        {
+                            title: "サラダ・和え物",
+                            description: `${ingredient}を使った冷たい料理。さっぱりとヘルシーに楽しめる。`,
+                            examples: [
+                                `${ingredient}の胡麻和え`,
+                                `${ingredient}のマリネ`,
+                                `${ingredient}とトマトのサラダ`
+                            ],
+                            detailContent: [
+                                {
+                                    subtitle: `${ingredient}の胡麻和え`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "白すりごま 大さじ3",
+                                        "醤油 大さじ1",
+                                        "砂糖 大さじ1",
+                                        "だし汁 大さじ1"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は乱切りにして電子レンジで3分加熱`,
+                                        "すりごま、醤油、砂糖、だし汁を混ぜる",
+                                        `加熱した${ingredient}の水気を切る`,
+                                        "ごまダレと和える",
+                                        "冷蔵庫で冷やして完成"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}のマリネ`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "酢 大さじ3",
+                                        "オリーブオイル 大さじ2",
+                                        "砂糖 大さじ1",
+                                        "塩こしょう 少々"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は薄切りにして塩もみする`,
+                                        "10分置いて水気を絞る",
+                                        "酢、オリーブオイル、砂糖を混ぜる",
+                                        `${ingredient}をマリネ液に漬ける`,
+                                        "30分以上冷蔵庫で味を馴染ませる"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}とトマトのサラダ`,
+                                    ingredients: [
+                                        `${ingredient} 1本`,
+                                        "トマト 2個",
+                                        "玉ねぎ 1/4個",
+                                        "オリーブオイル 大さじ2",
+                                        "レモン汁 大さじ1",
+                                        "塩こしょう 少々"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は焼いて皮をむき、一口大に切る`,
+                                        "トマトはくし切り、玉ねぎは薄切りにする",
+                                        "オリーブオイル、レモン汁、塩こしょうを混ぜる",
+                                        "すべての材料を和える",
+                                        "冷蔵庫で30分冷やす"
+                                    ]
+                                }
+                            ],
+                            point: "生のまま使う場合は薄切りに。塩もみやレンジ加熱で柔らかくする方法も。"
+                        },
+                        {
+                            title: "汁物",
+                            description: `${ingredient}を使った温かい汁物レシピ。具だくさんで栄養バランスも良好。`,
+                            examples: [
+                                `${ingredient}の味噌汁`,
+                                `${ingredient}のスープ`,
+                                `${ingredient}入り豚汁`
+                            ],
+                            detailContent: [
+                                {
+                                    subtitle: `${ingredient}の味噌汁`,
+                                    ingredients: [
+                                        `${ingredient} 1本`,
+                                        "だし汁 600ml",
+                                        "味噌 大さじ3",
+                                        "豆腐 1/2丁",
+                                        "わかめ 適量",
+                                        "ネギ 適量"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は乱切り、豆腐は角切りにする`,
+                                        `だし汁を沸かし、${ingredient}を入れて煮る`,
+                                        "柔らかくなったら豆腐とわかめを加える",
+                                        "火を止めて味噌を溶き入れる",
+                                        "器に盛り、ネギを散らす"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}のスープ`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "ベーコン 3枚",
+                                        "玉ねぎ 1/2個",
+                                        "コンソメ 2個",
+                                        "水 800ml",
+                                        "塩こしょう 少々"
+                                    ],
+                                    steps: [
+                                        `${ingredient}と玉ねぎは乱切り、ベーコンは1cm幅に切る`,
+                                        "鍋でベーコンを炒めて香りを出す",
+                                        "野菜を加えて炒める",
+                                        "水とコンソメを加えて15分煮込む",
+                                        "塩こしょうで味を調える"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}入り豚汁`,
+                                    ingredients: [
+                                        `${ingredient} 1本`,
+                                        "豚バラ肉 100g",
+                                        "大根 5cm",
+                                        "にんじん 1/2本",
+                                        "だし汁 800ml",
+                                        "味噌 大さじ4",
+                                        "ごま油 小さじ1"
+                                    ],
+                                    steps: [
+                                        "野菜は乱切り、豚肉は一口大に切る",
+                                        "鍋にごま油を熱し、豚肉を炒める",
+                                        "野菜を加えてさらに炒める",
+                                        "だし汁を加えて野菜が柔らかくなるまで煮る",
+                                        "火を止めて味噌を溶き入れる"
+                                    ]
+                                }
+                            ],
+                            point: "具材を入れる順番が大切。火の通りにくいものから順に入れて、均一に火を通す。"
+                        },
+                        {
+                            title: "漬物・保存食",
+                            description: `${ingredient}を使った保存食レシピ。作り置きして常備菜として活用。`,
+                            examples: [
+                                `${ingredient}の浅漬け`,
+                                `${ingredient}のピクルス`,
+                                `${ingredient}の辛子漬け`
+                            ],
+                            detailContent: [
+                                {
+                                    subtitle: `${ingredient}の浅漬け`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "塩 小さじ1",
+                                        "昆布 5cm角1枚",
+                                        "赤唐辛子 1本",
+                                        "生姜 1片"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は薄切りにして塩もみする`,
+                                        "10分置いて水気を絞る",
+                                        "昆布は細切り、生姜は千切り、唐辛子は輪切りに",
+                                        "全ての材料を保存袋に入れて揉む",
+                                        "冷蔵庫で一晩置いて完成"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}のピクルス`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "酢 200ml",
+                                        "水 100ml",
+                                        "砂糖 大さじ3",
+                                        "塩 小さじ1",
+                                        "ローリエ 1枚",
+                                        "粒こしょう 5粒"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は一口大に切る`,
+                                        "鍋に酢、水、砂糖、塩を入れて沸かす",
+                                        `熱い漬け汁を${ingredient}とスパイスの入った瓶に注ぐ`,
+                                        "粗熱が取れたら蓋をする",
+                                        "冷蔵庫で一晩漬ける"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}の辛子漬け`,
+                                    ingredients: [
+                                        `${ingredient} 3本`,
+                                        "塩 大さじ1",
+                                        "練り辛子 大さじ1",
+                                        "砂糖 大さじ2",
+                                        "酢 大さじ1"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は縦4つ割りにして塩もみ`,
+                                        "重しをして一晩置き、水気を絞る",
+                                        "辛子、砂糖、酢を混ぜて辛子床を作る",
+                                        `${ingredient}を辛子床に漬ける`,
+                                        "冷蔵庫で2-3日漬けて完成"
+                                    ]
+                                }
+                            ],
+                            point: "清潔な保存容器を使用。冷蔵庫で保存し、3-5日を目安に食べきる。"
+                        },
+                        {
+                            title: "洋風・アレンジ",
+                            description: `${ingredient}を洋風にアレンジしたレシピ。新しい味わいを発見できる。`,
+                            examples: [
+                                `${ingredient}のラタトゥイユ`,
+                                `${ingredient}のパスタ`,
+                                `${ingredient}のグラタン`
+                            ],
+                            detailContent: [
+                                {
+                                    subtitle: `${ingredient}のラタトゥイユ`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "トマト 3個",
+                                        "ズッキーニ 1本",
+                                        "玉ねぎ 1個",
+                                        "にんにく 2片",
+                                        "オリーブオイル 大さじ3",
+                                        "ハーブ（バジル、タイム等） 適量",
+                                        "塩こしょう 少々"
+                                    ],
+                                    steps: [
+                                        "野菜はすべて一口大に切る",
+                                        "フライパンでにんにくを炒めて香りを出す",
+                                        `${ingredient}と玉ねぎを炒める`,
+                                        "トマトとズッキーニを加えて20分煮込む",
+                                        "ハーブと塩こしょうで味を調える"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}のパスタ`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "パスタ 200g",
+                                        "ベーコン 3枚",
+                                        "にんにく 2片",
+                                        "トマトソース 200ml",
+                                        "オリーブオイル 大さじ2",
+                                        "パルメザンチーズ 適量"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は乱切り、ベーコンは1cm幅に切る`,
+                                        "パスタを茹でる",
+                                        `フライパンでにんにく、ベーコン、${ingredient}を炒める`,
+                                        "トマトソースを加えて5分煮る",
+                                        "茹でたパスタと和え、チーズをかける"
+                                    ]
+                                },
+                                {
+                                    subtitle: `${ingredient}のグラタン`,
+                                    ingredients: [
+                                        `${ingredient} 2本`,
+                                        "玉ねぎ 1個",
+                                        "バター 30g",
+                                        "小麦粉 大さじ3",
+                                        "牛乳 400ml",
+                                        "ピザチーズ 100g",
+                                        "パン粉 適量"
+                                    ],
+                                    steps: [
+                                        `${ingredient}は輪切り、玉ねぎは薄切りにして炒める`,
+                                        "バターと小麦粉を炒めてホワイトソースを作る",
+                                        `グラタン皿に${ingredient}と玉ねぎを入れる`,
+                                        "ホワイトソースをかけ、チーズとパン粉を散らす",
+                                        "200度のオーブンで20分焼く"
+                                    ]
+                                }
+                            ],
+                            point: "チーズやトマト、オリーブオイルとの相性が抜群。洋風スパイスで風味豊かに。"
+                        }
+                    ],
+                    colorScheme: {
+                        primary: "#ff6b6b",
+                        secondary: "#ee5a6f",
+                        background: "#ffe8e8"
+                    },
+                    unsplashKeyword: "cooking"
+                };
+            }
+
+            // 営業・ビジネススキル系
+            if (lowerTitle.includes('営業') || lowerTitle.includes('セールス') || lowerTitle.includes('ビジネス')) {
+                return {
+                    title: title,
+                    items: [
+                        {
+                            title: "ヒアリング力",
+                            description: "顧客の本質的なニーズを引き出す傾聴スキル。表面的な要望だけでなく、その背景にある課題を理解する力。",
+                            examples: [
+                                "「なぜそう感じられたのですか？」と深掘り質問をする",
+                                "顧客の話を遮らず、最後まで聞く姿勢を保つ",
+                                "相槌やメモで傾聴の姿勢を示す"
+                            ],
+                            point: "日常会話から「なぜ」「どのように」の質問を意識。顧客の言葉をそのまま復唱し、理解を確認する習慣をつける。"
+                        },
+                        {
+                            title: "提案力",
+                            description: "顧客の課題に対して最適なソリューションを提示する力。商品知識と顧客理解を組み合わせた提案構築スキル。",
+                            examples: [
+                                "顧客の課題を整理し、解決策を3つ程度用意する",
+                                "数値やデータを使って提案の根拠を示す",
+                                "導入後のビジョンを具体的に描いて伝える"
+                            ],
+                            point: "成功事例を蓄積し、業界・企業規模別にパターン化。ロールプレイで提案の流れを体に染み込ませる。"
+                        },
+                        {
+                            title: "クロージング力",
+                            description: "商談を契約に結びつける決断促進スキル。適切なタイミングで次のステップを提示し、合意を得る力。",
+                            examples: [
+                                "「いつから導入されますか？」と具体的な日程を確認",
+                                "購買シグナル（前のめりな質問等）を見逃さない",
+                                "懸念点を先回りして解消する"
+                            ],
+                            point: "商談の各段階で小さな合意を積み重ねる。「もし〜なら」の仮定質問で顧客の意思決定プロセスを理解する。"
+                        },
+                        {
+                            title: "関係構築力",
+                            description: "顧客との信頼関係を築き、長期的なパートナーシップを構築する力。人間関係の基盤となるスキル。",
+                            examples: [
+                                "定期的な情報提供で接点を維持する",
+                                "顧客の業界動向や競合情報をキャッチアップ",
+                                "商談以外の雑談で相手の人となりを理解"
+                            ],
+                            point: "約束は必ず守る。小さな気配りの積み重ねが信頼を生む。顧客の成功を自分のことのように喜ぶ姿勢を持つ。"
+                        },
+                        {
+                            title: "課題発見力",
+                            description: "顧客自身が気づいていない潜在的な課題を見つけ出す力。表面的な要望の裏にある本質的な問題を特定するスキル。",
+                            examples: [
+                                "現状の業務フローを詳しくヒアリングする",
+                                "「困っていることはありませんか？」と投げかける",
+                                "同業他社の課題事例から気づきを促す"
+                            ],
+                            point: "業界知識を深め、一般的な課題パターンを理解。顧客の立場で考える習慣をつけ、「もし自分なら」の視点を持つ。"
+                        },
+                        {
+                            title: "交渉力",
+                            description: "価格や条件面で双方が納得できる着地点を見つける力。Win-Winの関係を構築する調整スキル。",
+                            examples: [
+                                "価格だけでなく、価値全体で交渉する",
+                                "複数のオプションを用意し選択肢を提示",
+                                "譲れる点と譲れない点を明確にしておく"
+                            ],
+                            point: "相手の立場や制約を理解する。感情的にならず、論理的に対話。「No」と言える勇気も持つことが重要。"
+                        },
+                        {
+                            title: "プレゼン力",
+                            description: "提案内容を分かりやすく魅力的に伝える力。聞き手の関心を引き、行動を促すコミュニケーションスキル。",
+                            examples: [
+                                "結論から話し、理由を後から説明する",
+                                "図表やビジュアルを使って視覚的に訴える",
+                                "相手の反応を見ながら話すスピードを調整"
+                            ],
+                            point: "鏡の前で練習し、表情や身振りを確認。録音して自分の話し方を客観視。TEDトークなど優れたプレゼンを研究する。"
+                        },
+                        {
+                            title: "時間管理力",
+                            description: "限られた時間で最大の成果を出す効率化スキル。優先順位をつけ、重要な商談に集中する力。",
+                            examples: [
+                                "週初めに優先顧客リストを作成する",
+                                "移動時間を活用して情報収集や資料作成",
+                                "商談の事前準備を徹底し、効率を上げる"
+                            ],
+                            point: "重要度と緊急度のマトリクスで仕事を分類。週次・日次で振り返りを行い、時間の使い方を改善し続ける。"
+                        }
+                    ],
+                    colorScheme: {
+                        primary: "#4a90e2",
+                        secondary: "#357abd",
+                        background: "#e3f2fd"
+                    },
+                    unsplashKeyword: "business"
+                };
+            }
+
+            // デフォルト（汎用的な学習・スキル系）
+            return {
+                title: title,
+                items: [
+                    {
+                        title: `${title}の基礎理解`,
+                        description: `${title}を始めるために必要な基本的な知識と、正しい理解を深める方法。`,
+                        examples: [
+                            "専門用語や基本概念を学ぶ",
+                            "全体の仕組みを理解する",
+                            "初心者向けの教材を活用する"
+                        ],
+                        detailContent: [
+                            {
+                                subtitle: "基本的な知識を身につける",
+                                ingredients: [
+                                    "信頼できる入門書を1-2冊読む",
+                                    "オンライン講座や動画で基礎を学ぶ",
+                                    "専門用語リストを作成して覚える",
+                                    "簡単なワークや演習問題に取り組む"
+                                ],
+                                steps: [
+                                    "まず全体像を把握するため、概要を読む",
+                                    "重要な概念や用語をノートにまとめる",
+                                    "理解度を確認するため、人に説明してみる",
+                                    "不明点は質問サイトやコミュニティで解決"
+                                ]
+                            }
+                        ],
+                        point: "まずは基礎をしっかり固めることが重要。完璧を求めず、一歩ずつ理解を深める。"
+                    },
+                    {
+                        title: "実践的な取り組み",
+                        description: `${title}を実際に実行し、経験を通じて習得するための具体的な方法。`,
+                        examples: [
+                            "小規模なプロジェクトから始める",
+                            "日常生活に取り入れて実践する",
+                            "失敗を恐れず試行錯誤する"
+                        ],
+                        detailContent: [
+                            {
+                                subtitle: "実践を通じて習得する",
+                                ingredients: [
+                                    "達成可能な小さな目標を設定",
+                                    "毎日15-30分の実践時間を確保",
+                                    "実践記録をつける習慣をつける",
+                                    "定期的に振り返りと改善を行う"
+                                ],
+                                steps: [
+                                    "最初は簡単なことから始める",
+                                    "実際にやってみて感触をつかむ",
+                                    "うまくいかない点を記録する",
+                                    "改善策を考えて次回に活かす",
+                                    "少しずつ難易度を上げていく"
+                                ]
+                            }
+                        ],
+                        point: "理論だけでなく、実際に手を動かして経験を積むことが上達の鍵。"
+                    },
+                    {
+                        title: "スキルの向上",
+                        description: `${title}のレベルを高め、より高度な技術や知識を身につける方法。`,
+                        examples: [
+                            "上級者の手法を研究する",
+                            "複雑な課題にチャレンジする",
+                            "独自のやり方を開発する"
+                        ],
+                        detailContent: [
+                            {
+                                subtitle: "レベルアップする方法",
+                                ingredients: [
+                                    "上級者のテクニックを観察・分析",
+                                    "難易度の高い課題に取り組む",
+                                    "異なるアプローチを試してみる",
+                                    "自分なりの改善案を考える"
+                                ],
+                                steps: [
+                                    "現在のレベルを客観的に評価する",
+                                    "次の目標を具体的に設定する",
+                                    "必要なスキルや知識を特定する",
+                                    "計画的に学習と実践を進める",
+                                    "達成したら次の目標に進む"
+                                ]
+                            }
+                        ],
+                        point: "基礎を固めたら、創造的に応用していくことで理解が深まる。"
+                    },
+                    {
+                        title: "効率的な学習法",
+                        description: `${title}に関する情報を効率的に収集し、効果的に学習する方法。`,
+                        examples: [
+                            "質の高い情報源を見つける",
+                            "学習計画を立てて実行する",
+                            "アウトプットを重視する"
+                        ],
+                        detailContent: [
+                            {
+                                subtitle: "効率的に学ぶコツ",
+                                ingredients: [
+                                    "信頼できる情報源をリストアップ",
+                                    "学習時間を決めてスケジュール化",
+                                    "インプットとアウトプットのバランス",
+                                    "定期的な復習の仕組みを作る"
+                                ],
+                                steps: [
+                                    "学習目標を明確にする",
+                                    "優先順位をつけて計画を立てる",
+                                    "集中できる環境を整える",
+                                    "学んだことをメモやブログで発信",
+                                    "理解度をテストや課題で確認"
+                                ]
+                            }
+                        ],
+                        point: "質の高い情報を見極め、効率的に学習することが重要。"
+                    },
+                    {
+                        title: "継続のコツ",
+                        description: `${title}を長期的に続け、習慣として定着させるための工夫。`,
+                        examples: [
+                            "毎日のルーティンに組み込む",
+                            "小さな目標を設定して達成感を得る",
+                            "仲間と一緒に取り組む"
+                        ],
+                        detailContent: [
+                            {
+                                subtitle: "習慣化するテクニック",
+                                ingredients: [
+                                    "同じ時間・場所で実践する",
+                                    "最初は5分でもOK、小さく始める",
+                                    "進捗を可視化してモチベーション維持",
+                                    "挫折しそうな時の対策を準備"
+                                ],
+                                steps: [
+                                    "具体的なトリガー（きっかけ）を決める",
+                                    "実践したら記録をつける",
+                                    "週単位で振り返りを行う",
+                                    "できたことを褒めて自信をつける",
+                                    "無理なく続けられるペースを見つける"
+                                ]
+                            }
+                        ],
+                        point: "完璧を目指さず、継続することを最優先に。小さな積み重ねが大きな成果を生む。"
+                    },
+                    {
+                        title: "問題の解決",
+                        description: `${title}に取り組む中で出てくる課題や障害を乗り越える方法。`,
+                        examples: [
+                            "よくある問題と対処法を知る",
+                            "複数の解決策を試してみる",
+                            "経験者にアドバイスを求める"
+                        ],
+                        detailContent: [
+                            {
+                                subtitle: "課題を克服する方法",
+                                ingredients: [
+                                    "問題を具体的に言語化する",
+                                    "原因を分析して特定する",
+                                    "解決策を複数考える",
+                                    "一つずつ試して効果を確認"
+                                ],
+                                steps: [
+                                    "何が問題なのかを明確にする",
+                                    "なぜその問題が起きたのか考える",
+                                    "解決策をブレインストーミング",
+                                    "実行しやすいものから試す",
+                                    "うまくいった方法を記録する"
+                                ]
+                            }
+                        ],
+                        point: "問題は成長の機会。焦らず一つずつ解決していく。"
+                    },
+                    {
+                        title: "コミュニティ活用",
+                        description: `${title}に関心を持つ人々と交流し、互いに学び合う方法。`,
+                        examples: [
+                            "オンラインコミュニティに参加する",
+                            "勉強会やイベントに顔を出す",
+                            "SNSで情報交換する"
+                        ],
+                        detailContent: [
+                            {
+                                subtitle: "他者と協力して成長する",
+                                ingredients: [
+                                    "関連するコミュニティを探す",
+                                    "自分から積極的に交流する",
+                                    "知識や経験をシェアする",
+                                    "フィードバックを素直に受け入れる"
+                                ],
+                                steps: [
+                                    "自己紹介して自分の状況を伝える",
+                                    "質問や相談を投稿してみる",
+                                    "他の人の質問にも答える",
+                                    "オフラインの集まりがあれば参加",
+                                    "長期的な関係を築いていく"
+                                ]
+                            }
+                        ],
+                        point: "一人で抱え込まず、他者と協力することで新しい視点を得られる。"
+                    },
+                    {
+                        title: "成果の最大化",
+                        description: `${title}の取り組みを振り返り、より良い結果を出すための改善方法。`,
+                        examples: [
+                            "定期的に振り返りを行う",
+                            "成功要因を分析する",
+                            "PDCAサイクルを回す"
+                        ],
+                        detailContent: [
+                            {
+                                subtitle: "振り返りと改善のサイクル",
+                                ingredients: [
+                                    "週次または月次で振り返りの時間を設定",
+                                    "達成できたこと・できなかったことを記録",
+                                    "良かった点と改善点を整理",
+                                    "次のアクションプランを立てる"
+                                ],
+                                steps: [
+                                    "目標と実際の結果を比較する",
+                                    "うまくいった理由を分析する",
+                                    "うまくいかなかった原因を考える",
+                                    "改善策を具体的に決める",
+                                    "次の期間で実行して検証する"
+                                ]
+                            }
+                        ],
+                        point: "振り返りを習慣化することで、継続的な成長が可能になる。"
+                    }
+                ],
+                colorScheme: {
+                    primary: "#667eea",
+                    secondary: "#764ba2",
+                    background: "#e8eef5"
+                },
+                unsplashKeyword: "learning"
+            };
+        }
+
+        // マトリクス生成
+        async function generateMatrix() {
+            const titleInput = document.getElementById('titleInput');
+            const title = titleInput.value.trim();
+
+            if (!title) {
+                showError('タイトルを入力してください');
+                return;
+            }
+
+            // UI更新
+            document.querySelector('.input-section').style.display = 'none';
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('errorMessage').classList.remove('show');
+
+            try {
+                // API呼び出し
+                const response = await fetch('/.netlify/functions/generate-matrix', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ title })
+                });
+
+                let data;
+
+                if (!response.ok) {
+                    // APIが利用できない場合（ローカル環境など）、モックデータを使用
+                    console.log('API利用不可、モックデータを使用します');
+                    data = generateMockData(title);
+
+                    // ユーザーに通知（オプション）
+                    console.info('ℹ️ テストモード: 実際のAI生成ではなくサンプルデータを表示しています');
+                } else {
+                    data = await response.json();
+                }
+
+                currentData = data;
+
+                // 背景色を更新
+                if (data.colorScheme) {
+                    document.body.style.background = `linear-gradient(135deg, ${data.colorScheme.primary} 0%, ${data.colorScheme.secondary} 100%)`;
+                }
+
+                // Unsplash画像を読み込み
+                if (data.unsplashKeyword) {
+                    const bgImage = document.getElementById('heroBackground');
+                    bgImage.src = `https://source.unsplash.com/1920x1080/?${encodeURIComponent(data.unsplashKeyword)}`;
+                }
+
+                // マトリクスを表示
+                renderMatrix(data);
+
+                // UI更新
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('matrixSection').classList.add('show');
+
+                // アイコンを初期化
+                lucide.createIcons();
+
+            } catch (error) {
+                console.error('Error:', error);
+
+                // エラー時もモックデータで動作
+                console.log('エラー発生、モックデータで続行します');
+                const data = generateMockData(title);
+                currentData = data;
+
+                // 背景色を更新
+                if (data.colorScheme) {
+                    document.body.style.background = `linear-gradient(135deg, ${data.colorScheme.primary} 0%, ${data.colorScheme.secondary} 100%)`;
+                }
+
+                // Unsplash画像を読み込み
+                if (data.unsplashKeyword) {
+                    const bgImage = document.getElementById('heroBackground');
+                    bgImage.src = `https://source.unsplash.com/1920x1080/?${encodeURIComponent(data.unsplashKeyword)}`;
+                }
+
+                // マトリクスを表示
+                renderMatrix(data);
+
+                // UI更新
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('matrixSection').classList.add('show');
+
+                // アイコンを初期化
+                lucide.createIcons();
+            }
+        }
+
+        // エラー表示
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+        }
+
+        // マトリクス描画
+        function renderMatrix(data) {
+            const container = document.getElementById('matrixContainer');
+            const items = data.items;
+            const title = escapeHtml(data.title);
+
+            // カラースキームを適用
+            const primary = data.colorScheme?.primary || '#667eea';
+            const secondary = data.colorScheme?.secondary || '#764ba2';
+            const background = data.colorScheme?.background || '#e8eef5';
+
+            // CSSカスタムプロパティを設定
+            document.documentElement.style.setProperty('--primary-color', primary);
+            document.documentElement.style.setProperty('--secondary-color', secondary);
+            document.documentElement.style.setProperty('--background-color', background);
+
+            const html = `
+                <table class="matrix-table">
+                    <tr>
+                        ${renderCell(items[0], 1, primary, secondary, background)}
+                        ${renderCell(items[1], 2, primary, secondary, background)}
+                        ${renderCell(items[2], 3, primary, secondary, background)}
+                    </tr>
+                    <tr>
+                        ${renderCell(items[3], 4, primary, secondary, background)}
+                        <td class="center-cell" style="background: linear-gradient(135deg, ${primary} 0%, ${secondary} 100%);">
+                            ${title}
+                        </td>
+                        ${renderCell(items[4], 5, primary, secondary, background)}
+                    </tr>
+                    <tr>
+                        ${renderCell(items[5], 6, primary, secondary, background)}
+                        ${renderCell(items[6], 7, primary, secondary, background)}
+                        ${renderCell(items[7], 8, primary, secondary, background)}
+                    </tr>
+                </table>
+            `;
+
+            container.innerHTML = html;
+
+            // 詳細ページも生成
+            generateDetailPages(data);
+        }
+
+        // 詳細ページを生成
+        function generateDetailPages(data) {
+            const detailPagesContainer = document.getElementById('detailPages');
+            const items = data.items;
+            const primary = data.colorScheme?.primary || '#667eea';
+
+            let detailHTML = '';
+
+            items.forEach((item, index) => {
+                const num = index + 1;
+
+                // 詳細コンテンツがある場合（レシピなど）
+                let contentHTML = '';
+                if (item.detailContent && item.detailContent.length > 0) {
+                    contentHTML = item.detailContent.map(recipe => `
+                        <div class="recipe-card">
+                            <h4>${escapeHtml(recipe.subtitle)}</h4>
+                            ${recipe.ingredients ? `
+                                <div class="recipe-section">
+                                    <h5>材料</h5>
+                                    <ul>
+                                        ${recipe.ingredients.map(ing => `<li>${escapeHtml(ing)}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            ` : ''}
+                            ${recipe.steps ? `
+                                <div class="recipe-section">
+                                    <h5>作り方</h5>
+                                    <ul>
+                                        ${recipe.steps.map(step => `<li>${escapeHtml(step)}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `).join('');
+                } else {
+                    // 従来の具体例表示（ビジネススキルなど）
+                    contentHTML = `
+                        <div class="detail-section">
+                            <h3>具体例</h3>
+                            <ul>
+                                ${item.examples.map(ex => `<li>${escapeHtml(ex)}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+
+                detailHTML += `
+                    <div class="detail-page">
+                        <div class="detail-page-header">
+                            <h2 class="detail-page-title">
+                                <span class="detail-page-number" style="background: linear-gradient(135deg, ${primary} 0%, ${data.colorScheme?.secondary || '#764ba2'} 100%);">${num}</span>
+                                ${escapeHtml(item.title)}
+                            </h2>
+                            <p class="detail-page-description">${escapeHtml(item.description)}</p>
+                        </div>
+
+                        ${contentHTML}
+
+                        <div class="detail-point-box">
+                            <h4>💡 習得のポイント</h4>
+                            <p>${escapeHtml(item.point)}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            detailPagesContainer.innerHTML = detailHTML;
+        }
+
+        // マトリクスのみ印刷
+        function printMatrixOnly() {
+            const detailPages = document.getElementById('detailPages');
+            detailPages.classList.remove('print-mode');
+            window.print();
+        }
+
+        // 一括印刷（マトリクス + 詳細）
+        function printAll() {
+            const detailPages = document.getElementById('detailPages');
+            detailPages.classList.add('print-mode');
+            window.print();
+            // 印刷後、クラスを削除
+            setTimeout(() => {
+                detailPages.classList.remove('print-mode');
+            }, 1000);
+        }
+
+        // セル描画
+        function renderCell(item, num, primary, secondary, background) {
+            // 具体例を表示（最大3つ）
+            const examplesHTML = item.examples && item.examples.length > 0
+                ? `<div class="skill-examples">
+                    ${item.examples.slice(0, 3).map(ex => `<span class="skill-examples-item">${escapeHtml(ex)}</span>`).join('')}
+                   </div>`
+                : '';
+
+            return `
+                <td class="skill-cell" style="background-color: ${background};" onclick="showDetail(${num - 1})">
+                    <div class="skill-title">
+                        <span class="cell-number" style="background: linear-gradient(135deg, ${primary} 0%, ${secondary} 100%);">${num}</span>
+                        ${escapeHtml(item.title)}
+                    </div>
+                    <div class="skill-description">${escapeHtml(item.description)}</div>
+                    ${examplesHTML}
+                </td>
+            `;
+        }
+
+        // 詳細モーダル表示
+        function showDetail(index) {
+            if (!currentData || !currentData.items[index]) return;
+
+            const item = currentData.items[index];
+
+            document.getElementById('modalTitle').innerHTML = `
+                <span class="cell-number">${index + 1}</span>
+                ${escapeHtml(item.title)}
+            `;
+            document.getElementById('modalDescription').textContent = item.description;
+
+            const examplesList = document.getElementById('modalExamples');
+
+            // 詳細コンテンツがある場合（レシピなど）
+            if (item.detailContent && item.detailContent.length > 0) {
+                examplesList.innerHTML = item.detailContent.map(recipe => `
+                    <div class="recipe-card">
+                        <h4>${escapeHtml(recipe.subtitle)}</h4>
+                        ${recipe.ingredients ? `
+                            <div class="recipe-section">
+                                <h5>材料</h5>
+                                <ul>
+                                    ${recipe.ingredients.map(ing => `<li>${escapeHtml(ing)}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                        ${recipe.steps ? `
+                            <div class="recipe-section">
+                                <h5>作り方</h5>
+                                <ul>
+                                    ${recipe.steps.map(step => `<li>${escapeHtml(step)}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                    </div>
+                `).join('');
+            } else {
+                // 従来の具体例表示（ビジネススキルなど）
+                examplesList.innerHTML = item.examples
+                    .map(ex => `<li>${escapeHtml(ex)}</li>`)
+                    .join('');
+            }
+
+            document.getElementById('modalPoint').textContent = item.point;
+
+            document.getElementById('detailModal').classList.add('show');
+
+            // アイコンを再初期化
+            lucide.createIcons();
+        }
+
+        // モーダルを閉じる
+        function closeModal(event) {
+            if (!event || event.target.id === 'detailModal') {
+                document.getElementById('detailModal').classList.remove('show');
+            }
+        }
+
+        // フォームをリセット
+        function resetForm() {
+            document.getElementById('matrixSection').classList.remove('show');
+            document.querySelector('.input-section').style.display = 'block';
+            document.getElementById('titleInput').value = '';
+            document.getElementById('errorMessage').classList.remove('show');
+
+            // 背景をリセット
+            document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            document.getElementById('heroBackground').src = '';
+
+            currentData = null;
+        }
+
+        // HTMLダウンロード（完全版）
+        function downloadHTML() {
+            if (!currentData) return;
+
+            const container = document.getElementById('matrixContainer');
+            const detailPages = document.getElementById('detailPages');
+            const title = currentData.title;
+            const safeTitle = escapeHtml(title);
+            const containerHTML = container.innerHTML;
+            const detailHTML = detailPages.innerHTML;
+
+            // DOMを使ってHTMLドキュメントを構築
+            const htmlDoc = document.implementation.createHTMLDocument(safeTitle);
+
+            // スタイルを追加
+            const style = htmlDoc.createElement('style');
+            style.textContent = `
+                * { margin: 0; padding: 0; box-sizing: border-box; }
+                body {
+                    font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+                    padding: 20px;
+                    background-color: #f0f4f8;
+                }
+                .container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    background-color: white;
+                    padding: 40px;
+                    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+                    border-radius: 10px;
+                    margin-bottom: 30px;
+                }
+                .matrix-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+                .matrix-table td { border: 2px solid #2c3e50; padding: 20px; text-align: left; vertical-align: top; width: 33.33%; height: 180px; }
+                .matrix-table .center-cell { color: white; font-weight: bold; font-size: 24px; text-align: center; vertical-align: middle; }
+                .matrix-table .skill-cell { cursor: default; }
+                .cell-number { display: inline-block; color: white; width: 32px; height: 32px; border-radius: 50%; text-align: center; line-height: 32px; font-size: 16px; font-weight: bold; margin-right: 10px; }
+                .skill-title { font-weight: bold; color: #2c3e50; margin-bottom: 10px; font-size: 18px; display: flex; align-items: center; }
+                .skill-description { color: #34495e; font-size: 14px; line-height: 1.6; }
+
+                .detail-page { background: white; border-radius: 10px; padding: 40px; margin-bottom: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+                .detail-page-header { margin-bottom: 30px; border-bottom: 3px solid #667eea; padding-bottom: 20px; }
+                .detail-page-title { font-size: 32px; color: #2c3e50; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; }
+                .detail-page-number { display: inline-flex; align-items: center; justify-content: center; color: white; width: 50px; height: 50px; border-radius: 50%; font-size: 24px; font-weight: bold; }
+                .detail-page-description { font-size: 18px; color: #34495e; line-height: 1.8; margin-bottom: 20px; }
+                .detail-section { margin-bottom: 30px; }
+                .detail-section h3 { color: #667eea; font-size: 22px; margin-bottom: 15px; border-left: 5px solid #667eea; padding-left: 15px; }
+                .detail-section ul { list-style: none; padding: 0; }
+                .detail-section li { padding: 15px 20px; margin-bottom: 12px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea; color: #34495e; font-size: 16px; line-height: 1.6; }
+                .detail-section li:before { content: "✓"; color: #667eea; font-weight: bold; margin-right: 10px; }
+                .detail-point-box { background: linear-gradient(135deg, #fff9e6 0%, #ffeaa7 100%); padding: 25px; border-radius: 12px; border-left: 5px solid #f39c12; margin-top: 20px; }
+                .detail-point-box h4 { color: #e67e22; font-size: 20px; margin-bottom: 12px; }
+                .detail-point-box p { color: #34495e; font-size: 16px; line-height: 1.8; }
+
+                @media print {
+                    body { background: white; padding: 0; }
+                    .container, .detail-page { box-shadow: none; page-break-after: always; }
+                }
+            `;
+            htmlDoc.head.appendChild(style);
+
+            // マトリクスコンテンツを追加
+            const containerDiv = htmlDoc.createElement('div');
+            containerDiv.className = 'container';
+            containerDiv.innerHTML = containerHTML;
+            htmlDoc.body.appendChild(containerDiv);
+
+            // 詳細ページを追加
+            const detailDiv = htmlDoc.createElement('div');
+            detailDiv.innerHTML = detailHTML;
+            htmlDoc.body.appendChild(detailDiv);
+
+            // HTML文字列を生成
+            const fullHTML = '<!DOCTYPE html>\n' + htmlDoc.documentElement.outerHTML;
+
+            const blob = new Blob([fullHTML], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = safeTitle + '_完全版.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Enterキーで生成
+        document.getElementById('titleInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                generateMatrix();
+            }
+        });
+
+        // ESCキーでモーダルを閉じる
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
