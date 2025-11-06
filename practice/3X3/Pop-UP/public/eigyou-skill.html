@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>営業スキル8つ</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+        
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .matrix-table td {
+            border: 2px solid #2c3e50;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+            width: 33.33%;
+            height: 150px;
+        }
+        
+        .matrix-table .center-cell {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .matrix-table .skill-cell {
+            background-color: #e8eef5;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .matrix-table .skill-cell:hover {
+            background-color: #d0dce8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .cell-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .skill-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .skill-description {
+            color: #34495e;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+        
+        .skill-details {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 12px;
+            line-height: 1.7;
+            border-left: 4px solid #667eea;
+        }
+        
+        .skill-details.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .skill-details h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-details h4::before {
+            content: "▶";
+            margin-right: 5px;
+            font-size: 10px;
+        }
+        
+        .skill-details ul {
+            margin: 5px 0 10px 20px;
+        }
+        
+        .skill-details li {
+            margin: 4px 0;
+            color: #34495e;
+        }
+        
+        .close-btn {
+            color: #e74c3c;
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1;
+        }
+        
+        .close-btn:hover {
+            color: #c0392b;
+        }
+        
+        .point-box {
+            background-color: #fff9e6;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            border-left: 3px solid #f39c12;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            
+            .skill-cell {
+                cursor: default;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table class="matrix-table">
+            <tr>
+                <td class="skill-cell" onclick="toggleSkill(1)">
+                    <div class="skill-title"><span class="cell-number">1</span>ヒアリング力</div>
+                    <div class="skill-description">顧客の本質的なニーズを引き出す傾聴スキル。表面的な要望だけでなく、その背景にある課題を理解する力。</div>
+                    <div class="skill-details" id="skill1">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(1)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>「なぜそう感じられたのですか？」と深掘り質問をする</li>
+                            <li>顧客の話を遮らず、最後まで聞く姿勢を保つ</li>
+                            <li>相槌やメモで傾聴の姿勢を示す</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 習得のポイント：</strong><br>
+                            日常会話から「なぜ」「どのように」の質問を意識。顧客の言葉をそのまま復唱し、理解を確認する習慣をつける。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(2)">
+                    <div class="skill-title"><span class="cell-number">2</span>提案力</div>
+                    <div class="skill-description">顧客の課題に対して最適なソリューションを提示する力。商品知識と顧客理解を組み合わせた提案構築スキル。</div>
+                    <div class="skill-details" id="skill2">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(2)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>顧客の課題を整理し、解決策を3つ程度用意する</li>
+                            <li>数値やデータを使って提案の根拠を示す</li>
+                            <li>導入後のビジョンを具体的に描いて伝える</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 習得のポイント：</strong><br>
+                            成功事例を蓄積し、業界・企業規模別にパターン化。ロールプレイで提案の流れを体に染み込ませる。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(3)">
+                    <div class="skill-title"><span class="cell-number">3</span>クロージング力</div>
+                    <div class="skill-description">商談を契約に結びつける決断促進スキル。適切なタイミングで次のステップを提示し、合意を得る力。</div>
+                    <div class="skill-details" id="skill3">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(3)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>「いつから導入されますか？」と具体的な日程を確認</li>
+                            <li>購買シグナル（前のめりな質問等）を見逃さない</li>
+                            <li>懸念点を先回りして解消する</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 習得のポイント：</strong><br>
+                            商談の各段階で小さな合意を積み重ねる。「もし〜なら」の仮定質問で顧客の意思決定プロセスを理解する。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="skill-cell" onclick="toggleSkill(4)">
+                    <div class="skill-title"><span class="cell-number">4</span>関係構築力</div>
+                    <div class="skill-description">顧客との信頼関係を築き、長期的なパートナーシップを構築する力。人間関係の基盤となるスキル。</div>
+                    <div class="skill-details" id="skill4">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(4)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>定期的な情報提供で接点を維持する</li>
+                            <li>顧客の業界動向や競合情報をキャッチアップ</li>
+                            <li>商談以外の雑談で相手の人となりを理解</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 習得のポイント：</strong><br>
+                            約束は必ず守る。小さな気配りの積み重ねが信頼を生む。顧客の成功を自分のことのように喜ぶ姿勢を持つ。
+                        </div>
+                    </div>
+                </td>
+                <td class="center-cell">
+                    📊<br>営業スキル<br>8つ
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(5)">
+                    <div class="skill-title"><span class="cell-number">5</span>課題発見力</div>
+                    <div class="skill-description">顧客自身が気づいていない潜在的な課題を見つけ出す力。表面的な要望の裏にある本質的な問題を特定するスキル。</div>
+                    <div class="skill-details" id="skill5">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(5)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>現状の業務フローを詳しくヒアリングする</li>
+                            <li>「困っていることはありませんか？」と投げかける</li>
+                            <li>同業他社の課題事例から気づきを促す</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 習得のポイント：</strong><br>
+                            業界知識を深め、一般的な課題パターンを理解。顧客の立場で考える習慣をつけ、「もし自分なら」の視点を持つ。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="skill-cell" onclick="toggleSkill(6)">
+                    <div class="skill-title"><span class="cell-number">6</span>交渉力</div>
+                    <div class="skill-description">価格や条件面で双方が納得できる着地点を見つける力。Win-Winの関係を構築する調整スキル。</div>
+                    <div class="skill-details" id="skill6">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(6)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>価格だけでなく、価値全体で交渉する</li>
+                            <li>複数のオプションを用意し選択肢を提示</li>
+                            <li>譲れる点と譲れない点を明確にしておく</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 習得のポイント：</strong><br>
+                            相手の立場や制約を理解する。感情的にならず、論理的に対話。「No」と言える勇気も持つことが重要。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(7)">
+                    <div class="skill-title"><span class="cell-number">7</span>プレゼン力</div>
+                    <div class="skill-description">提案内容を分かりやすく魅力的に伝える力。聞き手の関心を引き、行動を促すコミュニケーションスキル。</div>
+                    <div class="skill-details" id="skill7">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(7)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>結論から話し、理由を後から説明する</li>
+                            <li>図表やビジュアルを使って視覚的に訴える</li>
+                            <li>相手の反応を見ながら話すスピードを調整</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 習得のポイント：</strong><br>
+                            鏡の前で練習し、表情や身振りを確認。録音して自分の話し方を客観視。TEDトークなど優れたプレゼンを研究する。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(8)">
+                    <div class="skill-title"><span class="cell-number">8</span>時間管理力</div>
+                    <div class="skill-description">限られた時間で最大の成果を出す効率化スキル。優先順位をつけ、重要な商談に集中する力。</div>
+                    <div class="skill-details" id="skill8">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(8)">✕</span>
+                        <h4>具体例</h4>
+                        <ul>
+                            <li>週初めに優先顧客リストを作成する</li>
+                            <li>移動時間を活用して情報収集や資料作成</li>
+                            <li>商談の事前準備を徹底し、効率を上げる</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 習得のポイント：</strong><br>
+                            重要度と緊急度のマトリクスで仕事を分類。週次・日次で振り返りを行い、時間の使い方を改善し続ける。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        function toggleSkill(num) {
+            const detail = document.getElementById('skill' + num);
+            const allDetails = document.querySelectorAll('.skill-details');
+            
+            // 他の開いている詳細を閉じる
+            allDetails.forEach(d => {
+                if (d !== detail) {
+                    d.classList.remove('show');
+                }
+            });
+            
+            // クリックされた詳細を開閉
+            detail.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
