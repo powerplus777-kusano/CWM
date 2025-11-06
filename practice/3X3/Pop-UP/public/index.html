@@ -1830,14 +1830,23 @@
                 let data;
 
                 if (!response.ok) {
-                    // APIが利用できない場合（ローカル環境など）、モックデータを使用
-                    console.log('API利用不可、モックデータを使用します');
+                    // APIエラーの詳細を取得
+                    const errorText = await response.text();
+                    console.error('❌ API Error:', {
+                        status: response.status,
+                        statusText: response.statusText,
+                        errorDetails: errorText
+                    });
+
+                    // APIが利用できない場合、モックデータを使用
+                    console.warn('⚠️ モックデータを使用します（API応答なし）');
                     data = generateMockData(title);
 
-                    // ユーザーに通知（オプション）
-                    console.info('ℹ️ テストモード: 実際のAI生成ではなくサンプルデータを表示しています');
+                    // ユーザーに警告を表示
+                    alert('⚠️ AI APIが利用できません。\n\n原因:\n- Claude APIキーが設定されていない\n- APIキーが無効\n- クレジットが不足\n\nサンプルデータを表示します。\n\nエラー詳細はコンソールログをご確認ください（F12キー）');
                 } else {
                     data = await response.json();
+                    console.log('✅ AI生成成功:', data);
                 }
 
                 currentData = data;
@@ -1864,10 +1873,11 @@
                 lucide.createIcons();
 
             } catch (error) {
-                console.error('Error:', error);
+                console.error('❌ 予期しないエラー:', error);
 
                 // エラー時もモックデータで動作
-                console.log('エラー発生、モックデータで続行します');
+                console.warn('⚠️ エラー発生、モックデータで続行します');
+                alert('⚠️ エラーが発生しました。\n\n' + error.message + '\n\nサンプルデータを表示します。');
                 const data = generateMockData(title);
                 currentData = data;
 
