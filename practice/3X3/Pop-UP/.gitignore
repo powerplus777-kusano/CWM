@@ -1,6 +1,6 @@
 # Dependencies
 node_modules/
-package-lock.json
+# package-lock.json は Netlify のビルドに必要なのでコミットする
 yarn.lock
 
 # Environment variables
