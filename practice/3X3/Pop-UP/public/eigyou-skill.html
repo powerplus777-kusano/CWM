@@ -164,20 +164,111 @@
             border-left: 3px solid #f39c12;
         }
         
+        /* アクションボタン */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* 詳細ページ（一括印刷用） */
+        .detail-pages {
+            display: none;
+        }
+
+        .detail-page {
+            page-break-after: always;
+            padding: 20px;
+        }
+
+        .detail-page:last-child {
+            page-break-after: auto;
+        }
+
+        .detail-page h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .detail-page h3 {
+            color: #2c3e50;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .detail-page ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        .detail-page li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
         @media print {
             body {
                 background-color: white;
                 padding: 0;
             }
-            
+
             .container {
                 box-shadow: none;
-                padding: 0;
+                padding: 10mm;
                 max-width: 100%;
             }
-            
+
             .skill-cell {
                 cursor: default;
+            }
+
+            .action-buttons {
+                display: none !important;
+            }
+
+            .skill-details {
+                display: none !important;
+            }
+
+            /* 一括印刷モード */
+            .detail-pages.print-mode {
+                display: block !important;
+            }
+
+            .detail-page {
+                page-break-after: always;
+            }
+
+            .detail-page:last-child {
+                page-break-after: auto;
+            }
+
+            /* マトリクス印刷モード */
+            .matrix-only-mode .detail-pages {
+                display: none !important;
             }
         }
     </style>
@@ -331,22 +422,179 @@
                 </td>
             </tr>
         </table>
+
+        <!-- アクションボタン -->
+        <div class="action-buttons">
+            <button class="action-btn" onclick="printMatrixOnly()">
+                🖨️ マトリクス印刷
+            </button>
+            <button class="action-btn" onclick="printAll()">
+                📄 一括印刷
+            </button>
+            <button class="action-btn" onclick="downloadHTML()">
+                ⬇️ HTMLダウンロード
+            </button>
+        </div>
+    </div>
+
+    <!-- 詳細ページ（一括印刷用） -->
+    <div class="detail-pages" id="detailPages">
+        <!-- スキル1: ヒアリング力 -->
+        <div class="detail-page">
+            <h2>1. ヒアリング力</h2>
+            <p>顧客の本質的なニーズを引き出す傾聴スキル。表面的な要望だけでなく、その背景にある課題を理解する力。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>「なぜそう感じられたのですか？」と深掘り質問をする</li>
+                <li>顧客の話を遮らず、最後まで聞く姿勢を保つ</li>
+                <li>相槌やメモで傾聴の姿勢を示す</li>
+            </ul>
+            <h3>💡 習得のポイント</h3>
+            <p>日常会話から「なぜ」「どのように」の質問を意識。顧客の言葉をそのまま復唱し、理解を確認する習慣をつける。</p>
+        </div>
+
+        <!-- スキル2: 提案力 -->
+        <div class="detail-page">
+            <h2>2. 提案力</h2>
+            <p>顧客の課題に対して最適なソリューションを提示する力。商品知識と顧客理解を組み合わせた提案構築スキル。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>顧客の課題を整理し、解決策を3つ程度用意する</li>
+                <li>数値やデータを使って提案の根拠を示す</li>
+                <li>導入後のビジョンを具体的に描いて伝える</li>
+            </ul>
+            <h3>💡 習得のポイント</h3>
+            <p>成功事例を蓄積し、業界・企業規模別にパターン化。ロールプレイで提案の流れを体に染み込ませる。</p>
+        </div>
+
+        <!-- スキル3: クロージング力 -->
+        <div class="detail-page">
+            <h2>3. クロージング力</h2>
+            <p>商談を契約に結びつける決断促進スキル。適切なタイミングで次のステップを提示し、合意を得る力。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>「いつから導入されますか？」と具体的な日程を確認</li>
+                <li>購買シグナル（前のめりな質問等）を見逃さない</li>
+                <li>懸念点を先回りして解消する</li>
+            </ul>
+            <h3>💡 習得のポイント</h3>
+            <p>商談の各段階で小さな合意を積み重ねる。「もし〜なら」の仮定質問で顧客の意思決定プロセスを理解する。</p>
+        </div>
+
+        <!-- スキル4: 関係構築力 -->
+        <div class="detail-page">
+            <h2>4. 関係構築力</h2>
+            <p>顧客との信頼関係を築き、長期的なパートナーシップを構築する力。人間関係の基盤となるスキル。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>定期的な情報提供で接点を維持する</li>
+                <li>顧客の業界動向や競合情報をキャッチアップ</li>
+                <li>商談以外の雑談で相手の人となりを理解</li>
+            </ul>
+            <h3>💡 習得のポイント</h3>
+            <p>約束は必ず守る。小さな気配りの積み重ねが信頼を生む。顧客の成功を自分のことのように喜ぶ姿勢を持つ。</p>
+        </div>
+
+        <!-- スキル5: 課題発見力 -->
+        <div class="detail-page">
+            <h2>5. 課題発見力</h2>
+            <p>顧客自身が気づいていない潜在的な課題を見つけ出す力。表面的な要望の裏にある本質的な問題を特定するスキル。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>現状の業務フローを詳しくヒアリングする</li>
+                <li>「困っていることはありませんか？」と投げかける</li>
+                <li>同業他社の課題事例から気づきを促す</li>
+            </ul>
+            <h3>💡 習得のポイント</h3>
+            <p>業界知識を深め、一般的な課題パターンを理解。顧客の立場で考える習慣をつけ、「もし自分なら」の視点を持つ。</p>
+        </div>
+
+        <!-- スキル6: 交渉力 -->
+        <div class="detail-page">
+            <h2>6. 交渉力</h2>
+            <p>価格や条件面で双方が納得できる着地点を見つける力。Win-Winの関係を構築する調整スキル。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>価格だけでなく、価値全体で交渉する</li>
+                <li>複数のオプションを用意し選択肢を提示</li>
+                <li>譲れる点と譲れない点を明確にしておく</li>
+            </ul>
+            <h3>💡 習得のポイント</h3>
+            <p>相手の立場や制約を理解する。感情的にならず、論理的に対話。「No」と言える勇気も持つことが重要。</p>
+        </div>
+
+        <!-- スキル7: プレゼン力 -->
+        <div class="detail-page">
+            <h2>7. プレゼン力</h2>
+            <p>提案内容を分かりやすく魅力的に伝える力。聞き手の関心を引き、行動を促すコミュニケーションスキル。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>結論から話し、理由を後から説明する</li>
+                <li>図表やビジュアルを使って視覚的に訴える</li>
+                <li>相手の反応を見ながら話すスピードを調整</li>
+            </ul>
+            <h3>💡 習得のポイント</h3>
+            <p>鏡の前で練習し、表情や身振りを確認。録音して自分の話し方を客観視。TEDトークなど優れたプレゼンを研究する。</p>
+        </div>
+
+        <!-- スキル8: 時間管理力 -->
+        <div class="detail-page">
+            <h2>8. 時間管理力</h2>
+            <p>限られた時間で最大の成果を出す効率化スキル。優先順位をつけ、重要な商談に集中する力。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>週初めに優先顧客リストを作成する</li>
+                <li>移動時間を活用して情報収集や資料作成</li>
+                <li>商談の事前準備を徹底し、効率を上げる</li>
+            </ul>
+            <h3>💡 習得のポイント</h3>
+            <p>重要度と緊急度のマトリクスで仕事を分類。週次・日次で振り返りを行い、時間の使い方を改善し続ける。</p>
+        </div>
     </div>
 
     <script>
         function toggleSkill(num) {
             const detail = document.getElementById('skill' + num);
             const allDetails = document.querySelectorAll('.skill-details');
-            
+
             // 他の開いている詳細を閉じる
             allDetails.forEach(d => {
                 if (d !== detail) {
                     d.classList.remove('show');
                 }
             });
-            
+
             // クリックされた詳細を開閉
             detail.classList.toggle('show');
+        }
+
+        // マトリクスのみ印刷
+        function printMatrixOnly() {
+            document.body.classList.add('matrix-only-mode');
+            window.print();
+            document.body.classList.remove('matrix-only-mode');
+        }
+
+        // 一括印刷（マトリクス + 詳細）
+        function printAll() {
+            const detailPages = document.getElementById('detailPages');
+            detailPages.classList.add('print-mode');
+            window.print();
+            detailPages.classList.remove('print-mode');
+        }
+
+        // HTMLダウンロード
+        function downloadHTML() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '営業スキル8選.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
     </script>
 </body>

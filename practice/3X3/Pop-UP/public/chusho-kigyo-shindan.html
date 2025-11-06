@@ -37,7 +37,7 @@
         }
 
         .matrix-table td {
-            border: 2px solid: #2c3e50;
+            border: 2px solid #2c3e50;
             padding: 15px;
             text-align: left;
             vertical-align: top;
@@ -164,6 +164,71 @@
             border-left: 3px solid #2196f3;
         }
 
+        /* アクションボタン */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        /* 詳細ページ（一括印刷用） */
+        .detail-pages {
+            display: none;
+        }
+
+        .detail-page {
+            page-break-after: always;
+            padding: 20px;
+        }
+
+        .detail-page:last-child {
+            page-break-after: auto;
+        }
+
+        .detail-page h2 {
+            color: #3498db;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .detail-page h3 {
+            color: #2c3e50;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .detail-page ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        .detail-page li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
         @media print {
             body {
                 background-color: white;
@@ -172,12 +237,38 @@
 
             .container {
                 box-shadow: none;
-                padding: 0;
+                padding: 10mm;
                 max-width: 100%;
             }
 
             .skill-cell {
                 cursor: default;
+            }
+
+            .action-buttons {
+                display: none !important;
+            }
+
+            .skill-details {
+                display: none !important;
+            }
+
+            /* 一括印刷モード */
+            .detail-pages.print-mode {
+                display: block !important;
+            }
+
+            .detail-page {
+                page-break-after: always;
+            }
+
+            .detail-page:last-child {
+                page-break-after: auto;
+            }
+
+            /* マトリクス印刷モード */
+            .matrix-only-mode .detail-pages {
+                display: none !important;
             }
         }
     </style>
@@ -331,6 +422,134 @@
                 </td>
             </tr>
         </table>
+
+        <!-- アクションボタン -->
+        <div class="action-buttons">
+            <button class="action-btn" onclick="printMatrixOnly()">
+                🖨️ マトリクス印刷
+            </button>
+            <button class="action-btn" onclick="printAll()">
+                📄 一括印刷
+            </button>
+            <button class="action-btn" onclick="downloadHTML()">
+                ⬇️ HTMLダウンロード
+            </button>
+        </div>
+    </div>
+
+    <!-- 詳細ページ（一括印刷用） -->
+    <div class="detail-pages" id="detailPages">
+        <!-- スキル1: 試験制度の理解 -->
+        <div class="detail-page">
+            <h2>1. 試験制度の理解</h2>
+            <p>1次試験（7科目・マークシート）と2次試験（4科目・記述式）の出題範囲と配点を把握。合格基準は総得点60%以上かつ科目40%以上。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>1次試験：経済学、財務会計、企業経営理論、運営管理、経営法務、経営情報システム、中小企業経営・政策</li>
+                <li>2次試験：事例I〜IV（組織・人事、マーケティング、生産・技術、財務・会計）</li>
+                <li>科目合格制度：1次試験は科目ごとに60%以上で3年間有効</li>
+            </ul>
+            <h3>📖 合格のポイント</h3>
+            <p>まず試験要領を熟読し、科目の重みづけを理解。配点の高い科目から優先的に学習計画を立てましょう。</p>
+        </div>
+
+        <!-- スキル2: 学習計画の策定 -->
+        <div class="detail-page">
+            <h2>2. 学習計画の策定</h2>
+            <p>1000時間の学習が必要とされる試験。1日2〜3時間×1年半〜2年の計画を立て、科目ごとのスケジュールを管理。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>基礎期（6ヶ月）：テキスト通読、基本用語暗記</li>
+                <li>応用期（6ヶ月）：過去問演習、弱点補強</li>
+                <li>直前期（3ヶ月）：模試受験、総復習</li>
+            </ul>
+            <h3>📖 合格のポイント</h3>
+            <p>週単位で進捗を確認し、遅れがあれば土日で挽回。柔軟な計画が長期戦を乗り切る鍵です。</p>
+        </div>
+
+        <!-- スキル3: 基礎知識の徹底 -->
+        <div class="detail-page">
+            <h2>3. 基礎知識の徹底</h2>
+            <p>まずは各科目の基本テキストを2〜3周読み込む。理解不足の箇所はマーカーで印をつけ、繰り返し学習。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>1周目：全体像を掴む（理解度30%でOK）</li>
+                <li>2周目：重要論点を深掘り（理解度60%目標）</li>
+                <li>3周目：弱点を重点的に復習（理解度80%以上）</li>
+            </ul>
+            <h3>📖 合格のポイント</h3>
+            <p>完璧主義は禁物。1周目は流し読みで全体像を掴み、2周目以降で深めるのが効率的です。</p>
+        </div>
+
+        <!-- スキル4: 過去問の徹底活用 -->
+        <div class="detail-page">
+            <h2>4. 過去問の徹底活用</h2>
+            <p>過去10年分の問題を最低3周解く。出題傾向と頻出論点を把握し、時間配分の感覚を養う。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>1周目：時間制限なしで解答、解説を熟読</li>
+                <li>2周目：本番同様の時間で解答、間違いを分析</li>
+                <li>3周目：弱点科目を中心に総復習</li>
+            </ul>
+            <h3>📖 合格のポイント</h3>
+            <p>間違えた問題は「なぜ間違えたか」を必ずノートにまとめる。知識不足か、読み間違いか、原因を明確にすることが重要。</p>
+        </div>
+
+        <!-- スキル5: 記述対策（2次試験） -->
+        <div class="detail-page">
+            <h2>5. 記述対策（2次試験）</h2>
+            <p>80分で大量の文章を読み、設問に答える記述式試験。与件文の読解力と論理的な文章構成力が求められる。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>与件文に線を引きながら読む（キーワード抽出）</li>
+                <li>設問の要求を正確に把握（〜を述べよ、〜を提案せよ）</li>
+                <li>結論→理由→具体例の型で文章を書く練習</li>
+            </ul>
+            <h3>📖 合格のポイント</h3>
+            <p>予備校の模範解答を写経し、文章の型を体に染み込ませる。自己流ではなく、合格答案のパターンを真似ることが近道です。</p>
+        </div>
+
+        <!-- スキル6: 暗記科目の攻略 -->
+        <div class="detail-page">
+            <h2>6. 暗記科目の攻略</h2>
+            <p>経営法務、経営情報システム、中小企業経営・政策は暗記中心。繰り返し学習と語呂合わせで効率的に記憶。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>通勤時間にスマホアプリで一問一答を繰り返す</li>
+                <li>法律用語は具体例と一緒に覚える（抽象→具体）</li>
+                <li>白書データは直前1ヶ月で集中暗記</li>
+            </ul>
+            <h3>📖 合格のポイント</h3>
+            <p>暗記科目は短期集中が効果的。試験1〜2ヶ月前に詰め込み、直前に復習で記憶を定着させましょう。</p>
+        </div>
+
+        <!-- スキル7: 財務会計の重点学習 -->
+        <div class="detail-page">
+            <h2>7. 財務会計の重点学習</h2>
+            <p>1次・2次ともに配点が高く、合否を左右する科目。簿記2級レベルの知識が前提。計算問題の反復練習が必須。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>財務諸表分析：ROE、ROA等の指標を実企業で計算</li>
+                <li>CVP分析、NPV計算：公式を暗記し、問題演習</li>
+                <li>連結会計、キャッシュフロー：簿記2級の復習</li>
+            </ul>
+            <h3>📖 合格のポイント</h3>
+            <p>財務会計は他科目の2倍の時間をかける価値あり。ここで安定して60%取れれば、合格がぐっと近づきます。</p>
+        </div>
+
+        <!-- スキル8: メンタル管理と継続力 -->
+        <div class="detail-page">
+            <h2>8. メンタル管理と継続力</h2>
+            <p>1年以上の長期戦。モチベーション維持と体調管理が合否を分ける。勉強仲間との情報交換や適度な休息も重要。</p>
+            <h3>具体例</h3>
+            <ul>
+                <li>週1日は完全オフ日を設定し、リフレッシュ</li>
+                <li>勉強会や予備校で仲間を作り、情報交換</li>
+                <li>模試の結果に一喜一憂せず、淡々と継続</li>
+            </ul>
+            <h3>📖 合格のポイント</h3>
+            <p>「毎日少しずつ」が最強。1日サボると3日分遅れると心得て、習慣化することが合格への最短ルートです。</p>
+        </div>
     </div>
 
     <script>
@@ -347,6 +566,35 @@
 
             // クリックされた詳細を開閉
             detail.classList.toggle('show');
+        }
+
+        // マトリクスのみ印刷
+        function printMatrixOnly() {
+            document.body.classList.add('matrix-only-mode');
+            window.print();
+            document.body.classList.remove('matrix-only-mode');
+        }
+
+        // 一括印刷（マトリクス + 詳細）
+        function printAll() {
+            const detailPages = document.getElementById('detailPages');
+            detailPages.classList.add('print-mode');
+            window.print();
+            detailPages.classList.remove('print-mode');
+        }
+
+        // HTMLダウンロード
+        function downloadHTML() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '中小企業診断士試験合格法.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
     </script>
 </body>
