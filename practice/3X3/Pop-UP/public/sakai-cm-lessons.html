@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="サカイ引越センターのコマーシャルから学ぶ、ビジネスの基本原則とナレッジマネジメントについての考察">
+    <meta name="keywords" content="サカイ引越センター,ビジネス,ナレッジマネジメント,KM,CRM,ビジネスマン">
+    <title>サカイ引越センターのコマーシャルに学ぶべきもの</title>
+
+    <!-- Tailwind CSS v4.1+ -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.536.0/dist/umd/lucide.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#7C3AED',
+                        accent: '#EC4899',
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Meiryo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 日本語フォント最適化 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+            letter-spacing: 0.02em;
+            line-height: 1.8;
+        }
+
+        /* グラデーション背景 */
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+
+        /* 記事コンテナ */
+        .article-container {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+        }
+
+        /* 段落スタイル */
+        .article-paragraph {
+            text-indent: 1em;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ハイライトテキスト */
+        .highlight-text {
+            background: linear-gradient(transparent 60%, #ffd700 60%);
+            font-weight: 600;
+            color: #DC2626;
+        }
+
+        /* ノートボックス */
+        .note-box {
+            border-left: 4px solid #3B82F6;
+            background: #EFF6FF;
+        }
+
+        /* 印刷時の最適化 */
+        @media print {
+            /* ナビゲーションとボタンを非表示 */
+            .no-print {
+                display: none !important;
+            }
+
+            /* 背景を白に */
+            body {
+                background: white !important;
+            }
+
+            .article-container {
+                background: white !important;
+                box-shadow: none !important;
+            }
+
+            /* 余白の最適化 */
+            .article-container {
+                padding: 1cm !important;
+            }
+
+            /* ページ区切りの制御 */
+            h1, h2 {
+                page-break-after: avoid;
+            }
+
+            .article-paragraph {
+                page-break-inside: avoid;
+            }
+
+            /* フォントサイズの調整 */
+            body {
+                font-size: 11pt;
+                line-height: 1.6;
+            }
+
+            h1 {
+                font-size: 18pt;
+            }
+
+            h2 {
+                font-size: 14pt;
+            }
+        }
+
+        /* スムーススクロール */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* リンクのホバーエフェクト */
+        .link-hover {
+            transition: all 0.3s ease;
+        }
+
+        .link-hover:hover {
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen py-8 px-4">
+
+    <!-- 記事コンテナ -->
+    <article class="article-container max-w-4xl mx-auto rounded-2xl shadow-2xl p-8 md:p-12">
+
+        <!-- ヘッダー -->
+        <header class="mb-10">
+            <!-- 戻るリンク -->
+            <nav class="no-print mb-6">
+                <a href="static-index.html" class="link-hover inline-flex items-center gap-2 text-gray-600 hover:text-primary transition-colors">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    <span>一覧に戻る</span>
+                </a>
+            </nav>
+
+            <!-- タイトル -->
+            <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent mb-4">
+                サカイ引越センターのコマーシャルに学ぶべきもの
+            </h1>
+
+            <!-- カテゴリタグ -->
+            <div class="flex flex-wrap gap-2 mb-4 no-print">
+                <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">ビジネス戦略</span>
+                <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">ナレッジマネジメント</span>
+                <span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm">企業経営</span>
+            </div>
+
+            <!-- 区切り線 -->
+            <div class="h-1 bg-gradient-to-r from-primary via-secondary to-accent rounded-full"></div>
+        </header>
+
+        <!-- 本文 -->
+        <main class="prose prose-lg max-w-none">
+
+            <!-- 第1段落 */
+            <p class="article-paragraph text-gray-700 leading-relaxed">
+                1990年代はバブルがはじけ、不透明で予測がつかない時代と言われ、今までと同様に他人と同じ事をやり、コストや生産性など経営効率だけで勝負できる時代ではもはやなくなってきています。各企業はこの様な背景を受け、徹底的に無駄を省き機能の絞込みを行い、リストラを進めています。中には経営コスト削減の必要に迫られ、リストラクチャリングに名を借りた安易な人員削減により、経験豊富で有能な人材・知識が流出し、逆に深刻な打撃を受けている企業さえ見受けられます。
+            </p>
+
+            <!-- 第2段落 -->
+            <p class="article-paragraph text-gray-700 leading-relaxed">
+                最近では、ナレッジ・マネジメント（KM:knowledge Management）やカストマリレーションシップ・マネジメント(CRM:Customer Relationship management）やオープンアーキテクチャ戦略という経営手法が企業で脚光をあび始め、あたかもこの波に乗らないと企業は生き残れないという風潮になってきています。これらの考え方は何も企業やそこに属している人達だけに対する考え方ではなく、個人その者がしっかりとした認識をもっていなければ何の役にも立ちません。あえて言えば、最低限自分の給料・食いぶちは自分で稼ぐという気迫がなければ生き残っていけません。何となく給料をもらっているという<a href="#salesman-note" class="text-blue-600 hover:text-blue-800 underline">サラリーマン</a>根性を持った人間（経営者や従業員を含め）はどんどん切り捨てられて行ってしまいます。
+            </p>
+
+            <!-- 第3段落 -->
+            <p class="article-paragraph text-gray-700 leading-relaxed">
+                しかし、KMやCRMといった考え方自身は何も新しい考え方ではありません。皆で知恵を出し合い、その知恵を共有し、そこから生み出される新しい知恵やエネルギーを持って、大きな価値、最終的には利益を生み出しましょうという、しいて言えばお互いが『当たり前の事をきっちりやる』という商売の基本原則そのものに他なりません。テレビコマーシャルではありませんが、サカイ引越センターのコマーシャル<span class="highlight-text">『サカイー・安いー・仕事キッチリ・仕事キッチリ』</span>はとても上手くそれを表現してると言えます。理論的に言えば、商売の基本原則に関するパラメータや環境変数を系統立てて洗い出し、人間の知恵を付加し、それを今のＩＴ技術を有効利用して利益に結びつけようとするビジネスモデルと言えます。そう考えるのは私だけでしょうか？
+            </p>
+
+            <!-- ノートセクション -->
+            <div id="salesman-note" class="note-box p-6 rounded-lg mt-8 mb-8">
+                <h2 class="text-xl font-bold text-blue-800 mb-3 flex items-center gap-2">
+                    <i data-lucide="message-square-text" class="w-6 h-6"></i>
+                    サラリーマンとビジネスマン
+                </h2>
+                <p class="text-gray-700 leading-relaxed">
+                    ある本を読んだ時にサラリーマンとビジネスマンは似たような使われ方をしているが実は意味合いは違うと言っています。サラリーマンは組織にぶら下がっていて人間関係で苦労しており、自分の運命を自分で動かせないという悲哀感と哀愁を持っており、一方ビジネスマンという呼称は能力・契約といった意味合いが強いと。あなたは「できるビジネスマン」と呼ばれたいか「できるサラリーマン」と呼ばれたいですか？　いや私は「スペシャリスト」だ、いやいや私は「ゼネラリスト」だという声もどこからか聞えて来そうですが（＾＾）。
+                </p>
+            </div>
+
+        </main>
+
+        <!-- フッター -->
+        <footer class="mt-12 pt-6 border-t border-gray-200">
+            <!-- 印刷ボタン -->
+            <div class="no-print flex flex-col sm:flex-row gap-4 justify-between items-center">
+                <button onclick="window.print()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <i data-lucide="printer" class="w-5 h-5"></i>
+                    <span>この記事を印刷する</span>
+                </button>
+
+                <a href="static-index.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                    <i data-lucide="list" class="w-5 h-5"></i>
+                    <span>記事一覧に戻る</span>
+                </a>
+            </div>
+
+            <!-- コピーライト -->
+            <div class="mt-8 text-center text-gray-500 text-sm">
+                <p>この記事は1990年代後半のビジネス環境を背景に執筆されたものです</p>
+            </div>
+        </footer>
+
+    </article>
+
+    <!-- Lucide Icons初期化 -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+</html>

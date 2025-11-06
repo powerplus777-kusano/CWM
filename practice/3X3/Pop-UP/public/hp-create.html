@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ホームページ作成術 - 3X3マトリクス思考</title>
+    <meta name="description" content="ホームページ作成の基本から実践まで、3X3マトリクスで体系的に学ぶ完全ガイド">
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20mm;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .matrix-table td {
+            border: 2px solid #667eea;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+            width: 33.33%;
+            height: 150px;
+        }
+
+        .matrix-table .center-cell {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .matrix-table .skill-cell {
+            background-color: #f8f9ff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .matrix-table .skill-cell:hover {
+            background-color: #e8eeff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.2);
+        }
+
+        .cell-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .skill-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-description {
+            color: #34495e;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .skill-details {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 12px;
+            line-height: 1.7;
+            border-left: 4px solid #667eea;
+        }
+
+        .skill-details.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .skill-details h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-details h4::before {
+            content: "▶";
+            margin-right: 5px;
+            font-size: 10px;
+        }
+
+        .skill-details ul {
+            margin: 5px 0 10px 20px;
+        }
+
+        .skill-details li {
+            margin: 4px 0;
+            color: #34495e;
+        }
+
+        .close-btn {
+            color: #e74c3c;
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #c0392b;
+        }
+
+        .point-box {
+            background-color: #fff9e6;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            border-left: 3px solid #f39c12;
+        }
+
+        /* アクションボタン */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* 詳細ページ（一括印刷用） */
+        .detail-pages {
+            display: none;
+        }
+
+        .detail-page {
+            page-break-after: always;
+            padding: 20px;
+        }
+
+        .detail-page:last-child {
+            page-break-after: auto;
+        }
+
+        .detail-page h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .detail-page h3 {
+            color: #2c3e50;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .detail-page ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        .detail-page li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .detail-page p {
+            line-height: 1.8;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 10mm;
+                max-width: 100%;
+            }
+
+            .skill-cell {
+                cursor: default;
+            }
+
+            .action-buttons {
+                display: none !important;
+            }
+
+            .skill-details {
+                display: none !important;
+            }
+
+            /* 一括印刷モード */
+            .detail-pages.print-mode {
+                display: block !important;
+            }
+
+            .detail-page {
+                page-break-after: always;
+            }
+
+            .detail-page:last-child {
+                page-break-after: auto;
+            }
+
+            /* マトリクス印刷モード */
+            .matrix-only-mode .detail-pages {
+                display: none !important;
+            }
+
+            /* 一括印刷モード：マトリクスの後に改ページ */
+            .print-all-mode .matrix-table {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ホームページ作成術</h1>
+        <p class="subtitle">3X3マトリクス思考で学ぶ、Webサイト構築の完全ガイド</p>
+
+        <table class="matrix-table">
+            <tr>
+                <!-- セル1: 作成の目的・ねらい -->
+                <td class="skill-cell" onclick="toggleSkill(1)">
+                    <div class="skill-title"><span class="cell-number">1</span>作成の目的・ねらい</div>
+                    <div class="skill-description">ホームページ作成の出発点。誰のために、何のために作るのか。6W2Hで目的を明確化し、差別化要因を定義します。</div>
+                    <div class="skill-details" id="skill1">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(1)">✕</span>
+                        <h4>明確にすべき項目</h4>
+                        <ul>
+                            <li><strong>作成の目的・動機：</strong>なぜホームページを作るのか？個人の趣味、ビジネス、情報発信など</li>
+                            <li><strong>対象：</strong>誰を対象にするのか？自分のため？他人のため？</li>
+                            <li><strong>メリット・必要性：</strong>作ることで得られる価値は何か？</li>
+                            <li><strong>利用方法：</strong>どのように活用するのか？</li>
+                        </ul>
+                        <h4>6W2Hで整理</h4>
+                        <ul>
+                            <li><strong>Why（なぜ）：</strong>作成の理由、背景</li>
+                            <li><strong>Who（誰が）：</strong>作成者、運営者</li>
+                            <li><strong>When（いつ）：</strong>公開時期、更新頻度</li>
+                            <li><strong>Where（どこで）：</strong>公開場所、サーバー</li>
+                            <li><strong>What（何を）：</strong>コンテンツ内容</li>
+                            <li><strong>Whom（誰に）：</strong>ターゲットユーザー</li>
+                            <li><strong>How（どのように）：</strong>実現方法、技術</li>
+                            <li><strong>How much（いくらで）：</strong>予算、コスト</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>重要ポイント：</strong>存在価値・意義・こだわりを明確にし、他のサイトとの差別化要因を定義することが成功の鍵です。
+                        </div>
+                    </div>
+                </td>
+
+                <!-- セル2: ターゲットユーザー・市場 -->
+                <td class="skill-cell" onclick="toggleSkill(2)">
+                    <div class="skill-title"><span class="cell-number">2</span>ターゲットユーザー・市場</div>
+                    <div class="skill-description">誰に届けるかを明確化。ターゲット層を絞り込み、そのニーズや興味関心を理解することがコンテンツ作成の基盤です。</div>
+                    <div class="skill-details" id="skill2">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(2)">✕</span>
+                        <h4>ユーザー属性</h4>
+                        <ul>
+                            <li><strong>個人：</strong>一般的な個人ユーザー</li>
+                            <li><strong>企業・法人：</strong>ビジネス目的のユーザー</li>
+                            <li><strong>女性・高齢者・子供：</strong>年齢・性別による分類</li>
+                            <li><strong>専門家・技術者：</strong>専門知識を持つユーザー</li>
+                            <li><strong>医者・マニア：</strong>特定分野の愛好家</li>
+                        </ul>
+                        <h4>関心領域</h4>
+                        <ul>
+                            <li><strong>趣味娯楽：</strong>旅行、写真、音楽など</li>
+                            <li><strong>スポーツ：</strong>各種スポーツ情報</li>
+                            <li><strong>政治・経済・教育：</strong>社会的テーマ</li>
+                            <li><strong>専門分野：</strong>学術、技術、業界特化</li>
+                            <li><strong>コンピュータ・インターネット：</strong>IT関連</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>重要ポイント：</strong>ターゲットを絞り込むほど、刺さるコンテンツが作れます。「誰にでも」は「誰にも届かない」と心得ましょう。
+                        </div>
+                    </div>
+                </td>
+
+                <!-- セル3: デザイン・構成 -->
+                <td class="skill-cell" onclick="toggleSkill(3)">
+                    <div class="skill-title"><span class="cell-number">3</span>デザイン・構成</div>
+                    <div class="skill-description">見やすく、使いやすいサイト設計。レイアウト、色使い、ナビゲーションなど、ユーザー体験を左右する要素を計画的に配置します。</div>
+                    <div class="skill-details" id="skill3">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(3)">✕</span>
+                        <h4>基本構成要素</h4>
+                        <ul>
+                            <li><strong>ホームページタイトル：</strong>サイト名を明確に</li>
+                            <li><strong>画面サイズ：</strong>A4用紙1ページを目安に</li>
+                            <li><strong>フレーム形式：</strong>フレーム/ノンフレームの選択</li>
+                            <li><strong>更新日：</strong>最終更新日の表示</li>
+                            <li><strong>アクセスカウンター：</strong>訪問者数の可視化</li>
+                            <li><strong>連絡先：</strong>E-mailアドレスの設置</li>
+                        </ul>
+                        <h4>デザイン要素</h4>
+                        <ul>
+                            <li><strong>色・サイズ・画像：</strong>統一感のある配色と適切なサイズ</li>
+                            <li><strong>表組み：</strong>表で情報を見やすく整理</li>
+                            <li><strong>最新情報コーナー：</strong>新着情報の目立つ配置</li>
+                            <li><strong>コンテンツ構成：</strong>内容を6つ程度に絞り込む</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>重要ポイント：</strong>シンプルで分かりやすいデザインが基本。情報を詰め込みすぎず、余白を活かすことが重要です。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <!-- セル4: 更新履歴・意見感想 -->
+                <td class="skill-cell" onclick="toggleSkill(4)">
+                    <div class="skill-title"><span class="cell-number">4</span>更新履歴・意見感想</div>
+                    <div class="skill-description">サイトの成長記録とユーザーとの対話。更新履歴で信頼性を示し、フィードバックフォームで双方向コミュニケーションを実現します。</div>
+                    <div class="skill-details" id="skill4">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(4)">✕</span>
+                        <h4>更新履歴</h4>
+                        <ul>
+                            <li><strong>更新日：</strong>変更した日付を記録</li>
+                            <li><strong>更新内容：</strong>何を追加・修正したかを簡潔に記載</li>
+                            <li><strong>表示方法：</strong>新しい順に並べ、見やすく整理</li>
+                        </ul>
+                        <h4>意見・感想フォーム</h4>
+                        <ul>
+                            <li><strong>名前：</strong>投稿者の名前（任意も可）</li>
+                            <li><strong>E-mailアドレス：</strong>返信用の連絡先</li>
+                            <li><strong>ホームページURL：</strong>相互リンクの可能性</li>
+                            <li><strong>意見・感想：</strong>自由記述欄</li>
+                            <li><strong>送信・リセット：</strong>ボタンの設置</li>
+                        </ul>
+                        <h4>実装方法</h4>
+                        <ul>
+                            <li><strong>CGI利用：</strong>フォーム処理にCGIスクリプトを活用</li>
+                            <li><strong>レンタルサービス：</strong>無料の掲示板・フォームサービスも活用可</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>重要ポイント：</strong>更新履歴は「生きているサイト」の証。定期的な更新とユーザーの声への対応が信頼を築きます。
+                        </div>
+                    </div>
+                </td>
+
+                <!-- 中央セル: タイトル -->
+                <td class="center-cell">
+                    🌐<br>ホームページ<br>作成術
+                </td>
+
+                <!-- セル5: 自己紹介 -->
+                <td class="skill-cell" onclick="toggleSkill(5)">
+                    <div class="skill-title"><span class="cell-number">5</span>自己紹介</div>
+                    <div class="skill-description">サイト運営者の顔が見えるプロフィール。信頼関係構築の第一歩。人となりが伝わる自己紹介が共感を生みます。</div>
+                    <div class="skill-details" id="skill5">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(5)">✕</span>
+                        <h4>基本情報</h4>
+                        <ul>
+                            <li><strong>名前・生年月日：</strong>基本的なプロフィール</li>
+                            <li><strong>年齢・血液型：</strong>親近感を持ってもらう情報</li>
+                            <li><strong>性格：</strong>自分の特徴を簡潔に</li>
+                            <li><strong>好きなこと・嫌いなこと：</strong>人柄が伝わる情報</li>
+                        </ul>
+                        <h4>個性を伝える要素</h4>
+                        <ul>
+                            <li><strong>趣味：</strong>例：名水の旅、写真、読書など</li>
+                            <li><strong>モットー・ポリシー：</strong>大切にしている価値観</li>
+                            <li><strong>好きな食べ物・言葉：</strong>人となりが伝わる情報</li>
+                            <li><strong>資格：</strong>専門性を示す要素</li>
+                            <li><strong>スポーツ：</strong>例：なわとび、ランニングなど</li>
+                            <li><strong>家族紹介：</strong>温かみを感じてもらう情報</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>重要ポイント：</strong>完璧な自分ではなく、等身大の自分を見せることが大切。共感が信頼につながります。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <!-- セル6: お役立ちリンク集 -->
+                <td class="skill-cell" onclick="toggleSkill(6)">
+                    <div class="skill-title"><span class="cell-number">6</span>お役立ちリンク集</div>
+                    <div class="skill-description">訪問者に価値を提供するリンク集。厳選されたリソースを提供することで、サイトの有用性が高まります。</div>
+                    <div class="skill-details" id="skill6">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(6)">✕</span>
+                        <h4>ホームページ作成関連</h4>
+                        <ul>
+                            <li><strong>作成支援サイト：</strong>HTML/CSS学習サイト</li>
+                            <li><strong>ソフトウェアダウンロード：</strong>無料ツール配布サイト</li>
+                            <li><strong>素材サイト：</strong>画像、アイコン、フォント</li>
+                        </ul>
+                        <h4>情報収集</h4>
+                        <ul>
+                            <li><strong>企業情報：</strong>公式サイト、IR情報</li>
+                            <li><strong>インターネット・通信関連：</strong>業界ニュース</li>
+                            <li><strong>コンピュータ関連：</strong>技術情報サイト</li>
+                            <li><strong>リクルート情報：</strong>求人サイト</li>
+                        </ul>
+                        <h4>その他</h4>
+                        <ul>
+                            <li><strong>ニュース・出来事：</strong>最新ニュースサイト</li>
+                            <li><strong>趣味・娯楽・スポーツ：</strong>関連情報サイト</li>
+                            <li><strong>コンサルタント：</strong>専門家サイト</li>
+                            <li><strong>SOHOビジネス：</strong>在宅ワーク情報</li>
+                            <li><strong>ケーブルTV：</strong>地域情報</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>重要ポイント：</strong>リンク切れは定期的にチェック。カテゴリー分けして見やすく整理することが大切です。
+                        </div>
+                    </div>
+                </td>
+
+                <!-- セル7: 画像・ファイル管理 -->
+                <td class="skill-cell" onclick="toggleSkill(7)">
+                    <div class="skill-title"><span class="cell-number">7</span>画像・ファイル管理</div>
+                    <div class="skill-description">効率的なコンテンツ管理術。画像の最適化、ファイルの整理、検索システムの構築で、運営効率が劇的に向上します。</div>
+                    <div class="skill-details" id="skill7">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(7)">✕</span>
+                        <h4>写真館機能</h4>
+                        <ul>
+                            <li><strong>サムネイル表示：</strong>一覧表示（100×75px程度）</li>
+                            <li><strong>スライドショー：</strong>拡大表示（480×360px程度）</li>
+                            <li><strong>画像情報：</strong>タイトル、サイズ、撮影日などを表示</li>
+                        </ul>
+                        <h4>画像管理術</h4>
+                        <ul>
+                            <li><strong>ファイル命名規則：</strong>日付や内容を含めた分かりやすい名前</li>
+                            <li><strong>フォルダ構成：</strong>カテゴリー別、年月別など</li>
+                            <li><strong>最適化：</strong>Web用に適切なサイズ・画質に調整</li>
+                            <li><strong>バックアップ：</strong>定期的なバックアップ体制</li>
+                        </ul>
+                        <h4>推奨ソフト</h4>
+                        <ul>
+                            <li><strong>画像編集：</strong>Photoshop, GIMP, Paint.NET</li>
+                            <li><strong>ファイル管理：</strong>エクスプローラー拡張、専用管理ソフト</li>
+                            <li><strong>全文検索：</strong>サイト内検索システムの構築</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>重要ポイント：</strong>管理ルールを最初に決めることが重要。後から整理するのは非効率です。
+                        </div>
+                    </div>
+                </td>
+
+                <!-- セル8: ホームページ作成術 -->
+                <td class="skill-cell" onclick="toggleSkill(8)">
+                    <div class="skill-title"><span class="cell-number">8</span>ホームページ作成術</div>
+                    <div class="skill-description">実践的な制作テクニックと考え方。HTMLの基礎から、マーケティング、SEO対策まで、成功するサイト運営の全体像を学びます。</div>
+                    <div class="skill-details" id="skill8">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(8)">✕</span>
+                        <h4>作成にあたっての考え方</h4>
+                        <ul>
+                            <li><strong>ユーザー視点：</strong>訪問者が求める情報は何か？</li>
+                            <li><strong>継続性：</strong>長く続けられる仕組みづくり</li>
+                            <li><strong>独自性：</strong>他にはない価値の提供</li>
+                        </ul>
+                        <h4>作成手順</h4>
+                        <ul>
+                            <li><strong>1. 企画：</strong>目的・ターゲットの明確化</li>
+                            <li><strong>2. 設計：</strong>サイト構成・ページ構成の決定</li>
+                            <li><strong>3. 制作：</strong>HTML/CSS/画像の作成</li>
+                            <li><strong>4. テスト：</strong>表示確認・動作確認</li>
+                            <li><strong>5. 公開：</strong>サーバーへアップロード</li>
+                            <li><strong>6. 運用：</strong>更新・改善の継続</li>
+                        </ul>
+                        <h4>推奨ソフト・技術</h4>
+                        <ul>
+                            <li><strong>HTMLエディタ：</strong>メモ帳、VS Code、専用エディタ</li>
+                            <li><strong>HTML：</strong>基本タグの理解</li>
+                            <li><strong>多くの人に見てもらうために：</strong>SEO対策、SNS活用</li>
+                            <li><strong>マーケティング手法：</strong>アクセス解析、改善サイクル</li>
+                            <li><strong>3X3マトリクス手法：</strong>情報整理・思考整理</li>
+                            <li><strong>SOHOビジネス：</strong>ホームページで稼ぐ方法</li>
+                            <li><strong>企画思考：</strong>アイデア発想法</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>重要ポイント：</strong>完璧を目指さず、まず公開して改善を重ねる。「Done is better than perfect」の精神で。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- アクションボタン -->
+        <div class="action-buttons">
+            <button class="action-btn" onclick="printMatrixOnly()">
+                🖨️ マトリクス印刷
+            </button>
+            <button class="action-btn" onclick="printAll()">
+                📄 一括印刷
+            </button>
+            <button class="action-btn" onclick="downloadHTML()">
+                ⬇️ HTMLダウンロード
+            </button>
+        </div>
+    </div>
+
+    <!-- 詳細ページ（一括印刷用） -->
+    <div class="detail-pages" id="detailPages">
+        <!-- ページ1: 作成の目的・ねらい -->
+        <div class="detail-page">
+            <h2>1. 作成の目的・ねらい</h2>
+            <p>ホームページ作成の出発点。誰のために、何のために作るのか。6W2Hで目的を明確化し、差別化要因を定義します。</p>
+
+            <h3>明確にすべき項目</h3>
+            <ul>
+                <li><strong>作成の目的・動機：</strong>なぜホームページを作るのか？個人の趣味、ビジネス、情報発信など、明確な動機を持つことが継続の原動力になります。</li>
+                <li><strong>対象：</strong>誰を対象にするのか？自分のため？他人のため？対象が明確であればあるほど、コンテンツの方向性が定まります。</li>
+                <li><strong>メリット・必要性：</strong>作ることで得られる価値は何か？自己表現、情報発信、ビジネス機会の創出など。</li>
+                <li><strong>利用方法：</strong>どのように活用するのか？ポートフォリオ、ブログ、ECサイト、コミュニティなど。</li>
+            </ul>
+
+            <h3>6W2Hで徹底的に整理する</h3>
+            <ul>
+                <li><strong>Why（なぜ）：</strong>作成の理由、背景を深掘りします。「なぜ今なのか？」「なぜ自分がやるのか？」</li>
+                <li><strong>Who（誰が）：</strong>作成者、運営者。個人か団体か、どんな立場の人なのか。</li>
+                <li><strong>When（いつ）：</strong>公開時期、更新頻度。毎日、週1回、月1回など、継続可能なペースを設定。</li>
+                <li><strong>Where（どこで）：</strong>公開場所、サーバー。無料サービスか有料サーバーか、独自ドメインは必要か。</li>
+                <li><strong>What（何を）：</strong>コンテンツ内容。テキスト、画像、動画、音声など、どんな形式で何を伝えるのか。</li>
+                <li><strong>Whom（誰に）：</strong>ターゲットユーザー。年齢、性別、職業、興味関心など、できるだけ具体的に。</li>
+                <li><strong>How（どのように）：</strong>実現方法、技術。自分で作るか、外注するか。どんなツールを使うか。</li>
+                <li><strong>How much（いくらで）：</strong>予算、コスト。初期費用、運営費用、時間的コストも考慮。</li>
+            </ul>
+
+            <h3>存在価値と差別化</h3>
+            <p><strong>存在価値・意義・こだわり：</strong>このサイトが存在する意味は何か？訪問者にとってどんな価値があるのか？自分のこだわり、独自の視点は何か？</p>
+            <p><strong>差別化要因を明確化：</strong>似たようなサイトは既に存在するかもしれません。しかし、あなた独自の視点、経験、表現方法があれば、それが差別化要因になります。「自分らしさ」を恐れずに表現しましょう。</p>
+
+            <div class="point-box">
+                <strong>成功の秘訣：</strong>目的が明確であればあるほど、ブレないサイト運営ができます。また、差別化要因を持つことで、特定のユーザーから強く支持されるサイトになります。
+            </div>
+        </div>
+
+        <!-- ページ2: ターゲットユーザー・市場 -->
+        <div class="detail-page">
+            <h2>2. ターゲットユーザー・市場</h2>
+            <p>誰に届けるかを明確化。ターゲット層を絞り込み、そのニーズや興味関心を理解することがコンテンツ作成の基盤です。</p>
+
+            <h3>ユーザー属性による分類</h3>
+            <ul>
+                <li><strong>個人：</strong>一般的な個人ユーザー。趣味、娯楽、自己啓発などに関心がある層。</li>
+                <li><strong>企業・法人：</strong>ビジネス目的のユーザー。商品・サービス情報、業界動向などを求める。</li>
+                <li><strong>女性・高齢者・子供：</strong>年齢・性別による分類。それぞれ異なるニーズと興味を持つ。</li>
+                <li><strong>専門家・技術者：</strong>専門知識を持つユーザー。深い情報、技術的詳細を求める。</li>
+                <li><strong>医者・マニア：</strong>特定分野の愛好家。こだわりの情報、マニアックな内容を好む。</li>
+            </ul>
+
+            <h3>関心領域による分類</h3>
+            <ul>
+                <li><strong>趣味娯楽：</strong>旅行、写真、音楽、映画、ゲーム、読書など。リラックスや楽しみを求める層。</li>
+                <li><strong>スポーツ：</strong>サッカー、野球、ランニング、登山など。各種スポーツ情報、トレーニング方法など。</li>
+                <li><strong>政治・経済・教育：</strong>社会的テーマ。時事問題、経済動向、教育改革などに関心がある層。</li>
+                <li><strong>専門分野：</strong>学術、技術、業界特化。医療、法律、工学、芸術など、専門性の高い情報を求める。</li>
+                <li><strong>コンピュータ・インターネット：</strong>IT関連。プログラミング、Web制作、最新技術などに興味がある層。</li>
+            </ul>
+
+            <h3>ターゲット設定のポイント</h3>
+            <p><strong>ペルソナを作る：</strong>架空の典型的なユーザー像を詳細に設定します。名前、年齢、職業、家族構成、趣味、悩み、目標など、具体的に描くことで、コンテンツの方向性が明確になります。</p>
+
+            <p><strong>絞り込みの勇気：</strong>「誰にでも」は「誰にも届かない」。ターゲットを絞り込むことで、その層に深く刺さるコンテンツが作れます。ニッチな分野ほど、熱心なファンが獲得できます。</p>
+
+            <p><strong>市場調査：</strong>競合サイトを研究し、まだ満たされていないニーズを見つけましょう。検索エンジンで関連キーワードを調べ、どんな情報が求められているかを把握します。</p>
+
+            <div class="point-box">
+                <strong>重要ポイント：</strong>ターゲットユーザーを明確にすることで、無駄のないコンテンツ制作ができます。また、SEO対策においても、誰に向けて書いているかが明確であれば、適切なキーワードが自然と含まれます。
+            </div>
+        </div>
+
+        <!-- ページ3: デザイン・構成 -->
+        <div class="detail-page">
+            <h2>3. デザイン・構成</h2>
+            <p>見やすく、使いやすいサイト設計。レイアウト、色使い、ナビゲーションなど、ユーザー体験を左右する要素を計画的に配置します。</p>
+
+            <h3>基本構成要素</h3>
+            <ul>
+                <li><strong>ホームページタイトル：</strong>サイト名を明確に表示。覚えやすく、内容が想像できるタイトルが理想。</li>
+                <li><strong>画面サイズ：</strong>A4用紙1ページを目安に。スクロールしすぎず、重要な情報がファーストビューに収まるように。</li>
+                <li><strong>フレーム形式：</strong>フレーム/ノンフレームの選択。現代ではノンフレームが主流（SEO、ブックマーク対応の観点から）。</li>
+                <li><strong>更新日：</strong>最終更新日の表示。サイトが「生きている」ことを示す重要な情報。</li>
+                <li><strong>アクセスカウンター：</strong>訪問者数の可視化。運営のモチベーション維持にも役立つ。</li>
+                <li><strong>連絡先：</strong>E-mailアドレスやお問い合わせフォームの設置。双方向コミュニケーションの入口。</li>
+            </ul>
+
+            <h3>デザイン要素</h3>
+            <ul>
+                <li><strong>色・サイズ・画像：</strong>統一感のある配色と適切なサイズ。ブランドカラーを決め、一貫性を持たせる。</li>
+                <li><strong>表組み：</strong>表で情報を見やすく整理。比較表、料金表、仕様表など、データを分かりやすく提示。</li>
+                <li><strong>最新情報コーナー：</strong>新着情報の目立つ配置。訪問者が「何が新しいか」をすぐに把握できるように。</li>
+                <li><strong>コンテンツ構成：</strong>内容を6つ程度に絞り込む。情報過多を避け、明確なカテゴリー分けをする。</li>
+            </ul>
+
+            <h3>ユーザビリティの基本原則</h3>
+            <p><strong>3クリックルール：</strong>訪問者が求める情報に、3クリック以内でたどり着けるようにナビゲーションを設計します。</p>
+
+            <p><strong>一貫性：</strong>全ページで統一されたデザイン、ナビゲーション配置を保ちます。訪問者が迷わないように。</p>
+
+            <p><strong>レスポンシブデザイン：</strong>PC、タブレット、スマートフォンなど、あらゆるデバイスで快適に閲覧できるように設計します。</p>
+
+            <p><strong>読みやすさ：</strong>適切なフォントサイズ、行間、文字間。背景色と文字色のコントラストを確保。</p>
+
+            <div class="point-box">
+                <strong>重要ポイント：</strong>デザインは見た目の美しさだけでなく、機能性が重要です。「美しくて使いやすい」を目指しましょう。また、情報を詰め込みすぎず、余白を活かすことで、洗練された印象を与えられます。
+            </div>
+        </div>
+
+        <!-- ページ4: 更新履歴・意見感想 -->
+        <div class="detail-page">
+            <h2>4. 更新履歴・意見感想</h2>
+            <p>サイトの成長記録とユーザーとの対話。更新履歴で信頼性を示し、フィードバックフォームで双方向コミュニケーションを実現します。</p>
+
+            <h3>更新履歴の重要性</h3>
+            <p>更新履歴は「生きているサイト」の証です。定期的な更新は、訪問者に信頼感を与え、リピーターを増やす効果があります。</p>
+
+            <h3>更新履歴の書き方</h3>
+            <ul>
+                <li><strong>更新日：</strong>変更した日付を記録。YYYY-MM-DD形式が推奨。</li>
+                <li><strong>更新内容：</strong>何を追加・修正したかを簡潔に記載。「新ページ追加」「記事更新」「デザイン変更」など。</li>
+                <li><strong>表示方法：</strong>新しい順に並べ、見やすく整理。最新5〜10件程度を表示し、過去の履歴は別ページへ。</li>
+            </ul>
+
+            <h3>意見・感想フォームの構成</h3>
+            <ul>
+                <li><strong>名前：</strong>投稿者の名前（任意も可）。匿名投稿を許可するかは運営方針次第。</li>
+                <li><strong>E-mailアドレス：</strong>返信用の連絡先。非公開であることを明記。</li>
+                <li><strong>ホームページURL：</strong>相互リンクの可能性。任意項目として設置。</li>
+                <li><strong>意見・感想：</strong>自由記述欄。文字数制限を設けるか、十分な広さを確保。</li>
+                <li><strong>送信・リセット：</strong>ボタンの設置。送信前の確認画面も検討。</li>
+            </ul>
+
+            <h3>実装方法</h3>
+            <ul>
+                <li><strong>CGI利用：</strong>フォーム処理にCGIスクリプトを活用。Perl、PHPなどで実装。</li>
+                <li><strong>レンタルサービス：</strong>無料の掲示板・フォームサービスも活用可能。Google Forms、Formspreeなど。</li>
+                <li><strong>セキュリティ：</strong>スパム対策（CAPTCHA）、入力検証を実施。個人情報の取り扱いに注意。</li>
+            </ul>
+
+            <h3>フィードバックへの対応</h3>
+            <p><strong>迅速な返信：</strong>意見や質問には可能な限り早く返信。24時間以内を目標に。</p>
+            <p><strong>建設的な批判の活用：</strong>批判的な意見も、サイト改善のヒント。感情的にならず、冷静に受け止める。</p>
+            <p><strong>感謝の表現：</strong>ポジティブな意見には感謝を伝え、サイトに反映させる姿勢を示す。</p>
+
+            <div class="point-box">
+                <strong>重要ポイント：</strong>更新履歴とフィードバックシステムは、サイトと訪問者をつなぐ重要な接点です。定期的な更新とユーザーの声への真摯な対応が、信頼されるサイトを作ります。
+            </div>
+        </div>
+
+        <!-- ページ5: 自己紹介 -->
+        <div class="detail-page">
+            <h2>5. 自己紹介</h2>
+            <p>サイト運営者の顔が見えるプロフィール。信頼関係構築の第一歩。人となりが伝わる自己紹介が共感を生みます。</p>
+
+            <h3>自己紹介の重要性</h3>
+            <p>インターネット上では「誰が発信しているか」が信頼性に直結します。顔の見えない情報よりも、運営者のプロフィールが明確なサイトの方が信頼されます。</p>
+
+            <h3>基本情報</h3>
+            <ul>
+                <li><strong>名前・生年月日：</strong>基本的なプロフィール。本名か、ニックネームかは運営方針次第。</li>
+                <li><strong>年齢・血液型：</strong>親近感を持ってもらう情報。必須ではないが、人柄を伝える一助に。</li>
+                <li><strong>性格：</strong>自分の特徴を簡潔に。「几帳面」「好奇心旺盛」「慎重派」など。</li>
+                <li><strong>好きなこと・嫌いなこと：</strong>人柄が伝わる情報。共通点がある訪問者との親近感を生む。</li>
+            </ul>
+
+            <h3>個性を伝える要素</h3>
+            <ul>
+                <li><strong>趣味：</strong>例：名水の旅、写真、読書、料理、登山など。具体的なエピソードを交えると良い。</li>
+                <li><strong>モットー・ポリシー：</strong>大切にしている価値観、座右の銘。運営姿勢にもつながる。</li>
+                <li><strong>好きな食べ物・言葉：</strong>人となりが伝わる情報。意外性のある情報も親近感を生む。</li>
+                <li><strong>資格：</strong>専門性を示す要素。関連資格があれば信頼性が向上。</li>
+                <li><strong>スポーツ：</strong>例：なわとび、ランニング、水泳など。健康的なイメージを与える。</li>
+                <li><strong>家族紹介：</strong>温かみを感じてもらう情報。プライバシーに配慮しつつ。</li>
+            </ul>
+
+            <h3>効果的な自己紹介のコツ</h3>
+            <p><strong>ストーリーを語る：</strong>単なる箇条書きではなく、「なぜこのサイトを始めたのか」というストーリーを含めると、共感を得やすくなります。</p>
+
+            <p><strong>等身大の自分：</strong>完璧な自分を演じる必要はありません。弱みや失敗談も含めた等身大の自分を見せることで、親しみやすさが増します。</p>
+
+            <p><strong>写真の活用：</strong>可能であれば顔写真を掲載。表情が見えることで信頼感が大きく向上します。顔出しが難しい場合は、似顔絵やアバターでも効果的。</p>
+
+            <p><strong>定期的な更新：</strong>人は変化します。年に一度は自己紹介を見直し、最新の情報に更新しましょう。</p>
+
+            <div class="point-box">
+                <strong>重要ポイント：</strong>自己紹介は単なる形式的な情報ではなく、訪問者との関係構築の第一歩です。完璧な自分ではなく、等身大の自分を見せることが大切。共感が信頼につながり、リピーターを生み出します。
+            </div>
+        </div>
+
+        <!-- ページ6: お役立ちリンク集 -->
+        <div class="detail-page">
+            <h2>6. お役立ちリンク集</h2>
+            <p>訪問者に価値を提供するリンク集。厳選されたリソースを提供することで、サイトの有用性が高まります。</p>
+
+            <h3>リンク集の価値</h3>
+            <p>良質なリンク集は、訪問者にとって「情報のハブ」となります。自分のコンテンツだけでなく、関連する有益な情報へのゲートウェイを提供することで、サイトの価値が向上します。</p>
+
+            <h3>ホームページ作成関連</h3>
+            <ul>
+                <li><strong>作成支援サイト：</strong>HTML/CSS学習サイト（MDN Web Docs、W3Schoolsなど）</li>
+                <li><strong>ソフトウェアダウンロード：</strong>無料ツール配布サイト（Vector、窓の杜など）</li>
+                <li><strong>素材サイト：</strong>画像、アイコン、フォント（Unsplash、Font Awesome、Google Fontsなど）</li>
+                <li><strong>カラーパレット：</strong>配色ツール（Adobe Color、Coolorsなど）</li>
+            </ul>
+
+            <h3>情報収集</h3>
+            <ul>
+                <li><strong>企業情報：</strong>公式サイト、IR情報、プレスリリース</li>
+                <li><strong>インターネット・通信関連：</strong>業界ニュース、技術動向サイト</li>
+                <li><strong>コンピュータ関連：</strong>技術情報サイト、開発者コミュニティ</li>
+                <li><strong>リクルート情報：</strong>求人サイト、転職情報</li>
+            </ul>
+
+            <h3>その他</h3>
+            <ul>
+                <li><strong>ニュース・出来事：</strong>最新ニュースサイト、速報サービス</li>
+                <li><strong>趣味・娯楽・スポーツ：</strong>関連情報サイト、ファンコミュニティ</li>
+                <li><strong>コンサルタント：</strong>専門家サイト、相談窓口</li>
+                <li><strong>SOHOビジネス：</strong>在宅ワーク情報、フリーランス支援</li>
+                <li><strong>ケーブルTV：</strong>地域情報、番組ガイド</li>
+            </ul>
+
+            <h3>リンク集管理のベストプラクティス</h3>
+            <p><strong>定期的なリンクチェック：</strong>リンク切れは定期的にチェック（月1回程度）。リンク切れは訪問者に悪印象を与えます。</p>
+
+            <p><strong>カテゴリー分け：</strong>見やすく整理することが大切。階層構造を使って、目的の情報に素早くアクセスできるように。</p>
+
+            <p><strong>簡潔な説明：</strong>各リンクに一言説明を添える。「何が得られるか」を明確に。</p>
+
+            <p><strong>相互リンク：</strong>関連サイトとの相互リンクは、SEO効果とトラフィック増加に貢献。ただし、質の高いサイトとのみ。</p>
+
+            <p><strong>外部リンクのマーク：</strong>外部サイトへのリンクは、新しいタブで開く、またはアイコンで明示すると親切。</p>
+
+            <div class="point-box">
+                <strong>重要ポイント：</strong>リンク集は「量より質」。厳選された有益なリンクを提供することで、訪問者の時間を節約し、サイトの信頼性を高めます。また、定期的なメンテナンスが必須です。
+            </div>
+        </div>
+
+        <!-- ページ7: 画像・ファイル管理 -->
+        <div class="detail-page">
+            <h2>7. 画像・ファイル管理</h2>
+            <p>効率的なコンテンツ管理術。画像の最適化、ファイルの整理、検索システムの構築で、運営効率が劇的に向上します。</p>
+
+            <h3>写真館機能の実装</h3>
+            <p>画像を効果的に見せるための基本機能を実装しましょう。</p>
+
+            <ul>
+                <li><strong>サムネイル表示：</strong>一覧表示（100×75px程度）。ギャラリー形式で複数の画像を見やすく配置。</li>
+                <li><strong>スライドショー：</strong>拡大表示（480×360px程度）。クリックで大きく表示、前後の画像へ移動可能に。</li>
+                <li><strong>画像情報：</strong>タイトル、サイズ、撮影日、場所などの情報を表示。EXIF情報の活用も検討。</li>
+                <li><strong>ダウンロード機能：</strong>必要に応じて、高解像度版のダウンロードリンクを提供。</li>
+            </ul>
+
+            <h3>画像管理術</h3>
+            <p>長期的に運営するためには、最初から適切な管理ルールを設定することが重要です。</p>
+
+            <ul>
+                <li><strong>ファイル命名規則：</strong>日付や内容を含めた分かりやすい名前。例：20250106_sunset_beach.jpg</li>
+                <li><strong>フォルダ構成：</strong>カテゴリー別、年月別など、一貫した構造で整理。例：/images/2025/01/</li>
+                <li><strong>最適化：</strong>Web用に適切なサイズ・画質に調整。大きすぎる画像は読み込み速度を低下させる。</li>
+                <li><strong>フォーマット選択：</strong>写真はJPEG、透過が必要な画像はPNG、アニメーションはGIF/WebP。</li>
+                <li><strong>バックアップ：</strong>定期的なバックアップ体制。クラウドストレージ、外付けHDDなど、複数の場所に保管。</li>
+            </ul>
+
+            <h3>推奨ソフト・ツール</h3>
+            <ul>
+                <li><strong>画像編集：</strong>Adobe Photoshop（有料）、GIMP（無料）、Paint.NET（無料）</li>
+                <li><strong>画像圧縮：</strong>TinyPNG、Squoosh、ImageOptim</li>
+                <li><strong>ファイル管理：</strong>エクスプローラー拡張機能、XnView（画像ビューア）、Everything（高速検索）</li>
+                <li><strong>全文検索：</strong>サイト内検索システムの構築。Google Custom Search、静的サイト向けには検索JSONの生成など。</li>
+            </ul>
+
+            <h3>ファイル管理のベストプラクティス</h3>
+            <p><strong>バージョン管理：</strong>重要なファイルは編集前にバックアップ。日付付きで保存（例：document_20250106.html）。</p>
+
+            <p><strong>メタデータの活用：</strong>画像のAlt属性、タイトル、説明文などを適切に設定。SEO対策にもなる。</p>
+
+            <p><strong>不要ファイルの削除：</strong>定期的に使っていないファイルを整理。サーバー容量の節約とセキュリティ向上。</p>
+
+            <p><strong>ドキュメント化：</strong>フォルダ構成、命名規則などをドキュメントとして残す。将来の自分や協力者のために。</p>
+
+            <div class="point-box">
+                <strong>重要ポイント：</strong>管理ルールを最初に決めることが重要。後から整理するのは非効率で、時間の無駄です。また、画像の最適化はサイトの表示速度に直結し、ユーザー体験とSEOの両方に影響します。
+            </div>
+        </div>
+
+        <!-- ページ8: ホームページ作成術 -->
+        <div class="detail-page">
+            <h2>8. ホームページ作成術</h2>
+            <p>実践的な制作テクニックと考え方。HTMLの基礎から、マーケティング、SEO対策まで、成功するサイト運営の全体像を学びます。</p>
+
+            <h3>作成にあたっての考え方</h3>
+            <p>技術的なスキルも大切ですが、それ以上に重要なのは「考え方」です。</p>
+
+            <ul>
+                <li><strong>ユーザー視点：</strong>訪問者が求める情報は何か？自分が発信したいことではなく、相手が知りたいことを優先。</li>
+                <li><strong>継続性：</strong>長く続けられる仕組みづくり。完璧を目指さず、小さく始めて改善を重ねる。</li>
+                <li><strong>独自性：</strong>他にはない価値の提供。自分の経験、視点、表現方法が差別化要因。</li>
+                <li><strong>学習姿勢：</strong>技術は日々進化。新しいことを学び続ける姿勢が重要。</li>
+            </ul>
+
+            <h3>作成手順（6ステップ）</h3>
+            <ul>
+                <li><strong>1. 企画：</strong>目的・ターゲットの明確化。何のために、誰のために作るのか。</li>
+                <li><strong>2. 設計：</strong>サイト構成・ページ構成の決定。サイトマップ、ワイヤーフレームの作成。</li>
+                <li><strong>3. 制作：</strong>HTML/CSS/画像の作成。コンテンツの執筆、デザインの実装。</li>
+                <li><strong>4. テスト：</strong>表示確認・動作確認。複数のブラウザ、デバイスでチェック。</li>
+                <li><strong>5. 公開：</strong>サーバーへアップロード。ドメイン設定、SSL証明書の導入。</li>
+                <li><strong>6. 運用：</strong>更新・改善の継続。アクセス解析、ユーザーフィードバックの反映。</li>
+            </ul>
+
+            <h3>推奨ソフト・技術</h3>
+            <ul>
+                <li><strong>HTMLエディタ：</strong>メモ帳（シンプル）、Visual Studio Code（高機能）、専用エディタ（Dreamweaver等）</li>
+                <li><strong>HTML/CSS：</strong>基本タグの理解。セマンティックHTML、レスポンシブデザインの実践。</li>
+                <li><strong>JavaScript：</strong>動的な機能の実装。jQuery、Vue.js、Reactなどのフレームワーク。</li>
+                <li><strong>バージョン管理：</strong>Git/GitHubで変更履歴を管理。</li>
+            </ul>
+
+            <h3>多くの人に見てもらうために</h3>
+            <ul>
+                <li><strong>SEO対策：</strong>適切なタイトルタグ、メタディスクリプション、見出しタグの使用。キーワード戦略。</li>
+                <li><strong>SNS活用：</strong>Twitter、Facebook、InstagramなどでのPR。OGP設定でシェア時の表示を最適化。</li>
+                <li><strong>コンテンツマーケティング：</strong>価値ある情報を継続的に発信。読者の問題を解決する記事。</li>
+                <li><strong>アクセス解析：</strong>Google Analyticsなどで訪問者の動向を分析。改善点の発見。</li>
+            </ul>
+
+            <h3>マーケティング手法</h3>
+            <p><strong>PDCA サイクル：</strong>Plan（計画）→ Do（実行）→ Check（評価）→ Act（改善）を繰り返す。</p>
+            <p><strong>A/Bテスト：</strong>2つのバージョンを比較し、効果の高い方を採用。</p>
+            <p><strong>ユーザーテスト：</strong>実際のユーザーにサイトを使ってもらい、フィードバックを得る。</p>
+
+            <h3>3X3マトリクス手法</h3>
+            <p>情報整理・思考整理に有効。9つのセルに情報を配置することで、全体像を把握しやすくなります。企画立案、問題解決、プレゼン資料作成などに活用できます。</p>
+
+            <h3>SOHOビジネスへの展開</h3>
+            <p>ホームページ制作スキルを活かして、フリーランスや副業として活動することも可能です。クラウドソーシング、直接営業、自サイトでのポートフォリオ公開などで案件獲得を目指しましょう。</p>
+
+            <div class="point-box">
+                <strong>成功の秘訣：</strong>完璧を目指さず、まず公開して改善を重ねる。「Done is better than perfect」の精神で。技術は学びながら身につけ、ユーザーの声を聞きながら成長していくことが、長く続く秘訣です。
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSkill(num) {
+            const detail = document.getElementById('skill' + num);
+            const allDetails = document.querySelectorAll('.skill-details');
+
+            // 他の開いている詳細を閉じる
+            allDetails.forEach(d => {
+                if (d !== detail) {
+                    d.classList.remove('show');
+                }
+            });
+
+            // クリックされた詳細を開閉
+            detail.classList.toggle('show');
+        }
+
+        // マトリクスのみ印刷
+        function printMatrixOnly() {
+            document.body.classList.add('matrix-only-mode');
+            window.print();
+            document.body.classList.remove('matrix-only-mode');
+        }
+
+        // 一括印刷（マトリクス + 詳細）
+        function printAll() {
+            const detailPages = document.getElementById('detailPages');
+            detailPages.classList.add('print-mode');
+            document.body.classList.add('print-all-mode');
+            window.print();
+            detailPages.classList.remove('print-mode');
+            document.body.classList.remove('print-all-mode');
+        }
+
+        // HTMLダウンロード
+        function downloadHTML() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ホームページ作成術.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

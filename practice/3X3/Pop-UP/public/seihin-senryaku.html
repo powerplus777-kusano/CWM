@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>製品戦略の立て方</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .matrix-table td {
+            border: 2px solid #2c3e50;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+            width: 33.33%;
+            height: 150px;
+        }
+
+        .matrix-table .center-cell {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .matrix-table .skill-cell {
+            background-color: #e8eef5;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .matrix-table .skill-cell:hover {
+            background-color: #d0dce8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .cell-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .skill-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .skill-description {
+            color: #34495e;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .skill-details {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 12px;
+            line-height: 1.7;
+            border-left: 4px solid #667eea;
+        }
+
+        .skill-details.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .skill-details h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-details h4::before {
+            content: "▶";
+            margin-right: 5px;
+            font-size: 10px;
+        }
+
+        .skill-details ul {
+            margin: 5px 0 10px 20px;
+        }
+
+        .skill-details li {
+            margin: 4px 0;
+            color: #34495e;
+        }
+
+        .close-btn {
+            color: #e74c3c;
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #c0392b;
+        }
+
+        .point-box {
+            background-color: #fff9e6;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            border-left: 3px solid #f39c12;
+        }
+
+        /* アクションボタン */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* 詳細ページ（一括印刷用） */
+        .detail-pages {
+            display: none;
+        }
+
+        .detail-page {
+            page-break-after: always;
+            padding: 20px;
+        }
+
+        .detail-page:last-child {
+            page-break-after: auto;
+        }
+
+        .detail-page h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .detail-page h3 {
+            color: #2c3e50;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .detail-page ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        .detail-page li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 10mm;
+                max-width: 100%;
+            }
+
+            .skill-cell {
+                cursor: default;
+            }
+
+            .action-buttons {
+                display: none !important;
+            }
+
+            .skill-details {
+                display: none !important;
+            }
+
+            /* 一括印刷モード */
+            .detail-pages.print-mode {
+                display: block !important;
+            }
+
+            .detail-page {
+                page-break-after: always;
+            }
+
+            .detail-page:last-child {
+                page-break-after: auto;
+            }
+
+            /* マトリクス印刷モード */
+            .matrix-only-mode .detail-pages {
+                display: none !important;
+            }
+
+            /* 一括印刷モード：マトリクスの後に改ページ */
+            .print-all-mode .matrix-table {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table class="matrix-table">
+            <tr>
+                <td class="skill-cell" onclick="toggleSkill(1)">
+                    <div class="skill-title"><span class="cell-number">1</span>製品の位置付け</div>
+                    <div class="skill-description">市場における自社製品の立ち位置を明確化し、顧客に選ばれる理由を定義する戦略。</div>
+                    <div class="skill-details" id="skill1">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(1)">✕</span>
+                        <h4>検討項目</h4>
+                        <ul>
+                            <li>商品コンセプト</li>
+                            <li>ターゲット</li>
+                            <li>ポジショニング</li>
+                            <li>優位性／魅力</li>
+                            <li>顧客満足度</li>
+                            <li>差別化</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 戦略のポイント：</strong><br>
+                            明確なターゲット設定と独自の価値提案が成功の鍵。顧客視点で「なぜこの製品を選ぶのか」を言語化することが重要。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(2)">
+                    <div class="skill-title"><span class="cell-number">2</span>製品仕様</div>
+                    <div class="skill-description">製品の機能・性能・品質を定義し、顧客要求を満たす技術仕様を策定する。</div>
+                    <div class="skill-details" id="skill2">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(2)">✕</span>
+                        <h4>検討項目</h4>
+                        <ul>
+                            <li>基本機能／性能</li>
+                            <li>操作性</li>
+                            <li>接続性</li>
+                            <li>ソフト／ハード仕様</li>
+                            <li>商品構成／付属品</li>
+                            <li>消耗品、オプション</li>
+                            <li>品質、ランニングコスト</li>
+                            <li>環境／電波／安全規格</li>
+                            <li>取り扱い説明書</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 戦略のポイント：</strong><br>
+                            顧客ニーズと技術的実現可能性のバランスが重要。規格適合と使いやすさの両立を図る。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(3)">
+                    <div class="skill-title"><span class="cell-number">3</span>価格</div>
+                    <div class="skill-description">市場競争力のある価格設定とコスト管理で収益性を確保する戦略。</div>
+                    <div class="skill-details" id="skill3">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(3)">✕</span>
+                        <h4>検討項目</h4>
+                        <ul>
+                            <li>【販売価格】低価格、高価格、値頃感</li>
+                            <li>【仕切価格】１次店、２次店</li>
+                            <li>【コスト】原価、ランニングコスト</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 戦略のポイント：</strong><br>
+                            価格は価値の表現。競合分析とコスト構造を踏まえ、ターゲット顧客が納得する価格帯を設定。流通マージンも考慮。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="skill-cell" onclick="toggleSkill(4)">
+                    <div class="skill-title"><span class="cell-number">4</span>市場規模</div>
+                    <div class="skill-description">市場の成長性と競争環境を分析し、事業機会を評価する。</div>
+                    <div class="skill-details" id="skill4">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(4)">✕</span>
+                        <h4>検討項目</h4>
+                        <ul>
+                            <li>販売台数、販売予測</li>
+                            <li>業界別／用途別</li>
+                            <li>市場動向</li>
+                            <li>市場要求／用途</li>
+                            <li>ユーザニーズ</li>
+                            <li>ポジショニング</li>
+                            <li>競合他社</li>
+                            <li>ライフサイクル</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 戦略のポイント：</strong><br>
+                            市場規模の正確な把握が投資判断の基礎。成長市場か成熟市場かで戦略は大きく変わる。
+                        </div>
+                    </div>
+                </td>
+                <td class="center-cell">
+                    📦<br>製品戦略
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(5)">
+                    <div class="skill-title"><span class="cell-number">5</span>販売ルート</div>
+                    <div class="skill-description">製品を顧客に届ける最適な流通チャネルを設計し、市場浸透を図る。</div>
+                    <div class="skill-details" id="skill5">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(5)">✕</span>
+                        <h4>検討項目</h4>
+                        <ul>
+                            <li>直販、代理店、ＯＥＭ、通販、レンタル</li>
+                            <li>新規チャネル</li>
+                            <li>広告、マスコミ／ヒトコミ</li>
+                            <li>知名度／認知度</li>
+                            <li>各種ショー出展</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 戦略のポイント：</strong><br>
+                            チャネル選択は製品特性とターゲット顧客に応じて決定。複数チャネルの組み合わせでリーチを最大化。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="skill-cell" onclick="toggleSkill(6)">
+                    <div class="skill-title"><span class="cell-number">6</span>競合他社</div>
+                    <div class="skill-description">競合製品を多面的に分析し、自社の競争優位性を明確化する。</div>
+                    <div class="skill-details" id="skill6">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(6)">✕</span>
+                        <h4>検討項目</h4>
+                        <ul>
+                            <li>先発／後発</li>
+                            <li>機能／性能、価格、品質</li>
+                            <li>デザイン、拡張性</li>
+                            <li>マイナス要因</li>
+                            <li>営業力、サポート体制</li>
+                            <li>サプライ供給体制</li>
+                            <li>目に見えぬ敵</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 戦略のポイント：</strong><br>
+                            競合の強み・弱みを客観的に評価。代替品や新規参入の脅威も忘れずに。「目に見えぬ敵」への備えが差を生む。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(7)">
+                    <div class="skill-title"><span class="cell-number">7</span>保守サービス体制</div>
+                    <div class="skill-description">製品導入後の顧客満足を維持するアフターサービス体制を構築する。</div>
+                    <div class="skill-details" id="skill7">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(7)">✕</span>
+                        <h4>検討項目</h4>
+                        <ul>
+                            <li>保守契約、保守料金</li>
+                            <li>定期メンテナンス</li>
+                            <li>保証形態、保証期間</li>
+                            <li>教育体制</li>
+                            <li>営業サポート力、技術サポート力</li>
+                            <li>マニュアルの分かり易さ</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 戦略のポイント：</strong><br>
+                            アフターサービスが顧客ロイヤルティを決定。迅速な対応体制と分かりやすいマニュアルで顧客の不安を解消。
+                        </div>
+                    </div>
+                </td>
+                <td class="skill-cell" onclick="toggleSkill(8)">
+                    <div class="skill-title"><span class="cell-number">8</span>サプライ品</div>
+                    <div class="skill-description">消耗品・保守部品の安定供給で継続的な収益と顧客満足を実現する。</div>
+                    <div class="skill-details" id="skill8">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(8)">✕</span>
+                        <h4>検討項目</h4>
+                        <ul>
+                            <li>消耗品／価格</li>
+                            <li>保守部品</li>
+                            <li>供給体制</li>
+                        </ul>
+                        <div class="point-box">
+                            <strong>💡 戦略のポイント：</strong><br>
+                            サプライ品は継続収益の源泉。適正価格と安定供給で顧客の運用コストを最適化し、長期的な関係を構築。
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- アクションボタン -->
+        <div class="action-buttons">
+            <button class="action-btn" onclick="printMatrixOnly()">
+                🖨️ マトリクス印刷
+            </button>
+            <button class="action-btn" onclick="printAll()">
+                📄 一括印刷
+            </button>
+            <button class="action-btn" onclick="downloadHTML()">
+                ⬇️ HTMLダウンロード
+            </button>
+        </div>
+    </div>
+
+    <!-- 詳細ページ（一括印刷用） -->
+    <div class="detail-pages" id="detailPages">
+        <!-- 要素1: 製品の位置付け -->
+        <div class="detail-page">
+            <h2>1. 製品の位置付け</h2>
+            <p>市場における自社製品の立ち位置を明確化し、顧客に選ばれる理由を定義する戦略。</p>
+            <h3>検討項目</h3>
+            <ul>
+                <li>商品コンセプト</li>
+                <li>ターゲット</li>
+                <li>ポジショニング</li>
+                <li>優位性／魅力</li>
+                <li>顧客満足度</li>
+                <li>差別化</li>
+            </ul>
+            <h3>💡 戦略のポイント</h3>
+            <p>明確なターゲット設定と独自の価値提案が成功の鍵。顧客視点で「なぜこの製品を選ぶのか」を言語化することが重要。</p>
+        </div>
+
+        <!-- 要素2: 製品仕様 -->
+        <div class="detail-page">
+            <h2>2. 製品仕様</h2>
+            <p>製品の機能・性能・品質を定義し、顧客要求を満たす技術仕様を策定する。</p>
+            <h3>検討項目</h3>
+            <ul>
+                <li>基本機能／性能</li>
+                <li>操作性</li>
+                <li>接続性</li>
+                <li>ソフト／ハード仕様</li>
+                <li>商品構成／付属品</li>
+                <li>消耗品、オプション</li>
+                <li>品質、ランニングコスト</li>
+                <li>環境／電波／安全規格</li>
+                <li>取り扱い説明書</li>
+            </ul>
+            <h3>💡 戦略のポイント</h3>
+            <p>顧客ニーズと技術的実現可能性のバランスが重要。規格適合と使いやすさの両立を図る。</p>
+        </div>
+
+        <!-- 要素3: 価格 -->
+        <div class="detail-page">
+            <h2>3. 価格</h2>
+            <p>市場競争力のある価格設定とコスト管理で収益性を確保する戦略。</p>
+            <h3>検討項目</h3>
+            <ul>
+                <li>【販売価格】低価格、高価格、値頃感</li>
+                <li>【仕切価格】１次店、２次店</li>
+                <li>【コスト】原価、ランニングコスト</li>
+            </ul>
+            <h3>💡 戦略のポイント</h3>
+            <p>価格は価値の表現。競合分析とコスト構造を踏まえ、ターゲット顧客が納得する価格帯を設定。流通マージンも考慮。</p>
+        </div>
+
+        <!-- 要素4: 市場規模 -->
+        <div class="detail-page">
+            <h2>4. 市場規模</h2>
+            <p>市場の成長性と競争環境を分析し、事業機会を評価する。</p>
+            <h3>検討項目</h3>
+            <ul>
+                <li>販売台数、販売予測</li>
+                <li>業界別／用途別</li>
+                <li>市場動向</li>
+                <li>市場要求／用途</li>
+                <li>ユーザニーズ</li>
+                <li>ポジショニング</li>
+                <li>競合他社</li>
+                <li>ライフサイクル</li>
+            </ul>
+            <h3>💡 戦略のポイント</h3>
+            <p>市場規模の正確な把握が投資判断の基礎。成長市場か成熟市場かで戦略は大きく変わる。</p>
+        </div>
+
+        <!-- 要素5: 販売ルート -->
+        <div class="detail-page">
+            <h2>5. 販売ルート</h2>
+            <p>製品を顧客に届ける最適な流通チャネルを設計し、市場浸透を図る。</p>
+            <h3>検討項目</h3>
+            <ul>
+                <li>直販、代理店、ＯＥＭ、通販、レンタル</li>
+                <li>新規チャネル</li>
+                <li>広告、マスコミ／ヒトコミ</li>
+                <li>知名度／認知度</li>
+                <li>各種ショー出展</li>
+            </ul>
+            <h3>💡 戦略のポイント</h3>
+            <p>チャネル選択は製品特性とターゲット顧客に応じて決定。複数チャネルの組み合わせでリーチを最大化。</p>
+        </div>
+
+        <!-- 要素6: 競合他社 -->
+        <div class="detail-page">
+            <h2>6. 競合他社</h2>
+            <p>競合製品を多面的に分析し、自社の競争優位性を明確化する。</p>
+            <h3>検討項目</h3>
+            <ul>
+                <li>先発／後発</li>
+                <li>機能／性能、価格、品質</li>
+                <li>デザイン、拡張性</li>
+                <li>マイナス要因</li>
+                <li>営業力、サポート体制</li>
+                <li>サプライ供給体制</li>
+                <li>目に見えぬ敵</li>
+            </ul>
+            <h3>💡 戦略のポイント</h3>
+            <p>競合の強み・弱みを客観的に評価。代替品や新規参入の脅威も忘れずに。「目に見えぬ敵」への備えが差を生む。</p>
+        </div>
+
+        <!-- 要素7: 保守サービス体制 -->
+        <div class="detail-page">
+            <h2>7. 保守サービス体制</h2>
+            <p>製品導入後の顧客満足を維持するアフターサービス体制を構築する。</p>
+            <h3>検討項目</h3>
+            <ul>
+                <li>保守契約、保守料金</li>
+                <li>定期メンテナンス</li>
+                <li>保証形態、保証期間</li>
+                <li>教育体制</li>
+                <li>営業サポート力、技術サポート力</li>
+                <li>マニュアルの分かり易さ</li>
+            </ul>
+            <h3>💡 戦略のポイント</h3>
+            <p>アフターサービスが顧客ロイヤルティを決定。迅速な対応体制と分かりやすいマニュアルで顧客の不安を解消。</p>
+        </div>
+
+        <!-- 要素8: サプライ品 -->
+        <div class="detail-page">
+            <h2>8. サプライ品</h2>
+            <p>消耗品・保守部品の安定供給で継続的な収益と顧客満足を実現する。</p>
+            <h3>検討項目</h3>
+            <ul>
+                <li>消耗品／価格</li>
+                <li>保守部品</li>
+                <li>供給体制</li>
+            </ul>
+            <h3>💡 戦略のポイント</h3>
+            <p>サプライ品は継続収益の源泉。適正価格と安定供給で顧客の運用コストを最適化し、長期的な関係を構築。</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSkill(num) {
+            const detail = document.getElementById('skill' + num);
+            const allDetails = document.querySelectorAll('.skill-details');
+
+            // 他の開いている詳細を閉じる
+            allDetails.forEach(d => {
+                if (d !== detail) {
+                    d.classList.remove('show');
+                }
+            });
+
+            // クリックされた詳細を開閉
+            detail.classList.toggle('show');
+        }
+
+        // マトリクスのみ印刷
+        function printMatrixOnly() {
+            document.body.classList.add('matrix-only-mode');
+            window.print();
+            document.body.classList.remove('matrix-only-mode');
+        }
+
+        // 一括印刷（マトリクス + 詳細）
+        function printAll() {
+            const detailPages = document.getElementById('detailPages');
+            detailPages.classList.add('print-mode');
+            document.body.classList.add('print-all-mode');
+            window.print();
+            detailPages.classList.remove('print-mode');
+            document.body.classList.remove('print-all-mode');
+        }
+
+        // HTMLダウンロード
+        function downloadHTML() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '製品戦略の立て方.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
