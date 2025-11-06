@@ -270,6 +270,11 @@
             .matrix-only-mode .detail-pages {
                 display: none !important;
             }
+
+            /* 一括印刷モード：マトリクスの後に改ページ */
+            .print-all-mode .matrix-table {
+                page-break-after: always;
+            }
         }
     </style>
 </head>
@@ -579,8 +584,10 @@
         function printAll() {
             const detailPages = document.getElementById('detailPages');
             detailPages.classList.add('print-mode');
+            document.body.classList.add('print-all-mode');
             window.print();
             detailPages.classList.remove('print-mode');
+            document.body.classList.remove('print-all-mode');
         }
 
         // HTMLダウンロード
