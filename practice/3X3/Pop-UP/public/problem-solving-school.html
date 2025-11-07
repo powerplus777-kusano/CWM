@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学校教育における問題解決の手順 - 3X3マトリクス</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff00ff;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .matrix-table td {
+            border: 3px solid #2c3e50;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+            width: 33.33%;
+            min-height: 120px;
+        }
+
+        .matrix-table .center-cell {
+            background: linear-gradient(135deg, #ff00ff 0%, #ff66ff 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 1.8;
+        }
+
+        .matrix-table .skill-cell {
+            background-color: #fff5ff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .matrix-table .skill-cell:hover {
+            background-color: #ffe6ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .cell-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .cell-content {
+            color: #34495e;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .cell-content li {
+            margin: 5px 0;
+        }
+
+        .skill-details {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 12px;
+            line-height: 1.7;
+            border-left: 4px solid #ff00ff;
+        }
+
+        .skill-details.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-btn {
+            color: #e74c3c;
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #c0392b;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #ff00ff 0%, #ff66ff 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4);
+        }
+
+        .detail-pages {
+            display: none;
+        }
+
+        .detail-page {
+            page-break-after: always;
+            padding: 20px;
+        }
+
+        .detail-page:last-child {
+            page-break-after: auto;
+        }
+
+        .detail-page h2 {
+            color: #ff00ff;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff00ff;
+        }
+
+        .detail-page h3 {
+            color: #2c3e50;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .detail-page ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        .detail-page li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        /* ダウンロードしたHTML用のスタイル（ブラウザ表示時のみの改ページ表現） */
+        @media screen {
+            .print-all-mode .matrix-table {
+                margin-bottom: 100vh;
+            }
+
+            .print-all-mode .detail-page {
+                min-height: 100vh;
+                padding-top: 50px;
+            }
+
+            .print-all-mode .detail-page:last-child {
+                min-height: auto;
+            }
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 10mm;
+                max-width: 100%;
+            }
+
+            .skill-cell {
+                cursor: default;
+            }
+
+            .action-buttons {
+                display: none !important;
+            }
+
+            .skill-details {
+                display: none !important;
+            }
+
+            .detail-pages.print-mode {
+                display: block !important;
+            }
+
+            .detail-page {
+                page-break-after: always;
+            }
+
+            .detail-page:last-child {
+                page-break-after: auto;
+            }
+
+            .matrix-only-mode .detail-pages {
+                display: none !important;
+            }
+
+            .print-all-mode .matrix-table {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>学校教育における問題解決の手順</h1>
+
+        <table class="matrix-table">
+            <tr>
+                <!-- 左上：問題を見つけよう -->
+                <td class="skill-cell" onclick="toggleSkill(1)">
+                    <div class="cell-title">問題を見つけよう</div>
+                    <div class="cell-content">
+                        身の回りで困っていること、解決したい問題点を見つけよう。<br>
+                        <br>
+                        現状とあるべき姿、目標を妨げている原因を明確にすることが問題の発見であることを理解させよう。<br>
+                        <br>
+                        ●具体的に<br>
+                        ●簡潔・明瞭に<br>
+                        <br>
+                        表現しまとめる
+                    </div>
+                    <div class="skill-details" id="skill1">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(1)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>問題発見力：身の回りの課題に気づく力を養う</li>
+                            <li>現状把握：現在の状況を正確に理解する</li>
+                            <li>あるべき姿：理想の状態をイメージする</li>
+                            <li>原因の明確化：問題の根本原因を特定する</li>
+                            <li>具体的表現：抽象的でなく具体的に表現する</li>
+                            <li>簡潔性：要点を絞って明確に伝える</li>
+                            <li>問題の本質理解：表面的でなく本質的な問題を見つける</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 中央上：問題を整理しよう（現状把握） -->
+                <td class="skill-cell" onclick="toggleSkill(2)">
+                    <div class="cell-title">問題を整理しよう（現状把握）</div>
+                    <div class="cell-content">
+                        現状を妨げている原因を洗い出し、問題点をその原因に着目しながら整理・分類し、問題点を明らかにしよう。<br>
+                        <br>
+                        ●事実のみを取り上げ推測・憶測は排除すること
+                    </div>
+                    <div class="skill-details" id="skill2">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(2)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>原因の洗い出し：問題の原因を網羅的にリストアップ</li>
+                            <li>整理・分類：関連する問題をグループ化</li>
+                            <li>因果関係の把握：原因と結果の関係を理解</li>
+                            <li>事実重視：客観的な事実に基づいて分析</li>
+                            <li>推測の排除：主観的な憶測を避ける</li>
+                            <li>データに基づく判断：根拠のある情報を重視</li>
+                            <li>体系的整理：論理的に問題を整理する</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 右上：目標を明確にしよう -->
+                <td class="skill-cell" onclick="toggleSkill(3)">
+                    <div class="cell-title">目標を明確にしよう</div>
+                    <div class="cell-content">
+                        問題点が明らかになったら、あるべき姿を思い描き、目標（課題）を設定しよう。<br>
+                        <br>
+                        目標とはあるべき姿、こうなりたいという強い思いである。
+                    </div>
+                    <div class="skill-details" id="skill3">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(3)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>あるべき姿の設定：理想の状態を具体的に描く</li>
+                            <li>目標の明確化：達成すべき目標を明確にする</li>
+                            <li>強い意志：目標に対する強い意欲を持つ</li>
+                            <li>実現可能性：現実的に達成可能な目標設定</li>
+                            <li>測定可能性：達成度を測定できる目標にする</li>
+                            <li>期限の設定：いつまでに達成するか明確にする</li>
+                            <li>意欲の喚起：目標達成への意欲を高める</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <!-- 左中：情報を積極的に公開しよう -->
+                <td class="skill-cell" onclick="toggleSkill(4)">
+                    <div class="cell-title">情報を積極的に公開しよう</div>
+                    <div class="cell-content">
+                        他の人が同じことで悩んでいたり、困っている時に役立つように、積極的に情報を公開し、データベース化して、誰でも再活用できるようにしておこう。<br>
+                        <br>
+                        自ら情報公開することが、他の人との交流を深めるきっかけになることを実感させよう。
+                    </div>
+                    <div class="skill-details" id="skill4">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(4)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>情報共有の意義：知識を共有することの価値</li>
+                            <li>積極的な発信：自ら情報を公開する姿勢</li>
+                            <li>データベース化：情報を整理して蓄積</li>
+                            <li>再活用の促進：他者が活用できる形で提供</li>
+                            <li>交流のきっかけ：情報公開が人とのつながりを生む</li>
+                            <li>社会貢献：自分の経験が他者の役に立つ</li>
+                            <li>オープンな姿勢：情報をオープンにする文化</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 中央：タイトル -->
+                <td class="center-cell" rowspan="2">
+                    📖<br><br>
+                    <div style="font-size: 24px;">学校教育<br>における</div>
+                    <br>
+                    <div style="font-size: 24px;">問題解決</div>
+                    <br>
+                    <div style="font-size: 24px;">の</div>
+                    <br>
+                    <div style="font-size: 24px;">手　順</div>
+                </td>
+                <!-- 右中：解決策・解決法を考えよう -->
+                <td class="skill-cell" onclick="toggleSkill(5)">
+                    <div class="cell-title">解決策・解決法を考えよう</div>
+                    <div class="cell-content">
+                        問題点と目標値が明らかになったら、原因に着目しながら、その問題を解決する、解決策／解決方法を具体的にまとめよう。
+                    </div>
+                    <div class="skill-details" id="skill5">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(5)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>原因に基づく解決策：根本原因に対処する方法</li>
+                            <li>複数案の検討：複数の解決策を比較検討</li>
+                            <li>具体性：実行可能な具体的な方法を考える</li>
+                            <li>創造性：創意工夫を凝らした解決策</li>
+                            <li>実現可能性：現実的に実行できる方法</li>
+                            <li>効果の予測：解決策の効果を予測する</li>
+                            <li>リスクの検討：想定されるリスクを考慮</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <!-- 左下：結果をまとめ発表しよう -->
+                <td class="skill-cell" onclick="toggleSkill(6)">
+                    <div class="cell-title">結果をまとめ発表しよう</div>
+                    <div class="cell-content">
+                        実際に行動した内容を自分の言葉で分かり易く文章にまとめ、自分の言葉で報告（プレゼンテーション）しよう。<br>
+                        <br>
+                        その際に、<br>
+                        ●残された課題<br>
+                        ●新たに発見された問題点<br>
+                        ●新たな改善策<br>
+                        があればまとめておこう。<br>
+                        <br>
+                        ★評価と再発防止
+                    </div>
+                    <div class="skill-details" id="skill6">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(6)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>結果の整理：実施内容を体系的にまとめる</li>
+                            <li>自分の言葉：自分の理解で表現する</li>
+                            <li>分かりやすさ：他者に伝わる表現</li>
+                            <li>プレゼンテーション：効果的な発表技術</li>
+                            <li>残された課題：まだ解決していない問題の整理</li>
+                            <li>新たな発見：活動を通じて得られた気づき</li>
+                            <li>改善の継続：PDCAサイクルの継続</li>
+                            <li>評価と反省：客観的な振り返り</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 右下：実際に行動しよう -->
+                <td class="skill-cell" onclick="toggleSkill(7)">
+                    <div class="cell-title">実際に行動しよう</div>
+                    <div class="cell-content">
+                        自分で立てた行動計画に基づき、実際に行動しよう。<br>
+                        <br>
+                        目標は実現するために、目的は実行するためにあることを理解させよう。
+                    </div>
+                    <div class="skill-details" id="skill7">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(7)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>計画に基づく実行：立てた計画を確実に実行</li>
+                            <li>実行力：計画を行動に移す力</li>
+                            <li>目標実現：目標は達成するためにある</li>
+                            <li>目的意識：何のために行動するか理解する</li>
+                            <li>継続性：計画通りに継続して実行</li>
+                            <li>柔軟な対応：状況に応じて調整する</li>
+                            <li>責任感：自分の行動に責任を持つ</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <!-- 下段3列結合：実行・行動計画を立てよう -->
+                <td class="skill-cell" colspan="3" onclick="toggleSkill(8)">
+                    <div class="cell-title">実行・行動計画を立てよう</div>
+                    <div class="cell-content">
+                        導き出された解決手法と目標値より、それらを実行するための具体的な実行（行動）計画をたてよう。<br>
+                        <br>
+                        ６W2Hを明確にすることが大事<br>
+                        ●Who 誰が／When いつまでに ●What 何を／How どのように ●Whom誰に対して ●Whereどこで ●Why 何故 ●How much いくらで
+                    </div>
+                    <div class="skill-details" id="skill8">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(8)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>6W2Hの活用：計画の要素を明確にする</li>
+                            <li>Who（誰が）：実行者を明確にする</li>
+                            <li>When（いつまでに）：期限を設定する</li>
+                            <li>What（何を）：実行内容を具体化する</li>
+                            <li>How（どのように）：方法を明確にする</li>
+                            <li>Whom（誰に対して）：対象者を明確にする</li>
+                            <li>Where（どこで）：場所を特定する</li>
+                            <li>Why（何故）：目的・理由を明確にする</li>
+                            <li>How much（いくらで）：必要な予算や資源を明確にする</li>
+                            <li>実行可能性：現実的に実行できる計画</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="action-buttons">
+            <button class="action-btn" onclick="printMatrixOnly()">
+                🖨️ マトリクス印刷
+            </button>
+            <button class="action-btn" onclick="printAll()">
+                📄 一括印刷
+            </button>
+            <button class="action-btn" onclick="downloadHTML()">
+                ⬇️ 一括HTMLダウンロード
+            </button>
+        </div>
+    </div>
+
+    <!-- 詳細ページ（一括印刷用） -->
+    <div class="detail-pages" id="detailPages">
+        <div class="detail-page">
+            <h2>1. 問題を見つけよう</h2>
+            <p>問題解決の第一歩は、問題を見つけることです。身の回りの課題に気づき、それを具体的に表現する力を養います。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>問題発見力：身の回りの課題に気づく力を養う</li>
+                <li>現状把握：現在の状況を正確に理解する</li>
+                <li>あるべき姿：理想の状態をイメージする</li>
+                <li>原因の明確化：問題の根本原因を特定する</li>
+                <li>具体的表現：抽象的でなく具体的に表現する</li>
+                <li>簡潔性：要点を絞って明確に伝える</li>
+                <li>問題の本質理解：表面的でなく本質的な問題を見つける</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>2. 問題を整理しよう（現状把握）</h2>
+            <p>問題を見つけたら、その原因を整理し、客観的に分析します。事実に基づいた分析が重要です。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>原因の洗い出し：問題の原因を網羅的にリストアップ</li>
+                <li>整理・分類：関連する問題をグループ化</li>
+                <li>因果関係の把握：原因と結果の関係を理解</li>
+                <li>事実重視：客観的な事実に基づいて分析</li>
+                <li>推測の排除：主観的な憶測を避ける</li>
+                <li>データに基づく判断：根拠のある情報を重視</li>
+                <li>体系的整理：論理的に問題を整理する</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>3. 目標を明確にしよう</h2>
+            <p>問題が明確になったら、達成すべき目標を設定します。具体的で実現可能な目標設定が重要です。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>あるべき姿の設定：理想の状態を具体的に描く</li>
+                <li>目標の明確化：達成すべき目標を明確にする</li>
+                <li>強い意志：目標に対する強い意欲を持つ</li>
+                <li>実現可能性：現実的に達成可能な目標設定</li>
+                <li>測定可能性：達成度を測定できる目標にする</li>
+                <li>期限の設定：いつまでに達成するか明確にする</li>
+                <li>意欲の喚起：目標達成への意欲を高める</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>4. 情報を積極的に公開しよう</h2>
+            <p>自分の経験や学びを他者と共有することで、社会全体の問題解決能力が向上します。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>情報共有の意義：知識を共有することの価値</li>
+                <li>積極的な発信：自ら情報を公開する姿勢</li>
+                <li>データベース化：情報を整理して蓄積</li>
+                <li>再活用の促進：他者が活用できる形で提供</li>
+                <li>交流のきっかけ：情報公開が人とのつながりを生む</li>
+                <li>社会貢献：自分の経験が他者の役に立つ</li>
+                <li>オープンな姿勢：情報をオープンにする文化</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>5. 解決策・解決法を考えよう</h2>
+            <p>問題の原因に着目して、効果的な解決策を考えます。創造性と実現可能性のバランスが重要です。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>原因に基づく解決策：根本原因に対処する方法</li>
+                <li>複数案の検討：複数の解決策を比較検討</li>
+                <li>具体性：実行可能な具体的な方法を考える</li>
+                <li>創造性：創意工夫を凝らした解決策</li>
+                <li>実現可能性：現実的に実行できる方法</li>
+                <li>効果の予測：解決策の効果を予測する</li>
+                <li>リスクの検討：想定されるリスクを考慮</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>6. 結果をまとめ発表しよう</h2>
+            <p>実施した内容を振り返り、他者に分かりやすく伝えます。評価と改善のサイクルを回します。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>結果の整理：実施内容を体系的にまとめる</li>
+                <li>自分の言葉：自分の理解で表現する</li>
+                <li>分かりやすさ：他者に伝わる表現</li>
+                <li>プレゼンテーション：効果的な発表技術</li>
+                <li>残された課題：まだ解決していない問題の整理</li>
+                <li>新たな発見：活動を通じて得られた気づき</li>
+                <li>改善の継続：PDCAサイクルの継続</li>
+                <li>評価と反省：客観的な振り返り</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>7. 実際に行動しよう</h2>
+            <p>計画を立てたら、実際に行動に移します。実行力が問題解決の鍵となります。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>計画に基づく実行：立てた計画を確実に実行</li>
+                <li>実行力：計画を行動に移す力</li>
+                <li>目標実現：目標は達成するためにある</li>
+                <li>目的意識：何のために行動するか理解する</li>
+                <li>継続性：計画通りに継続して実行</li>
+                <li>柔軟な対応：状況に応じて調整する</li>
+                <li>責任感：自分の行動に責任を持つ</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>8. 実行・行動計画を立てよう</h2>
+            <p>6W2Hを活用して、具体的で実行可能な行動計画を立てます。詳細な計画が成功の鍵です。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>6W2Hの活用：計画の要素を明確にする</li>
+                <li>Who（誰が）：実行者を明確にする</li>
+                <li>When（いつまでに）：期限を設定する</li>
+                <li>What（何を）：実行内容を具体化する</li>
+                <li>How（どのように）：方法を明確にする</li>
+                <li>Whom（誰に対して）：対象者を明確にする</li>
+                <li>Where（どこで）：場所を特定する</li>
+                <li>Why（何故）：目的・理由を明確にする</li>
+                <li>How much（いくらで）：必要な予算や資源を明確にする</li>
+                <li>実行可能性：現実的に実行できる計画</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleSkill(num) {
+            const detail = document.getElementById('skill' + num);
+            const allDetails = document.querySelectorAll('.skill-details');
+            allDetails.forEach(d => {
+                if (d !== detail) {
+                    d.classList.remove('show');
+                }
+            });
+            detail.classList.toggle('show');
+        }
+
+        function printMatrixOnly() {
+            document.body.classList.add('matrix-only-mode');
+            window.print();
+            document.body.classList.remove('matrix-only-mode');
+        }
+
+        function printAll() {
+            const detailPages = document.getElementById('detailPages');
+            detailPages.classList.add('print-mode');
+            document.body.classList.add('print-all-mode');
+            window.print();
+            detailPages.classList.remove('print-mode');
+            document.body.classList.remove('print-all-mode');
+        }
+
+        function downloadHTML() {
+            // 詳細ページを一時的に表示状態にする
+            const detailPages = document.getElementById('detailPages');
+            const originalDisplay = detailPages.style.display;
+            detailPages.style.display = 'block';
+
+            // 一括印刷モードのクラスを追加（改ページのため）
+            detailPages.classList.add('print-mode');
+            document.body.classList.add('print-all-mode');
+
+            // アクションボタンを一時的に非表示にする
+            const actionButtons = document.querySelector('.action-buttons');
+            const originalButtonDisplay = actionButtons.style.display;
+            actionButtons.style.display = 'none';
+
+            // 全てのskill-detailsを非表示にする
+            const allDetails = document.querySelectorAll('.skill-details');
+            allDetails.forEach(d => d.classList.remove('show'));
+
+            // HTMLを取得
+            const htmlContent = document.documentElement.outerHTML;
+
+            // 表示状態を元に戻す
+            detailPages.style.display = originalDisplay;
+            detailPages.classList.remove('print-mode');
+            document.body.classList.remove('print-all-mode');
+            actionButtons.style.display = originalButtonDisplay;
+
+            // ダウンロード
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '学校教育における問題解決の手順.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

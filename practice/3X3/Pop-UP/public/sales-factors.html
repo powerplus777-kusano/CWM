@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>売上を上げる８つの要因 - 3X3マトリクス</title>
+    <meta name="description" content="売上を上げる８つの要因についての3X3マトリクス。商品価値、見込み客、サービス、購買頻度、客単価などの要素を解説">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #FF00FF;
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .intro-section {
+            margin-bottom: 20px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .intro-section h3 {
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .intro-section h4 {
+            font-size: 10px;
+            margin-top: 10px;
+            margin-bottom: 6px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .intro-section table {
+            width: 100%;
+            margin: 8px 0;
+        }
+
+        .intro-section td {
+            padding: 4px;
+            vertical-align: top;
+        }
+
+        .intro-section .formula {
+            color: #FF0000;
+            font-weight: 600;
+        }
+
+        .intro-section .highlight {
+            color: #0000FF;
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .action-buttons button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .matrix-table {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .matrix-cell {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 8px;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .matrix-cell:not(.center-cell):hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .matrix-cell.center-cell {
+            background: linear-gradient(135deg, #FF00FF 0%, #FF1493 100%);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: default;
+            border: none;
+        }
+
+        .matrix-cell h3 {
+            font-size: 11px;
+            margin-bottom: 6px;
+            color: #333;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .matrix-cell p {
+            font-size: 9px;
+            color: #666;
+            line-height: 1.3;
+        }
+
+        .matrix-cell.bg-green { background: linear-gradient(135deg, #ccffcc 0%, #99ff99 100%); }
+        .matrix-cell.bg-orange { background: linear-gradient(135deg, #FFCC99 0%, #ffb366 100%); }
+        .matrix-cell.bg-blue { background: linear-gradient(135deg, #99CCFF 0%, #6699ff 100%); }
+        .matrix-cell.bg-yellow { background: linear-gradient(135deg, #FFFFCC 0%, #ffff99 100%); }
+        .matrix-cell.bg-pink { background: linear-gradient(135deg, #ffcccc 0%, #ff9999 100%); }
+
+        .skill-details {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .skill-details.show {
+            display: block;
+        }
+
+        .details-content {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ff4757;
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #ff6b81;
+            transform: rotate(90deg);
+        }
+
+        .details-content h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 24px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .details-content h3 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .details-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .details-content li {
+            margin-bottom: 8px;
+            line-height: 1.8;
+        }
+
+        .note-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        /* 詳細ページ用スタイル */
+        #detailPages {
+            display: none;
+        }
+
+        .detail-page {
+            page-break-after: always;
+            padding: 40px;
+            background: white;
+        }
+
+        .detail-page:last-child {
+            page-break-after: auto;
+        }
+
+        .detail-page h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 24px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .detail-page h3 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .detail-page ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .detail-page li {
+            margin-bottom: 8px;
+            line-height: 1.8;
+        }
+
+        .detail-page .note-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        /* 印刷用スタイル */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            .action-buttons {
+                display: none;
+            }
+
+            .skill-details {
+                display: none !important;
+            }
+
+            /* マトリクス表のみ印刷モード */
+            .matrix-only-mode #detailPages {
+                display: none !important;
+            }
+
+            /* 一括印刷モード */
+            .print-all-mode #detailPages {
+                display: block !important;
+            }
+
+            .print-all-mode .detail-page {
+                page-break-before: always;
+                display: block !important;
+            }
+
+            .print-all-mode #hero {
+                page-break-after: always;
+            }
+        }
+
+        /* 一括ダウンロード用：ブラウザ表示でのページ区切り（印刷時は適用しない） */
+        @media screen {
+            .print-all-mode .matrix-table {
+                margin-bottom: 100vh;
+            }
+
+            .print-all-mode .detail-page {
+                min-height: 100vh;
+                padding-top: 50px;
+                display: block !important;
+            }
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .matrix-table {
+                gap: 8px;
+            }
+
+            .matrix-cell {
+                min-height: 80px;
+                padding: 8px;
+            }
+
+            .matrix-cell h3 {
+                font-size: 10px;
+            }
+
+            .matrix-cell p {
+                font-size: 8px;
+            }
+
+            .details-content {
+                margin: 20px;
+                padding: 30px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .action-buttons button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="hero">
+        <h1>売上を上げる８つの要因</h1>
+
+        <!-- 導入セクション -->
+        <div class="intro-section">
+            <h3>■売上を上げる基本</h3>
+
+            <h4>１）数字的要因</h4>
+            <div style="padding-left: 15px;">
+                <p>利益＝売上−費用　　　売上↑　　費用↓</p>
+                <p style="margin-top: 8px;">売上＝顧客数×客単価　　　顧客数↑　　客単価↑</p>
+                <p style="margin-top: 8px;"><span class="formula">顧客数ＵＰ</span>＝（新規・見込客−<span class="formula">流失顧客</span>）×<span class="formula">購買頻度</span>　　　見込客↑　流失顧客↓　頻度↑</p>
+                <p style="margin-left: 150px;">（ﾘﾋﾟｰﾄ率）</p>
+                <p style="margin-top: 8px;"><span class="formula">客単価ＵＰ</span>＝買上点数×１点当たりの販売価格</p>
+                <p style="margin-top: 8px;">販売利益＝販売価格−原価　　　販売価格↑　　原価↓</p>
+            </div>
+
+            <h4 style="margin-top: 12px;">２）<span class="highlight">商品・サービス的要因</span>　：　お客様があなた（その営業マン・会社）から買う理由</h4>
+            <p style="padding-left: 15px; margin-top: 6px;">あなたが提供する価値　＞　顧客満足度（目的達成要因＋他社への乗換え要因）</p>
+
+            <table style="margin-top: 8px;">
+                <tr>
+                    <td style="width: 50%;">
+                        <strong>あなたが提供する価値</strong><br><br>
+                        ・<span class="formula">商品（機能的）価値</span><br>
+                        　　・価格／品質／性能<br>
+                        　　・操作方法／取扱説明書など<br>
+                        ・<span class="formula">提供サービス</span><br>
+                        　　・信頼感／接客態度<br>
+                        　　・アフターフォロー<br>
+                        　　・情報提供
+                    </td>
+                    <td style="width: 50%;">
+                        <strong>顧客満足度（目的達成要因）</strong><br><br>
+                        ・購入目的を満たすか？（機能／性能／使い勝手）<br>
+                        ・予算（適正価格）に合うか？<br>
+                        ・<span class="formula">お客様の手間がかからないか？</span><br>
+                        　　・インストール／設定の手間<br>
+                        　　・操作を覚えるまでの手間<br>
+                        　　・他の人に教える手間<br>
+                        ・<span class="formula">サービスは満足のいくものか？</span><br>
+                        ・商品に関する情報提供が豊富にそろっているか？<br>
+                        ・何かあった時の対応は敏速か？
+                    </td>
+                </tr>
+            </table>
+
+            <h4 style="margin-top: 12px;">３）<span class="highlight">他社への乗換え（スイッチングコスト）要因</span>　：　お客様があなたから離れていく理由</h4>
+            <div style="padding-left: 15px; margin-top: 6px;">
+                <p>・次回もあなた（会社）から継続購入しようと思うか？<br>
+                ・それとも競合他社から購入するか？</p>
+                <p style="margin-top: 6px;">
+                    ・購入後のアフターフォローは良いか？<br>
+                    ・何かあった時の対応は敏速か？<br>
+                    ・買い替えにかかる手間（費用・時間）は？<br>
+                    ・タイムリーな情報提供がなされたか？
+                </p>
+            </div>
+        </div>
+
+        <!-- アクションボタン -->
+        <div class="action-buttons">
+            <button onclick="printMatrixOnly()">📄 マトリクス表を印刷</button>
+            <button onclick="printAll()">📑 一括印刷</button>
+            <button onclick="downloadHTML()">💾 一括HTMLダウンロード</button>
+        </div>
+
+        <!-- 3X3マトリクステーブル -->
+        <div class="matrix-table">
+            <!-- 1行目 -->
+            <div class="matrix-cell bg-green" onclick="showDetails('product-value')">
+                <h3>商品価値の向上</h3>
+                <p>お客様の購入目的を満たす商品づくり</p>
+            </div>
+            <div class="matrix-cell bg-orange" onclick="showDetails('prospects')">
+                <h3>見込み客を増やす</h3>
+                <p>ターゲットを明確にした販促活動</p>
+            </div>
+            <div class="matrix-cell bg-blue" onclick="showDetails('service')">
+                <h3>サービスの向上</h3>
+                <p>お客様から選ばれる理由を作る</p>
+            </div>
+
+            <!-- 2行目 -->
+            <div class="matrix-cell bg-yellow" onclick="showDetails('retention')">
+                <h3>流失顧客の防止</h3>
+                <p>競合他社への流失を防ぐ施策</p>
+            </div>
+            <div class="matrix-cell center-cell">
+                売上を上げる<br>８つの要因
+            </div>
+            <div class="matrix-cell bg-yellow" onclick="showDetails('frequency')">
+                <h3>購買頻度（リピート率）の向上</h3>
+                <p>継続購入してもらうための取り組み</p>
+            </div>
+
+            <!-- 3行目 -->
+            <div class="matrix-cell bg-blue" onclick="showDetails('switching')">
+                <h3>次回購入の乗換コスト下げる</h3>
+                <p>継続取引のための障壁を下げる</p>
+            </div>
+            <div class="matrix-cell bg-orange" onclick="showDetails('unit-price')">
+                <h3>客単価の向上</h3>
+                <p>一度に購入する量を増やす施策</p>
+            </div>
+            <div class="matrix-cell bg-green" onclick="showDetails('effort')">
+                <h3>顧客の手間を減らす</h3>
+                <p>ユーザーの負担を最小化する</p>
+            </div>
+        </div>
+
+        <div class="note-box">
+            <p style="color: #FF00FF; font-weight: 600;">売上を上げる要素は上記の８つがほとんどの主要因であり、いかなる施策を打とうとも、その施策がこの８つの要因に結びついていかなければ、売上（利益）を上げる事はできない。</p>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：商品価値の向上 -->
+    <div id="product-value" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('product-value')">&times;</button>
+            <h2>商品価値の向上</h2>
+
+            <h3>商品価値（お客様の購入目的）とは？</h3>
+            <ul>
+                <li>基本機能／性能／品質</li>
+                <li>操作性／接続性</li>
+                <li>ソフト／ハード仕様</li>
+                <li>商品構成／付属品</li>
+                <li>消耗品／オプション</li>
+                <li>ランニングコスト</li>
+                <li>環境／電波／安全規格</li>
+                <li>取扱い説明書の分かり易さ</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>お客様が本当に求めているものは何か？商品の基本機能だけでなく、使いやすさ、コスト、安全性など、総合的な価値を高めることが重要です。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：見込み客を増やす -->
+    <div id="prospects" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('prospects')">&times;</button>
+            <h2>見込み客を増やす</h2>
+
+            <h3>どこの誰にどのように販売していくか？６W2H（目的）を明確にした展開を</h3>
+            <ul>
+                <li>ターゲット／チャネル分析</li>
+                <li>広告宣伝／口コミ</li>
+                <li>セミナー／教育</li>
+                <li>無料体験／試供品など</li>
+                <li>DM／FAX／情報提供</li>
+                <li>ホームページの充実</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>闇雲に営業するのではなく、誰に（Who）、何を（What）、いつ（When）、どこで（Where）、なぜ（Why）、どのように（How）、いくらで（How much）、どれだけ（How many）を明確にした戦略的な展開が必要です。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：サービスの向上 -->
+    <div id="service" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('service')">&times;</button>
+            <h2>サービスの向上</h2>
+
+            <h3>お客様があなたから購入しようと思う理由は？あなたが提供する価値は？</h3>
+            <ul>
+                <li>適正価格</li>
+                <li>商品知識／情報提供</li>
+                <li>安心／安全</li>
+                <li>接客態度／身だしなみ／笑顔</li>
+                <li>あなただけのサービス／特典</li>
+                <li>いかに信頼してもらうか</li>
+                <li>アフターフォロー／クレーム対応</li>
+                <li>お客様の手間をいかに減らすか</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>重要：</strong>★営業マン教育・資質が大きく関わる</p>
+                <p>商品が同じでも、誰から買うかで顧客の満足度は大きく変わります。営業マン一人ひとりの質が、サービス価値を左右します。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：流失顧客の防止 -->
+    <div id="retention" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('retention')">&times;</button>
+            <h2>流失顧客の防止</h2>
+
+            <h3>既存のお客様の競合他社への流失をいかに防ぐか？</h3>
+            <ul>
+                <li>人間関係の強化</li>
+                <li>定期訪問</li>
+                <li>タイムリーな情報提供</li>
+                <li>あなただけのサービス／特典</li>
+                <li>サービス向上策</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>新規顧客を獲得するコストは、既存顧客を維持するコストの5倍とも言われています。既存顧客との関係を大切にし、競合への流失を防ぐことで、購買頻度の向上にもつながります。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：購買頻度（リピート率）の向上 -->
+    <div id="frequency" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('frequency')">&times;</button>
+            <h2>購買頻度（リピート率）の向上</h2>
+
+            <h3>●今度もまたこの店で・この人から買いたいと思われるか？</h3>
+            <h3>●既存顧客があなたから買い続けてくれるか？</h3>
+
+            <ul>
+                <li>サービス向上策</li>
+                <li>タイムリーな情報提供</li>
+                <li>あなただけのサービス／特典</li>
+                <li>商品への愛着心</li>
+                <li>満足から感動へ</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>リピート顧客は、新規顧客よりも購入額が多く、紹介もしてくれる可能性が高い貴重な存在です。「満足」を超えて「感動」を提供することで、強固な信頼関係を築きましょう。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：次回購入の乗換コスト下げる -->
+    <div id="switching" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('switching')">&times;</button>
+            <h2>次回購入の乗換コスト下げる</h2>
+
+            <h3>次回購入のスイッチングコストをいかに下げ、継続取引を行ってもらえるようにするか？</h3>
+
+            <p style="margin: 15px 0;">他社に乗り換えるとこれだけの手間や修正変更、時間がかかる事を訴える。</p>
+
+            <ul>
+                <li>顧客の手間を減らし</li>
+                <li>流失顧客の防止へ</li>
+                <li>購買頻度の向上へ</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>スイッチングコスト（乗換コスト）とは、顧客が他社に乗り換える際にかかる時間、労力、費用のこと。自社製品・サービスを使い続けることのメリットを明確に示し、乗り換えのハードルを認識してもらうことで、顧客の流失を防ぎます。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：客単価の向上 -->
+    <div id="unit-price" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('unit-price')">&times;</button>
+            <h2>客単価の向上</h2>
+
+            <h3>１度に購入する量が増えるようなしかけを考える</h3>
+            <ul>
+                <li>原価を下げる</li>
+                <li>他の物とセットにしてみる</li>
+                <li>小さくする</li>
+                <li>１回の使用量を増やす</li>
+                <li>デザインを変えてみる</li>
+                <li>単機能にして商品群を増やす</li>
+                <li>滞留時間を短くする</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>客単価は「買上点数×１点当たりの販売価格」で決まります。クロスセルやアップセル、セット販売など、一度の購入でより多くの商品を買ってもらえる工夫が重要です。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：顧客の手間を減らす -->
+    <div id="effort" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('effort')">&times;</button>
+            <h2>顧客の手間を減らす</h2>
+
+            <h3>ユーザのかかる手間を以下に減らすことができるか？</h3>
+            <ul>
+                <li>費用（金）／人／手順</li>
+                <li>場所／時間</li>
+                <li>教育／覚える／教える</li>
+                <li>紙／データ／情報</li>
+                <li>無理／無駄／斑（むら）</li>
+                <li>ウィルスチェックファイル</li>
+                <li>ソフトのインストール／Ｖ−ＵＰ</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>顧客の手間を減らすことは、顧客満足度を高めるだけでなく、競合への乗り換えを防ぐ効果もあります。導入や運用、メンテナンスなど、あらゆる場面で顧客の負担を最小化することを意識しましょう。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 一括印刷用の詳細ページ（非表示） -->
+    <div id="detailPages">
+        <!-- 詳細ページ1：商品価値の向上 -->
+        <div class="detail-page">
+            <h2>商品価値の向上</h2>
+
+            <h3>商品価値（お客様の購入目的）とは？</h3>
+            <ul>
+                <li>基本機能／性能／品質</li>
+                <li>操作性／接続性</li>
+                <li>ソフト／ハード仕様</li>
+                <li>商品構成／付属品</li>
+                <li>消耗品／オプション</li>
+                <li>ランニングコスト</li>
+                <li>環境／電波／安全規格</li>
+                <li>取扱い説明書の分かり易さ</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>お客様が本当に求めているものは何か？商品の基本機能だけでなく、使いやすさ、コスト、安全性など、総合的な価値を高めることが重要です。</p>
+            </div>
+        </div>
+
+        <!-- 詳細ページ2：見込み客を増やす -->
+        <div class="detail-page">
+            <h2>見込み客を増やす</h2>
+
+            <h3>どこの誰にどのように販売していくか？６W2H（目的）を明確にした展開を</h3>
+            <ul>
+                <li>ターゲット／チャネル分析</li>
+                <li>広告宣伝／口コミ</li>
+                <li>セミナー／教育</li>
+                <li>無料体験／試供品など</li>
+                <li>DM／FAX／情報提供</li>
+                <li>ホームページの充実</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>闇雲に営業するのではなく、誰に（Who）、何を（What）、いつ（When）、どこで（Where）、なぜ（Why）、どのように（How）、いくらで（How much）、どれだけ（How many）を明確にした戦略的な展開が必要です。</p>
+            </div>
+        </div>
+
+        <!-- 詳細ページ3：サービスの向上 -->
+        <div class="detail-page">
+            <h2>サービスの向上</h2>
+
+            <h3>お客様があなたから購入しようと思う理由は？あなたが提供する価値は？</h3>
+            <ul>
+                <li>適正価格</li>
+                <li>商品知識／情報提供</li>
+                <li>安心／安全</li>
+                <li>接客態度／身だしなみ／笑顔</li>
+                <li>あなただけのサービス／特典</li>
+                <li>いかに信頼してもらうか</li>
+                <li>アフターフォロー／クレーム対応</li>
+                <li>お客様の手間をいかに減らすか</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>重要：</strong>★営業マン教育・資質が大きく関わる</p>
+                <p>商品が同じでも、誰から買うかで顧客の満足度は大きく変わります。営業マン一人ひとりの質が、サービス価値を左右します。</p>
+            </div>
+        </div>
+
+        <!-- 詳細ページ4：流失顧客の防止 -->
+        <div class="detail-page">
+            <h2>流失顧客の防止</h2>
+
+            <h3>既存のお客様の競合他社への流失をいかに防ぐか？</h3>
+            <ul>
+                <li>人間関係の強化</li>
+                <li>定期訪問</li>
+                <li>タイムリーな情報提供</li>
+                <li>あなただけのサービス／特典</li>
+                <li>サービス向上策</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>新規顧客を獲得するコストは、既存顧客を維持するコストの5倍とも言われています。既存顧客との関係を大切にし、競合への流失を防ぐことで、購買頻度の向上にもつながります。</p>
+            </div>
+        </div>
+
+        <!-- 詳細ページ5：購買頻度（リピート率）の向上 -->
+        <div class="detail-page">
+            <h2>購買頻度（リピート率）の向上</h2>
+
+            <h3>●今度もまたこの店で・この人から買いたいと思われるか？</h3>
+            <h3>●既存顧客があなたから買い続けてくれるか？</h3>
+
+            <ul>
+                <li>サービス向上策</li>
+                <li>タイムリーな情報提供</li>
+                <li>あなただけのサービス／特典</li>
+                <li>商品への愛着心</li>
+                <li>満足から感動へ</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>リピート顧客は、新規顧客よりも購入額が多く、紹介もしてくれる可能性が高い貴重な存在です。「満足」を超えて「感動」を提供することで、強固な信頼関係を築きましょう。</p>
+            </div>
+        </div>
+
+        <!-- 詳細ページ6：次回購入の乗換コスト下げる -->
+        <div class="detail-page">
+            <h2>次回購入の乗換コスト下げる</h2>
+
+            <h3>次回購入のスイッチングコストをいかに下げ、継続取引を行ってもらえるようにするか？</h3>
+
+            <p style="margin: 15px 0;">他社に乗り換えるとこれだけの手間や修正変更、時間がかかる事を訴える。</p>
+
+            <ul>
+                <li>顧客の手間を減らし</li>
+                <li>流失顧客の防止へ</li>
+                <li>購買頻度の向上へ</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>スイッチングコスト（乗換コスト）とは、顧客が他社に乗り換える際にかかる時間、労力、費用のこと。自社製品・サービスを使い続けることのメリットを明確に示し、乗り換えのハードルを認識してもらうことで、顧客の流失を防ぎます。</p>
+            </div>
+        </div>
+
+        <!-- 詳細ページ7：客単価の向上 -->
+        <div class="detail-page">
+            <h2>客単価の向上</h2>
+
+            <h3>１度に購入する量が増えるようなしかけを考える</h3>
+            <ul>
+                <li>原価を下げる</li>
+                <li>他の物とセットにしてみる</li>
+                <li>小さくする</li>
+                <li>１回の使用量を増やす</li>
+                <li>デザインを変えてみる</li>
+                <li>単機能にして商品群を増やす</li>
+                <li>滞留時間を短くする</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>客単価は「買上点数×１点当たりの販売価格」で決まります。クロスセルやアップセル、セット販売など、一度の購入でより多くの商品を買ってもらえる工夫が重要です。</p>
+            </div>
+        </div>
+
+        <!-- 詳細ページ8：顧客の手間を減らす -->
+        <div class="detail-page">
+            <h2>顧客の手間を減らす</h2>
+
+            <h3>ユーザのかかる手間を以下に減らすことができるか？</h3>
+            <ul>
+                <li>費用（金）／人／手順</li>
+                <li>場所／時間</li>
+                <li>教育／覚える／教える</li>
+                <li>紙／データ／情報</li>
+                <li>無理／無駄／斑（むら）</li>
+                <li>ウィルスチェックファイル</li>
+                <li>ソフトのインストール／Ｖ−ＵＰ</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>顧客の手間を減らすことは、顧客満足度を高めるだけでなく、競合への乗り換えを防ぐ効果もあります。導入や運用、メンテナンスなど、あらゆる場面で顧客の負担を最小化することを意識しましょう。</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 詳細表示
+        function showDetails(id) {
+            document.getElementById(id).classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 詳細を閉じる
+        function closeDetails(id) {
+            document.getElementById(id).classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ESCキーで閉じる
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const openDetails = document.querySelector('.skill-details.show');
+                if (openDetails) {
+                    openDetails.classList.remove('show');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+
+        // マトリクス表のみ印刷
+        function printMatrixOnly() {
+            document.body.classList.add('matrix-only-mode');
+            document.body.classList.remove('print-all-mode');
+            window.print();
+            document.body.classList.remove('matrix-only-mode');
+        }
+
+        // 一括印刷
+        function printAll() {
+            document.body.classList.add('print-all-mode');
+            document.body.classList.remove('matrix-only-mode');
+            document.getElementById('detailPages').style.display = 'block';
+            window.print();
+            document.getElementById('detailPages').style.display = 'none';
+            document.body.classList.remove('print-all-mode');
+        }
+
+        // 一括HTMLダウンロード
+        function downloadHTML() {
+            // 詳細ページを一時的に表示
+            const detailPages = document.getElementById('detailPages');
+            const originalDisplay = detailPages.style.display;
+            detailPages.style.display = 'block';
+
+            // print-modeクラスを追加
+            detailPages.classList.add('print-mode');
+            document.body.classList.add('print-all-mode');
+
+            // アクションボタンを一時的に非表示
+            const actionButtons = document.querySelector('.action-buttons');
+            const originalButtonDisplay = actionButtons.style.display;
+            actionButtons.style.display = 'none';
+
+            // すべての詳細ポップアップを閉じる
+            const allDetails = document.querySelectorAll('.skill-details');
+            allDetails.forEach(d => d.classList.remove('show'));
+
+            // HTML全体を取得
+            const htmlContent = document.documentElement.outerHTML;
+
+            // 元の状態に戻す
+            detailPages.style.display = originalDisplay;
+            detailPages.classList.remove('print-mode');
+            document.body.classList.remove('print-all-mode');
+            actionButtons.style.display = originalButtonDisplay;
+
+            // Blobを作成してダウンロード
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '売上を上げる８つの要因.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

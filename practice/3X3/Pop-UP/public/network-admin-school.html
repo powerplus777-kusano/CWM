@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学校のネットワーク管理者に求められる役割とスキル - 3X3マトリクス</title>
+    <meta name="description" content="学校のネットワーク管理者に求められる役割とスキルについての3X3マトリクス。セキュリティ、バックアップ、ユーザ管理など包括的な管理業務を解説">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #FF00FF;
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .intro-section {
+            margin-bottom: 20px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 11px;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .key-points {
+            margin-top: 20px;
+            padding: 12px;
+            background: #fff3cd;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .key-points p {
+            font-size: 11px;
+            line-height: 1.6;
+            font-weight: 600;
+            color: #856404;
+            margin-bottom: 4px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .action-buttons button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .matrix-table {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .matrix-cell {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 8px;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .matrix-cell:not(.center-cell):hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .matrix-cell.center-cell {
+            background: linear-gradient(135deg, #FFFFCC 0%, #ffff99 100%);
+            color: #333;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: default;
+            border: 2px solid #f0f0f0;
+        }
+
+        .matrix-cell h3 {
+            font-size: 11px;
+            margin-bottom: 6px;
+            color: #333;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .matrix-cell p {
+            font-size: 9px;
+            color: #666;
+            line-height: 1.3;
+        }
+
+        .matrix-cell.bg-green { background: linear-gradient(135deg, #ccffcc 0%, #99ff99 100%); }
+        .matrix-cell.bg-blue { background: linear-gradient(135deg, #9eaafc 0%, #7b8ff9 100%); }
+        .matrix-cell.bg-pink { background: linear-gradient(135deg, #FFCCFF 0%, #ff99ff 100%); }
+        .matrix-cell.bg-orange { background: linear-gradient(135deg, #FFCC99 0%, #ffb366 100%); }
+
+        .skill-details {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .skill-details.show {
+            display: block;
+        }
+
+        .details-content {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ff4757;
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #ff6b81;
+            transform: rotate(90deg);
+        }
+
+        .details-content h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 24px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .details-content h3 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .details-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .details-content li {
+            margin-bottom: 8px;
+            line-height: 1.8;
+        }
+
+        .note-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        /* 詳細ページ用スタイル */
+        #detailPages {
+            display: none;
+        }
+
+        .detail-page {
+            page-break-after: always;
+            padding: 40px;
+            background: white;
+        }
+
+        .detail-page:last-child {
+            page-break-after: auto;
+        }
+
+        .detail-page h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 24px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .detail-page h3 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .detail-page ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .detail-page li {
+            margin-bottom: 8px;
+            line-height: 1.8;
+        }
+
+        .detail-page .note-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        /* 印刷用スタイル */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            .action-buttons {
+                display: none;
+            }
+
+            .skill-details {
+                display: none !important;
+            }
+
+            /* マトリクス表のみ印刷モード */
+            .matrix-only-mode #detailPages {
+                display: none !important;
+            }
+
+            /* 一括印刷モード */
+            .print-all-mode #detailPages {
+                display: block !important;
+            }
+
+            .print-all-mode .detail-page {
+                page-break-before: always;
+                display: block !important;
+            }
+
+            .print-all-mode #hero {
+                page-break-after: always;
+            }
+        }
+
+        /* 一括ダウンロード用：ブラウザ表示でのページ区切り（印刷時は適用しない） */
+        @media screen {
+            .print-all-mode .matrix-table {
+                margin-bottom: 100vh;
+            }
+
+            .print-all-mode .detail-page {
+                min-height: 100vh;
+                padding-top: 50px;
+                display: block !important;
+            }
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .matrix-table {
+                gap: 8px;
+            }
+
+            .matrix-cell {
+                min-height: 80px;
+                padding: 8px;
+            }
+
+            .matrix-cell h3 {
+                font-size: 10px;
+            }
+
+            .matrix-cell p {
+                font-size: 8px;
+            }
+
+            .details-content {
+                margin: 20px;
+                padding: 30px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .action-buttons button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="hero">
+        <h1>学校のネットワーク管理者に求められる役割とスキル</h1>
+
+        <!-- 導入セクション -->
+        <div class="intro-section">
+            <p>３Ｘ３マトリックス手法を使ってネットワーク管理者に求められる役割を洗い出し整理分類してみました。企業のネットワーク管理者でさえそれなりのスキルと経験が必要なのに、学校の先生達にここまでの運用管理を強いるのは現実問題いかがなものか？国や自治体はきちっと予算を付けて学校のネットワーク管理を専門会社にアウトソーシングすべきです。</p>
+        </div>
+
+        <!-- アクションボタン -->
+        <div class="action-buttons">
+            <button onclick="printMatrixOnly()">📄 マトリクス表を印刷</button>
+            <button onclick="printAll()">📑 一括印刷</button>
+            <button onclick="downloadHTML()">💾 一括HTMLダウンロード</button>
+        </div>
+
+        <!-- 3X3マトリクステーブル -->
+        <div class="matrix-table">
+            <!-- 1行目 -->
+            <div class="matrix-cell bg-green" onclick="showDetails('equipment')">
+                <h3>ネットワークやクライアント・サーバ等、導入機器に関する維持運用管理</h3>
+            </div>
+            <div class="matrix-cell bg-green" onclick="showDetails('software')">
+                <h3>導入アプリケーション・ソフトウェアに関する維持運用管理</h3>
+            </div>
+            <div class="matrix-cell bg-pink" onclick="showDetails('user')">
+                <h3>ユーザ管理</h3>
+            </div>
+
+            <!-- 2行目 -->
+            <div class="matrix-cell bg-blue" onclick="showDetails('recovery')">
+                <h3>障害・復旧管理</h3>
+            </div>
+            <div class="matrix-cell center-cell">
+                セキュリティ管理
+            </div>
+            <div class="matrix-cell bg-pink" onclick="showDetails('privacy')">
+                <h3>作成されたコンテンツ・データ等個人情報管理</h3>
+            </div>
+
+            <!-- 3行目 -->
+            <div class="matrix-cell bg-green" onclick="showDetails('communication')">
+                <h3>連絡体制の整備運用管理体制の確立</h3>
+            </div>
+            <div class="matrix-cell bg-orange" onclick="showDetails('education')">
+                <h3>利用者教育</h3>
+            </div>
+            <div class="matrix-cell bg-blue" onclick="showDetails('backup')">
+                <h3>バックアップ・リカバリー管理</h3>
+            </div>
+        </div>
+
+        <!-- 重要ポイント -->
+        <div class="key-points">
+            <p>★個人データを持ち出さず。</p>
+            <p>★ウィルスを持ち込まず。</p>
+            <p>★整理・整頓・保管場所を明確に。</p>
+            <p>★自分のパソコン・データは自分で責任を持って管理する。</p>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：導入機器に関する維持運用管理 -->
+    <div id="equipment" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('equipment')">&times;</button>
+            <h2>ネットワークやクライアント・サーバ等、導入機器に関する維持運用管理</h2>
+
+            <h3>ネットワーク機器・構成図</h3>
+            <ul>
+                <li>スイッチ／HUB／ルータ／ケーブル</li>
+                <li>クライアントPC／サーバ</li>
+                <li>アクセスポイント</li>
+                <li>電源／情報コンセント</li>
+                <li>プロジェクタ／デジカメ等機材</li>
+            </ul>
+
+            <h3>ＩＰアドレスの管理</h3>
+            <ul>
+                <li>IPアドレス／サブネット</li>
+                <li>ドメイン</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>ネットワークを構成する全ての機器について、構成図を作成し、IPアドレスやドメインの割り当てを適切に管理する必要があります。機器の故障時には迅速な切り分けと対応が求められます。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：ソフトウェアに関する維持運用管理 -->
+    <div id="software" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('software')">&times;</button>
+            <h2>導入アプリケーション・ソフトウェアに関する維持運用管理</h2>
+
+            <h3>OS・アプリケーション・ツール等の管理項目</h3>
+            <ul>
+                <li>バージョン管理</li>
+                <li>ライセンス管理</li>
+                <li>シリアルNoの管理</li>
+                <li>導入時期</li>
+                <li>マスターCDの保管管理</li>
+                <li>マニュアルの保管管理</li>
+                <li>保証書の管理</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>導入しているソフトウェアの全てについて、ライセンス違反がないよう適切に管理する必要があります。バージョンアップ時には互換性も考慮した計画的な対応が求められます。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：ユーザ管理 -->
+    <div id="user" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('user')">&times;</button>
+            <h2>ユーザ管理</h2>
+
+            <h3>ログイン設定</h3>
+            <ul>
+                <li>ＩＤ／パスワードの発行・管理</li>
+            </ul>
+
+            <h3>アクセス権限の設定</h3>
+            <ul>
+                <li>利用者権限の設定</li>
+                <li>ワークグループ／ドメイン</li>
+            </ul>
+
+            <h3>その他の管理項目</h3>
+            <ul>
+                <li>ＩＰアドレスの管理</li>
+                <li>アクセスログの管理</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>生徒や教職員のアカウント管理は、セキュリティの基本です。適切な権限設定とログ管理により、不正アクセスの防止と追跡が可能になります。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：障害・復旧管理 -->
+    <div id="recovery" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('recovery')">&times;</button>
+            <h2>障害・復旧管理</h2>
+
+            <h3>障害切り分け</h3>
+            <ul>
+                <li>ネットワーク？（スイッチ／HUB／ルータ／ケーブル）</li>
+                <li>クライアントPC？</li>
+                <li>サーバ？</li>
+                <li>ソフトウェア？</li>
+                <li>電源／情報コンセント？</li>
+                <li>使い方の問題？</li>
+            </ul>
+
+            <h3>復旧対応</h3>
+            <ul>
+                <li>ウィルス対策／除去／復旧</li>
+                <li>データのリカバリー／復旧</li>
+                <li>トラブル報告書・履歴管理</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>障害発生時には、原因の迅速な切り分けと対応が求められます。トラブル履歴を記録することで、同様の問題の再発防止にもつながります。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：個人情報管理 -->
+    <div id="privacy" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('privacy')">&times;</button>
+            <h2>作成されたコンテンツ・データ等個人情報管理</h2>
+
+            <h3>管理すべき情報資産の棚卸</h3>
+            <ul>
+                <li>成績／進路指導／学習履歴などに関する情報</li>
+                <li>名簿／メール等</li>
+                <li>保健指導／健康診断などに関する情報</li>
+            </ul>
+
+            <h3>情報管理の実施項目</h3>
+            <ul>
+                <li>情報資産の整理・分類</li>
+                <li>データ管理規定（ファイル名／フォルダ構造）</li>
+                <li>文書管理規定
+                    <ul>
+                        <li>保存媒体（ＣＤ／紙／ＦＤ／など）</li>
+                        <li>保管場所／保存期間／廃棄日程</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>学校には生徒の個人情報が多数存在します。個人情報保護法に基づき、適切な管理規定を定め、情報漏洩を防ぐ体制作りが必要です。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：連絡体制の整備 -->
+    <div id="communication" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('communication')">&times;</button>
+            <h2>連絡体制の整備運用管理体制の確立</h2>
+
+            <h3>保守トラブル時の連絡先</h3>
+            <ul>
+                <li>管理者</li>
+                <li>校長／先生</li>
+                <li>ＰＴＡ／教育機関</li>
+                <li>生徒</li>
+            </ul>
+
+            <h3>外部連携</h3>
+            <ul>
+                <li>保守運用委託会社</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>トラブル発生時に誰に連絡すべきか明確にしておくことで、迅速な対応が可能になります。外部の保守委託会社との連携体制も整備しておきましょう。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：利用者教育 -->
+    <div id="education" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('education')">&times;</button>
+            <h2>利用者教育</h2>
+
+            <h3>教育すべき項目</h3>
+            <ul>
+                <li>ネチケット／情報倫理</li>
+                <li>使い方</li>
+                <li>個人情報保護</li>
+                <li>著作権の保護</li>
+                <li>違反規定／罰則</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>技術的な対策だけでなく、利用者への教育が重要です。特に生徒に対しては、情報倫理やネットマナーを含めた総合的な情報教育が必要です。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 詳細ポップアップ：バックアップ・リカバリー管理 -->
+    <div id="backup" class="skill-details">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails('backup')">&times;</button>
+            <h2>バックアップ・リカバリー管理</h2>
+
+            <h3>バックアップ管理</h3>
+            <ul>
+                <li>毎日／定期的／スケジュール化</li>
+                <li>全て／差分</li>
+                <li>バックアップ装置／媒体</li>
+            </ul>
+
+            <h3>リカバリー方法</h3>
+            <ul>
+                <li>リカバリーソフトの採用</li>
+            </ul>
+
+            <h3>ディスク管理</h3>
+            <ul>
+                <li>ディスク容量／圧縮</li>
+                <li>ディスクの２重化</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>データ損失に備え、定期的なバックアップは必須です。バックアップからの復旧手順も確立し、定期的にテストしておくことが重要です。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 一括印刷用の詳細ページ（非表示） -->
+    <div id="detailPages">
+        <!-- 詳細ページ1：導入機器に関する維持運用管理 -->
+        <div class="detail-page">
+            <h2>ネットワークやクライアント・サーバ等、導入機器に関する維持運用管理</h2>
+
+            <h3>ネットワーク機器・構成図</h3>
+            <ul>
+                <li>スイッチ／HUB／ルータ／ケーブル</li>
+                <li>クライアントPC／サーバ</li>
+                <li>アクセスポイント</li>
+                <li>電源／情報コンセント</li>
+                <li>プロジェクタ／デジカメ等機材</li>
+            </ul>
+
+            <h3>ＩＰアドレスの管理</h3>
+            <ul>
+                <li>IPアドレス／サブネット</li>
+                <li>ドメイン</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>ネットワークを構成する全ての機器について、構成図を作成し、IPアドレスやドメインの割り当てを適切に管理する必要があります。機器の故障時には迅速な切り分けと対応が求められます。</p>
+            </div>
+        </div>
+
+        <!-- 詳細ページ2：ソフトウェアに関する維持運用管理 -->
+        <div class="detail-page">
+            <h2>導入アプリケーション・ソフトウェアに関する維持運用管理</h2>
+
+            <h3>OS・アプリケーション・ツール等の管理項目</h3>
+            <ul>
+                <li>バージョン管理</li>
+                <li>ライセンス管理</li>
+                <li>シリアルNoの管理</li>
+                <li>導入時期</li>
+                <li>マスターCDの保管管理</li>
+                <li>マニュアルの保管管理</li>
+                <li>保証書の管理</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>導入しているソフトウェアの全てについて、ライセンス違反がないよう適切に管理する必要があります。バージョンアップ時には互換性も考慮した計画的な対応が求められます。</p>
+            </div>
+        </div>
+
+        <!-- 詳細ページ3：ユーザ管理 -->
+        <div class="detail-page">
+            <h2>ユーザ管理</h2>
+
+            <h3>ログイン設定</h3>
+            <ul>
+                <li>ＩＤ／パスワードの発行・管理</li>
+            </ul>
+
+            <h3>アクセス権限の設定</h3>
+            <ul>
+                <li>利用者権限の設定</li>
+                <li>ワークグループ／ドメイン</li>
+            </ul>
+
+            <h3>その他の管理項目</h3>
+            <ul>
+                <li>ＩＰアドレスの管理</li>
+                <li>アクセスログの管理</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>生徒や教職員のアカウント管理は、セキュリティの基本です。適切な権限設定とログ管理により、不正アクセスの防止と追跡が可能になります。</p>
+            </div>
+        </div>
+
+        <!-- 詳細ページ4：障害・復旧管理 -->
+        <div class="detail-page">
+            <h2>障害・復旧管理</h2>
+
+            <h3>障害切り分け</h3>
+            <ul>
+                <li>ネットワーク？（スイッチ／HUB／ルータ／ケーブル）</li>
+                <li>クライアントPC？</li>
+                <li>サーバ？</li>
+                <li>ソフトウェア？</li>
+                <li>電源／情報コンセント？</li>
+                <li>使い方の問題？</li>
+            </ul>
+
+            <h3>復旧対応</h3>
+            <ul>
+                <li>ウィルス対策／除去／復旧</li>
+                <li>データのリカバリー／復旧</li>
+                <li>トラブル報告書・履歴管理</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>障害発生時には、原因の迅速な切り分けと対応が求められます。トラブル履歴を記録することで、同様の問題の再発防止にもつながります。</p>
+            </div>
+        </div>
+
+        <!-- 詳細ページ5：個人情報管理 -->
+        <div class="detail-page">
+            <h2>作成されたコンテンツ・データ等個人情報管理</h2>
+
+            <h3>管理すべき情報資産の棚卸</h3>
+            <ul>
+                <li>成績／進路指導／学習履歴などに関する情報</li>
+                <li>名簿／メール等</li>
+                <li>保健指導／健康診断などに関する情報</li>
+            </ul>
+
+            <h3>情報管理の実施項目</h3>
+            <ul>
+                <li>情報資産の整理・分類</li>
+                <li>データ管理規定（ファイル名／フォルダ構造）</li>
+                <li>文書管理規定
+                    <ul>
+                        <li>保存媒体（ＣＤ／紙／ＦＤ／など）</li>
+                        <li>保管場所／保存期間／廃棄日程</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>学校には生徒の個人情報が多数存在します。個人情報保護法に基づき、適切な管理規定を定め、情報漏洩を防ぐ体制作りが必要です。</p>
+            </div>
+        </div>
+
+        <!-- 詳細ページ6：連絡体制の整備 -->
+        <div class="detail-page">
+            <h2>連絡体制の整備運用管理体制の確立</h2>
+
+            <h3>保守トラブル時の連絡先</h3>
+            <ul>
+                <li>管理者</li>
+                <li>校長／先生</li>
+                <li>ＰＴＡ／教育機関</li>
+                <li>生徒</li>
+            </ul>
+
+            <h3>外部連携</h3>
+            <ul>
+                <li>保守運用委託会社</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>トラブル発生時に誰に連絡すべきか明確にしておくことで、迅速な対応が可能になります。外部の保守委託会社との連携体制も整備しておきましょう。</p>
+            </div>
+        </div>
+
+        <!-- 詳細ページ7：利用者教育 -->
+        <div class="detail-page">
+            <h2>利用者教育</h2>
+
+            <h3>教育すべき項目</h3>
+            <ul>
+                <li>ネチケット／情報倫理</li>
+                <li>使い方</li>
+                <li>個人情報保護</li>
+                <li>著作権の保護</li>
+                <li>違反規定／罰則</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>技術的な対策だけでなく、利用者への教育が重要です。特に生徒に対しては、情報倫理やネットマナーを含めた総合的な情報教育が必要です。</p>
+            </div>
+        </div>
+
+        <!-- 詳細ページ8：バックアップ・リカバリー管理 -->
+        <div class="detail-page">
+            <h2>バックアップ・リカバリー管理</h2>
+
+            <h3>バックアップ管理</h3>
+            <ul>
+                <li>毎日／定期的／スケジュール化</li>
+                <li>全て／差分</li>
+                <li>バックアップ装置／媒体</li>
+            </ul>
+
+            <h3>リカバリー方法</h3>
+            <ul>
+                <li>リカバリーソフトの採用</li>
+            </ul>
+
+            <h3>ディスク管理</h3>
+            <ul>
+                <li>ディスク容量／圧縮</li>
+                <li>ディスクの２重化</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>ポイント：</strong>データ損失に備え、定期的なバックアップは必須です。バックアップからの復旧手順も確立し、定期的にテストしておくことが重要です。</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 詳細表示
+        function showDetails(id) {
+            document.getElementById(id).classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 詳細を閉じる
+        function closeDetails(id) {
+            document.getElementById(id).classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ESCキーで閉じる
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const openDetails = document.querySelector('.skill-details.show');
+                if (openDetails) {
+                    openDetails.classList.remove('show');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+
+        // マトリクス表のみ印刷
+        function printMatrixOnly() {
+            document.body.classList.add('matrix-only-mode');
+            document.body.classList.remove('print-all-mode');
+            window.print();
+            document.body.classList.remove('matrix-only-mode');
+        }
+
+        // 一括印刷
+        function printAll() {
+            document.body.classList.add('print-all-mode');
+            document.body.classList.remove('matrix-only-mode');
+            document.getElementById('detailPages').style.display = 'block';
+            window.print();
+            document.getElementById('detailPages').style.display = 'none';
+            document.body.classList.remove('print-all-mode');
+        }
+
+        // 一括HTMLダウンロード
+        function downloadHTML() {
+            // 詳細ページを一時的に表示
+            const detailPages = document.getElementById('detailPages');
+            const originalDisplay = detailPages.style.display;
+            detailPages.style.display = 'block';
+
+            // print-modeクラスを追加
+            detailPages.classList.add('print-mode');
+            document.body.classList.add('print-all-mode');
+
+            // アクションボタンを一時的に非表示
+            const actionButtons = document.querySelector('.action-buttons');
+            const originalButtonDisplay = actionButtons.style.display;
+            actionButtons.style.display = 'none';
+
+            // すべての詳細ポップアップを閉じる
+            const allDetails = document.querySelectorAll('.skill-details');
+            allDetails.forEach(d => d.classList.remove('show'));
+
+            // HTML全体を取得
+            const htmlContent = document.documentElement.outerHTML;
+
+            // 元の状態に戻す
+            detailPages.style.display = originalDisplay;
+            detailPages.classList.remove('print-mode');
+            document.body.classList.remove('print-all-mode');
+            actionButtons.style.display = originalButtonDisplay;
+
+            // Blobを作成してダウンロード
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '学校のネットワーク管理者に求められる役割とスキル.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

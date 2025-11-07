@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT（情報）教育の観点 - 3X3マトリクス</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff00ff;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .matrix-table td {
+            border: 3px solid #2c3e50;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+            width: 33.33%;
+            min-height: 120px;
+        }
+
+        .matrix-table .center-cell {
+            background: linear-gradient(135deg, #ff00ff 0%, #ff66ff 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .matrix-table .skill-cell {
+            background-color: #fff5ff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .matrix-table .skill-cell:hover {
+            background-color: #ffe6ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .cell-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .cell-content {
+            color: #34495e;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .cell-content li {
+            margin: 5px 0;
+        }
+
+        .skill-details {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 12px;
+            line-height: 1.7;
+            border-left: 4px solid #ff00ff;
+        }
+
+        .skill-details.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-btn {
+            color: #e74c3c;
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #c0392b;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #ff00ff 0%, #ff66ff 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4);
+        }
+
+        .detail-pages {
+            display: none;
+        }
+
+        .detail-page {
+            page-break-after: always;
+            padding: 20px;
+        }
+
+        .detail-page:last-child {
+            page-break-after: auto;
+        }
+
+        .detail-page h2 {
+            color: #ff00ff;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff00ff;
+        }
+
+        .detail-page h3 {
+            color: #2c3e50;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .detail-page ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        .detail-page li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        /* ダウンロードしたHTML用のスタイル（ブラウザ表示時のみの改ページ表現） */
+        @media screen {
+            .print-all-mode .matrix-table {
+                margin-bottom: 100vh;
+            }
+
+            .print-all-mode .detail-page {
+                min-height: 100vh;
+                padding-top: 50px;
+            }
+
+            .print-all-mode .detail-page:last-child {
+                min-height: auto;
+            }
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 10mm;
+                max-width: 100%;
+            }
+
+            .skill-cell {
+                cursor: default;
+            }
+
+            .action-buttons {
+                display: none !important;
+            }
+
+            .skill-details {
+                display: none !important;
+            }
+
+            .detail-pages.print-mode {
+                display: block !important;
+            }
+
+            .detail-page {
+                page-break-after: always;
+            }
+
+            .detail-page:last-child {
+                page-break-after: auto;
+            }
+
+            .matrix-only-mode .detail-pages {
+                display: none !important;
+            }
+
+            .print-all-mode .matrix-table {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>IT（情報）教育の観点</h1>
+
+        <table class="matrix-table">
+            <tr>
+                <!-- 左上：自己実現 -->
+                <td class="skill-cell" onclick="toggleSkill(1)">
+                    <div class="cell-title">自己実現</div>
+                    <div class="cell-content">
+                        ●生きる喜び<br>
+                        ●生きてる証<br>
+                        ●人の役に立ちたい<br>
+                        ●幸せになりたい<br>
+                        ●社会に役立ちたい
+                    </div>
+                    <div class="skill-details" id="skill1">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(1)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>生きる喜び：自分の存在意義を感じる</li>
+                            <li>生きてる証：自分の活動が社会に貢献している実感</li>
+                            <li>人の役に立ちたい：他者への貢献意欲</li>
+                            <li>幸せになりたい：自己実現を通じた幸福の追求</li>
+                            <li>社会に役立ちたい：社会貢献への強い意志</li>
+                            <li>IT教育を通じて、自己実現の手段を獲得する</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 中央上：社会に参画するために必要な能力 -->
+                <td class="skill-cell" onclick="toggleSkill(2)">
+                    <div class="cell-title">社会に参画するために必要な能力</div>
+                    <div class="cell-content">
+                        ●コミュニケーション能力<br>
+                        ●問題発見能力<br>
+                        ●情報活用能力<br>
+                        ●実行力<br>
+                        ●評価能力<br>
+                        ●自己表現能力<br>
+                        ●指導力<br>
+                        ●協調力<br>
+                        ●自己投資能力<br>
+                        ●防衛能力
+                    </div>
+                    <div class="skill-details" id="skill2">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(2)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>コミュニケーション能力：他者と円滑に意思疎通する力</li>
+                            <li>問題発見能力：課題を見つけ出す洞察力</li>
+                            <li>情報活用能力：情報を収集・分析・活用する力</li>
+                            <li>実行力：計画を実際に行動に移す力</li>
+                            <li>評価能力：結果を客観的に評価する力</li>
+                            <li>自己表現能力：自分の考えを効果的に伝える力</li>
+                            <li>指導力：他者を導き、育成する力</li>
+                            <li>協調力：他者と協力して目標を達成する力</li>
+                            <li>自己投資能力：自己成長のために時間とリソースを投資する力</li>
+                            <li>防衛能力：リスクから自分や他者を守る力</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 右上：人間教育 -->
+                <td class="skill-cell" onclick="toggleSkill(3)">
+                    <div class="cell-title">人間教育</div>
+                    <div class="cell-content">
+                        ●自分と異なる生き方や考え方をする他者の存在を認めそれらを尊重する能力や態度を育てる（人間理解）<br>
+                        <br>
+                        ●自分の意見や考えを情報発信し他者と会話し、互いの考えをふれあわすことにより自己表現の喜びやつながりの大切さを学ぶ<br>
+                        <br>
+                        ●自ら発信できるということは自らの足元をしっかり見つめることに他ならない
+                    </div>
+                    <div class="skill-details" id="skill3">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(3)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>人間理解：多様性を認め、尊重する態度の育成</li>
+                            <li>自己表現の喜び：情報発信を通じたコミュニケーションの楽しさ</li>
+                            <li>つながりの大切さ：他者との関係性の価値を学ぶ</li>
+                            <li>自己を見つめる：発信することで自分自身を深く理解する</li>
+                            <li>IT教育は人間教育の一環であることの理解</li>
+                            <li>技術を通じた人間性の育成</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <!-- 左中：著作権の保護 -->
+                <td class="skill-cell" onclick="toggleSkill(4)">
+                    <div class="cell-title">著作権の保護</div>
+                    <div class="cell-content">
+                        ●利用した資料の出展者やＨＰのアドレスを明らかにすることで著作権・肖像権利用について意識させる
+                    </div>
+                    <div class="skill-details" id="skill4">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(4)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>出典の明示：利用した資料の出所を明確にする</li>
+                            <li>著作権への意識：他者の創作物を尊重する態度</li>
+                            <li>肖像権への配慮：人物の権利を守る意識</li>
+                            <li>URLの記載：ウェブ資料の出典を正確に示す</li>
+                            <li>引用ルールの理解：適切な引用方法を学ぶ</li>
+                            <li>知的財産権の尊重：創作者の権利を守る姿勢</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 中央：タイトル -->
+                <td class="center-cell" rowspan="2">
+                    📚<br><br>
+                    <div style="font-size: 24px;">IT（情報）教育</div>
+                    <div style="font-size: 16px; margin-top: 10px;">の</div>
+                    <div style="font-size: 16px; margin-top: 10px;">観点</div>
+                </td>
+                <!-- 右中：インターネットの魅力・欠点 -->
+                <td class="skill-cell" onclick="toggleSkill(5)">
+                    <div class="cell-title">インターネットの魅力・欠点</div>
+                    <div class="cell-content">
+                        <b>＜魅力＞</b><br>
+                        ●時間・空間を飛び越え世界中を同じ教室にしてしまう道具<br>
+                        ●交流の道具<br>
+                        ●他者の学びにふれる<br>
+                        ●体験の共有化<br>
+                        ●同じ思いの仲間の輪を広げる心のかけ橋<br>
+                        ●みんなの世界の窓<br>
+                        <b>＜欠点＞</b><br>
+                        ●一歩間違えるとコワイもの<br>
+                        ●必要としている情報になかなかたどりつけない
+                    </div>
+                    <div class="skill-details" id="skill5">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(5)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>時空を超えた学び：地理的制約を超えたコミュニケーション</li>
+                            <li>交流ツール：世界中の人々とつながる手段</li>
+                            <li>学びの共有：他者の経験から学ぶ機会</li>
+                            <li>体験の共有化：同じ体験を多くの人と分かち合える</li>
+                            <li>コミュニティ形成：同じ目標を持つ仲間とつながる</li>
+                            <li>世界への窓：グローバルな視点を獲得する</li>
+                            <li>リスク認識：インターネットの危険性を理解する</li>
+                            <li>情報検索力：必要な情報を効率的に見つける技術</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <!-- 左下：問題解決／情報活用能力 -->
+                <td class="skill-cell" onclick="toggleSkill(6)">
+                    <div class="cell-title">問題解決／情報活用能力</div>
+                    <div class="cell-content">
+                        <b>■問題解決能力とは</b><br>
+                        ●問題発見能力<br>
+                        ●課題設定能力<br>
+                        ●情報発信能力<br>
+                        <b>■情報活用能力</b><br>
+                        ●情報収集能力<br>
+                        ●情報分析能力<br>
+                        ●分類・整理能力
+                    </div>
+                    <div class="skill-details" id="skill6">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(6)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>問題発見能力：現状の課題を見つけ出す力</li>
+                            <li>課題設定能力：解決すべき課題を明確にする力</li>
+                            <li>情報発信能力：自分の考えを効果的に伝える力</li>
+                            <li>情報収集能力：必要な情報を集める力</li>
+                            <li>情報分析能力：情報を評価し、意味を読み取る力</li>
+                            <li>分類・整理能力：情報を体系的に整理する力</li>
+                            <li>これらの能力はIT教育を通じて育成される</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 右下：情報の見方とらえ方 -->
+                <td class="skill-cell" onclick="toggleSkill(7)">
+                    <div class="cell-title">情報の見方とらえ方</div>
+                    <div class="cell-content">
+                        ●自分の持っている情報がどう見られているか、他人の情報をどう見るか情報の見方や考え方について学ぶ<br>
+                        <br>
+                        ●自らの実践を整理<br>
+                        <br>
+                        ●情報は公開され活用されてこそ生きるものである
+                    </div>
+                    <div class="skill-details" id="skill7">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(7)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>情報の多角的理解：情報を様々な視点から捉える</li>
+                            <li>受け手の視点：自分の情報が他者にどう見られるか考える</li>
+                            <li>批判的思考：情報を鵜呑みにせず、吟味する態度</li>
+                            <li>実践の整理：経験を振り返り、整理する習慣</li>
+                            <li>情報の共有：情報は活用されることで価値を持つ</li>
+                            <li>オープンな姿勢：情報を公開し、共有する意義</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <!-- 下段3列結合：情報発信する時の意識 -->
+                <td class="skill-cell" colspan="3" onclick="toggleSkill(8)">
+                    <div class="cell-title">情報発信する時の意識</div>
+                    <div class="cell-content">
+                        ●自分の考えをまとめる ●相手に分かり易くまとめる ●相手に分かり易く伝える ●発信する情報に責任を持つ ●テーマを絞る ●事実と意見を区別する ●引用は著作権に注意して ●相手の声に耳を傾ける ●自己表現能力を高める
+                    </div>
+                    <div class="skill-details" id="skill8">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(8)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>考えの整理：発信する前に自分の考えを明確にする</li>
+                            <li>わかりやすさ：受け手を意識した表現</li>
+                            <li>情報の責任：発信した情報に責任を持つ</li>
+                            <li>テーマの明確化：焦点を絞った情報発信</li>
+                            <li>事実と意見の区別：客観的事実と主観的意見を分ける</li>
+                            <li>著作権への配慮：引用時のルールを守る</li>
+                            <li>双方向性：相手の反応に耳を傾ける</li>
+                            <li>自己表現力：表現力を磨き続ける</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="action-buttons">
+            <button class="action-btn" onclick="printMatrixOnly()">
+                🖨️ マトリクス印刷
+            </button>
+            <button class="action-btn" onclick="printAll()">
+                📄 一括印刷
+            </button>
+            <button class="action-btn" onclick="downloadHTML()">
+                ⬇️ 一括HTMLダウンロード
+            </button>
+        </div>
+    </div>
+
+    <!-- 詳細ページ（一括印刷用） -->
+    <div class="detail-pages" id="detailPages">
+        <div class="detail-page">
+            <h2>1. 自己実現</h2>
+            <p>IT教育の根底にあるのは、人間としての自己実現です。技術を学ぶことは手段であり、その先にある人間としての成長が目的です。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>生きる喜び：自分の存在意義を感じる</li>
+                <li>生きてる証：自分の活動が社会に貢献している実感</li>
+                <li>人の役に立ちたい：他者への貢献意欲</li>
+                <li>幸せになりたい：自己実現を通じた幸福の追求</li>
+                <li>社会に役立ちたい：社会貢献への強い意志</li>
+                <li>IT教育を通じて、自己実現の手段を獲得する</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>2. 社会に参画するために必要な能力</h2>
+            <p>IT教育を通じて、現代社会で必要とされる様々な能力を育成します。これらの能力は相互に関連し、総合的な力となります。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>コミュニケーション能力：他者と円滑に意思疎通する力</li>
+                <li>問題発見能力：課題を見つけ出す洞察力</li>
+                <li>情報活用能力：情報を収集・分析・活用する力</li>
+                <li>実行力：計画を実際に行動に移す力</li>
+                <li>評価能力：結果を客観的に評価する力</li>
+                <li>自己表現能力：自分の考えを効果的に伝える力</li>
+                <li>指導力：他者を導き、育成する力</li>
+                <li>協調力：他者と協力して目標を達成する力</li>
+                <li>自己投資能力：自己成長のために時間とリソースを投資する力</li>
+                <li>防衛能力：リスクから自分や他者を守る力</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>3. 人間教育</h2>
+            <p>IT教育は技術教育であると同時に、人間教育でもあります。他者を尊重し、自己を見つめる力を育てます。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>人間理解：多様性を認め、尊重する態度の育成</li>
+                <li>自己表現の喜び：情報発信を通じたコミュニケーションの楽しさ</li>
+                <li>つながりの大切さ：他者との関係性の価値を学ぶ</li>
+                <li>自己を見つめる：発信することで自分自身を深く理解する</li>
+                <li>IT教育は人間教育の一環であることの理解</li>
+                <li>技術を通じた人間性の育成</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>4. 著作権の保護</h2>
+            <p>情報社会では、他者の権利を尊重することが重要です。著作権への意識を高め、正しい利用方法を学びます。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>出典の明示：利用した資料の出所を明確にする</li>
+                <li>著作権への意識：他者の創作物を尊重する態度</li>
+                <li>肖像権への配慮：人物の権利を守る意識</li>
+                <li>URLの記載：ウェブ資料の出典を正確に示す</li>
+                <li>引用ルールの理解：適切な引用方法を学ぶ</li>
+                <li>知的財産権の尊重：創作者の権利を守る姿勢</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>5. インターネットの魅力・欠点</h2>
+            <p>インターネットは強力なツールですが、その特性を理解し、適切に利用することが重要です。</p>
+            <h3>魅力</h3>
+            <ul>
+                <li>時空を超えた学び：地理的制約を超えたコミュニケーション</li>
+                <li>交流ツール：世界中の人々とつながる手段</li>
+                <li>学びの共有：他者の経験から学ぶ機会</li>
+                <li>体験の共有化：同じ体験を多くの人と分かち合える</li>
+                <li>コミュニティ形成：同じ目標を持つ仲間とつながる</li>
+                <li>世界への窓：グローバルな視点を獲得する</li>
+            </ul>
+            <h3>欠点</h3>
+            <ul>
+                <li>リスク認識：インターネットの危険性を理解する</li>
+                <li>情報検索力：必要な情報を効率的に見つける技術が必要</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>6. 問題解決／情報活用能力</h2>
+            <p>IT教育を通じて育成される基本的な能力です。これらは現代社会を生きる上で不可欠な力となります。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>問題発見能力：現状の課題を見つけ出す力</li>
+                <li>課題設定能力：解決すべき課題を明確にする力</li>
+                <li>情報発信能力：自分の考えを効果的に伝える力</li>
+                <li>情報収集能力：必要な情報を集める力</li>
+                <li>情報分析能力：情報を評価し、意味を読み取る力</li>
+                <li>分類・整理能力：情報を体系的に整理する力</li>
+                <li>これらの能力はIT教育を通じて育成される</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>7. 情報の見方とらえ方</h2>
+            <p>情報を多角的に捉え、批判的に思考する力を育てます。情報は共有されることで価値を持ちます。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>情報の多角的理解：情報を様々な視点から捉える</li>
+                <li>受け手の視点：自分の情報が他者にどう見られるか考える</li>
+                <li>批判的思考：情報を鵜呑みにせず、吟味する態度</li>
+                <li>実践の整理：経験を振り返り、整理する習慣</li>
+                <li>情報の共有：情報は活用されることで価値を持つ</li>
+                <li>オープンな姿勢：情報を公開し、共有する意義</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>8. 情報発信する時の意識</h2>
+            <p>情報発信には責任が伴います。相手を意識し、適切な方法で情報を発信する力を育てます。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>考えの整理：発信する前に自分の考えを明確にする</li>
+                <li>わかりやすさ：受け手を意識した表現</li>
+                <li>情報の責任：発信した情報に責任を持つ</li>
+                <li>テーマの明確化：焦点を絞った情報発信</li>
+                <li>事実と意見の区別：客観的事実と主観的意見を分ける</li>
+                <li>著作権への配慮：引用時のルールを守る</li>
+                <li>双方向性：相手の反応に耳を傾ける</li>
+                <li>自己表現力：表現力を磨き続ける</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleSkill(num) {
+            const detail = document.getElementById('skill' + num);
+            const allDetails = document.querySelectorAll('.skill-details');
+            allDetails.forEach(d => {
+                if (d !== detail) {
+                    d.classList.remove('show');
+                }
+            });
+            detail.classList.toggle('show');
+        }
+
+        function printMatrixOnly() {
+            document.body.classList.add('matrix-only-mode');
+            window.print();
+            document.body.classList.remove('matrix-only-mode');
+        }
+
+        function printAll() {
+            const detailPages = document.getElementById('detailPages');
+            detailPages.classList.add('print-mode');
+            document.body.classList.add('print-all-mode');
+            window.print();
+            detailPages.classList.remove('print-mode');
+            document.body.classList.remove('print-all-mode');
+        }
+
+        function downloadHTML() {
+            // 詳細ページを一時的に表示状態にする
+            const detailPages = document.getElementById('detailPages');
+            const originalDisplay = detailPages.style.display;
+            detailPages.style.display = 'block';
+
+            // 一括印刷モードのクラスを追加（改ページのため）
+            detailPages.classList.add('print-mode');
+            document.body.classList.add('print-all-mode');
+
+            // アクションボタンを一時的に非表示にする
+            const actionButtons = document.querySelector('.action-buttons');
+            const originalButtonDisplay = actionButtons.style.display;
+            actionButtons.style.display = 'none';
+
+            // 全てのskill-detailsを非表示にする
+            const allDetails = document.querySelectorAll('.skill-details');
+            allDetails.forEach(d => d.classList.remove('show'));
+
+            // HTMLを取得
+            const htmlContent = document.documentElement.outerHTML;
+
+            // 表示状態を元に戻す
+            detailPages.style.display = originalDisplay;
+            detailPages.classList.remove('print-mode');
+            document.body.classList.remove('print-all-mode');
+            actionButtons.style.display = originalButtonDisplay;
+
+            // ダウンロード
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'IT（情報）教育の観点.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

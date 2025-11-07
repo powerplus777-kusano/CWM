@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASPのメリット - 3X3マトリクス</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff00ff;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #0000cc;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .intro {
+            color: #34495e;
+            font-size: 11px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #ff00ff;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        .matrix-table td {
+            border: 3px solid #2c3e50;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+            width: 33.33%;
+            min-height: 100px;
+        }
+
+        .matrix-table .center-cell {
+            background: linear-gradient(135deg, #ff00ff 0%, #ff66ff 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 1.4;
+        }
+
+        .matrix-table .skill-cell {
+            background-color: #fff5ff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .matrix-table .skill-cell:hover {
+            background-color: #ffe6ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .cell-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 4px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .cell-content {
+            color: #34495e;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .cell-content b {
+            color: #2c3e50;
+        }
+
+        .cell-content li {
+            margin: 3px 0;
+        }
+
+        .skill-details {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 12px;
+            line-height: 1.7;
+            border-left: 4px solid #ff00ff;
+        }
+
+        .skill-details.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-btn {
+            color: #e74c3c;
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #c0392b;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #ff00ff 0%, #ff66ff 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4);
+        }
+
+        .detail-pages {
+            display: none;
+        }
+
+        .detail-page {
+            page-break-after: always;
+            padding: 20px;
+        }
+
+        .detail-page:last-child {
+            page-break-after: auto;
+        }
+
+        .detail-page h2 {
+            color: #ff00ff;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff00ff;
+        }
+
+        .detail-page h3 {
+            color: #2c3e50;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .detail-page ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        .detail-page li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        /* ダウンロードしたHTML用のスタイル（ブラウザ表示時のみの改ページ表現） */
+        @media screen {
+            .print-all-mode .matrix-table {
+                margin-bottom: 100vh;
+            }
+
+            .print-all-mode .detail-page {
+                min-height: 100vh;
+                padding-top: 50px;
+            }
+
+            .print-all-mode .detail-page:last-child {
+                min-height: auto;
+            }
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 10mm;
+                max-width: 100%;
+            }
+
+            .skill-cell {
+                cursor: default;
+            }
+
+            .action-buttons {
+                display: none !important;
+            }
+
+            .skill-details {
+                display: none !important;
+            }
+
+            .detail-pages.print-mode {
+                display: block !important;
+            }
+
+            .detail-page {
+                page-break-after: always;
+            }
+
+            .detail-page:last-child {
+                page-break-after: auto;
+            }
+
+            .matrix-only-mode .detail-pages {
+                display: none !important;
+            }
+
+            .print-all-mode .matrix-table {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ASPのメリット</h1>
+        <h2>（アプリケーションサービス・プロバイダ）</h2>
+
+        <div class="intro">
+            ASPサービスの利点を3X3マトリクス法を使ってまとめると以下のようになりますが、現実問題としてＡＳＰサービスでビジネスとして成立している企業はあるのでしょうか？　仕組みとしてはすばらしい仕組みですが、実現するには、信頼性・サポート体制・セキュリティ対策・操作性・レスポンス・365日24時間ノンストップ・データの保証・バックアップ・リカバリーなどなど、設備投資と運用管理ノウハウが無いと成立できないサービスで、一歩間違うとユーザに多大なる損失を及ぼしますので、しっかりした基盤と運用ノウハウを持ったＩＳＰ（インターネットサービスプロバイダ）でないと実現できないサービスです。
+        </div>
+
+        <table class="matrix-table">
+            <tr>
+                <!-- 左上：初期投資の抑制 -->
+                <td class="skill-cell" onclick="toggleSkill(1)">
+                    <div class="cell-title">初期投資の抑制</div>
+                    <div class="cell-content">
+                        設備資産を持たないことにより<br><br>
+                        ●ソフト開発費の削減<br>
+                        ●設備資産の削減<br>
+                        ●棚卸資産の削減<br>
+                        <br>
+                        ●ランニングコストの明確化<br>
+                        ●次期予算の明確化<br>
+                        <br>
+                        ★コストダウン
+                    </div>
+                    <div class="skill-details" id="skill1">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(1)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>設備資産を持たない：自社でハードウェア・ソフトウェアを所有しない</li>
+                            <li>ソフト開発費削減：自社開発が不要になりコスト削減</li>
+                            <li>設備資産削減：サーバやネットワーク機器の購入が不要</li>
+                            <li>棚卸資産削減：資産管理の手間とコストを削減</li>
+                            <li>ランニングコスト明確化：月額料金で予算が明確</li>
+                            <li>次期予算の明確化：長期的なコスト予測が容易</li>
+                            <li>トータルコストダウン：初期投資を大幅に抑制</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 中央上：開発期間の短縮 -->
+                <td class="skill-cell" onclick="toggleSkill(2)">
+                    <div class="cell-title">開発期間の短縮</div>
+                    <div class="cell-content">
+                        自社開発と比較して<br><br>
+                        ●汎用パッケージを使用することにより開発期間の短縮が可能<br>
+                        <br>
+                        ●短期間でシステム稼動が可能<br>
+                        <br>
+                        ★コストダウン
+                    </div>
+                    <div class="skill-details" id="skill2">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(2)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>汎用パッケージ：実績のあるソフトウェアを利用</li>
+                            <li>開発期間短縮：自社開発の数ヶ月から数週間へ短縮</li>
+                            <li>短期稼働：契約後すぐに利用開始可能</li>
+                            <li>テスト済み：すでに多くの企業で使用されている</li>
+                            <li>早期ROI：早期に投資対効果を得られる</li>
+                            <li>時間的コストダウン：時間の節約が大きなメリット</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 右上：運用・保守負担の軽減 -->
+                <td class="skill-cell" onclick="toggleSkill(3)">
+                    <div class="cell-title">運用・保守負担の軽減</div>
+                    <div class="cell-content">
+                        システムの維持管理における<br><br>
+                        ●人件費（専任者不要）<br>
+                        ●設置スペース<br>
+                        ●空調などの光熱費<br>
+                        ●電源設備<br>
+                        ●データのバックアップ<br>
+                        ●システム構築<br>
+                        ●システムのバージョンアップ<br>
+                        <br>
+                        ★３６５日２４時間常時稼動
+                    </div>
+                    <div class="skill-details" id="skill3">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(3)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>専任者不要：システム管理者の人件費削減</li>
+                            <li>設置スペース不要：サーバールームが不要</li>
+                            <li>光熱費削減：空調・電源設備のコスト削減</li>
+                            <li>バックアップ自動化：プロバイダ側で自動実施</li>
+                            <li>バージョンアップ自動化：常に最新バージョンを利用</li>
+                            <li>365日24時間稼働：高い可用性の確保</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <!-- 左中：顧客に対する信頼性の向上 -->
+                <td class="skill-cell" onclick="toggleSkill(4)">
+                    <div class="cell-title">顧客に対する信頼性の向上</div>
+                    <div class="cell-content">
+                        対顧客にたいして<br><br>
+                        ●信用／信頼の確保<br>
+                        ●顧客満足度／サービスの向上<br>
+                        ●責任の明確化<br>
+                        <br>
+                        ●利益／顧客獲得へ<br>
+                        ●経営戦略へ<br>
+                        ●販売戦略へ<br>
+                        ●マーケティング戦略へ<br>
+                        ●リスクマネジメント
+                    </div>
+                    <div class="skill-details" id="skill4">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(4)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>信用確保：高品質なサービス提供による信頼獲得</li>
+                            <li>顧客満足度向上：安定したシステムで顧客満足度UP</li>
+                            <li>責任の明確化：SLAによる責任範囲の明確化</li>
+                            <li>顧客獲得：信頼性向上による新規顧客獲得</li>
+                            <li>経営戦略：ITリソースをコアビジネスに集中</li>
+                            <li>リスクマネジメント：専門業者によるリスク低減</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 中央：タイトル -->
+                <td class="center-cell" rowspan="2">
+                    ☁️<br><br>
+                    <div style="font-size: 20px;">ASPのメリット</div>
+                </td>
+                <!-- 右中：安全性・信頼性の向上（物理的） -->
+                <td class="skill-cell" onclick="toggleSkill(5)">
+                    <div class="cell-title">安全性・信頼性の向上<br>（物理的）</div>
+                    <div class="cell-content">
+                        物理的に見た<br><br>
+                        ●耐震/耐火性対策<br>
+                        ●電源の多重化対策<br>
+                        ●不正コピー対策<br>
+                        ●入退室管理<br>
+                        ●バックアップ管理<br>
+                        ●ハードウェアの故障／保守<br>
+                        <br>
+                        ★３６５日２４時間常時監視
+                    </div>
+                    <div class="skill-details" id="skill5">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(5)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>耐震・耐火対策：堅牢なデータセンター設備</li>
+                            <li>電源多重化：無停電電源装置による安定稼働</li>
+                            <li>不正コピー対策：物理的アクセス制限</li>
+                            <li>入退室管理：厳格なセキュリティ管理</li>
+                            <li>バックアップ管理：自動バックアップと遠隔保管</li>
+                            <li>ハードウェア保守：24時間体制の監視と保守</li>
+                            <li>常時監視：専門スタッフによる監視体制</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <!-- 左下：自社の強みに集中 -->
+                <td class="skill-cell" onclick="toggleSkill(6)">
+                    <div class="cell-title">自社の強みに集中</div>
+                    <div class="cell-content">
+                        <br>
+                        ●自社の強みへ集中<br>
+                        ●適切なリソース配分<br>
+                        ●次期予算の明確化<br>
+                        ●自社の資産とノウハウに特化
+                    </div>
+                    <div class="skill-details" id="skill6">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(6)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>コアビジネスに集中：IT管理から解放</li>
+                            <li>リソース配分最適化：人材を本業に投入</li>
+                            <li>予算の明確化：IT予算の見える化</li>
+                            <li>自社ノウハウに特化：競争力のある分野に注力</li>
+                            <li>戦略的経営：ITを戦略的に活用</li>
+                            <li>競争力強化：差別化要因に集中投資</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 右下：回線品質 -->
+                <td class="skill-cell" onclick="toggleSkill(7)">
+                    <div class="cell-title">回線品質</div>
+                    <div class="cell-content">
+                        <br>
+                        ●回線スピード<br>
+                        ●回線品質の確保<br>
+                        ●トラフィックの軽減<br>
+                        ●デュアルキャリアによる安全性<br>
+                        ●強力な回線バックボーンによる安全性の保証<br>
+                        ●定期的なアクセスレポート
+                    </div>
+                    <div class="skill-details" id="skill7">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(7)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>高速回線：大容量バックボーンによる高速アクセス</li>
+                            <li>品質確保：SLAによる品質保証</li>
+                            <li>トラフィック軽減：最適化されたネットワーク構成</li>
+                            <li>デュアルキャリア：複数回線による冗長化</li>
+                            <li>バックボーン：大手プロバイダの強力なインフラ</li>
+                            <li>アクセスレポート：利用状況の可視化</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <!-- 下段3列結合：安全性・信頼性の向上（ソフト的） -->
+                <td class="skill-cell" colspan="3" onclick="toggleSkill(8)">
+                    <div class="cell-title">安全性・信頼性の向上（ソフト的）</div>
+                    <div class="cell-content">
+                        ソフトから見た ユーザのデータを預かる責任<br><br>
+                        ●ハッキング対策 ●ウイルス対策 ●不正コピー対策 ●バックアップ管理 ●ソフトウェアのバグ ●バージョンアップ<br><br>
+                        ★３６５日２４時間常時監視
+                    </div>
+                    <div class="skill-details" id="skill8">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(8)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>ハッキング対策：ファイアウォール、IDS/IPSによる防御</li>
+                            <li>ウイルス対策：最新のウイルス対策ソフト導入</li>
+                            <li>不正コピー対策：ライセンス管理の徹底</li>
+                            <li>バックアップ管理：自動バックアップとリカバリー体制</li>
+                            <li>バグ対応：迅速なパッチ適用とアップデート</li>
+                            <li>バージョンアップ：常に最新版を利用可能</li>
+                            <li>24時間監視：セキュリティ専門チームによる監視</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="action-buttons">
+            <button class="action-btn" onclick="printMatrixOnly()">
+                🖨️ マトリクス印刷
+            </button>
+            <button class="action-btn" onclick="printAll()">
+                📄 一括印刷
+            </button>
+            <button class="action-btn" onclick="downloadHTML()">
+                ⬇️ 一括HTMLダウンロード
+            </button>
+        </div>
+    </div>
+
+    <!-- 詳細ページ（一括印刷用） -->
+    <div class="detail-pages" id="detailPages">
+        <div class="detail-page">
+            <h2>1. 初期投資の抑制</h2>
+            <p>ASPの最大のメリットは、初期投資を大幅に抑制できることです。設備資産を持たないビジネスモデルにより、コスト構造が明確になります。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>設備資産を持たない：自社でハードウェア・ソフトウェアを所有しない</li>
+                <li>ソフト開発費削減：自社開発が不要になりコスト削減</li>
+                <li>設備資産削減：サーバやネットワーク機器の購入が不要</li>
+                <li>棚卸資産削減：資産管理の手間とコストを削減</li>
+                <li>ランニングコスト明確化：月額料金で予算が明確</li>
+                <li>次期予算の明確化：長期的なコスト予測が容易</li>
+                <li>トータルコストダウン：初期投資を大幅に抑制</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>2. 開発期間の短縮</h2>
+            <p>汎用パッケージを利用することで、自社開発と比較して大幅に開発期間を短縮できます。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>汎用パッケージ：実績のあるソフトウェアを利用</li>
+                <li>開発期間短縮：自社開発の数ヶ月から数週間へ短縮</li>
+                <li>短期稼働：契約後すぐに利用開始可能</li>
+                <li>テスト済み：すでに多くの企業で使用されている</li>
+                <li>早期ROI：早期に投資対効果を得られる</li>
+                <li>時間的コストダウン：時間の節約が大きなメリット</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>3. 運用・保守負担の軽減</h2>
+            <p>システムの維持管理に関わる多くの業務をASPプロバイダに委託することで、運用負担を大幅に軽減できます。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>専任者不要：システム管理者の人件費削減</li>
+                <li>設置スペース不要：サーバールームが不要</li>
+                <li>光熱費削減：空調・電源設備のコスト削減</li>
+                <li>バックアップ自動化：プロバイダ側で自動実施</li>
+                <li>バージョンアップ自動化：常に最新バージョンを利用</li>
+                <li>365日24時間稼働：高い可用性の確保</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>4. 顧客に対する信頼性の向上</h2>
+            <p>安定したシステムを提供することで、顧客からの信頼を獲得し、ビジネスの成長につながります。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>信用確保：高品質なサービス提供による信頼獲得</li>
+                <li>顧客満足度向上：安定したシステムで顧客満足度UP</li>
+                <li>責任の明確化：SLAによる責任範囲の明確化</li>
+                <li>顧客獲得：信頼性向上による新規顧客獲得</li>
+                <li>経営戦略：ITリソースをコアビジネスに集中</li>
+                <li>リスクマネジメント：専門業者によるリスク低減</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>5. 安全性・信頼性の向上（物理的）</h2>
+            <p>専門のデータセンターを利用することで、物理的なセキュリティと信頼性が大幅に向上します。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>耐震・耐火対策：堅牢なデータセンター設備</li>
+                <li>電源多重化：無停電電源装置による安定稼働</li>
+                <li>不正コピー対策：物理的アクセス制限</li>
+                <li>入退室管理：厳格なセキュリティ管理</li>
+                <li>バックアップ管理：自動バックアップと遠隔保管</li>
+                <li>ハードウェア保守：24時間体制の監視と保守</li>
+                <li>常時監視：専門スタッフによる監視体制</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>6. 自社の強みに集中</h2>
+            <p>IT管理から解放されることで、自社のコアビジネスにリソースを集中できます。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>コアビジネスに集中：IT管理から解放</li>
+                <li>リソース配分最適化：人材を本業に投入</li>
+                <li>予算の明確化：IT予算の見える化</li>
+                <li>自社ノウハウに特化：競争力のある分野に注力</li>
+                <li>戦略的経営：ITを戦略的に活用</li>
+                <li>競争力強化：差別化要因に集中投資</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>7. 回線品質</h2>
+            <p>大手プロバイダの強力なネットワークインフラを利用することで、高品質な通信環境を確保できます。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>高速回線：大容量バックボーンによる高速アクセス</li>
+                <li>品質確保：SLAによる品質保証</li>
+                <li>トラフィック軽減：最適化されたネットワーク構成</li>
+                <li>デュアルキャリア：複数回線による冗長化</li>
+                <li>バックボーン：大手プロバイダの強力なインフラ</li>
+                <li>アクセスレポート：利用状況の可視化</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>8. 安全性・信頼性の向上（ソフト的）</h2>
+            <p>ソフトウェアレベルでのセキュリティ対策により、ユーザデータの安全性を確保します。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>ハッキング対策：ファイアウォール、IDS/IPSによる防御</li>
+                <li>ウイルス対策：最新のウイルス対策ソフト導入</li>
+                <li>不正コピー対策：ライセンス管理の徹底</li>
+                <li>バックアップ管理：自動バックアップとリカバリー体制</li>
+                <li>バグ対応：迅速なパッチ適用とアップデート</li>
+                <li>バージョンアップ：常に最新版を利用可能</li>
+                <li>24時間監視：セキュリティ専門チームによる監視</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleSkill(num) {
+            const detail = document.getElementById('skill' + num);
+            const allDetails = document.querySelectorAll('.skill-details');
+            allDetails.forEach(d => {
+                if (d !== detail) {
+                    d.classList.remove('show');
+                }
+            });
+            detail.classList.toggle('show');
+        }
+
+        function printMatrixOnly() {
+            document.body.classList.add('matrix-only-mode');
+            window.print();
+            document.body.classList.remove('matrix-only-mode');
+        }
+
+        function printAll() {
+            const detailPages = document.getElementById('detailPages');
+            detailPages.classList.add('print-mode');
+            document.body.classList.add('print-all-mode');
+            window.print();
+            detailPages.classList.remove('print-mode');
+            document.body.classList.remove('print-all-mode');
+        }
+
+        function downloadHTML() {
+            // 詳細ページを一時的に表示状態にする
+            const detailPages = document.getElementById('detailPages');
+            const originalDisplay = detailPages.style.display;
+            detailPages.style.display = 'block';
+
+            // 一括印刷モードのクラスを追加（改ページのため）
+            detailPages.classList.add('print-mode');
+            document.body.classList.add('print-all-mode');
+
+            // アクションボタンを一時的に非表示にする
+            const actionButtons = document.querySelector('.action-buttons');
+            const originalButtonDisplay = actionButtons.style.display;
+            actionButtons.style.display = 'none';
+
+            // 全てのskill-detailsを非表示にする
+            const allDetails = document.querySelectorAll('.skill-details');
+            allDetails.forEach(d => d.classList.remove('show'));
+
+            // HTMLを取得
+            const htmlContent = document.documentElement.outerHTML;
+
+            // 表示状態を元に戻す
+            detailPages.style.display = originalDisplay;
+            detailPages.classList.remove('print-mode');
+            document.body.classList.remove('print-all-mode');
+            actionButtons.style.display = originalButtonDisplay;
+
+            // ダウンロード
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ASPのメリット.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

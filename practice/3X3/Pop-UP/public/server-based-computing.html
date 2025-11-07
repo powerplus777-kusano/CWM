@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サーバベースコンピューティングの導入によるシステム管理コストの削減法 - 3X3マトリクス</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff00ff;
+            font-size: 20px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .intro {
+            color: #34495e;
+            font-size: 11px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #ff00ff;
+        }
+
+        .intro em {
+            color: #ff00ff;
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        .matrix-table td {
+            border: 3px solid #2c3e50;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+            width: 33.33%;
+            min-height: 100px;
+        }
+
+        .matrix-table .center-cell {
+            background: linear-gradient(135deg, #ff00ff 0%, #ff66ff 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 1.4;
+        }
+
+        .matrix-table .skill-cell {
+            background-color: #fff5ff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .matrix-table .skill-cell:hover {
+            background-color: #ffe6ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .cell-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 4px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .cell-content {
+            color: #34495e;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .cell-content b {
+            color: #2c3e50;
+        }
+
+        .cell-content li {
+            margin: 5px 0;
+        }
+
+        .skill-details {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 12px;
+            line-height: 1.7;
+            border-left: 4px solid #ff00ff;
+        }
+
+        .skill-details.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-btn {
+            color: #e74c3c;
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #c0392b;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #ff00ff 0%, #ff66ff 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4);
+        }
+
+        .detail-pages {
+            display: none;
+        }
+
+        .detail-page {
+            page-break-after: always;
+            padding: 20px;
+        }
+
+        .detail-page:last-child {
+            page-break-after: auto;
+        }
+
+        .detail-page h2 {
+            color: #ff00ff;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff00ff;
+        }
+
+        .detail-page h3 {
+            color: #2c3e50;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .detail-page ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        .detail-page li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .tco-highlight {
+            color: #0000ff;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* ダウンロードしたHTML用のスタイル（ブラウザ表示時のみの改ページ表現） */
+        @media screen {
+            .print-all-mode .matrix-table {
+                margin-bottom: 100vh;
+            }
+
+            .print-all-mode .detail-page {
+                min-height: 100vh;
+                padding-top: 50px;
+            }
+
+            .print-all-mode .detail-page:last-child {
+                min-height: auto;
+            }
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 10mm;
+                max-width: 100%;
+            }
+
+            .skill-cell {
+                cursor: default;
+            }
+
+            .action-buttons {
+                display: none !important;
+            }
+
+            .skill-details {
+                display: none !important;
+            }
+
+            .detail-pages.print-mode {
+                display: block !important;
+            }
+
+            .detail-page {
+                page-break-after: always;
+            }
+
+            .detail-page:last-child {
+                page-break-after: auto;
+            }
+
+            .matrix-only-mode .detail-pages {
+                display: none !important;
+            }
+
+            .print-all-mode .matrix-table {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>サーバベースコンピューティングの導入による<br>システム管理コストの削減法</h1>
+
+        <div class="intro">
+            <em>サーバー・ベースドコンピューティングとシンクライアント化</em><br><br>
+            現在殆どの事業体に多数のパソコンが導入され、１０Baseや１００Baseの比較的高速なネットワークで接続され、１人１台の環境となり、ある意味快適な作業環境が整ってきたといえます。しかしその反面、個人毎に異なる環境設定や、人の移動や増減にともなうＰＣの設置、度々の機能アップによるアプリケーションのバージョンアップ・インストール作業、高性能化する一方のハードウェアのメンテナンス・運用・管理・維持費など、ハード／ソフト／管理者を含めたトータルコスト（TCO）が無視できない大きな問題となってきています。そこでアプリケーションなどの資源はサーバー側で一元管理し、クライアント（個人のPC）側には複雑で高価なパソコンは使用せず、表示や入力部など最低限の機能だけを持ち、かつハードディスクなどの駆動部も持たない低価格な専用端末（シンクライアント）を配備することにより、アプリケーションのインストールやバージョンアップ、個人毎の環境設定など、全てはサーバー側で更新・完了してしまう、サーバー・ベース・コンピューティングを利用したシンクライアントシステムの導入による、トータルコストと管理者コストの削減が大変注目されています。<br><br>
+            サーバー・ベース・コンピューティングはUnixの世界ではＸ端末として、WindowsNT／２０００の世界ではターミナルサービスの機能として提供されており、またサードベンダーの提供するMetaFrameやTarantellaサーバーと組み合わせることにより、マルチプラットフォーム対応や、アプリケーションのWeb化を行うことが可能となります。
+        </div>
+
+        <table class="matrix-table">
+            <tr>
+                <!-- 左上：リソースの一元管理 -->
+                <td class="skill-cell" onclick="toggleSkill(1)">
+                    <div class="cell-title">リソースの一元管理</div>
+                    <div class="cell-content">
+                        <b>ＯＳ、アプリケーションはサーバで一元管理される為ソフトの導入・更新はサーバのみでＯＫ。</b><br><br>
+                        クライアントへの<br><br>
+                        ●インストール<br>
+                        ●バージョンアップ<br>
+                        ●各種周辺機器・環境設定<br><br>
+                        に関わるコストの大幅削減
+                    </div>
+                    <div class="skill-details" id="skill1">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(1)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>サーバ側での一元管理：全てのソフトウェアをサーバで管理</li>
+                            <li>インストール作業の削減：クライアントへの個別インストールが不要</li>
+                            <li>バージョンアップの効率化：サーバ側で一括更新</li>
+                            <li>環境設定の統一：全クライアントで統一された環境</li>
+                            <li>管理コストの大幅削減：管理作業の効率化</li>
+                            <li>運用の簡素化：シンプルな管理体制</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 中央上：データ漏洩の防御 -->
+                <td class="skill-cell" onclick="toggleSkill(2)">
+                    <div class="cell-title">データ漏洩の防御</div>
+                    <div class="cell-content">
+                        <b>クライアントPC側にはHDDなどの記憶装置や外部デバイスを持たせない為、データ（情報）の</b><br><br>
+                        ●不正コピー<br>
+                        ●持ち出し<br>
+                        ●盗難<br>
+                        ●個人情報の持ち出し<br>
+                        ●機密保持データ漏洩<br><br>
+                        を防ぐことができます。
+                    </div>
+                    <div class="skill-details" id="skill2">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(2)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>記憶装置なし：クライアント側にHDDを持たない構成</li>
+                            <li>不正コピー防止：データの無断コピーを防止</li>
+                            <li>持ち出し防止：情報の外部持ち出しを防ぐ</li>
+                            <li>盗難対策：端末盗難時のデータ漏洩リスク低減</li>
+                            <li>個人情報保護：個人情報の厳格な管理</li>
+                            <li>機密保持：企業機密の確実な保護</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 右上：セキュリティの向上 -->
+                <td class="skill-cell" onclick="toggleSkill(3)">
+                    <div class="cell-title">セキュリティの向上</div>
+                    <div class="cell-content">
+                        <b>システムやアプリケーション、データなどは全てサーバ側で一元管理されるので、クライアントに対する、外部からの</b><br><br>
+                        ●ウイルス感染<br>
+                        ●不正アクセス・侵入<br><br>
+                        を防ぐことができます。
+                    </div>
+                    <div class="skill-details" id="skill3">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(3)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>サーバ側での集中管理：セキュリティの一元化</li>
+                            <li>ウイルス対策：クライアント側のウイルス感染リスク低減</li>
+                            <li>不正アクセス防止：外部からの侵入を防ぐ</li>
+                            <li>セキュリティパッチ管理：サーバ側で一括管理</li>
+                            <li>監視の効率化：集中監視による早期発見</li>
+                            <li>セキュリティレベルの統一：全端末で同一のセキュリティ</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <!-- 左中：低故障率・低騒音・省エネ -->
+                <td class="skill-cell" onclick="toggleSkill(4)">
+                    <div class="cell-title">低故障率・低騒音・省エネ</div>
+                    <div class="cell-content">
+                        <b>クライアントPC側にはHDDやファンなどの稼動部を持たないため、</b><br><br>
+                        ●故障率が大幅に低減<br>
+                        ●低騒音<br>
+                        ●省エネルギー<br>
+                        ●耐久性の向上<br>
+                        ●信頼性の向上
+                    </div>
+                    <div class="skill-details" id="skill4">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(4)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>稼動部なし：HDDやファンなどの機械的駆動部を排除</li>
+                            <li>故障率低減：機械的故障のリスクが大幅に減少</li>
+                            <li>低騒音：ファンレス設計による静音性</li>
+                            <li>省エネ：消費電力の大幅削減</li>
+                            <li>耐久性向上：長期間の安定稼働</li>
+                            <li>信頼性向上：システム全体の信頼性が向上</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 中央：タイトル -->
+                <td class="center-cell" rowspan="2">
+                    💻<br><br>
+                    <div style="font-size: 18px;">サーバベース<br>コンピューティング<br>の導入による<br>パソコン管理コスト<br>の削減法</div>
+                    <br>
+                    <b>システムの<br>導入・設定・運用・拡張<br>保守・教育・人件費・etc</b>
+                    <br><br>
+                    <div class="tco-highlight">ＴＣＯの削減</div>
+                </td>
+                <!-- 右中：バックアップの一元管理 -->
+                <td class="skill-cell" onclick="toggleSkill(5)">
+                    <div class="cell-title">バックアップの一元管理</div>
+                    <div class="cell-content">
+                        <b>ユーザデータ、環境設定などは全てサーバで一元管理できるので、個人毎の</b><br><br>
+                        ●データのバックアップ<br>
+                        ●設定情報のバックアップ<br><br>
+                        に関わるコストの大幅削減
+                    </div>
+                    <div class="skill-details" id="skill5">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(5)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>サーバ側での一元管理：全ユーザデータを集中管理</li>
+                            <li>データバックアップ：定期的な自動バックアップ</li>
+                            <li>設定情報保護：ユーザ環境設定の確実な保存</li>
+                            <li>復旧の迅速化：障害時の素早い復旧</li>
+                            <li>バックアップコスト削減：個別バックアップが不要</li>
+                            <li>データの安全性：確実なデータ保護</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <!-- 左下：管理者コストの低減 -->
+                <td class="skill-cell" onclick="toggleSkill(6)">
+                    <div class="cell-title">管理者コストの低減</div>
+                    <div class="cell-content">
+                        <b>全ての管理はサーバ側で一元管理できるので、部署毎の管理者は不要となり、窓口も１本化され、以下の管理者コストを</b><br><br>
+                        ●サポート人員<br>
+                        ●導入・運用・拡張・保守<br>
+                        ●通達・配信<br><br>
+                        に関わるコストの大幅削減
+                    </div>
+                    <div class="skill-details" id="skill6">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(6)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>一元管理：全システムをサーバ側で集中管理</li>
+                            <li>サポート人員削減：効率的なサポート体制</li>
+                            <li>導入コスト削減：簡素化された導入プロセス</li>
+                            <li>運用コスト削減：日常運用の効率化</li>
+                            <li>窓口一本化：ユーザサポートの統一</li>
+                            <li>管理者負担軽減：管理作業の大幅削減</li>
+                        </ul>
+                    </div>
+                </td>
+                <!-- 右下：Webソリューション -->
+                <td class="skill-cell" onclick="toggleSkill(7)">
+                    <div class="cell-title">Webソリューション</div>
+                    <div class="cell-content">
+                        <b>MetaFrameやTarantellaサーバと組合せることにより、Webベースドコンピューティングへ発展</b><br><br>
+                        ●ブラウザからアプリケーションを実行可能に<br>
+                        ●サーバの負荷分散<br>
+                        ●etc
+                    </div>
+                    <div class="skill-details" id="skill7">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(7)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>Webベース化：ブラウザからのアプリケーション実行</li>
+                            <li>MetaFrame連携：マルチプラットフォーム対応</li>
+                            <li>Tarantella連携：アプリケーションのWeb化</li>
+                            <li>負荷分散：複数サーバでの負荷分散</li>
+                            <li>アクセシビリティ：場所を選ばないアクセス</li>
+                            <li>拡張性：システムの柔軟な拡張</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <!-- 下段3列結合：ユーザメリット -->
+                <td class="skill-cell" colspan="3" onclick="toggleSkill(8)">
+                    <div class="cell-title">ユーザメリット</div>
+                    <div class="cell-content">
+                        <b>コンピューティングインフラストラクチャーの提供</b><br><br>
+                        ●面倒なインストール ●バックアップ・アップデート から開放<br><br>
+                        ●管理コストの大幅削減 ●サポート窓口の一元化 ●使用環境の統一 ●故障しにくいシステム<br><br>
+                        <span class="tco-highlight">ＴＣＯの削減</span>
+                    </div>
+                    <div class="skill-details" id="skill8">
+                        <span class="close-btn" onclick="event.stopPropagation(); toggleSkill(8)">✕</span>
+                        <h4>詳細ポイント</h4>
+                        <ul>
+                            <li>インフラ提供：快適な作業環境の提供</li>
+                            <li>インストール不要：面倒なインストール作業から解放</li>
+                            <li>バックアップ不要：自動バックアップによる安心</li>
+                            <li>アップデート自動化：常に最新の環境</li>
+                            <li>管理コスト削減：ユーザ側の管理負担軽減</li>
+                            <li>サポート一元化：統一されたサポート窓口</li>
+                            <li>環境の統一：全ユーザで同一の使用環境</li>
+                            <li>高信頼性：故障しにくい安定したシステム</li>
+                            <li>TCO削減：トータルコストの大幅削減</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="action-buttons">
+            <button class="action-btn" onclick="printMatrixOnly()">
+                🖨️ マトリクス印刷
+            </button>
+            <button class="action-btn" onclick="printAll()">
+                📄 一括印刷
+            </button>
+            <button class="action-btn" onclick="downloadHTML()">
+                ⬇️ 一括HTMLダウンロード
+            </button>
+        </div>
+    </div>
+
+    <!-- 詳細ページ（一括印刷用） -->
+    <div class="detail-pages" id="detailPages">
+        <div class="detail-page">
+            <h2>1. リソースの一元管理</h2>
+            <p>サーバベースコンピューティングの最大の特徴は、全てのリソースをサーバ側で一元管理できることです。これにより、クライアント側での作業が不要となり、大幅なコスト削減が実現します。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>サーバ側での一元管理：全てのソフトウェアをサーバで管理</li>
+                <li>インストール作業の削減：クライアントへの個別インストールが不要</li>
+                <li>バージョンアップの効率化：サーバ側で一括更新</li>
+                <li>環境設定の統一：全クライアントで統一された環境</li>
+                <li>管理コストの大幅削減：管理作業の効率化</li>
+                <li>運用の簡素化：シンプルな管理体制</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>2. データ漏洩の防御</h2>
+            <p>クライアント側にデータを保存しない構成により、データ漏洩のリスクを大幅に低減します。情報セキュリティの観点から非常に重要な特徴です。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>記憶装置なし：クライアント側にHDDを持たない構成</li>
+                <li>不正コピー防止：データの無断コピーを防止</li>
+                <li>持ち出し防止：情報の外部持ち出しを防ぐ</li>
+                <li>盗難対策：端末盗難時のデータ漏洩リスク低減</li>
+                <li>個人情報保護：個人情報の厳格な管理</li>
+                <li>機密保持：企業機密の確実な保護</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>3. セキュリティの向上</h2>
+            <p>システム全体をサーバ側で管理することで、セキュリティレベルを統一し、外部からの脅威に対する防御を強化します。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>サーバ側での集中管理：セキュリティの一元化</li>
+                <li>ウイルス対策：クライアント側のウイルス感染リスク低減</li>
+                <li>不正アクセス防止：外部からの侵入を防ぐ</li>
+                <li>セキュリティパッチ管理：サーバ側で一括管理</li>
+                <li>監視の効率化：集中監視による早期発見</li>
+                <li>セキュリティレベルの統一：全端末で同一のセキュリティ</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>4. 低故障率・低騒音・省エネ</h2>
+            <p>シンクライアント端末は機械的な駆動部を持たないため、故障率が低く、環境にも優しいシステムです。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>稼動部なし：HDDやファンなどの機械的駆動部を排除</li>
+                <li>故障率低減：機械的故障のリスクが大幅に減少</li>
+                <li>低騒音：ファンレス設計による静音性</li>
+                <li>省エネ：消費電力の大幅削減</li>
+                <li>耐久性向上：長期間の安定稼働</li>
+                <li>信頼性向上：システム全体の信頼性が向上</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>5. バックアップの一元管理</h2>
+            <p>全てのデータをサーバ側で管理することで、バックアップ作業が効率化され、データの安全性が向上します。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>サーバ側での一元管理：全ユーザデータを集中管理</li>
+                <li>データバックアップ：定期的な自動バックアップ</li>
+                <li>設定情報保護：ユーザ環境設定の確実な保存</li>
+                <li>復旧の迅速化：障害時の素早い復旧</li>
+                <li>バックアップコスト削減：個別バックアップが不要</li>
+                <li>データの安全性：確実なデータ保護</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>6. 管理者コストの低減</h2>
+            <p>一元管理により、システム管理者の負担が大幅に軽減されます。これがTCO削減の大きな要因となります。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>一元管理：全システムをサーバ側で集中管理</li>
+                <li>サポート人員削減：効率的なサポート体制</li>
+                <li>導入コスト削減：簡素化された導入プロセス</li>
+                <li>運用コスト削減：日常運用の効率化</li>
+                <li>窓口一本化：ユーザサポートの統一</li>
+                <li>管理者負担軽減：管理作業の大幅削減</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>7. Webソリューション</h2>
+            <p>サードパーティ製品と組み合わせることで、Webベースのアプリケーション実行環境を構築できます。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>Webベース化：ブラウザからのアプリケーション実行</li>
+                <li>MetaFrame連携：マルチプラットフォーム対応</li>
+                <li>Tarantella連携：アプリケーションのWeb化</li>
+                <li>負荷分散：複数サーバでの負荷分散</li>
+                <li>アクセシビリティ：場所を選ばないアクセス</li>
+                <li>拡張性：システムの柔軟な拡張</li>
+            </ul>
+        </div>
+
+        <div class="detail-page">
+            <h2>8. ユーザメリット</h2>
+            <p>エンドユーザにとっても、面倒な管理作業から解放され、快適な作業環境が提供されます。</p>
+            <h3>ポイント</h3>
+            <ul>
+                <li>インフラ提供：快適な作業環境の提供</li>
+                <li>インストール不要：面倒なインストール作業から解放</li>
+                <li>バックアップ不要：自動バックアップによる安心</li>
+                <li>アップデート自動化：常に最新の環境</li>
+                <li>管理コスト削減：ユーザ側の管理負担軽減</li>
+                <li>サポート一元化：統一されたサポート窓口</li>
+                <li>環境の統一：全ユーザで同一の使用環境</li>
+                <li>高信頼性：故障しにくい安定したシステム</li>
+                <li>TCO削減：トータルコストの大幅削減</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleSkill(num) {
+            const detail = document.getElementById('skill' + num);
+            const allDetails = document.querySelectorAll('.skill-details');
+            allDetails.forEach(d => {
+                if (d !== detail) {
+                    d.classList.remove('show');
+                }
+            });
+            detail.classList.toggle('show');
+        }
+
+        function printMatrixOnly() {
+            document.body.classList.add('matrix-only-mode');
+            window.print();
+            document.body.classList.remove('matrix-only-mode');
+        }
+
+        function printAll() {
+            const detailPages = document.getElementById('detailPages');
+            detailPages.classList.add('print-mode');
+            document.body.classList.add('print-all-mode');
+            window.print();
+            detailPages.classList.remove('print-mode');
+            document.body.classList.remove('print-all-mode');
+        }
+
+        function downloadHTML() {
+            // 詳細ページを一時的に表示状態にする
+            const detailPages = document.getElementById('detailPages');
+            const originalDisplay = detailPages.style.display;
+            detailPages.style.display = 'block';
+
+            // 一括印刷モードのクラスを追加（改ページのため）
+            detailPages.classList.add('print-mode');
+            document.body.classList.add('print-all-mode');
+
+            // アクションボタンを一時的に非表示にする
+            const actionButtons = document.querySelector('.action-buttons');
+            const originalButtonDisplay = actionButtons.style.display;
+            actionButtons.style.display = 'none';
+
+            // 全てのskill-detailsを非表示にする
+            const allDetails = document.querySelectorAll('.skill-details');
+            allDetails.forEach(d => d.classList.remove('show'));
+
+            // HTMLを取得
+            const htmlContent = document.documentElement.outerHTML;
+
+            // 表示状態を元に戻す
+            detailPages.style.display = originalDisplay;
+            detailPages.classList.remove('print-mode');
+            document.body.classList.remove('print-all-mode');
+            actionButtons.style.display = originalButtonDisplay;
+
+            // ダウンロード
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'サーバベースコンピューティングの導入によるシステム管理コストの削減法.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
