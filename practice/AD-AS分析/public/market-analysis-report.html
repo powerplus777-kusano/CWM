@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本企業の市場動向分析レポート 2024-2025 | 企業数・売上・税収の関係性</title>
+    <meta name="description" content="日本企業の最新統計データに基づく包括的な市場動向分析。企業規模別の実態、インボイス制度の影響、税収と使途、今後の展望を詳細に解説。">
+    <meta name="keywords" content="日本企業,市場動向,企業数,売上高,税収,インボイス制度,中小企業,統計,2024,2025">
+
+    <!-- Tailwind CSS v4.1 CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Google Fonts - Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-primary: #1e3a8a;
+            --color-secondary: #3b82f6;
+            --color-accent: #60a5fa;
+            --color-dark: #0f172a;
+            --color-light: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        /* ナビゲーション：初期状態は透明 */
+        nav.nav-transparent {
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        /* スクロール時のナビゲーション */
+        nav.nav-scrolled {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* ナビリンクの色調整 */
+        nav.nav-transparent a {
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        nav.nav-scrolled a {
+            color: var(--color-dark);
+            text-shadow: none;
+        }
+
+        /* 印刷用CSS（必須ルール） */
+        @media print {
+            /* 1. ナビ・フッター・モーダルを非表示 */
+            nav, .no-print, .site-header, .site-footer, #modal-overlay {
+                display: none !important;
+            }
+
+            /* 2. アニメーションライブラリを印刷時に無効化 */
+            [data-aos], .animate__animated {
+                opacity: 1 !important;
+                transform: none !important;
+                animation: none !important;
+            }
+
+            /* 3. セクションごとに改ページ */
+            #hero {
+                page-break-after: always;
+            }
+
+            #companies, #sales, #individual, #population, #invoice, #tax-revenue, #tax-usage, #future {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- ナビゲーション -->
+    <nav id="navbar" class="nav-transparent fixed top-0 left-0 right-0 z-50 py-4">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex justify-between items-center">
+                <div class="text-xl md:text-2xl font-bold">
+                    日本企業市場動向
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#hero" class="hover:opacity-80 transition">トップ</a>
+                    <a href="#companies" class="hover:opacity-80 transition">企業数</a>
+                    <a href="#sales" class="hover:opacity-80 transition">売上高</a>
+                    <a href="#invoice" class="hover:opacity-80 transition">インボイス</a>
+                    <a href="#future" class="hover:opacity-80 transition">今後の展望</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);">
+        <div class="absolute inset-0 bg-black opacity-20"></div>
+        <div class="relative z-10 container mx-auto px-4 text-center text-white">
+            <h1 class="text-4xl md:text-6xl font-black mb-6 animate__animated animate__fadeInDown">
+                日本企業の市場動向分析レポート
+            </h1>
+            <p class="text-xl md:text-2xl mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                2024-2025年版
+            </p>
+            <p class="text-lg md:text-xl mb-12 animate__animated animate__fadeInUp animate__delay-2s max-w-3xl mx-auto">
+                企業数・売上・税収の関係性から読み解く<br>日本経済の現状と未来
+            </p>
+            <div class="animate__animated animate__fadeInUp animate__delay-3s">
+                <a href="#companies" class="inline-block bg-white text-blue-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-50 transition shadow-lg">
+                    レポートを見る
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- エグゼクティブサマリー -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="max-w-4xl mx-auto" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-blue-900">
+                    エグゼクティブサマリー
+                </h2>
+                <div class="prose prose-lg max-w-none">
+                    <p class="text-lg leading-relaxed mb-6">
+                        本レポートは、日本企業の最新統計データ（2024-2025年）に基づき、企業数、売上高、税収の関係性を包括的に分析したものです。
+                        特に、企業規模別の実態、インボイス制度の影響、そして今後の市場展望に焦点を当てています。
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-6 my-12">
+                        <div class="bg-blue-50 p-6 rounded-lg" data-aos="fade-up" data-aos-delay="100">
+                            <div class="text-4xl font-black text-blue-900 mb-2">360万社</div>
+                            <div class="text-gray-700">日本の総企業数</div>
+                        </div>
+                        <div class="bg-blue-50 p-6 rounded-lg" data-aos="fade-up" data-aos-delay="200">
+                            <div class="text-4xl font-black text-blue-900 mb-2">99.7%</div>
+                            <div class="text-gray-700">中小企業の占める割合</div>
+                        </div>
+                        <div class="bg-blue-50 p-6 rounded-lg" data-aos="fade-up" data-aos-delay="300">
+                            <div class="text-4xl font-black text-blue-900 mb-2">441万件</div>
+                            <div class="text-gray-700">インボイス登録事業者数</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1. 日本の企業数&比率 -->
+    <section id="companies" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-blue-900" data-aos="fade-up">
+                1. 日本の企業数と規模別分類
+            </h2>
+
+            <div class="max-w-6xl mx-auto">
+                <!-- 企業数の全体像 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">企業数の全体像</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        2024年版中小企業白書によると、日本には<strong class="text-blue-900">約360万社</strong>の企業が存在します。
+                        このうち中小企業・小規模事業者が<strong class="text-blue-900">336万4,891社（99.7%）</strong>を占め、
+                        大企業はわずか<strong class="text-blue-900">0.3%</strong>に過ぎません。
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-blue-900">企業規模別内訳</h4>
+                            <ul class="space-y-3">
+                                <li class="flex justify-between items-center">
+                                    <span class="font-semibold">大企業</span>
+                                    <span class="text-blue-900 font-bold">約1万社（0.3%）</span>
+                                </li>
+                                <li class="flex justify-between items-center">
+                                    <span class="font-semibold">中堅企業</span>
+                                    <span class="text-blue-900 font-bold">約0.9万社（0.7%）</span>
+                                </li>
+                                <li class="flex justify-between items-center">
+                                    <span class="font-semibold">中小企業</span>
+                                    <span class="text-blue-900 font-bold">336万社（99.7%）</span>
+                                </li>
+                                <li class="flex justify-between items-center border-t pt-3">
+                                    <span class="font-semibold">総企業数</span>
+                                    <span class="text-blue-900 font-bold">約360万社</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-blue-900">個人事業主</h4>
+                            <ul class="space-y-3">
+                                <li class="flex justify-between items-center">
+                                    <span class="font-semibold">個人企業数（農林漁業除く）</span>
+                                    <span class="text-blue-900 font-bold">約170万</span>
+                                </li>
+                                <li class="flex justify-between items-center">
+                                    <span class="font-semibold">従業員総数</span>
+                                    <span class="text-blue-900 font-bold">約5700万人</span>
+                                </li>
+                            </ul>
+                            <p class="mt-4 text-sm text-gray-600">
+                                ※総務省「個人企業経済調査」2024年データに基づく
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 資本金・従業員数別分類 -->
+                <div class="bg-white rounded-xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">中小企業の定義（資本金・従業員数別）</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        中小企業基本法に基づく定義では、業種によって資本金額と従業員数の基準が異なります。
+                    </p>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-blue-900 text-white">
+                                    <th class="border p-3 text-left">業種</th>
+                                    <th class="border p-3 text-left">資本金</th>
+                                    <th class="border p-3 text-left">従業員数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-blue-50">
+                                    <td class="border p-3 font-semibold">製造業その他</td>
+                                    <td class="border p-3">3億円以下</td>
+                                    <td class="border p-3">300人以下</td>
+                                </tr>
+                                <tr>
+                                    <td class="border p-3 font-semibold">卸売業</td>
+                                    <td class="border p-3">1億円以下</td>
+                                    <td class="border p-3">100人以下</td>
+                                </tr>
+                                <tr class="bg-blue-50">
+                                    <td class="border p-3 font-semibold">小売業</td>
+                                    <td class="border p-3">5千万円以下</td>
+                                    <td class="border p-3">50人以下</td>
+                                </tr>
+                                <tr>
+                                    <td class="border p-3 font-semibold">サービス業</td>
+                                    <td class="border p-3">5千万円以下</td>
+                                    <td class="border p-3">100人以下</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. 企業規模別売上高 -->
+    <section id="sales" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-blue-900" data-aos="fade-up">
+                2. 企業規模別売上高と売上比率
+            </h2>
+
+            <div class="max-w-6xl mx-auto">
+                <!-- 売上高の実態 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">2023年度 企業規模別売上高</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        東京商工リサーチの2024年分析によると、企業数では中小企業が99%以上を占める一方、
+                        売上高では大企業が大きな割合を占めています。
+                    </p>
+
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-gradient-to-br from-blue-900 to-blue-700 text-white p-6 rounded-lg" data-aos="fade-up" data-aos-delay="100">
+                            <div class="text-sm mb-2 opacity-90">大企業（資本金10億円超）</div>
+                            <div class="text-3xl font-black mb-2">406.0兆円</div>
+                            <div class="text-sm opacity-90">前年比 +13.4%</div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-blue-700 to-blue-500 text-white p-6 rounded-lg" data-aos="fade-up" data-aos-delay="200">
+                            <div class="text-sm mb-2 opacity-90">中堅企業</div>
+                            <div class="text-3xl font-black mb-2">280.6兆円</div>
+                            <div class="text-sm opacity-90">前年比 +8.9%</div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-blue-500 to-blue-300 text-white p-6 rounded-lg" data-aos="fade-up" data-aos-delay="300">
+                            <div class="text-sm mb-2 opacity-90">中小企業</div>
+                            <div class="text-3xl font-black mb-2">425.5兆円</div>
+                            <div class="text-sm opacity-90">前年比 +7.3%</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-6 rounded-lg">
+                        <h4 class="font-bold text-xl mb-4 text-blue-900">生産性指標</h4>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <div class="text-sm text-gray-600 mb-1">大企業</div>
+                                <div class="text-2xl font-bold text-blue-900">870万円/人</div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-600 mb-1">中堅企業</div>
+                                <div class="text-2xl font-bold text-blue-900">825万円/人</div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-600 mb-1">中小企業</div>
+                                <div class="text-2xl font-bold text-blue-900">427万円/人</div>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm text-gray-600">
+                            ※年間売上高/従業員数で算出した従業員1人あたりの売上高
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 長期トレンド -->
+                <div class="bg-white rounded-xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">長期売上トレンド（2000年=100）</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        2000年を基準（100）とした場合の2023年の売上推移を見ると、企業規模による成長格差が明確です。
+                    </p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold">中堅企業（資本金1億円〜10億円）</span>
+                                <span class="font-bold text-blue-900">152.3</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-gradient-to-r from-blue-600 to-blue-400 h-4 rounded-full" style="width: 76.15%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold">大企業（資本金10億円超）</span>
+                                <span class="font-bold text-blue-900">113.9</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-gradient-to-r from-blue-600 to-blue-400 h-4 rounded-full" style="width: 56.95%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold">全体平均</span>
+                                <span class="font-bold text-blue-900">113.8</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-gradient-to-r from-blue-600 to-blue-400 h-4 rounded-full" style="width: 56.9%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold">小企業（資本金1億円未満）</span>
+                                <span class="font-bold text-blue-900">101.7</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-gradient-to-r from-blue-600 to-blue-400 h-4 rounded-full" style="width: 50.85%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-500 p-4">
+                        <p class="text-gray-700">
+                            <strong>重要な示唆：</strong>中堅企業が過去20年間で最も高い成長率を示しており、
+                            小企業は横ばいに留まっています。企業規模による成長格差が拡大傾向にあります。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 個人事業主の納税データ -->
+    <section id="individual" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-blue-900" data-aos="fade-up">
+                3. 個人事業主の納税データ
+            </h2>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg p-8" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">売上1000万円以下の個人事業主の実態</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        総務省「個人企業経済調査」によると、2024年時点で約170万の個人企業（農林漁業除く）が活動しています。
+                        売上1000万円は消費税の免税事業者となるか否かの重要な分岐点です。
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-blue-900">個人事業主の基本統計</h4>
+                            <ul class="space-y-3">
+                                <li class="flex justify-between">
+                                    <span>個人企業数</span>
+                                    <span class="font-bold text-blue-900">約170万</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>売上1000万円以下の事業者</span>
+                                    <span class="font-bold text-blue-900">推計100万超</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>インボイス未登録率（個人）</span>
+                                    <span class="font-bold text-blue-900">約57%</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-blue-900">所得税納税状況（全体）</h4>
+                            <ul class="space-y-3">
+                                <li class="flex justify-between">
+                                    <span>確定申告者数</span>
+                                    <span class="font-bold text-blue-900">2,324万人</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>うち納税額あり</span>
+                                    <span class="font-bold text-blue-900">669万人</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>納税率</span>
+                                    <span class="font-bold text-blue-900">28.8%</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6">
+                        <h4 class="font-bold text-lg mb-2 text-yellow-900">データ入手の制約について</h4>
+                        <p class="text-gray-700">
+                            売上1000万円以下の個人事業主について、階層別の詳細な納税者数・構成比データは、
+                            公開統計では限定的です。国税庁の「申告所得税標本調査」や総務省の「個人企業経済調査」が
+                            主なデータソースですが、詳細な収入階層別データは年次報告書の中に含まれています。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 人口と納税者数 -->
+    <section id="population" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-blue-900" data-aos="fade-up">
+                4. 日本の人口・世帯数・納税者数
+            </h2>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">2024年の人口動態</h3>
+
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-gradient-to-br from-blue-900 to-blue-700 text-white p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 opacity-90">総人口（2024年10月）</div>
+                            <div class="text-4xl font-black mb-2">1億2,380万人</div>
+                            <div class="text-sm opacity-90">前年比 -56万人</div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-blue-700 to-blue-500 text-white p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 opacity-90">日本人人口</div>
+                            <div class="text-4xl font-black mb-2">1億2,030万人</div>
+                            <div class="text-sm opacity-90">14年連続減少</div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-blue-500 to-blue-300 text-white p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 opacity-90">65歳以上人口比率</div>
+                            <div class="text-4xl font-black mb-2">29.4%</div>
+                            <div class="text-sm opacity-90">超高齢社会</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">納税者数の実態</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        国税庁「民間給与実態統計調査」（令和5年分）によると、
+                        給与所得者の約86%が所得税を納税しています。
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-blue-900">給与所得者（2023年）</h4>
+                            <ul class="space-y-3">
+                                <li class="flex justify-between">
+                                    <span>年間を通じて勤務した給与所得者</span>
+                                    <span class="font-bold text-blue-900">5,076万人</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>うち所得税納税者</span>
+                                    <span class="font-bold text-blue-900">4,382万人</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>納税率</span>
+                                    <span class="font-bold text-blue-900">86.3%</span>
+                                </li>
+                                <li class="flex justify-between border-t pt-3">
+                                    <span>非納税者</span>
+                                    <span class="font-bold text-red-600">694万人（13.7%）</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-blue-900">確定申告者（2023年）</h4>
+                            <ul class="space-y-3">
+                                <li class="flex justify-between">
+                                    <span>所得税確定申告者数</span>
+                                    <span class="font-bold text-blue-900">2,324万人</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>うち納税額あり</span>
+                                    <span class="font-bold text-blue-900">669万人</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>納税率</span>
+                                    <span class="font-bold text-blue-900">28.8%</span>
+                                </li>
+                            </ul>
+                            <p class="mt-4 text-sm text-gray-600">
+                                ※確定申告者には還付申告者も含まれるため納税率が低くなっています
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">世帯数の推移と将来予測</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        国立社会保障・人口問題研究所「日本の世帯数の将来推計（2024年推計）」によると、
+                        世帯数は2030年代まで増加傾向が続きますが、単独世帯の増加が顕著です。
+                    </p>
+
+                    <div class="bg-blue-50 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg mb-4 text-blue-900">世帯構造の変化</h4>
+                        <p class="text-gray-700 mb-4">
+                            総世帯数は2024年時点で約5,400万世帯と推計され、2030年頃にピークを迎える見込みです。
+                            その後は減少に転じると予測されています。単独世帯（一人暮らし）の割合は年々増加しており、
+                            社会保障や税収構造に大きな影響を与えています。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. インボイス制度 -->
+    <section id="invoice" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-blue-900" data-aos="fade-up">
+                5. インボイス制度の実態
+            </h2>
+
+            <div class="max-w-6xl mx-auto">
+                <!-- 登録事業者数 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">インボイス登録事業者数の推移</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        2023年10月のインボイス制度開始以降、登録事業者数は段階的に増加しています。
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="space-y-4">
+                            <div class="bg-blue-900 text-white p-6 rounded-lg">
+                                <div class="text-sm mb-2 opacity-90">2024年2月末時点</div>
+                                <div class="text-4xl font-black mb-2">441万件</div>
+                                <div class="text-sm opacity-90">インボイス登録事業者数</div>
+                            </div>
+
+                            <div class="bg-blue-700 text-white p-4 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <span>うち法人</span>
+                                    <span class="text-2xl font-bold">約214万件</span>
+                                </div>
+                                <div class="text-sm opacity-90 mt-1">登録率 97.1%</div>
+                            </div>
+
+                            <div class="bg-blue-500 text-white p-4 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <span>うち個人事業主</span>
+                                    <span class="text-2xl font-bold">約227万件</span>
+                                </div>
+                                <div class="text-sm opacity-90 mt-1">登録率 43.2%</div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-blue-900">登録事業者数の推移</h4>
+                            <ul class="space-y-3">
+                                <li class="flex justify-between">
+                                    <span>2023年3月末</span>
+                                    <span class="font-bold text-blue-900">268万件</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>2023年5月末</span>
+                                    <span class="font-bold text-blue-900">316万件</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>2023年7月末</span>
+                                    <span class="font-bold text-blue-900">370万件</span>
+                                </li>
+                                <li class="flex justify-between border-t pt-3">
+                                    <span>2024年2月末</span>
+                                    <span class="font-bold text-blue-900">441万件</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6">
+                        <p class="text-gray-700">
+                            <strong>注目ポイント：</strong>法人の登録率は97%超と極めて高い一方、
+                            個人事業主は43%台に留まっており、約57%が未登録の状態です。
+                            2024年の調査では個人事業主・フリーランスの約7割が登録していないという結果も出ています。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 導入背景と目的 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">インボイス制度の導入背景と目的</h3>
+
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-3 text-blue-900">制度の目的</h4>
+                            <ul class="space-y-2 list-disc list-inside text-gray-700">
+                                <li><strong>益税の解消：</strong>売上1000万円以下の免税事業者が預かった消費税を納税しない「益税」問題の解決</li>
+                                <li><strong>正確な税率・税額の伝達：</strong>複数税率（8%・10%）が混在する中で、正確な適用税率と消費税額を取引先に伝える</li>
+                                <li><strong>透明性の向上：</strong>消費税の仕入税額控除の要件として適格請求書を義務化し、税務の透明性を高める</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-3 text-blue-900">制度の概要</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><strong>開始時期：</strong>2023年10月1日</li>
+                                <li><strong>適格請求書発行事業者：</strong>登録を受けた課税事業者のみが発行可能</li>
+                                <li><strong>仕入税額控除：</strong>原則として適格請求書の保存が要件（経過措置あり）</li>
+                                <li><strong>登録期限：</strong>当初2023年3月末 → 9月末まで延長（その後も随時登録可能）</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-3 text-blue-900">小規模事業者への影響</h4>
+                            <p class="text-gray-700 mb-3">
+                                免税事業者がインボイス発行事業者となるには、課税事業者への転換が必要です。
+                                これにより新たに消費税の納税義務が発生し、事務負担も増加します。
+                            </p>
+                            <p class="text-gray-700">
+                                一方で、登録しない場合は取引先が仕入税額控除を受けられないため、
+                                取引の継続や価格交渉に影響が出る可能性があります。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 非登録事業者 -->
+                <div class="bg-white rounded-xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">非登録事業者の実態</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        2024年2月時点で441万件の登録がある一方、推計では100万件以上の
+                        免税事業者（主に個人事業主）が未登録のままです。
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-red-50 border-l-4 border-red-500 p-6">
+                            <h4 class="font-bold text-lg mb-3 text-red-900">未登録の理由</h4>
+                            <ul class="space-y-2 text-gray-700 list-disc list-inside">
+                                <li>消費税の納税負担が増える</li>
+                                <li>事務負担（請求書様式変更、記帳）の増加</li>
+                                <li>取引先が主に一般消費者（BtoC）で影響が少ない</li>
+                                <li>制度への理解不足や様子見</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-green-50 border-l-4 border-green-500 p-6">
+                            <h4 class="font-bold text-lg mb-3 text-green-900">登録のメリット</h4>
+                            <ul class="space-y-2 text-gray-700 list-disc list-inside">
+                                <li>取引先との継続的な関係維持</li>
+                                <li>BtoB取引での競争力維持</li>
+                                <li>適格請求書発行による信頼性向上</li>
+                                <li>特例措置（2割特例など）の活用</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. インボイス導入による税収増加 -->
+    <section id="tax-revenue" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-blue-900" data-aos="fade-up">
+                6. インボイス導入による税収増加
+            </h2>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">税収増加の推計</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        財務省が2019年の国会審議で示した試算では、全ての免税事業者が課税事業者になった場合、
+                        年間約<strong class="text-blue-900 text-2xl">2,480億円</strong>の税収増加が見込まれるとされました。
+                    </p>
+
+                    <div class="bg-gradient-to-br from-blue-900 to-blue-700 text-white p-8 rounded-lg mb-8 text-center">
+                        <div class="text-sm mb-2 opacity-90">推計される年間税収増加額</div>
+                        <div class="text-5xl md:text-6xl font-black mb-2">2,480億円</div>
+                        <div class="text-sm opacity-90">※全免税事業者が課税事業者になった場合の試算</div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-blue-900">2024年度の実績</h4>
+                            <p class="text-gray-700 mb-4">
+                                2024年度の税収実績は約<strong class="text-blue-900">75.2兆円</strong>となり、
+                                5年連続で過去最高を更新しました。ただし、インボイス制度単体による
+                                税収増加の公式データは現時点で公表されていません。
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                ※一般会計税収全体の数値
+                            </p>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-blue-900">消費税収の推移</h4>
+                            <p class="text-gray-700 mb-4">
+                                政府は増収分を<strong class="text-blue-900">少子化対策</strong>に活用する方針を示しています。
+                                消費税収は社会保障の財源として位置づけられており、
+                                インボイス導入による増収も同様の使途が想定されます。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-red-50 border-l-4 border-red-500 p-6">
+                        <h4 class="font-bold text-lg mb-3 text-red-900">費用対効果の問題</h4>
+                        <p class="text-gray-700 mb-3">
+                            LayerXの調査によると、インボイス制度への対応コストは
+                            年間約<strong class="text-red-900">4兆956億円</strong>に達する可能性があり、
+                            税収増加の<strong class="text-red-900">約16倍以上</strong>のコストが発生すると試算されています。
+                        </p>
+                        <ul class="space-y-2 text-gray-700 list-disc list-inside">
+                            <li>請求書処理時間：1件あたり15分増加</li>
+                            <li>経費精算処理時間：1件あたり5分増加</li>
+                            <li>システム改修・導入コスト</li>
+                            <li>人件費・教育訓練コスト</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">事業者への実質的な影響</h3>
+
+                    <div class="space-y-6">
+                        <div class="bg-yellow-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-3 text-yellow-900">2025年実態調査の結果</h4>
+                            <p class="text-gray-700 mb-4">
+                                STOP!インボイスによる1万人調査（2025年）では以下が報告されています：
+                            </p>
+                            <ul class="space-y-2 text-gray-700 list-disc list-inside">
+                                <li>課税事業者の<strong>90%以上</strong>が消費税負担を強く感じている</li>
+                                <li>インボイス登録事業者の約<strong>80%</strong>が消費税負担や事務コストを価格転嫁できていない</li>
+                                <li>実質的な減収となっている事業者が多数存在</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-3 text-blue-900">政府の見解</h4>
+                            <p class="text-gray-700">
+                                政府は「インボイス制度は増税を目的として導入したものではなく、
+                                消費税の計算を容易にし、正確な課税を実現するため」と説明しています。
+                                しかし、実質的には免税事業者の課税転換により税収増加となっています。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. 税金の使われ方 -->
+    <section id="tax-usage" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-blue-900" data-aos="fade-up">
+                7. 徴収した税金の使われ方
+            </h2>
+
+            <div class="max-w-6xl mx-auto">
+                <!-- 2025年度一般会計予算 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">2025年度 一般会計予算</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        2025年度の一般会計予算は<strong class="text-blue-900 text-2xl">115.2兆円</strong>です。
+                        歳出の約3/4が「社会保障」「国債費」「地方交付税交付金」の3分野に集中しています。
+                    </p>
+
+                    <div class="bg-gradient-to-br from-blue-900 to-blue-700 text-white p-8 rounded-lg mb-8 text-center">
+                        <div class="text-sm mb-2 opacity-90">2025年度 一般会計歳出総額</div>
+                        <div class="text-5xl md:text-6xl font-black mb-2">115.2兆円</div>
+                    </div>
+
+                    <div class="space-y-4 mb-8">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-lg">社会保障費（年金・医療・介護・子育て）</span>
+                                <span class="font-bold text-blue-900 text-xl">約38.3兆円（33.2%）</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-6">
+                                <div class="bg-gradient-to-r from-blue-900 to-blue-700 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold" style="width: 33.2%;">33.2%</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-lg">国債費（債務償還・利払い）</span>
+                                <span class="font-bold text-blue-900 text-xl">約27.5兆円（23.9%）</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-6">
+                                <div class="bg-gradient-to-r from-blue-800 to-blue-600 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold" style="width: 23.9%;">23.9%</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-lg">地方交付税交付金等</span>
+                                <span class="font-bold text-blue-900 text-xl">約18.9兆円（16.4%）</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-6">
+                                <div class="bg-gradient-to-r from-blue-700 to-blue-500 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold" style="width: 16.4%;">16.4%</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-lg">防衛関係費</span>
+                                <span class="font-bold text-blue-900 text-xl">約8.7兆円（7.5%）</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-6">
+                                <div class="bg-gradient-to-r from-blue-600 to-blue-400 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold" style="width: 7.5%;">7.5%</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-lg">公共事業費</span>
+                                <span class="font-bold text-blue-900 text-xl">約6.1兆円（5.3%）</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-6">
+                                <div class="bg-gradient-to-r from-blue-500 to-blue-300 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold" style="width: 5.3%;">5.3%</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-lg">文教及び科学振興</span>
+                                <span class="font-bold text-blue-900 text-xl">約5.5兆円（4.8%）</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-6">
+                                <div class="bg-gradient-to-r from-blue-400 to-blue-200 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold" style="width: 4.8%;">4.8%</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-lg">その他</span>
+                                <span class="font-bold text-blue-900 text-xl">約10.2兆円（8.9%）</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-6">
+                                <div class="bg-gradient-to-r from-blue-300 to-blue-100 h-6 rounded-full flex items-center justify-center text-gray-700 text-sm font-bold" style="width: 8.9%;">8.9%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-blue-900">歳入の内訳（2024年度）</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <div class="text-sm text-gray-600 mb-1">税収</div>
+                                <div class="text-2xl font-bold text-blue-900">69.6兆円（61.8%）</div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-600 mb-1">公債金（国債発行）</div>
+                                <div class="text-2xl font-bold text-red-900">35.4兆円（31.5%）</div>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm text-gray-600">
+                            ※歳入の約3割を国債発行（借金）に依存している状況
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 消費税の使途 -->
+                <div class="bg-white rounded-xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">消費税の使途</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        消費税は<strong class="text-blue-900">社会保障4経費</strong>（年金、医療、介護、子ども・子育て）に
+                        充てることが法律で定められています。
+                    </p>
+
+                    <div class="bg-blue-50 p-6 rounded-lg mb-6">
+                        <h4 class="font-bold text-lg mb-3 text-blue-900">社会保障4経費とは</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex items-start">
+                                        <span class="text-blue-900 mr-2">●</span>
+                                        <span><strong>年金：</strong>基礎年金、厚生年金などの給付</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-blue-900 mr-2">●</span>
+                                        <span><strong>医療：</strong>国民健康保険、後期高齢者医療制度</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex items-start">
+                                        <span class="text-blue-900 mr-2">●</span>
+                                        <span><strong>介護：</strong>介護保険制度の運営</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-blue-900 mr-2">●</span>
+                                        <span><strong>子ども・子育て：</strong>保育、児童手当、少子化対策</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6">
+                        <h4 class="font-bold text-lg mb-2 text-yellow-900">インボイス増収分の使途</h4>
+                        <p class="text-gray-700">
+                            政府は、インボイス制度導入による消費税収の増加分を
+                            <strong>少子化対策に活用する</strong>方針を示しています。
+                            具体的には、児童手当の拡充や保育サービスの充実などが想定されています。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. 今後の市場動向・展望 -->
+    <section id="future" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-blue-900" data-aos="fade-up">
+                8. 今後の市場動向と展望
+            </h2>
+
+            <div class="max-w-6xl mx-auto">
+                <!-- 2025年問題 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">「2025年問題」の深刻な影響</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        団塊世代約800万人が75歳以上の後期高齢者となる2025年、
+                        日本は<strong class="text-blue-900">「超高齢社会」</strong>に突入します。
+                        これに伴い、企業経営にも重大な影響が及びます。
+                    </p>
+
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-red-50 border-2 border-red-500 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-red-800">2025年の労働力不足</div>
+                            <div class="text-4xl font-black mb-2 text-red-900">504万人</div>
+                            <div class="text-sm text-red-700">不足する労働力（2030年には644万人）</div>
+                        </div>
+
+                        <div class="bg-red-50 border-2 border-red-500 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-red-800">予測される経済損失</div>
+                            <div class="text-4xl font-black mb-2 text-red-900">22兆円</div>
+                            <div class="text-sm text-red-700">後継者問題未解決時のGDP損失</div>
+                        </div>
+
+                        <div class="bg-red-50 border-2 border-red-500 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-red-800">雇用喪失リスク</div>
+                            <div class="text-4xl font-black mb-2 text-red-900">650万人</div>
+                            <div class="text-sm text-red-700">失われる可能性のある雇用</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-red-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-red-900">主要な課題</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h5 class="font-bold mb-2 text-red-800">1. 深刻な人手不足</h5>
+                                    <ul class="space-y-1 text-gray-700 text-sm list-disc list-inside">
+                                        <li>サービス業、医療・福祉、運輸、建設業で顕著</li>
+                                        <li>2024年は324社が人手不足倒産</li>
+                                        <li>技術・ノウハウの継承困難</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold mb-2 text-red-800">2. 後継者不在問題</h5>
+                                    <ul class="space-y-1 text-gray-700 text-sm list-disc list-inside">
+                                        <li>70歳以上の経営者の約半数が後継者未定</li>
+                                        <li>中小企業の事業承継が喫緊の課題</li>
+                                        <li>廃業による地域経済への打撃</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DX推進の課題 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">DX推進と「2025年の崖」</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        経済産業省が警告する「2025年の崖」では、DXが進まない場合、
+                        最大で<strong class="text-blue-900 text-xl">年間12兆円</strong>の経済損失が発生すると予測されています。
+                    </p>
+
+                    <div class="bg-blue-50 p-6 rounded-lg mb-6">
+                        <h4 class="font-bold text-xl mb-4 text-blue-900">中小企業のDX推進状況（2024年）</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span>段階1：デジタル化が図られていない</span>
+                                    <span class="font-bold text-blue-900">大幅減少</span>
+                                </div>
+                                <p class="text-sm text-gray-600">
+                                    2023年比で大きく減少し、デジタル化は進展している
+                                </p>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span>段階2〜3：部分的なデジタル化</span>
+                                    <span class="font-bold text-blue-900">増加傾向</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-red-50 p-6 rounded-lg">
+                        <h4 class="font-bold text-xl mb-4 text-red-900">DX推進の主な障壁</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex items-start">
+                                        <span class="text-red-900 mr-2">●</span>
+                                        <span><strong>IT人材不足：</strong>25.4%の企業が課題と回答</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-red-900 mr-2">●</span>
+                                        <span><strong>DX推進人材不足：</strong>24.8%が課題と回答</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex items-start">
+                                        <span class="text-red-900 mr-2">●</span>
+                                        <span><strong>セキュリティ懸念：</strong>14.0%（前年比+3.4ポイント）</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-red-900 mr-2">●</span>
+                                        <span><strong>コスト負担：</strong>初期投資と運用費用</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 構造的課題 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">中小企業を取り巻く構造的課題</h3>
+
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-3 text-blue-900">1. 円安・物価高の継続</h4>
+                            <p class="text-gray-700">
+                                2024年度の中小企業・小規模事業者は、円安と物価高が継続する厳しい環境に置かれています。
+                                原材料費やエネルギーコストの上昇が経営を圧迫しており、
+                                価格転嫁が十分に進まない企業も多く存在します。
+                            </p>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-3 text-blue-900">2. 「金利のある世界」への移行</h4>
+                            <p class="text-gray-700">
+                                長期にわたる超低金利政策からの転換により、
+                                借入金利の上昇が企業財務に影響を及ぼし始めています。
+                                特に借入依存度の高い中小企業にとって、金利負担の増加は重要な経営課題です。
+                            </p>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-3 text-blue-900">3. 構造的な人手不足</h4>
+                            <p class="text-gray-700">
+                                少子高齢化による生産年齢人口の減少は不可逆的であり、
+                                人手不足は今後さらに深刻化することが確実です。
+                                DXによる業務効率化、外国人材の活用、
+                                高齢者・女性の就労促進など、多角的な対応が求められています。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 展望と対応策 -->
+                <div class="bg-gradient-to-br from-blue-900 to-blue-700 text-white rounded-xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-bold mb-6">今後の展望と対応の方向性</h3>
+
+                    <div class="space-y-6">
+                        <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur">
+                            <h4 class="font-bold text-xl mb-3">1. DXによる生産性向上</h4>
+                            <p class="mb-3 opacity-90">
+                                人手不足の解消、持続可能な社会の構築、企業価値・競争力の向上のため、
+                                DXの取組みは不可欠です。中小企業庁は「DX推進の手引き」を提供し、
+                                中小企業のデジタル化を支援しています。
+                            </p>
+                            <ul class="space-y-2 opacity-90 text-sm list-disc list-inside">
+                                <li>業務プロセスのデジタル化による効率化</li>
+                                <li>データ活用による経営判断の高度化</li>
+                                <li>新規事業創出によるビジネスモデルの革新</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur">
+                            <h4 class="font-bold text-xl mb-3">2. 事業承継・M&Aの促進</h4>
+                            <p class="mb-3 opacity-90">
+                                後継者不在問題の解決には、親族内承継だけでなく、
+                                従業員承継、M&A（第三者承継）など、多様な選択肢の活用が重要です。
+                            </p>
+                            <ul class="space-y-2 opacity-90 text-sm list-disc list-inside">
+                                <li>事業承継補助金などの公的支援制度の活用</li>
+                                <li>M&Aマッチングプラットフォームの利用</li>
+                                <li>早期からの承継計画策定</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur">
+                            <h4 class="font-bold text-xl mb-3">3. 人材確保策の多様化</h4>
+                            <p class="mb-3 opacity-90">
+                                限られた労働力を最大限活用するため、
+                                働き方改革、多様な人材の活用、魅力ある職場づくりが求められます。
+                            </p>
+                            <ul class="space-y-2 opacity-90 text-sm list-disc list-inside">
+                                <li>リモートワーク・フレックスタイム制の導入</li>
+                                <li>外国人材、高齢者、女性の積極採用</li>
+                                <li>賃金・待遇の改善</li>
+                                <li>人材育成・リスキリングへの投資</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur">
+                            <h4 class="font-bold text-xl mb-3">4. 税制・社会保障制度の見直し</h4>
+                            <p class="mb-3 opacity-90">
+                                人口減少・超高齢社会において持続可能な財政運営を実現するため、
+                                税制と社会保障制度の一体的な見直しが継続的に議論されています。
+                            </p>
+                            <ul class="space-y-2 opacity-90 text-sm list-disc list-inside">
+                                <li>消費税を含む税制改革の検討</li>
+                                <li>社会保障費の効率化と給付の重点化</li>
+                                <li>少子化対策への財源確保</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- まとめ -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mt-8" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800 text-center">まとめ</h3>
+                    <div class="prose prose-lg max-w-none">
+                        <p class="text-lg leading-relaxed text-gray-700">
+                            日本企業、特に中小企業・小規模事業者は、人口減少・超高齢化、
+                            DX推進、事業承継など複合的な課題に直面しています。
+                            インボイス制度の導入も、小規模事業者にとっては新たな負担となっています。
+                        </p>
+                        <p class="text-lg leading-relaxed text-gray-700 mt-4">
+                            一方で、DXによる生産性向上、多様な人材活用、
+                            柔軟な働き方の導入など、課題を機会に変える取組みも進んでいます。
+                            政府による支援策も拡充されており、これらを効果的に活用しながら、
+                            <strong class="text-blue-900">変化に適応できる企業体質への転換</strong>が求められています。
+                        </p>
+                        <p class="text-lg leading-relaxed text-gray-700 mt-4">
+                            今後は、<strong class="text-blue-900">企業規模や業種を超えた協力・連携</strong>、
+                            <strong class="text-blue-900">デジタル技術の積極活用</strong>、
+                            <strong class="text-blue-900">人材への継続的な投資</strong>が、
+                            持続的な成長の鍵となるでしょう。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="site-footer bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4">日本企業の市場動向分析レポート 2024-2025</h3>
+                <p class="text-gray-400 mb-4">
+                    企業数・売上・税収の関係性から読み解く日本経済の現状と未来
+                </p>
+                <p class="text-sm text-gray-500">
+                    ※本レポートは公開されている統計データに基づいて作成されています。
+                    最新の情報については各省庁の公式サイトをご確認ください。
+                </p>
+                <div class="mt-8 space-x-6">
+                    <a href="https://www.chusho.meti.go.jp/" target="_blank" rel="noopener" class="text-blue-400 hover:text-blue-300 transition text-sm">中小企業庁</a>
+                    <a href="https://www.nta.go.jp/" target="_blank" rel="noopener" class="text-blue-400 hover:text-blue-300 transition text-sm">国税庁</a>
+                    <a href="https://www.mof.go.jp/" target="_blank" rel="noopener" class="text-blue-400 hover:text-blue-300 transition text-sm">財務省</a>
+                    <a href="https://www.stat.go.jp/" target="_blank" rel="noopener" class="text-blue-400 hover:text-blue-300 transition text-sm">総務省統計局</a>
+                </div>
+                <div class="mt-8 text-xs text-gray-600">
+                    © 2025 日本企業市場動向分析レポート. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // ナビゲーションのスクロール対応
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.remove('nav-transparent');
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+                navbar.classList.add('nav-transparent');
+            }
+        });
+
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
