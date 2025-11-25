@@ -78,7 +78,7 @@
                 page-break-after: always;
             }
 
-            #companies, #sales, #individual, #population, #invoice, #tax-revenue, #tax-usage, #future {
+            #companies, #sales, #individual, #population, #labor-force, #labor-solutions, #invoice, #tax-revenue, #tax-usage, #future {
                 page-break-before: always;
             }
         }
@@ -97,6 +97,9 @@
                     <a href="#hero" class="hover:opacity-80 transition">トップ</a>
                     <a href="#companies" class="hover:opacity-80 transition">企業数</a>
                     <a href="#sales" class="hover:opacity-80 transition">売上高</a>
+                    <a href="#population" class="hover:opacity-80 transition">人口動態</a>
+                    <a href="#labor-force" class="hover:opacity-80 transition">労働力</a>
+                    <a href="#labor-solutions" class="hover:opacity-80 transition">対応策</a>
                     <a href="#invoice" class="hover:opacity-80 transition">インボイス</a>
                     <a href="#future" class="hover:opacity-80 transition">今後の展望</a>
                 </div>
@@ -544,6 +547,481 @@
                             社会保障や税収構造に大きな影響を与えています。
                         </p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4-2. 労働力（生産人口）の推移と市場への影響 -->
+    <section id="labor-force" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-blue-900" data-aos="fade-up">
+                4-2. 労働力（生産人口）の推移と市場への影響
+            </h2>
+
+            <div class="max-w-6xl mx-auto">
+                <!-- 概要 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">労働力不足が企業経営に与える影響</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        少子高齢化による労働力人口の減少は、日本企業の最重要経営課題です。
+                        生産年齢人口は1995年のピーク（8,716万人）から減少を続け、2070年には4,535万人（約48%減）まで減少すると予測されています。
+                        この構造的な変化は、企業の採用難、賃金上昇圧力、生産能力の制約として顕在化しています。
+                    </p>
+
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-red-50 border-2 border-red-500 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-red-800">ピーク時（1995年）</div>
+                            <div class="text-4xl font-black mb-2 text-red-900">8,716万人</div>
+                            <div class="text-sm text-red-700">生産年齢人口</div>
+                        </div>
+                        <div class="bg-orange-50 border-2 border-orange-500 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-orange-800">現在（2025年）</div>
+                            <div class="text-4xl font-black mb-2 text-orange-900">約7,300万人</div>
+                            <div class="text-sm text-orange-700">ピークから16%減</div>
+                        </div>
+                        <div class="bg-red-50 border-2 border-red-500 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-red-800">予測（2070年）</div>
+                            <div class="text-4xl font-black mb-2 text-red-900">4,535万人</div>
+                            <div class="text-sm text-red-700">ピークから48%減</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 正規・非正規雇用の構造変化 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">雇用形態の構造変化：非正規雇用の増加</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        1990年代以降、企業の人件費削減と雇用柔軟性追求により、非正規雇用が急増しました。
+                        正規雇用の割合は79%（1990年）から62%（2024年）へ低下し、
+                        非正規雇用は21%から38%へほぼ倍増しています。
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-8 mb-6">
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-green-900">正規雇用</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span>1990年</span>
+                                    <span class="font-bold text-green-900">3,488万人（79%）</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>2024年</span>
+                                    <span class="font-bold text-green-900">3,640万人（62%）</span>
+                                </div>
+                                <div class="flex justify-between items-center border-t pt-3">
+                                    <span>変化</span>
+                                    <span class="font-bold text-blue-900">人数↑ 4% / 比率↓ 17pt</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-amber-900">非正規雇用</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span>1990年</span>
+                                    <span class="font-bold text-amber-900">881万人（21%）</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>2024年</span>
+                                    <span class="font-bold text-amber-900">2,232万人（38%）</span>
+                                </div>
+                                <div class="flex justify-between items-center border-t pt-3">
+                                    <span>変化</span>
+                                    <span class="font-bold text-red-900">人数↑ 153% / 比率↑ 17pt</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6">
+                        <h4 class="font-bold text-lg mb-2 text-yellow-900">企業経営への示唆</h4>
+                        <p class="text-gray-700">
+                            非正規雇用の増加は企業に柔軟性をもたらした一方で、スキル蓄積の困難さ、
+                            モチベーション低下、生産性向上の制約といった課題も生んでいます。
+                            人手不足が深刻化する中、正規・非正規を問わず優秀な人材の確保と定着が競争優位の鍵となります。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 団塊世代の影響 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">団塊世代の大量退職と技術継承問題</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        1947〜1949年生まれの団塊世代約800万人は、2012〜2014年に65歳定年を迎え、
+                        労働市場から大量に退出しました。この「大量退職」は、単なる労働力減少にとどまらず、
+                        熟練技能・ノウハウの喪失という深刻な問題を企業にもたらしています。
+                    </p>
+
+                    <div class="grid md:grid-cols-3 gap-6 mb-6">
+                        <div class="bg-blue-50 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-blue-800">団塊世代人口</div>
+                            <div class="text-3xl font-black mb-2 text-blue-900">約800万人</div>
+                            <div class="text-sm text-gray-600">日本総人口の約6.3%</div>
+                        </div>
+                        <div class="bg-cyan-50 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-cyan-800">定年退職時期</div>
+                            <div class="text-2xl font-black mb-2 text-cyan-900">2012〜2014年</div>
+                            <div class="text-sm text-gray-600">65歳定年の場合</div>
+                        </div>
+                        <div class="bg-teal-50 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-teal-800">現在の年齢</div>
+                            <div class="text-2xl font-black mb-2 text-teal-900">76〜78歳</div>
+                            <div class="text-sm text-gray-600">2025年時点</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-red-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-3 text-red-900">企業が直面した課題</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start">
+                                    <span class="text-red-900 mr-2 font-bold">1.</span>
+                                    <span><strong>技能・ノウハウの喪失：</strong>製造業を中心に、熟練技能者の大量退職により技術継承が大きな課題に</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-900 mr-2 font-bold">2.</span>
+                                    <span><strong>管理職層の不足：</strong>経験豊富な管理職の退出により、組織マネジメントに支障</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-900 mr-2 font-bold">3.</span>
+                                    <span><strong>採用市場の逼迫：</strong>大量退職分を補充できず、恒常的な人手不足に</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 女性労働力の活用状況 -->
+                <div class="bg-white rounded-xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">女性労働力参加率の上昇：人手不足緩和の鍵</h3>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        労働力不足が深刻化する中、女性の労働参加率は大幅に上昇しています。
+                        1990年の50.1%から2024年には68.2%へ18.1ポイント上昇し、
+                        労働力不足の緩和に大きく寄与しています。
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-blue-900">男性労働力参加率</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span>1990年</span>
+                                    <span class="font-bold text-blue-900">77.2%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>2024年</span>
+                                    <span class="font-bold text-blue-900">73.8%</span>
+                                </div>
+                                <div class="flex justify-between border-t pt-3">
+                                    <span>変化</span>
+                                    <span class="font-bold text-red-900">-3.4pt</span>
+                                </div>
+                            </div>
+                            <p class="mt-4 text-sm text-gray-600">高齢化により微減傾向</p>
+                        </div>
+
+                        <div class="bg-pink-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-pink-900">女性労働力参加率</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span>1990年</span>
+                                    <span class="font-bold text-pink-900">50.1%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>2024年</span>
+                                    <span class="font-bold text-pink-900">68.2%</span>
+                                </div>
+                                <div class="flex justify-between border-t pt-3">
+                                    <span>変化</span>
+                                    <span class="font-bold text-green-900">+18.1pt</span>
+                                </div>
+                            </div>
+                            <p class="mt-4 text-sm text-gray-600">大幅上昇（女性活躍推進の成果）</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-50 border-l-4 border-emerald-500 p-6 mt-6">
+                        <h4 class="font-bold text-lg mb-2 text-emerald-900">M字カーブの改善と今後の課題</h4>
+                        <p class="text-gray-700 mb-3">
+                            かつて結婚・出産期（30代）に大きく低下していた「M字カーブ」は大幅に改善されました。
+                            育児支援制度の充実、保育所整備、働き方改革などが奏功しています。
+                        </p>
+                        <p class="text-gray-700">
+                            <strong class="text-emerald-900">IMF試算：</strong>日本で女性の労働参加率が男性と同水準になれば、
+                            <strong>GDPが約9%増加</strong>すると推計されています。
+                            女性の更なる活躍推進は、企業の成長戦略と国家の経済成長戦略の両面で重要です。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4-3. 労働力不足への対応策：企業と政府の取り組み -->
+    <section id="labor-solutions" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-blue-900" data-aos="fade-up">
+                4-3. 労働力不足への対応策
+            </h2>
+
+            <div class="max-w-6xl mx-auto">
+                <!-- イントロ -->
+                <div class="bg-gradient-to-br from-blue-900 to-blue-700 text-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-4">多角的アプローチによる労働力確保</h3>
+                    <p class="opacity-90 text-lg leading-relaxed">
+                        構造的な労働力不足に対し、政府と企業は多角的な対応を進めています。
+                        高齢者活用、事業承継支援、女性活躍推進、DX推進という4つの柱が、
+                        企業の持続的成長と日本経済の競争力維持の鍵となります。
+                    </p>
+                </div>
+
+                <!-- 1. 高齢者活用 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">1. 高齢者の就労促進と活用</h3>
+
+                    <div class="grid md:grid-cols-3 gap-6 mb-6">
+                        <div class="bg-yellow-50 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-yellow-800">高齢化率（2024年）</div>
+                            <div class="text-4xl font-black mb-2 text-yellow-900">29.1%</div>
+                            <div class="text-sm text-gray-600">世界最高水準</div>
+                        </div>
+                        <div class="bg-orange-50 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-orange-800">2070年予測</div>
+                            <div class="text-4xl font-black mb-2 text-orange-900">38.7%</div>
+                            <div class="text-sm text-gray-600">約4割が高齢者</div>
+                        </div>
+                        <div class="bg-red-50 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-red-800">現役世代の負担</div>
+                            <div class="text-3xl font-black mb-2 text-red-900">1.4人/1人</div>
+                            <div class="text-sm text-gray-600">支える比率</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 border-l-4 border-green-500 p-6">
+                        <h4 class="font-bold text-lg mb-3 text-green-900">企業の主な取り組み</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• <strong>70歳までの就業機会確保：</strong>2021年4月から努力義務化</li>
+                            <li>• <strong>定年延長・継続雇用：</strong>シニア人材の経験・スキルを活用</li>
+                            <li>• <strong>短時間勤務・在宅勤務：</strong>柔軟な働き方で健康に配慮</li>
+                            <li>• <strong>年齢に関わらない能力主義：</strong>成果主義の導入で活躍機会を創出</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2. 事業承継支援 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">2. 後継者不足問題への対応：事業承継支援</h3>
+
+                    <div class="grid md:grid-cols-3 gap-6 mb-6">
+                        <div class="bg-purple-50 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-purple-800">経営者平均年齢</div>
+                            <div class="text-4xl font-black mb-2 text-purple-900">62.5歳</div>
+                            <div class="text-sm text-gray-600">過去最高を更新中</div>
+                        </div>
+                        <div class="bg-indigo-50 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-indigo-800">後継者未定企業</div>
+                            <div class="text-4xl font-black mb-2 text-indigo-900">約65%</div>
+                            <div class="text-sm text-gray-600">中小企業の2/3</div>
+                        </div>
+                        <div class="bg-blue-50 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-blue-800">年間廃業数</div>
+                            <div class="text-4xl font-black mb-2 text-blue-900">約6万社</div>
+                            <div class="text-sm text-gray-600">雇用損失30万人</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-cyan-50 border-l-4 border-cyan-500 p-6">
+                            <h4 class="font-bold text-lg mb-3 text-cyan-900">政府・支援機関の主な施策</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h5 class="font-bold mb-2 text-cyan-800">税制支援</h5>
+                                    <ul class="space-y-1 text-sm text-gray-700">
+                                        <li>• 事業承継税制の拡充</li>
+                                        <li>• 相続税・贈与税の納税猶予</li>
+                                        <li>• 事業承継補助金の提供</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold mb-2 text-cyan-800">承継支援</h5>
+                                    <ul class="space-y-1 text-sm text-gray-700">
+                                        <li>• 事業承継センターによる相談</li>
+                                        <li>• M&Aマッチング支援</li>
+                                        <li>• 後継者育成プログラム</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-teal-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-3 text-teal-900">成功事例：従業員承継（EBO）</h4>
+                            <p class="text-sm text-gray-700">
+                                静岡県の精密機械製造業では、後継者がいなかったため従業員の中から後継者を育成。
+                                EBOによる事業承継に成功し、従業員のモチベーション向上により売上30%増を達成。
+                                地域雇用も守られました。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 女性活躍推進 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">3. 女性活躍推進：ダイバーシティ経営の加速</h3>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-rose-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-rose-900">現状</h4>
+                            <ul class="space-y-3">
+                                <li class="flex justify-between">
+                                    <span>女性就業者数（2024年）</span>
+                                    <span class="font-bold text-rose-900">3,032万人</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>女性管理職比率</span>
+                                    <span class="font-bold text-rose-900">13.2%</span>
+                                </li>
+                                <li class="flex justify-between border-t pt-3">
+                                    <span>政府目標（2030年）</span>
+                                    <span class="font-bold text-blue-900">30%</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-pink-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl mb-4 text-pink-900">課題</h4>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li>• 管理職比率は先進国で最低水準</li>
+                                <li>• 男女間賃金格差（正規でも男性の75%）</li>
+                                <li>• 非正規雇用の多さ（約半数）</li>
+                                <li>• 家事・育児負担の偏り</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-50 border-l-4 border-emerald-500 p-6">
+                        <h4 class="font-bold text-lg mb-3 text-emerald-900">企業の取り組み例</h4>
+                        <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-700">
+                            <div>
+                                <h5 class="font-bold mb-2 text-emerald-800">仕事と家庭の両立支援</h5>
+                                <ul class="space-y-1">
+                                    <li>• 育児休業制度の拡充</li>
+                                    <li>• 時短・フレックス制度</li>
+                                    <li>• 在宅勤務・テレワーク</li>
+                                    <li>• 事業所内保育所の設置</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-bold mb-2 text-emerald-800">キャリア形成支援</h5>
+                                <ul class="space-y-1">
+                                    <li>• リスキリング・職業訓練</li>
+                                    <li>• メンター制度の導入</li>
+                                    <li>• 管理職候補育成プログラム</li>
+                                    <li>• 女性活躍推進法に基づく行動計画</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. DX推進 -->
+                <div class="bg-white rounded-xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">4. DX推進による生産性向上</h3>
+
+                    <div class="grid md:grid-cols-3 gap-6 mb-6">
+                        <div class="bg-indigo-50 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-indigo-800">日本のDX進捗</div>
+                            <div class="text-4xl font-black mb-2 text-indigo-900">世界27位</div>
+                            <div class="text-sm text-gray-600">IMD調査、遅れが顕著</div>
+                        </div>
+                        <div class="bg-blue-50 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-blue-800">DX投資額（2024年）</div>
+                            <div class="text-4xl font-black mb-2 text-blue-900">7.8兆円</div>
+                            <div class="text-sm text-gray-600">前年比15%増</div>
+                        </div>
+                        <div class="bg-cyan-50 p-6 rounded-lg text-center">
+                            <div class="text-sm mb-2 text-cyan-800">生産性向上効果</div>
+                            <div class="text-4xl font-black mb-2 text-cyan-900">20〜30%</div>
+                            <div class="text-sm text-gray-600">業種により異なる</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-50 border-l-4 border-purple-500 p-6 mb-6">
+                        <h4 class="font-bold text-lg mb-3 text-purple-900">DXが労働力不足に与える効果</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• <strong>業務の自動化：</strong>AIやRPAにより定型業務を自動化し、人手不足を補う</li>
+                            <li>• <strong>生産性の向上：</strong>デジタルツールで少人数でも多くの成果を創出</li>
+                            <li>• <strong>働き方の柔軟化：</strong>テレワークにより多様な人材の活用が可能に</li>
+                            <li>• <strong>意思決定の迅速化：</strong>データ分析による的確な経営判断</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg mb-6">
+                        <h4 class="font-bold text-lg mb-4 text-blue-900">主要なDX技術と導入事例</h4>
+                        <div class="grid md:grid-cols-2 gap-6 text-sm">
+                            <div>
+                                <h5 class="font-bold mb-2 text-blue-800">AI・機械学習</h5>
+                                <p class="text-gray-700 mb-2">チャットボット、需要予測、品質検査の自動化</p>
+                                <p class="text-xs text-gray-600">
+                                    <strong>事例：</strong>製造業A社で需要予測により在庫30%削減、計画作業80%削減
+                                </p>
+                            </div>
+                            <div>
+                                <h5 class="font-bold mb-2 text-blue-800">RPA（業務自動化）</h5>
+                                <p class="text-gray-700 mb-2">データ入力、請求書処理、経費精算の自動化</p>
+                                <p class="text-xs text-gray-600">
+                                    <strong>事例：</strong>小売業B社でバックオフィス業務時間50%削減
+                                </p>
+                            </div>
+                            <div>
+                                <h5 class="font-bold mb-2 text-blue-800">クラウド</h5>
+                                <p class="text-gray-700 mb-2">SaaS活用、リモートワーク環境構築、データ一元管理</p>
+                                <p class="text-xs text-gray-600">
+                                    <strong>事例：</strong>中小製造業C社で遠隔指導により人材不足を解消
+                                </p>
+                            </div>
+                            <div>
+                                <h5 class="font-bold mb-2 text-blue-800">IoT・スマート化</h5>
+                                <p class="text-gray-700 mb-2">工場のスマート化、設備の予知保全、リアルタイム管理</p>
+                                <p class="text-xs text-gray-600">
+                                    <strong>効果：</strong>従来の半分の人員で同等の生産量を達成
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-teal-50 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-teal-900">政府のDX推進支援</h4>
+                        <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-700">
+                            <ul class="space-y-1">
+                                <li>• DX投資促進税制（法人税特別控除）</li>
+                                <li>• IT導入補助金の提供</li>
+                                <li>• デジタル庁によるデジタル基盤整備</li>
+                            </ul>
+                            <ul class="space-y-1">
+                                <li>• リスキリング・プログラムの拡充</li>
+                                <li>• 中小企業デジタル化応援隊の派遣</li>
+                                <li>• DX推進指標による自己診断支援</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- まとめ -->
+                <div class="bg-gradient-to-br from-slate-50 to-gray-100 p-8 rounded-lg" data-aos="fade-up" data-aos-delay="500">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">労働力不足対策の統合的アプローチ</h3>
+                    <p class="text-gray-700 mb-4">
+                        日本企業が直面する労働力不足は、単一の施策では解決できません。
+                        <strong>高齢者活用</strong>、<strong>事業承継支援</strong>、<strong>女性活躍推進</strong>、
+                        <strong>DX推進</strong>という4つの柱を総合的に推進することが不可欠です。
+                    </p>
+                    <p class="text-gray-700">
+                        これらの施策は、単に人手不足を補うだけでなく、
+                        <strong>多様性の尊重</strong>、<strong>イノベーションの創出</strong>、<strong>生産性の向上</strong>を通じて、
+                        企業の競争力強化と持続的成長を実現します。先進的な取り組みを進める企業が、
+                        人材獲得競争を制し、市場での優位性を確立していくでしょう。
+                    </p>
                 </div>
             </div>
         </div>

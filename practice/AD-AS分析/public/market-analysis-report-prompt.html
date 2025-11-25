@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>市場動向分析レポート作成プロンプト | Claude Code用</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        .section-box {
+            border-left: 4px solid #3b82f6;
+            padding-left: 1rem;
+        }
+        code {
+            background-color: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-size: 0.9em;
+        }
+        pre {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+        pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        @media print {
+            nav, .no-print {
+                display: none !important;
+            }
+            section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- ヘッダー -->
+    <header class="bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 text-white py-16">
+        <div class="container mx-auto px-4 md:px-6">
+            <h1 class="text-4xl md:text-5xl font-black mb-4">市場動向分析レポート作成プロンプト</h1>
+            <p class="text-xl md:text-2xl">Claude Code用 - 日本企業の包括的な分析レポートを作成</p>
+            <div class="mt-8">
+                <a href="#overview" class="inline-block bg-white text-blue-900 px-6 py-3 rounded-lg font-bold hover:bg-blue-50 transition">
+                    プロンプトを見る
+                </a>
+                <button onclick="window.print()" class="inline-block bg-blue-800 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-900 transition ml-4 no-print">
+                    印刷する
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 md:px-6 py-12 max-w-5xl">
+
+        <!-- プロジェクト概要 -->
+        <section id="overview" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-blue-900">📋 プロジェクト概要</h2>
+            <div class="bg-white rounded-lg shadow-md p-6 section-box">
+                <p class="text-lg leading-relaxed mb-4">
+                    日本企業の市場動向を包括的に分析する<strong>ワンページ完結型のレポートサイト</strong>を作成してください。
+                    最新の統計データ（2024-2025年）に基づき、企業数、売上高、税収、人口動態、労働力の関係性を詳細に解説します。
+                </p>
+                <div class="bg-blue-50 p-4 rounded-lg mt-4">
+                    <p class="font-bold mb-2">保存先:</p>
+                    <code>public/market-analysis-report.html</code>
+                    <p class="font-bold mt-3 mb-2">エンコーディング:</p>
+                    <code>UTF-8</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- レポート構成 -->
+        <section id="structure" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-blue-900">📊 レポート構成（セクション）</h2>
+
+            <!-- Hero Section -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">1. Hero Section</h3>
+                <ul class="space-y-2 ml-6">
+                    <li><strong>タイトル:</strong> 「日本企業の市場動向分析レポート 2024-2025年版」</li>
+                    <li><strong>サブタイトル:</strong> 企業数・売上・税収の関係性から読み解く日本経済の現状と未来</li>
+                    <li><strong>背景:</strong> グラデーション（ブルー系）</li>
+                    <li><strong>CTAボタン:</strong> レポート閲覧へのスクロール</li>
+                </ul>
+            </div>
+
+            <!-- エグゼクティブサマリー -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">2. エグゼクティブサマリー</h3>
+                <ul class="space-y-2 ml-6">
+                    <li>レポートの目的と概要</li>
+                    <li>キーメトリクス（3つの数値ハイライト）
+                        <ul class="ml-6 mt-2 text-gray-700">
+                            <li>・ 日本の総企業数</li>
+                            <li>・ 中小企業の占める割合</li>
+                            <li>・ インボイス登録件数</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 企業数の実態 -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">3. セクション1: 企業数の実態</h3>
+                <div class="section-box">
+                    <p class="font-bold mb-2">タイトル: 「1. 日本企業の規模別構成」</p>
+                    <p class="font-bold mb-2">含める内容:</p>
+                    <ul class="space-y-1 ml-6 text-gray-700">
+                        <li>・ 企業規模別の構成（大企業 vs 中小企業）</li>
+                        <li>・ 中小企業の詳細内訳（小規模・中規模）</li>
+                        <li>・ 業種別の企業数分布</li>
+                        <li>・ データの視覚化（数値ボックス、SVGグラフ等）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 売上高の分析 -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">4. セクション2: 売上高の分析</h3>
+                <div class="section-box">
+                    <p class="font-bold mb-2">タイトル: 「2. 企業規模別の売上構造」</p>
+                    <p class="font-bold mb-2">含める内容:</p>
+                    <ul class="space-y-1 ml-6 text-gray-700">
+                        <li>・ 企業規模別の売上高と構成比</li>
+                        <li>・ 1社あたりの平均売上高</li>
+                        <li>・ 売上集中度の分析</li>
+                        <li>・ 中小企業の売上における課題</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 個人事業主の実態 -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">5. セクション3: 個人事業主の実態</h3>
+                <div class="section-box">
+                    <p class="font-bold mb-2">タイトル: 「3. 個人事業主と小規模事業者」</p>
+                    <p class="font-bold mb-2">含める内容:</p>
+                    <ul class="space-y-1 ml-6 text-gray-700">
+                        <li>・ 個人事業主の数と推移</li>
+                        <li>・ 課税所得の分布</li>
+                        <li>・ フリーランス・ギグワーカーの増加</li>
+                        <li>・ 小規模事業者の課題</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 人口動態 -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">6. セクション4-1: 人口動態</h3>
+                <div class="section-box">
+                    <p class="font-bold mb-2">タイトル: 「4-1. 人口動態と経済への影響」</p>
+                    <p class="font-bold mb-2">含める内容:</p>
+                    <ul class="space-y-1 ml-6 text-gray-700">
+                        <li>・ 総人口の推移（現在～2070年予測）</li>
+                        <li>・ 年齢構成の変化（生産年齢人口、高齢者人口）</li>
+                        <li>・ 人口減少が経済に与える影響</li>
+                        <li>・ 地域別の人口動態</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 労働力の推移 -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6 border-2 border-blue-300">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">7. セクション4-2: 労働力（生産人口）の推移 ⭐</h3>
+                <div class="section-box">
+                    <p class="font-bold mb-2">タイトル: 「4-2. 労働力(生産人口)の推移と市場への影響」</p>
+                    <p class="font-bold mb-2">含める内容:</p>
+                    <ul class="space-y-2 ml-6 text-gray-700">
+                        <li><strong>1) 生産年齢人口の減少トレンド</strong>
+                            <ul class="ml-6 mt-1">
+                                <li>・ ピーク時（1995年）: 8,716万人</li>
+                                <li>・ 現在（2024年）: 7,395万人</li>
+                                <li>・ 予測（2070年）: 4,535万人</li>
+                            </ul>
+                        </li>
+                        <li><strong>2) 雇用形態の変化</strong>
+                            <ul class="ml-6 mt-1">
+                                <li>・ 正規雇用 vs 非正規雇用の推移と割合</li>
+                                <li>・ 非正規雇用の増加要因</li>
+                            </ul>
+                        </li>
+                        <li><strong>3) 団塊世代の大量退職の影響</strong>
+                            <ul class="ml-6 mt-1">
+                                <li>・ 退職時期: 2012-2014年</li>
+                                <li>・ 人数: 約800万人</li>
+                                <li>・ 労働市場への影響</li>
+                            </ul>
+                        </li>
+                        <li><strong>4) 男女別の労働力参加率</strong>
+                            <ul class="ml-6 mt-1">
+                                <li>・ 女性就業率の向上（50.1% → 68.2%）</li>
+                                <li>・ M字カーブの解消状況</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="bg-blue-50 p-3 rounded mt-4">
+                        <p class="text-sm font-bold">💡 各データをSVGグラフや数値ボックスで視覚化してください</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 労働力不足への対応策 -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6 border-2 border-blue-300">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">8. セクション4-3: 労働力不足への対応策 ⭐</h3>
+                <div class="section-box">
+                    <p class="font-bold mb-2">タイトル: 「4-3. 労働力不足への対応策」</p>
+                    <p class="font-bold mb-2">含める内容（4つの柱）:</p>
+                    <ul class="space-y-3 ml-6 text-gray-700">
+                        <li><strong class="text-orange-600">柱1: 超高齢社会への対応</strong>
+                            <ul class="ml-6 mt-1">
+                                <li>・ 高齢化率: 29.1%（2024年）</li>
+                                <li>・ 70歳就業機会確保の努力義務化</li>
+                                <li>・ 健康寿命の延伸（男性72.68歳、女性75.38歳）</li>
+                                <li>・ 生涯現役社会の実現</li>
+                            </ul>
+                        </li>
+                        <li><strong class="text-green-600">柱2: 後継者不足問題と事業承継支援</strong>
+                            <ul class="ml-6 mt-1">
+                                <li>・ 中小企業経営者の平均年齢: 62.5歳</li>
+                                <li>・ 後継者未定の企業: 65%</li>
+                                <li>・ M&A・事業承継支援策</li>
+                                <li>・ 実例: EBO（従業員承継）の活用事例</li>
+                            </ul>
+                        </li>
+                        <li><strong class="text-purple-600">柱3: 女性の活躍推進</strong>
+                            <ul class="ml-6 mt-1">
+                                <li>・ 女性就業者数: 3,032万人（全体の45.2%）</li>
+                                <li>・ 管理職に占める女性割合: 13.2%（先進国最低水準）</li>
+                                <li>・ 育児支援制度の拡充</li>
+                                <li>・ 柔軟な働き方の推進</li>
+                            </ul>
+                        </li>
+                        <li><strong class="text-blue-600">柱4: DX（デジタルトランスフォーメーション）の推進</strong>
+                            <ul class="ml-6 mt-1">
+                                <li>・ デジタル競争力ランキング: 世界27位</li>
+                                <li>・ DX投資額: 7.8兆円</li>
+                                <li>・ 生産性向上効果: 20-30%</li>
+                                <li>・ 中小企業のDX課題と支援策</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="bg-blue-50 p-3 rounded mt-4">
+                        <p class="text-sm font-bold">💡 各対応策を4つの柱として色分けして表示してください</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- インボイス制度 -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">9. セクション5: インボイス制度の影響</h3>
+                <div class="section-box">
+                    <p class="font-bold mb-2">タイトル: 「5. インボイス制度の影響」</p>
+                    <p class="font-bold mb-2">含める内容:</p>
+                    <ul class="space-y-1 ml-6 text-gray-700">
+                        <li>・ インボイス制度の概要</li>
+                        <li>・ 登録事業者数の推移</li>
+                        <li>・ 免税事業者への影響</li>
+                        <li>・ 今後の課題と対応策</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 税収と使途 -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">10-11. 税収・税金の使い道</h3>
+                <div class="section-box">
+                    <p class="font-bold mb-2">セクション6: 「税収構造と財政」</p>
+                    <p class="font-bold mb-2">セクション7: 「税金の使い道と社会還元」</p>
+                    <ul class="space-y-1 ml-6 text-gray-700">
+                        <li>・ 国税・地方税の構成、法人税収の推移</li>
+                        <li>・ 予算配分、社会保障費、インフラ投資</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 今後の展望 -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">12. セクション8: 今後の展望</h3>
+                <div class="section-box">
+                    <p class="font-bold mb-2">タイトル: 「8. 今後の市場展望と提言」</p>
+                    <p class="font-bold mb-2">含める内容:</p>
+                    <ul class="space-y-1 ml-6 text-gray-700">
+                        <li>・ 人口減少社会における企業の戦略</li>
+                        <li>・ DX・イノベーションの必要性</li>
+                        <li>・ 持続可能な成長に向けて</li>
+                        <li>・ 具体的な提言（3-5項目）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">13. Footer</h3>
+                <ul class="space-y-1 ml-6 text-gray-700">
+                    <li>・ レポート情報（作成日、データソース）</li>
+                    <li>・ 免責事項</li>
+                    <li>・ 連絡先情報（オプション）</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- デザイン要件 -->
+        <section id="design" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-blue-900">🎨 デザイン要件</h2>
+
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-xl font-bold mb-4">カラーパレット</h3>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div>
+                        <div class="w-full h-20 rounded-lg mb-2" style="background-color: #1e3a8a;"></div>
+                        <p class="text-sm font-mono">#1e3a8a</p>
+                        <p class="text-xs text-gray-600">Primary（濃紺）</p>
+                    </div>
+                    <div>
+                        <div class="w-full h-20 rounded-lg mb-2" style="background-color: #3b82f6;"></div>
+                        <p class="text-sm font-mono">#3b82f6</p>
+                        <p class="text-xs text-gray-600">Secondary</p>
+                    </div>
+                    <div>
+                        <div class="w-full h-20 rounded-lg mb-2" style="background-color: #60a5fa;"></div>
+                        <p class="text-sm font-mono">#60a5fa</p>
+                        <p class="text-xs text-gray-600">Accent</p>
+                    </div>
+                    <div>
+                        <div class="w-full h-20 rounded-lg mb-2 border" style="background-color: #f1f5f9;"></div>
+                        <p class="text-sm font-mono">#f1f5f9</p>
+                        <p class="text-xs text-gray-600">Background</p>
+                    </div>
+                    <div>
+                        <div class="w-full h-20 rounded-lg mb-2" style="background-color: #0f172a;"></div>
+                        <p class="text-sm font-mono">#0f172a</p>
+                        <p class="text-xs text-gray-600">Dark Text</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-xl font-bold mb-4">レイアウト</h3>
+                <ul class="space-y-2 ml-6">
+                    <li>✓ ワンページ完結型</li>
+                    <li>✓ セクションごとに明確な区切り</li>
+                    <li>✓ 交互に背景色を変更（白 ↔ グレー）</li>
+                    <li>✓ 適度なホワイトスペース</li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold mb-4">データ表示</h3>
+                <ul class="space-y-2 ml-6">
+                    <li>✓ 数値は大きく目立つように（text-4xl以上）</li>
+                    <li>✓ 重要な統計は色付きボックスで強調</li>
+                    <li>✓ グラフはSVGで作成（シンプルな棒グラフ、折れ線グラフ）</li>
+                    <li>✓ アイコンはLucide Icons使用</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 技術要件 -->
+        <section id="tech" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-blue-900">⚙️ 技術要件</h2>
+
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-xl font-bold mb-4">HTML構造</h3>
+                <ul class="space-y-2 ml-6">
+                    <li>✓ セマンティックHTML5</li>
+                    <li>✓ 各セクションにID属性</li>
+                    <li>✓ メタタグ完備（title, description, keywords, OGP）</li>
+                </ul>
+                <div class="bg-gray-100 p-3 rounded mt-3">
+                    <p class="text-sm font-mono">セクションID: #hero, #companies, #sales, #individual, #population, #labor-force, #labor-solutions, #invoice, #tax-revenue, #tax-usage, #future</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-xl font-bold mb-4">CSS/フレームワーク</h3>
+                <ul class="space-y-2 ml-6">
+                    <li>✓ Tailwind CSS v4.1以上（CDN使用）</li>
+                    <li>✓ Animate.css v4.1.1（適度なアニメーション）</li>
+                    <li>✓ AOS v2.3（スクロールアニメーション）</li>
+                    <li>✓ Google Fonts - Noto Sans JP</li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-xl font-bold mb-4">ナビゲーション</h3>
+                <ul class="space-y-2 ml-6">
+                    <li>✓ スティッキーヘッダー</li>
+                    <li>✓ 初期状態: 透明背景（白文字、テキストシャドウ）</li>
+                    <li>✓ スクロール後: 半透明白背景（<code>backdrop-filter: blur(12px)</code>）、濃色文字</li>
+                    <li>✓ レスポンシブ対応（タブレット以下でハンバーガーメニュー）</li>
+                    <li>✓ 主要セクションへのリンク</li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold mb-4">レスポンシブ対応</h3>
+                <ul class="space-y-2 ml-6">
+                    <li>✓ モバイルファースト設計</li>
+                    <li>✓ ブレークポイント: sm (640px), md (768px), lg (1024px), xl (1280px)</li>
+                    <li>✓ 画像に <code>loading="lazy" decoding="async"</code></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 印刷CSS -->
+        <section id="print-css" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-blue-900">🖨️ 印刷CSS（必須）</h2>
+
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-xl font-bold mb-4 text-green-700">✅ 必ず含めるCSS</h3>
+                <pre><code>@media print {
+    /* 1. ナビ・フッター非表示 */
+    nav, .no-print, .site-header, .site-footer {
+        display: none !important;
+    }
+
+    /* 2. アニメーション無効化 */
+    [data-aos], .animate__animated {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+    }
+
+    /* 3. セクションごとに改ページ */
+    #hero {
+        page-break-after: always;
+    }
+
+    #companies, #sales, #individual, #population,
+    #labor-force, #labor-solutions, #invoice,
+    #tax-revenue, #tax-usage, #future {
+        page-break-before: always;
+    }
+}</code></pre>
+            </div>
+
+            <div class="bg-red-50 border-2 border-red-300 rounded-lg p-6">
+                <h3 class="text-xl font-bold mb-4 text-red-700">❌ 避けるべき印刷CSS</h3>
+                <ul class="space-y-2 ml-6 text-red-900">
+                    <li>❌ <code>page-break-inside: avoid</code> をセクション全体に適用</li>
+                    <li>❌ <code>@page { size: A4 portrait; }</code></li>
+                    <li>❌ <code>* { background: white !important; }</code></li>
+                    <li>❌ フォントサイズ、余白、パディングの強制変更</li>
+                    <li>❌ グリッドレイアウトの強制1カラム化</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- データソース -->
+        <section id="data-sources" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-blue-900">📚 データソース</h2>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <p class="mb-4">以下のような統計データを参考に作成してください：</p>
+                <ul class="space-y-2 ml-6">
+                    <li>✓ 経済産業省「中小企業白書」</li>
+                    <li>✓ 総務省「経済センサス」</li>
+                    <li>✓ 国税庁「統計年報書」</li>
+                    <li>✓ 厚生労働省「労働力調査」</li>
+                    <li>✓ 内閣府「高齢社会白書」</li>
+                    <li>✓ 総務省「人口推計」</li>
+                </ul>
+                <div class="bg-yellow-50 p-4 rounded-lg mt-4">
+                    <p class="text-sm">※ 実際のデータは2024-2025年の最新統計を使用してください</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- パフォーマンス最適化 -->
+        <section id="performance" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-blue-900">⚡ パフォーマンス最適化</h2>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <ul class="space-y-2 ml-6">
+                    <li>✓ 外部依存を最小限に（CDNのみ）</li>
+                    <li>✓ 画像の遅延読み込み</li>
+                    <li>✓ CSSはインラインで記述</li>
+                    <li>✓ JavaScriptは最小限（ナビゲーションとAOS初期化のみ）</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 完成イメージ -->
+        <section id="final-image" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-blue-900">🎯 完成イメージ</h2>
+
+            <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-8">
+                <ul class="space-y-3 text-lg">
+                    <li>✨ プロフェッショナルで信頼性の高いデザイン</li>
+                    <li>📊 データドリブンで説得力のある内容</li>
+                    <li>📖 読みやすく、理解しやすい構成</li>
+                    <li>🖨️ 印刷して配布できる品質</li>
+                    <li>📄 A4で10-15ページ程度のボリューム</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 追加要望 -->
+        <section id="optional" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-blue-900">💡 追加要望（オプション）</h2>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <ul class="space-y-2 ml-6 text-gray-700">
+                    <li>・ TOC（目次）セクションの追加</li>
+                    <li>・ PDF生成ボタンの実装</li>
+                    <li>・ ダークモード対応</li>
+                    <li>・ 多言語対応（英語版）</li>
+                    <li>・ インタラクティブなグラフ（Chart.js等）</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 使い方 -->
+        <section id="usage" class="mb-16 bg-blue-900 text-white rounded-lg p-8">
+            <h2 class="text-3xl font-bold mb-6">📝 使い方</h2>
+            <div class="text-lg leading-relaxed">
+                <p class="mb-4">このプロンプトをClaude Codeに提供することで、高品質な市場動向分析レポートが作成できます。</p>
+                <ol class="space-y-2 ml-6">
+                    <li>1. このページをテキストでコピー、またはTXTファイルをダウンロード</li>
+                    <li>2. Claude Codeを起動</li>
+                    <li>3. プロンプトを貼り付けて実行</li>
+                    <li>4. 生成されたHTMLファイルを確認・調整</li>
+                </ol>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-gray-900 text-gray-300 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024-2025 市場動向分析レポート作成プロンプト</p>
+            <p class="mt-2 text-sm">Claude Code用 - AI Agent活用ガイド</p>
+        </div>
+    </footer>
+
+    <script>
+        // 印刷機能
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('プロンプトページが読み込まれました');
+        });
+    </script>
+
+</body>
+</html>
